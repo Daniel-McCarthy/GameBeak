@@ -4,8 +4,12 @@ It is planned to support Gameboy Color and Gameboy Advance games later on in dev
 
 ![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-1.png)
 ![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-2.png)
+![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-11.png)
+![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-12.png)
 ![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-3.png)
 ![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-4.png)
+![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-9.png)
+![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-10.png)
 ![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-5.png)
 ![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-6.png)
 ![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-7.png)
