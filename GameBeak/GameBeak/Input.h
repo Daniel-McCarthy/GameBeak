@@ -33,7 +33,7 @@ void readInput()
 
 	if (((keyInput & 0x10) >> 4) == 1)//(keyInput == 0x10)
 	{
-
+		beakWindow.window->setKeyRepeatEnabled(false);
 
 		//keyInput = 0;
 
@@ -80,6 +80,7 @@ void readInput()
 	}
 	else if (((keyInput & 0x20) >> 5) == 1)//(keyInput == 0x20)
 	{
+		beakWindow.window->setKeyRepeatEnabled(true);
 
 		if (Keyboard::isKeyPressed(Keyboard::Right)) { //Right arrow //Right
 			//keyInput &= 0xFE;

@@ -49,7 +49,7 @@ public:
 	byte getWindowY();
 	//void drawTile();
 	void drawTiles();
-	void drawBGTile(int tileNumber, vector<vector<Color>> tile);
+	void drawDebugTile(int tileNumber, vector<vector<Color>> tile);
 	void drawTileFromBGMap(int x, int y);
 	void drawLineFromBGMap(int lineY);
 	void drawLineFromWindowMap(int lineY);

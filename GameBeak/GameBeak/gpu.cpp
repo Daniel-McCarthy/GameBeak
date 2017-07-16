@@ -99,21 +99,11 @@ bool gpu::getBackGroundEnabled()
 //Draw All Tiles: Draws each tile directly from vram in the order they are in Vram. Prints out each tile that is loaded into memory
 void gpu::drawAllTiles()
 {
-	int baseAddress;
-	if (getBackGroundWindowTileSetLocation())
-	{
-		baseAddress = 0x8000;
-	}
-	else
-	{
-		baseAddress = 0x8800;
-		//baseAddress = 0x9000;
-	}
-	//baseAddress = 0x8000; //temp
+	int baseAddress = 0x8000;
 
 	vector<vector<Color>> tile;
 
-	for (int i = 0; i < 640; i++)//<128; i++)//320; i++) //* 20; i++)  //i < 32 * 32; i++) 
+	for (int i = 0; i < 360; i++)//<128; i++)//320; i++) //* 20; i++)  //i < 32 * 32; i++) 
 	{
 		tile.clear();
 
@@ -147,7 +137,7 @@ void gpu::drawAllTiles()
 			tile.push_back(row);
 		}
 
-		drawBGTile(i, tile);
+		drawDebugTile(i, tile);
 
 	}
 }
@@ -223,137 +213,6 @@ void gpu::drawTiles()
 }
 */
 
-//Draw Tiles: Reads tiles from tile map to their proper location on screen on a TILE-TO-TILE BASIS
-void gpu::drawTiles()
-{
-	//int scrollY = beakMemory.readMemory(0xFF42);
-	//int scrollX = beakMemory.readMemory(0xFF43);
-	//int windowY = beakMemory.readMemory(0xFF4A);
-	//int windowX = beakMemory.readMemory(0xFF4B);
-	int mapAddress;
-	int baseAddress;
-
-	if (getBackGroundTileMapLocation())
-	{
-		mapAddress = 0x9C00;
-	}
-	else
-	{
-		mapAddress = 0x9800;
-	}
-
-	if (getBackGroundWindowTileSetLocation())
-	{
-		baseAddress = 0x8000;
-	}
-	else
-	{
-		baseAddress = 0x8800;
-	}
-
-
-
-	vector<vector<Color>> tile;
-
-	//for (int i = 0; i < 32 * 32; i++)
-	for (int i = 0; i < 32 * 18; i++)
-	//for (int i = 0; i < 64; i++)
-	{
-		//int finalLocation = (baseAddress == 0x8000) ? baseAddress + (16 * i) : baseAddress + (16 * (i + 0x80));
-
-		int tileY = i / 32;
-		//int tileX = i - (32 * i);
-		int tileX = i - (tileY * 32);
-		//int tileIndex = tileY * (32 * tileX);
-		int tileIndex = tileX + (32 * tileY);
-
-		int tileIDAddress = mapAddress + tileIndex;
-
-		int tileID = beakMemory.readMemory(tileIDAddress);
-		int tileOffset = tileID * 16;
-
-		int tileAddress = baseAddress + tileOffset;
-
-		for (int j = 0; j < 16; j += 2)
-		{
-			//byte rowHalf1 = beakMemory.readMemory(finalLocation + j);
-			//byte rowHalf2 = beakMemory.readMemory(finalLocation + j + 1);
-			byte rowHalf1 = beakMemory.readMemory(tileAddress + j);
-			byte rowHalf2 = beakMemory.readMemory(tileAddress + j + 1);
-
-			vector<Color> row;
-
-			for (int k = 0; k < 8; k++)
-			{
-				row.push_back(returnColor((rowHalf1 & 0x01) + (rowHalf2 & 0x01)));
-				rowHalf1 >>= 1;
-				rowHalf2 >>= 1;
-			}
-
-			tile.push_back(row);
-		}
-
-		drawBGTile(i, tile);
-	}
-}
-
-//Draw Tile From Map: Draws a specific single tile by reading the tilemap and drawing it to it's proper location
-void gpu::drawTileFromBGMap(int x, int y)
-{
-	int mapAddress;
-	int baseAddress;
-
-	if (getBackGroundTileMapLocation())
-	{
-		mapAddress = 0x9C00;
-	}
-	else
-	{
-		mapAddress = 0x9800;
-	}
-
-	if (getBackGroundWindowTileSetLocation())
-	{
-		baseAddress = 0x8000;
-	}
-	else
-	{
-		baseAddress = 0x8800;
-		//baseAddress = 0x9000;
-	}
-
-	vector<vector<Color>> tile;
-
-
-	int tileIndex = x + (32 * y);
-
-	int tileIDAddress = mapAddress + tileIndex;
-
-	int tileID = beakMemory.readMemory(tileIDAddress);
-	int tileOffset = tileID * 16;
-
-	int tileAddress = baseAddress + tileOffset;
-
-	for (int j = 0; j < 16; j += 2)
-	{
-		byte rowHalf1 = beakMemory.readMemory(tileAddress + j);
-		byte rowHalf2 = beakMemory.readMemory(tileAddress + j + 1);
-
-		vector<Color> row;
-
-		for (int k = 0; k < 8; k++)
-		{
-			row.push_back(returnColor((rowHalf1 & 0x01) + (rowHalf2 & 0x01)));
-			rowHalf1 >>= 1;
-			rowHalf2 >>= 1;
-		}
-
-		tile.push_back(row);
-	}
-
-	drawBGTile(tileIndex, tile);
-
-}
 
 //DrawLineFromMap: Draws a single specific line of the background map
 void gpu::drawLineFromBGMap(int lineY)
@@ -716,13 +575,15 @@ void gpu::drawLineFromSpriteMap(int lineY)
 */
 
 //DrawTile: Draws tile data as given to location of tile number given
-void gpu::drawBGTile(int tileNumber, vector<vector<Color>> tile)
+void gpu::drawDebugTile(int tileNumber, vector<vector<Color>> tile)
 {
-	int y = tileNumber / 32;
-	int x = tileNumber - (32 * y);
+	//int y = tileNumber / 32;
+	//int x = tileNumber - (32 * y);
 
-	//int y = tileNumber / 20;
-	//int x = tileNumber - (20 * y);
+	int y = tileNumber / 20;
+	int x = tileNumber - (20 * y);
+
+	cout << "helloKitty" << endl;
 
 	for (int i = 0; i < 8; i++)
 	{
@@ -730,7 +591,8 @@ void gpu::drawBGTile(int tileNumber, vector<vector<Color>> tile)
 		{
 			//beakWindow.setPixel(x + i, y + i, tile[x][y]);
 			//beakWindow.setPixel((x * 8) + i, (y * 8) + j, tile.at(y + i).at(j));//tile[y + i][x + j]);
-			beakWindow.setBGPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
+			beakWindow.setDebugPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
+			//beakWindow.setBGPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
 			//setFullMapPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
 			//beakWindow.drawScreen(); //temp
 		}
@@ -739,75 +601,6 @@ void gpu::drawBGTile(int tileNumber, vector<vector<Color>> tile)
 	}
 
 	//beakWindow.drawScreen(); //temp
-}
-
-//DrawSpriteFromMap: Reads sprite map to draw each sprite to it's proper location
-void gpu::drawSpriteFromMap(int spriteNumber)
-{
-	int mapAddress = 0xFE00;
-	int baseAddress = 0x8000;
-
-	//False: 8x8 | True: 8x16
-	bool spriteSize = getSpriteSize();
-
-	vector<vector<Color>> tile;
-
-	byte y = beakMemory.readMemory(mapAddress + (spriteNumber * 4));
-	byte x = beakMemory.readMemory(mapAddress + (spriteNumber * 4) + 1);
-	byte tileNumber = beakMemory.readMemory(mapAddress + (spriteNumber * 4) + 2);
-	byte tileFlags = beakMemory.readMemory(mapAddress + (spriteNumber * 4) + 3);
-
-	bool priority = ((tileFlags & 0x80) >> 7) > 0; //If 1, displays in front of window. Otherwise is below window and above BG
-	bool yFlip = ((tileFlags & 0x40) >> 6) > 0; //Vertically flipped if 1, else 0.
-	bool xFlip = ((tileFlags & 0x20) >> 5) > 0; //Horizontally flipped if 1, else 0;
-	bool palette = ((tileFlags & 0x10) >> 4) > 0; //Palette is OBJ0PAL if 0, else OBJ1PAL
-
-	int tileOffset = tileNumber * 16;
-	int tileAddress = baseAddress + tileOffset;
-
-	for (int j = 0; j < 16; j += 2)
-	{
-		byte rowHalf1 = beakMemory.readMemory(tileAddress + j);
-		byte rowHalf2 = beakMemory.readMemory(tileAddress + j + 1);
-
-		vector<Color> row;
-
-		for (int k = 0; k < 8; k++)
-		{
-			byte colorNumber = (rowHalf1 & 0x01) + (rowHalf2 & 0x01);
-
-			if (colorNumber == 0)
-			{
-				row.push_back(Color(0,0,0,0));
-			}
-			else
-			{
-				row.push_back(returnColor(colorNumber));
-			}
-
-			rowHalf1 >>= 1;
-			rowHalf2 >>= 1;
-		}
-		//Experimental, I have already fixed the sprites being vertically flipped. It seems they are also X flipped, so lets just reverse the row:
-		reverse(row.begin(), row.end());
-		tile.push_back(row);
-	}
-
-	if (xFlip)
-	{
-		for (int i = 0; i < (int)tile.size(); i++)
-		{
-			reverse(tile[i].begin(), tile[i].end());
-		}
-	}
-
-	if (yFlip)
-	{
-		reverse(tile.begin(), tile.end());
-	}
-
-	drawSprite(x, y, tile);
-
 }
 
 //DrawSprite: Draws sprite data as given to location to an exact x/y coordinate

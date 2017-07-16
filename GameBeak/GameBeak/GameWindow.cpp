@@ -14,6 +14,8 @@ GameWindow::GameWindow(string title, int width, int height)
 	texture.create(160, 144);
 	screen = Image();
 	screen.create(160, 144, beakGPU.returnColor(0));
+	debugTileScreen = Image();
+	debugTileScreen.create(160, 144, beakGPU.returnColor(0));
 
 	Color pink = beakGPU.returnColor(0, 0);
 	for (int i = 0; i < (256 * 256); i++)
@@ -42,6 +44,8 @@ GameWindow::GameWindow(RenderWindow* tempWindow)
 	texture.create(160, 144);
 	screen = Image();
 	screen.create(160, 144, beakGPU.returnColor(0));
+	debugTileScreen = Image();
+	debugTileScreen.create(160, 144, beakGPU.returnColor(0));
 
 	Color pink = beakGPU.returnColor(0, 0);
 	for (int i = 0; i < (256 * 256); i++)
@@ -257,6 +261,12 @@ void GameWindow::setSpritePixel(int x, int y, Color color)
 	spritePixels[x + (y * 256)] = color;
 }
 
+void GameWindow::setDebugPixel(int x, int y, Color color)
+{
+	//tileDebugPixels[x + (y * 256)] = color;
+	debugTileScreen.setPixel(x, y, color);
+}
+
 void GameWindow::drawScreenFromMaps(int scrollX, int scrollY)
 {
 
@@ -284,7 +294,6 @@ void GameWindow::drawScreenFromMaps(int scrollX, int scrollY)
 
 		}
 	}
-
 	
 	if (beakGPU.getWindowEnabled())
 	{
@@ -377,6 +386,17 @@ void GameWindow::drawScreenFromMaps(int scrollX, int scrollY)
 	
 }
 
+void GameWindow::drawImageToScreen(Image image)
+{
+	beakWindow.texture.loadFromImage(image);
+
+	Sprite sprite(texture);
+	sprite.setScale(window->getView().getSize().x / sprite.getLocalBounds().width, window->getView().getSize().y / sprite.getLocalBounds().height);
+
+	window->clear();
+	window->draw(sprite);
+	window->display();
+}
 
 int GameWindow::getGPUMode()
 {

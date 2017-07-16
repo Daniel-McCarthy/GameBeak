@@ -19,6 +19,7 @@ bool interruptNextCycle = false;
 //Settings values
 bool pinkMode = true;
 bool soundEnabled = false;
+bool tileDrawMode = false;
 
 Memory beakMemory = Memory();
 gpu beakGPU = gpu();
@@ -83,7 +84,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	//beakMemory.loadRom("C://Users//Dan//Desktop//TEST.gb"); //None //Displays properly, but gets stuck on first screen
 	//beakMemory.loadRom("C://Users//Dan//Desktop//snake.gb"); //None //Works fully
 	//beakMemory.loadRom("C://Users//Dan//Desktop//BubbleFactory.gb"); //MBC1
-	
 	//beakMemory.loadRom("C://Users//Dan//Desktop//dummy4.gb"); //None
 	//beakMemory.loadRom("C://Users//Dan//Desktop//dummy5.gb"); //None
 
@@ -129,12 +129,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	while (run)
 	{
-
-		if (Keyboard::isKeyPressed(Keyboard::Key::Escape))
-		{
-			run = false;
-		}
-
+		
 		if (Keyboard::isKeyPressed(Keyboard::Key::Tilde))
 		{
 			if (debugWindow == NULL)
@@ -153,7 +148,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			step = false;
 
 		}
-
+		
 		Event event;
 
 		//Poll Debug Window
@@ -172,6 +167,30 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 				{
 					run = false;
 				}
+				
+				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::T)
+				{
+					tileDrawMode = !tileDrawMode;
+
+					if (tileDrawMode)
+					{
+						paused = true;
+						beakGPU.drawAllTiles();
+						beakWindow.drawImageToScreen(beakWindow.debugTileScreen);
+
+					}
+					else
+					{
+						beakWindow.drawImageToScreen(beakWindow.screen);
+						paused = false;
+					}
+				}
+				
+				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::Escape)
+				{
+					run = false;
+				}
+
 			}
 			
 			pollingSkipping = 0;
@@ -233,10 +252,33 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			}
 			else
 			{
-				cpu.selectOpcode(0); //Gets stuck at a halt with this, because no cycles are occuring (no opcode is running) the vblank interrupt never occurs
+				cpu.selectOpcode(0); //Gets stuck at a halt without this, because no cycles are occuring (no opcode is running) the vblank interrupt never occurs
 			}
 		}
+
+		/*
+		if (Keyboard::isKeyPressed(Keyboard::Key::T))
+		{
+			tileDrawMode = !tileDrawMode;
+
+			if (tileDrawMode)
+			{
+				paused = true;
+				beakGPU.drawAllTiles();
+				beakWindow.drawImageToScreen(beakWindow.debugTileScreen);
+
+			}
+			else
+			{
+				beakWindow.drawImageToScreen(beakWindow.screen);
+				paused = false;
+			}
+		}
+		*/
+
 	}
+
+
 
 	if (logging)
 	{

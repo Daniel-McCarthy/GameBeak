@@ -40,7 +40,9 @@ public:
 	void setBGPixel(int x, int y, Color color);
 	void setWindowPixel(int x, int y, Color color);
 	void setSpritePixel(int x, int y, Color color);
+	void setDebugPixel(int x, int y, Color color);
 	void drawScreenFromMaps(int scrollX, int ScrollY);
+	void drawImageToScreen(Image image);
 	RenderWindow* window;
 	Texture texture;
 	//Uint8* bgPixels;
@@ -49,9 +51,11 @@ public:
 	Color bgPixels[256 * 256];
 	Color windowPixels[256 * 256];
 	Color spritePixels[256 * 256];
+	Color tileDebugPixels[256 * 256];
 	int gpuMode = 1; //BGB defaults this to 1, V-Blank. This should be true.
 	int getGPUMode();
 	Image screen;
+	Image debugTileScreen;
 	/*
 	vector<vector<SDL_Color>> pixels;
 	SDL_Renderer* sdlRenderer;
