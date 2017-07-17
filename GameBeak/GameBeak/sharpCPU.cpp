@@ -2197,64 +2197,32 @@ void sharpCPU::opcode26(byte n)
 void sharpCPU::opcode27()
 {
 	//DAA Load decimal representation of A into A
-	//TODO: Check this over and make sure it's operating as expected
+
 	byte aValue = beakMemory.getA();
-	
-	/*
+
 	if (beakMemory.getNFlag())
 	{
-		if (beakMemory.getHFlag())
-		{
-			aValue -= 0x6;
-		}
-
 		if (beakMemory.getCFlag())
 		{
-			aValue -= 0x60;
+			beakMemory.setCFlag(true);
+
+			if (beakMemory.getHFlag())
+			{
+				aValue += 0x9A;
+			}
+			else
+			{
+				aValue += 0xA0;
+			}
+
+		}
+		else if (beakMemory.getHFlag())
+		{
+			aValue += 0xFA;
+			beakMemory.setCFlag(false);
 		}
 	}
 	else
-	{
-		if (beakMemory.getHFlag() || ((aValue & 0x0F) > 9))
-		{
-			aValue += 0x6;
-		}
-
-		if (beakMemory.getCFlag() || (aValue > 0x9F))
-		{
-			aValue += 0x60;
-		}
-	}
-	*/
-	
-	/*
-	if (!beakMemory.getNFlag())
-	{
-		if (beakMemory.getHFlag() || ((aValue & 0x0F) > 9))
-		{
-			aValue += 0x6;
-		}
-
-		if (beakMemory.getCFlag() || (aValue > 0x9F))
-		{
-			aValue += 0x60;
-		}
-	}
-	else
-	{
-		if (beakMemory.getHFlag())
-		{
-			aValue -= 0x6;
-		}
-
-		if (beakMemory.getCFlag())
-		{
-			aValue -= 0x60;
-		}
-	}
-	*/
-
-	if (!beakMemory.getNFlag())
 	{
 		if (beakMemory.getHFlag() || ((aValue & 0x0F) > 9))
 		{
@@ -2268,30 +2236,9 @@ void sharpCPU::opcode27()
 			beakMemory.setCFlag(true);
 		}
 	}
-	else if (beakMemory.getCFlag())
-	{
-		beakMemory.setCFlag(true);
 
-		if (beakMemory.getHFlag())
-		{
-			aValue += 0x9A;
-		}
-		else
-		{
-			aValue += 0xA0;
-		}
-
-	}
-	else if(beakMemory.getHFlag())
-	{
-		aValue += 0xFA;
-		beakMemory.setCFlag(false);
-	}
-
-	//beakMemory.setCFlag(false);
 	//beakMemory.setNFlag(false);
 	beakMemory.setHFlag(false);
-	//beakMemory.setCFlag(aValue > 0xFF);
 	beakMemory.setZFlag(aValue == 0);
 	beakMemory.setA(aValue & 0xFF);
 }
