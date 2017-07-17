@@ -18,7 +18,8 @@ using namespace std;
 class Memory
 {
 	private:
-	byte beakRam[0xFFFF+1]; 
+	byte beakRam[0xFFFF+1];
+	byte beakExternalRam[0x8000];
 	byte beakRom[0x100000]; //64kb for rom
 	//byte keyInput; //FF00 //Temporary until moved to actual FF00
 	string title;
@@ -182,6 +183,28 @@ class Memory
 			beakRam[fixedBankAddress + i] = beakRom[bankAddress + i];
 		}
 
+		romBankNumber = bankNumber;
+	}
+
+	void changeRamBanks(int bankNumber)
+	{
+		short externalAddress = ramBankNumber * 0x2000;
+
+		//Save Old Beak Ram Data to External Ram Array
+		for (int i = 0; i < 0x2000; i++)
+		{
+			beakExternalRam[externalAddress + i] = beakRam[0xA000 + i];
+		}
+
+		ramBankNumber = bankNumber;
+		externalAddress = ramBankNumber * 0x2000;
+
+		//Load New External Ram data to Beak Ram
+		for (int i = 0; i < 0x2000; i++)
+		{
+			beakRam[0xA000 + i] = beakExternalRam[externalAddress + i];
+		}
+		
 	}
 
 	void writeMBC1Value(short address, byte value)
@@ -203,9 +226,14 @@ class Memory
 		else if (address >= 0x2000 && address <= 0x3FFF)
 		{
 			//Set Rom Bank Number 5 bits
-			romBankNumber &= 0xE0;
-			romBankNumber = value & 0x1F;
-			changeRomBanks(romBankNumber);
+			byte newBankNumber = ((romBankNumber & 0xE0) | (value & 0x1F));
+
+			if (romBankNumber != newBankNumber)
+			{
+				//romBankNumber &= 0xE0;
+				//romBankNumber = value & 0x1F;
+				changeRomBanks(newBankNumber);
+			}
 
 		}
 		else if (address >= 0x4000 && address <= 0x5FFF)
@@ -213,15 +241,25 @@ class Memory
 			//Set Ram Bank Number /OR/ Set Rom Bank Number 2 bits
 			if (bankingMode)
 			{
-				romBankNumber &= 0xFC;
-				romBankNumber = value & 0x03;
-				changeRomBanks(romBankNumber); //May be forcing emulator to do extra work
-				//does it change banks for both writing 5 and 2 bits or only 5?
+				//Change Rom Bank
+				byte newBankNumber = ((romBankNumber & 0xFC) | (value & 0x03));
+				if (romBankNumber != newBankNumber)
+				{
+					//romBankNumber &= 0xFC;
+					//romBankNumber = value & 0x03;
+					changeRomBanks(newBankNumber); //May be forcing emulator to do extra work
+					//does it change banks for both writing 5 and 2 bits or only 5?
+				}
 			}
 			else
 			{
-				ramBankNumber = value & 0x03;
-				//TODO: Change ram banks
+				//Change Ram Bank
+				byte newBankNumber = value & 0x03;
+
+				if (ramBankNumber != newBankNumber)
+				{
+					changeRamBanks(newBankNumber);
+				}
 			}
 
 		}
