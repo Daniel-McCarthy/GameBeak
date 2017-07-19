@@ -5,9 +5,6 @@
 
 #include <tuple>
 #include "Debugger.h"
-//#include "Input.h"
-
-//interruptNextCycle = false;
 
 void sharpCPU::selectOpcode(byte opcode)
 {
@@ -19,11 +16,6 @@ void sharpCPU::selectOpcode(byte opcode)
 		memoryPointer--;
 		repeat = false;
 	}
-
-	byte opcodeDisplay = opcode;
-
-	//int previousPC = memoryPointer - 1;
-	int pc = memoryPointer;
 
 	switch (opcode & 0xF0)
 	{

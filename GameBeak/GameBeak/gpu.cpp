@@ -31,8 +31,6 @@ void gpu::setLCDMode(byte status)
 
 byte gpu::getLCDMode()
 {
-	//return (getLCDStatus() & 0x01) + ((getLCDStatus() & 0x02) >> 1);
-	//return (getLCDStatus() & 0x01) | ((getLCDStatus() & 0x02));
 	return (getLCDStatus() & 0x03);
 }
 
@@ -103,7 +101,7 @@ void gpu::drawAllTiles()
 
 	vector<vector<Color>> tile;
 
-	for (int i = 0; i < 360; i++)//<128; i++)//320; i++) //* 20; i++)  //i < 32 * 32; i++) 
+	for (int i = 0; i < 360; i++)
 	{
 		tile.clear();
 
@@ -124,10 +122,6 @@ void gpu::drawAllTiles()
 				int test2 = rowHalf2 & 0x01;
 				int test3 = ((rowHalf1 & 0x01) << 1) | (rowHalf2 & 0x01);
 				Color test4 = returnColor(((rowHalf1 & 0x01) << 1) | (rowHalf2 & 0x01));
-
-				//row.push_back(returnColor(((rowHalf1 & 0x01) << 1) | (rowHalf2 & 0x01)));
-				//rowHalf1 >>= 1;
-				//rowHalf2 >>= 1;
 
 				row.push_back(returnColor((((rowHalf1 & 0x80) >> 7)) | ((rowHalf2 & 0x80) >> 6)));
 				rowHalf1 <<= 1;
@@ -313,23 +307,7 @@ void gpu::drawLineFromWindowMap(int lineY)
 	else
 	{
 		baseAddress = 0x8800;
-		//baseAddress = 0x9000;
 	}
-
-
-	//baseAddress = 0x8000; //temp! REMOVE
-	//mapAddress = 0x9800; //temp! REMOVE
-
-	//int winX = beakGPU.getWindowX();
-	//int winY = beakGPU.getWindowY();
-	//int scrollX = beakGPU.getScrollX();
-	//int scrollY = beakGPU.getScrollY();
-
-	//bool yTest = (winY <= lineY) && ((winY + 256) >= lineY);
-	//bool xTest = (winX < (scrollX + 256)) && ((winX + 256) > scrollX);
-
-	//if (xTest && yTest)
-	//{
 
 	int lineToDraw = lineY % 8;
 
@@ -345,8 +323,7 @@ void gpu::drawLineFromWindowMap(int lineY)
 
 	for (int i = 0; i < 32; i++)
 	{
-		//if ((scrollX + i) >= winX)
-		//{
+
 		tileY = (lineY) / 8;
 		tileX = (i);
 		tileIndex = tileX + (32 * tileY);
@@ -356,7 +333,6 @@ void gpu::drawLineFromWindowMap(int lineY)
 
 		if (baseAddress == 0x8800)
 		{
-			//tileID += 128;
 			if (tileID > 0x7F)
 			{
 				tileID -= 0x80;
@@ -382,9 +358,9 @@ void gpu::drawLineFromWindowMap(int lineY)
 			rowHalf2 <<= 1;
 
 		}
-		//}
+
 	}
-	//}
+
 
 }
 
@@ -392,7 +368,7 @@ void gpu::drawLineFromWindowMap(int lineY)
 
 void gpu::drawLineFromSpriteMap(int lineY)
 {
-	//Todo: Reimplement this function. It currently does NOT support priority OR Y flip. Will need to add logic to go from bottom - up or right - left if these flips are there. Can't do after.
+	//Todo: Support priority.
 
 	int mapAddress = 0xFE00;
 	int baseAddress = 0x8000;
@@ -424,7 +400,7 @@ void gpu::drawLineFromSpriteMap(int lineY)
 	{
 		y = beakMemory.readMemory(mapAddress + (i * 4));
 
-		if (y > 8) //Not the problem, but potentially useless
+		if (y > 8)
 		{
 			y -= 16;
 			x = beakMemory.readMemory(mapAddress + (i * 4) + 1) - 8;
@@ -482,98 +458,6 @@ void gpu::drawLineFromSpriteMap(int lineY)
 	}
 }
 
-
-/*
-void gpu::drawLineFromSpriteMap(int lineY)
-{
-	//Todo: Reimplement this function. It currently does NOT support priority OR Y flip. Will need to add logic to go from bottom - up or right - left if these flips are there. Can't do after.
-
-	int mapAddress = 0xFE00;
-	int baseAddress = 0x8000;
-
-	//False: 8x8 | True: 8x16
-	bool spriteSize = getSpriteSize();
-
-	for (int i = 0; i < 40; i++)
-	{
-		byte y = beakMemory.readMemory(mapAddress + (i * 4));
-		byte x = beakMemory.readMemory(mapAddress + (i * 4) + 1);
-		y -= 16;//17;
-		x -= 9;
-
-		bool isSpriteOnLine = (y > 8) && (y <= lineY) && ((y + ((spriteSize == 0) ? 8 : 16)) > lineY); //Has to be at least 9 to appear on screen
-
-		if (isSpriteOnLine)
-		{
-
-			//TODO: Implement Y-Flip
-
-			int lineToDraw = lineY - y;
-
-			byte tileNumber = beakMemory.readMemory(mapAddress + (i * 4) + 2);
-			byte tileFlags = beakMemory.readMemory(mapAddress + (i * 4) + 3);
-			bool priority = ((tileFlags & 0x80) >> 7) > 0; //If 1, displays in front of window. Otherwise is below window and above BG
-			bool yFlip = ((tileFlags & 0x40) >> 6) > 0; //Vertically flipped if 1, else 0.
-			bool xFlip = ((tileFlags & 0x20) >> 5) > 0; //Horizontally flipped if 1, else 0;
-			bool palette = ((tileFlags & 0x10) >> 4) > 0; //Palette is OBJ0PAL if 0, else OBJ1PAL
-
-			int tileOffset = tileNumber * 16;
-			int tileAddress = baseAddress + tileOffset;
-		
-			byte rowHalf1 = beakMemory.readMemory(tileAddress + (lineToDraw * 2));
-			byte rowHalf2 = beakMemory.readMemory(tileAddress + (lineToDraw * 2) + 1);
-
-			vector<Color> line;
-
-			// // // // //
-			for (int j = 0; j < 8; j++)
-			{
-				//byte colorNumber = (rowHalf1 & 0x01) + (rowHalf2 & 0x01);
-				byte colorNumber = ((rowHalf1 & 0x80)>> 7) + ((rowHalf2 & 0x80) >> 7);
-				Color color;
-
-				if (colorNumber == 0)
-				{
-					color = Color(0, 0, 0, 0);
-				}
-				else
-				{
-					color = returnColor(colorNumber, palette + 1);
-				}
-
-				line.push_back(color);
-
-				//rowHalf1 >>= 1;
-				//rowHalf2 >>= 1;
-				rowHalf1 <<= 1;
-				rowHalf2 <<= 1;
-			}
-
-			if (xFlip) //Seems counter-intuitive, but I am already reading it backwards
-			{
-				reverse(line.begin(), line.end());
-			}
-
-			for (int j = 0; j < (int)line.size(); j++)
-			{
-				if (line[j].a != 0) //Forces transparency for color 0
-				{
-					beakWindow.setSpritePixel(x + j, lineY, line[j]);
-				}
-			}
-
-			
-			//if (yFlip)
-			//{
-				//reverse(tile.begin(), tile.end());
-			//}
-			//
-			//drawSprite(x, y, tile);
-		}
-	}
-}
-*/
-
 //DrawTile: Draws tile data as given to location of tile number given
 void gpu::drawDebugTile(int tileNumber, vector<vector<Color>> tile)
 {
@@ -589,37 +473,12 @@ void gpu::drawDebugTile(int tileNumber, vector<vector<Color>> tile)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			//beakWindow.setPixel(x + i, y + i, tile[x][y]);
-			//beakWindow.setPixel((x * 8) + i, (y * 8) + j, tile.at(y + i).at(j));//tile[y + i][x + j]);
 			beakWindow.setDebugPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
-			//beakWindow.setBGPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
-			//setFullMapPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
-			//beakWindow.drawScreen(); //temp
 		}
-		//tile.pop_back();
+
 		tile.erase(tile.begin());
 	}
 
-	//beakWindow.drawScreen(); //temp
-}
-
-//DrawSprite: Draws sprite data as given to location to an exact x/y coordinate
-void gpu::drawSprite(int x, int y, vector<vector<Color>> tile)
-{
-
-	for (int i = 0; i < 8; i++)
-	{
-		for (int j = 0; j < 8; j++)
-		{
-			if (tile[0][j].a != 0)
-			{
-				beakWindow.setBGPixel((x) + j, (y) + i, tile[0][j]);
-				//beakWindow.setPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
-			}
-
-		}
-		tile.erase(tile.begin());
-	}
 }
 
 byte gpu::getScrollX()
@@ -678,37 +537,22 @@ Color gpu::returnColor(int colorNumber)
 		{
 			case 0:
 			{
-				//SDL_Color color = { 255, 50, 255, 0 };
-
-				//return Color(255, 50, 255,0);
-				//return Color(0, 0, 0, 255);
 				return Color(255, 255, 255, 255); //WHITE
-				//return Color(255, 0, 0, 255); //RED
 				break;
 			}
 			case 1:
 			{
-				//SDL_Color color = { 255, 50, 255, 255/30 };
-				//return Color(255, 50, 255, 255);
 				return Color(105, 105, 105, 255); //GREY
-				//return Color(0, 0, 0, 255);
-				//return Color(0, 255, 0, 255); //GREEN
 				break;
 			}
 			case 2:
 			{
-				//SDL_Color color = { 255, 50, 255, 255/60 };
-				//return Color(255, 50, 255, 255);
 				return Color(185, 185, 185, 255); //BLACK
-				//return Color(0, 0, 255, 255); //BLUE
 				break;
 			}
 			case 3:
 			{
-				//SDL_Color color = { 255, 50, 255, 255 };
-				//return Color(255, 50, 255, 255); // MAGENTA
 				return Color(0, 0, 0, 255); //GREY
-				//return Color(255, 255, 0, 255);
 				break;
 			}
 		}

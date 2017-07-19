@@ -27,8 +27,7 @@ sharpCPU cpu = sharpCPU();
 Audio beakAudio = Audio();
 
 //Debug Values
-bool debugOnLaunch = true; //Decides if Debug Window launches on open
-bool paused = true;
+bool debugOnLaunch = false; //Decides if Debug Window launches on open
 bool step = false;
 
 //Initialize registers
@@ -117,7 +116,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	}
 
 	bool breakPointEnabled = false;
-	short breakPointAt = (short)0x2FA3;//30B8;//0x4D3;//0x3490;//0x171;//6C42;//6D8D;//6C72;//6d45;
+	short breakPointAt = (short)0x0E1D;
 
 	bool accessBreakpoint = false;
 	short accessBreakpointAddress = 0x0000;
@@ -157,7 +156,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			debugWindow->runLoop();
 		}
 
-		if(pollingSkipping == 250)//150)
+		if(pollingSkipping == 250)
 		{
 
 			//Poll Main SFML Window
@@ -210,10 +209,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 		if (!paused || step)
 		{
-			//if ((pollingSkipping % 2) == 0)
-			{
 				readInput();
-			}
+
 			
 			if (logging)
 			{
@@ -255,26 +252,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 				cpu.selectOpcode(0); //Gets stuck at a halt without this, because no cycles are occuring (no opcode is running) the vblank interrupt never occurs
 			}
 		}
-
-		/*
-		if (Keyboard::isKeyPressed(Keyboard::Key::T))
-		{
-			tileDrawMode = !tileDrawMode;
-
-			if (tileDrawMode)
-			{
-				paused = true;
-				beakGPU.drawAllTiles();
-				beakWindow.drawImageToScreen(beakWindow.debugTileScreen);
-
-			}
-			else
-			{
-				beakWindow.drawImageToScreen(beakWindow.screen);
-				paused = false;
-			}
-		}
-		*/
 
 	}
 
