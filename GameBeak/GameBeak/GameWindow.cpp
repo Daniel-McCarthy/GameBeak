@@ -81,10 +81,10 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 {
 	//if (beakMemory.getLCDEnabled())
 	//{
-	int ly = beakMemory.getLCDLY();
-	int originalLY = ly;
+	byte ly = beakMemory.getLCDLY();
+	byte originalLY = ly;
 
-	if (gpuMode == 0)
+	if (gpuMode == 0)// || !beakGPU.getLCDOn()) //(Should be more accurate? Causes Bust A Move to be extremely slow when LCD is off)
 	{
 		//H-Blank
 		//if greater than 204, inc ly, if ly 143 set mode to 1 and draw, else mode 2
@@ -105,7 +105,7 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 					beakMemory.writeMemory(0xFF0F, (byte)(beakMemory.readMemory(0xFF0F) | 0x02));
 				}
 
-				if ((clocks - refreshClocksSinceLastUpdate) >= 32768)//680)//12)
+				if ((clocks - refreshClocksSinceLastUpdate) >= 16384)//32768)//680)//12)
 				{
 					if (beakMemory.getLCDEnabled())
 					{
@@ -114,9 +114,12 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 					refreshClocksSinceLastUpdate = clocks;
 				}
 				//Set VBLANK Interrupt Flag
-				beakMemory.writeMemory((short)0xFF0F, (byte)(beakMemory.readMemory(0xFF0F) | 0x1));
+				if (beakGPU.getLCDOn())
+				{
+					beakMemory.writeMemory((short)0xFF0F, (byte)(beakMemory.readMemory(0xFF0F) | 0x1));
+				}
 
-				//refreshClocksSinceLastUpdate = clocks;
+				refreshClocksSinceLastUpdate = clocks;
 				memset(spritePixels, 0, 256 * 256 * 4);
 			}
 			else
@@ -134,7 +137,6 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 
 
 			lineClocksSinceLastUpdate = clocks;
-
 		}
 
 	}
@@ -180,6 +182,7 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 			//beakGPU.setLCDStatus(beakGPU.getLCDStatus() & 0xC7);
 
 			lineClocksSinceLastUpdate = clocks;
+
 			if (beakMemory.getLCDEnabled())
 			{
 				if (beakGPU.getBackGroundEnabled())
@@ -227,14 +230,25 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 
 	if (ly != originalLY)
 	{
+
 		//LCDLY Compare Interrupt
-		if (beakGPU.getLCDLYCCheckEnabled())
+		if (beakGPU.getLCDOn() && (beakGPU.getLCDLY() == beakGPU.getLCDLYCompare()))
 		{
-			if (beakGPU.getLCDLY() == beakGPU.getLCDLYCompare())
+			//Request interrupt of Interrupt for LCDLYCompare set
+			if (beakGPU.getLCDLYCCheckEnabled())
 			{
 				beakMemory.writeMemory(0xFF0F, (byte)(beakMemory.readMemory(0xFF0F) | 0x02));
 			}
+
+			//Enable Coincidence Flag
+			beakGPU.setLCDStatus(beakGPU.getLCDStatus() | 0x04);
 		}
+		else
+		{
+			//Disable Coincidence Flag
+			beakGPU.setLCDStatus(beakGPU.getLCDStatus() & 0xFB);
+		}
+		
 	}
 
 	//}
