@@ -219,7 +219,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			{
 				log += get<0>(disassembleInstruction(memoryPointer)) + '\n';
 
-				if (count(log.begin(), log.end(), '\n') > 100)
+				if(log.length() > 10000)
 				{
 					ofstream file("logFile.txt", ios_base::out | ios_base::app);
 					if (file.is_open())
