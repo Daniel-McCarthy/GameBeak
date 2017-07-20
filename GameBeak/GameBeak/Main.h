@@ -5,8 +5,10 @@
 #include <SFML\Graphics.hpp>
 #include <sstream>
 #include <fstream>
+#include <string>
 #include <stack>
 #include <vector>
+#include <list>
 #include <thread>
 
 #include "GameWindow.h"

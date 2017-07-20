@@ -20,7 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{AE3AAA45-8747-4232-A802-E9500E857AE4}</ProjectGuid>
+    <ProjectGuid>{725DA90C-2B15-45D7-AD07-02F920CC8B2D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
     <RootNamespace>GameBeak</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -28,28 +29,28 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -69,102 +70,117 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-system.2.4.0.0\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-graphics.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-network.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-window.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-audio.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-system.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-audio.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-network.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-window.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-graphics.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-system.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-network-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-system.2.4.0.0\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-graphics.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-network.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-window.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-audio.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-system.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-audio.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-network.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-window.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-graphics.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-system.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-network-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak - SFML\packages\sfml-system.2.4.0.0\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-system.2.4.0.0\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-graphics.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-network.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-window.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-audio.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-system.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-audio.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-network.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-window.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-graphics.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-system.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio.lib;sfml-network.lib;sfml-window.lib;sfml-graphics.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak - SFML\packages\sfml-system.2.4.0.0\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-system.2.4.0.0\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-graphics.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-network.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-window.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-audio.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\visual studio 2015\Projects\GameBeak\packages\sfml-system.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-audio.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-network.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-window.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-graphics.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-system.2.4.0.0\build\native\lib\Win32\v140\Release\dynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio.lib;sfml-network.lib;sfml-window.lib;sfml-graphics.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Binary.cpp" />
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="DebuggerWindow.cpp" />
+    <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="gpu.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="sharpCPU.cpp" />
-    <ClCompile Include="GameWindow.cpp" />
-    <ClCompile Include="Audio.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="Binary.h" />
     <ClInclude Include="Debugger.h" />
     <ClInclude Include="DebuggerWindow.h" />
+    <ClInclude Include="GameWindow.h" />
     <ClInclude Include="gpu.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Memory.h" />
-    <ClInclude Include="resource1.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="sharpCPU.h" />
-    <ClInclude Include="GameWindow.h" />
-    <ClInclude Include="Audio.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameBeak.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Beak3.ico" />
+    <Image Include="ICON1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

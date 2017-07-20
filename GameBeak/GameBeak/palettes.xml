@@ -1,0 +1,145 @@
+<?xml version="0.0" encoding="UTF-8"?>
+<colorschemes>
+
+	<scheme>
+		<name>BlackWhite</name>
+		
+		<color1>
+			<r>255</r>
+			<g>255</g>
+			<b>255</b>
+		</color1>
+
+		<color2>
+			<r>185</r>
+			<g>185</g>
+			<b>185</b>
+		</color2>
+		
+		<color3>
+			<r>105</r>
+			<g>105</g>
+			<b>105</b>
+		</color3>
+
+		<color4>
+			<r>0</r>
+			<g>0</g>
+			<b>0</b>
+		</color4>
+		
+	</scheme>
+
+	<scheme>
+		<name>Green</name>
+		<color1>
+			<r>224</r>
+			<g>255</g>
+			<b>235</b>
+		</color1>
+
+		<color2>
+			<r>136</r>
+			<g>208</g>
+			<b>88</b>
+		</color2>
+		
+		<color3>
+			<r>52</r>
+			<g>183</g>
+			<b>60</b>
+		</color3>
+
+		<color4>
+			<r>8</r>
+			<g>71</g>
+			<b>3</b>
+		</color4>
+
+	</scheme>
+	
+	<scheme>
+		<name>Pink</name>
+		<color1>
+			<r>255</r>
+			<g>241</g>
+			<b>254</b>
+		</color1>
+
+		<color2>
+			<r>255</r>
+			<g>214</g>
+			<b>245</b>
+		</color2>
+		
+		<color3>
+			<r>255</r>
+			<g>131</g>
+			<b>217</b>
+		</color3>
+
+		<color4>
+			<r>72</r>
+			<g>24</g>
+			<b>59</b>
+		</color4>
+
+	</scheme>
+	
+	<scheme>
+		<name>PinkAlt</name>
+		<color1>
+			<r>255</r>
+			<g>240</g>
+			<b>245</b>
+		</color1>
+
+		<color2>
+			<r>255</r>
+			<g>186</g>
+			<b>222</b>
+		</color2>
+		
+		<color3>
+			<r>255</r>
+			<g>116</g>
+			<b>217</b>
+		</color3>
+
+		<color4>
+			<r>82</r>
+			<g>5</g>
+			<b>40</b>
+		</color4>
+
+	</scheme>
+	
+	<scheme>
+		<name>BubbleGum</name>
+		<color1>
+			<r>255</r>
+			<g>240</g>
+			<b>254</b>
+		</color1>
+
+		<color2>
+			<r>255</r>
+			<g>186</g>
+			<b>222</b>
+		</color2>
+		
+		<color3>
+			<r>255</r>
+			<g>96</g>
+			<b>194</b>
+		</color3>
+
+		<color4>
+			<r>111</r>
+			<g>6</g>
+			<b>57</b>
+		</color4>
+
+	</scheme>
+	
+</colorschemes>
