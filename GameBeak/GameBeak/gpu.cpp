@@ -503,61 +503,7 @@ byte gpu::getWindowY()
 
 Color gpu::returnColor(int colorNumber)
 {
-	if (pinkMode)
-	{
-		switch (colorNumber)
-		{
-			case 0:
-			{
-				return Color(255, 241, 254, 255); //Pink WHITE
-				break;
-			}
-			case 1:
-			{
-				return Color(255, 214, 245, 255); //Light Pink
-				break;
-			}
-			case 2:
-			{
-				return Color(255, 131, 217, 255); //Dark Pink
-				break;
-			}
-			case 3:
-			{
-				return Color(72, 24, 59, 255); //Pink Black
-				break;
-			}
-		}
-
-		return Color(255, 241, 254, 255);
-	}
-	else
-	{
-		switch (colorNumber)
-		{
-			case 0:
-			{
-				return Color(255, 255, 255, 255); //WHITE
-				break;
-			}
-			case 1:
-			{
-				return Color(105, 105, 105, 255); //GREY
-				break;
-			}
-			case 2:
-			{
-				return Color(185, 185, 185, 255); //BLACK
-				break;
-			}
-			case 3:
-			{
-				return Color(0, 0, 0, 255); //GREY
-				break;
-			}
-		}
-		return Color(255, 255, 255, 255); //WHITE
-	}
+	return gameBeakPalette[colorNumber + (paletteSetting << 2)];
 }
 
 Color gpu::returnColor(int colorNumber, int palette)
@@ -572,9 +518,9 @@ Color gpu::returnColor(int colorNumber, int palette)
 
 	//byte paletteData = beakMemory.readMemory(0xFF47 + palette);
 	//colorNumber = (paletteData & (3 << (colorNumber * 2))) >> (colorNumber * 2);//(colorNumber + 1);
-	//return gameBeakPalette[colorNumber + (pinkMode << 2)];
+	//return gameBeakPalette[colorNumber + paletteSetting << 2)];
 
-	return gameBeakPalette[((beakMemory.readMemory(0xFF47 + palette) & (3 << (colorNumber * 2))) >> (colorNumber * 2)) + (pinkMode << 2)];
+	return gameBeakPalette[((beakMemory.readMemory(0xFF47 + palette) & (3 << (colorNumber * 2))) >> (colorNumber * 2)) + (paletteSetting << 2)];
 
 
 	//The palette variable is being used to select the memory location of the palette
@@ -585,7 +531,7 @@ Color gpu::returnColor(int colorNumber, int palette)
 	//retrieve the first 2 bits, and we can shift the number three to select the next three groupings if needed.
 	//We use the color number to decide how much 3 needs to be shifted (if at all) to get the set of bits we want.
 	//We then use it again to decide how much they need to be shifted right (if at all) to reduce the number to 0-3
-	//Finally, we have the index we will use to index the palette, and we can add the value of pinkMode * 4 (or << 2) (will result in either 0 or 4)
+	//Finally, we have the index we will use to index the palette, and we can add the value of paletteSettng * 4 (or << 2) (multiples of 4 to select correct group)
 	//To index the grey or pink set of colors depending on the mode.
 
 

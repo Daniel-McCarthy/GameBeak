@@ -17,12 +17,17 @@ private:
 	const Color lightPink = Color(255, 214, 245, 255); //Light Pink
 	const Color lightestPink = Color(255, 241, 254, 255); //Pink WHITE
 
+	const Color darkestGreen = Color(8, 71, 3, 255); //Green Black
+	const Color darkGreen = Color(52, 183, 60, 255); //Dark Green
+	const Color lightGreen = Color(136, 208, 88, 255); //Light Green
+	const Color lightestGreen = Color(224, 255, 235, 255); //Green WHITE
+
 	const Color darkestGrey = Color(0, 0, 0, 255); //BLACK
 	const Color darkGrey = Color(105, 105, 105, 255); //Dark GREY
 	const Color lightGrey = Color(185, 185, 185, 255); //Light Grey
 	const Color lightestGrey = Color(255, 255, 255, 255); //WHITE
 
-	const Color gameBeakPalette[8] = { lightestGrey, lightGrey, darkGrey, darkestGrey, lightestPink, lightPink, darkPink, darkestPink };
+	const Color gameBeakPalette[12] = { lightestGrey, lightGrey, darkGrey, darkestGrey, lightestGreen, lightGreen, darkGreen, darkestGreen, lightestPink, lightPink, darkPink, darkestPink };
 
 public:
 	gpu();

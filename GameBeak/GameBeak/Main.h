@@ -40,6 +40,6 @@ extern bool run;
 extern bool paused;
 extern bool step;
 extern bool interruptNextCycle;
-extern bool pinkMode;
+extern byte paletteSetting;
 
 #endif // ! MAINH

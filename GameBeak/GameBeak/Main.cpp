@@ -17,7 +17,7 @@ bool run = true;
 bool interruptNextCycle = false;
 
 //Settings values
-bool pinkMode = true;
+byte paletteSetting = 2; //[0: Black and White Pocket][1: Green DMG][2: GameBeak Pink]
 bool soundEnabled = false;
 bool tileDrawMode = false;
 
