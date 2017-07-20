@@ -17,7 +17,6 @@ public:
 	DebuggerWindow();
 	~DebuggerWindow();
 
-	//DebuggerWindow(string title, int xPos, int yPos, int width, int height);
 	DebuggerWindow(string title, int width, int height);
 	DebuggerWindow(RenderWindow* tempWindow);
 	void setIcon(int width, int height, string path);
@@ -30,7 +29,6 @@ public:
 	void drawButton(int x, int y);
 	void drawButton(int x, int y, float scaleX, float scaleY);
 	void runLoop();
-	//void printText(string text);
 
 	RenderWindow* window;
 	Texture texture;

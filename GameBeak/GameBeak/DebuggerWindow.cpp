@@ -17,8 +17,6 @@ DebuggerWindow::DebuggerWindow(string title, int width, int height)
 	//Set Window
 	window = new RenderWindow(VideoMode(width, height), title);
 	window->setFramerateLimit(60);
-	//texture.create(400, 200);
-	//pixels = new Uint8[400 * 200 * 4];
 
 	//Set Icon
 	char path1[MAX_PATH];
@@ -42,8 +40,6 @@ DebuggerWindow::DebuggerWindow(RenderWindow* tempWindow)
 	//Set Window
 	window = tempWindow;
 	window->setFramerateLimit(60);
-	//texture.create(400, 200);
-	//pixels = new Uint8[400 * 200 * 4];
 
 	//Set Icon
 	char path1[MAX_PATH];
@@ -147,14 +143,6 @@ void DebuggerWindow::runLoop()
 			run = false;
 		}
 
-		/*
-		if (Mouse::isButtonPressed(Mouse::Button::Left))
-		{
-			int x = Mouse::getPosition().x;
-			int y = Mouse::getPosition().y;
-		}
-		*/
-
 		if (window->hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Up))
 		{
 			if (memoryPosition - 16 >= 0)
@@ -257,7 +245,6 @@ void DebuggerWindow::printText(string text)
 {
 	Text textConverted(text, font, 12);
 	window->draw(textConverted);
-	//window->display();
 }
 
 void DebuggerWindow::printText(string text, int x, int y)
@@ -281,7 +268,6 @@ void DebuggerWindow::drawButton(int x, int y)
 {
 	buttonSprite.setPosition(x, y);
 	window->draw(buttonSprite);
-	//window->display();
 }
 
 void DebuggerWindow::drawButton(int x, int y, float scaleX, float scaleY)
@@ -289,7 +275,6 @@ void DebuggerWindow::drawButton(int x, int y, float scaleX, float scaleY)
 	buttonSprite.setPosition(x, y);
 	buttonSprite.setScale(scaleX, scaleY);
 	window->draw(buttonSprite);
-	//window->display();
 }
 
 void DebuggerWindow::displayRegisters()
@@ -391,18 +376,6 @@ void DebuggerWindow::displayRegisters()
 	ss << std::hex << ((short)(beakMemory.readMemory(0xFF43)) & 0x00FF);
 	string scrollX = ss.str();
 
-	/*
-	ss.str("");
-	ss << std::hex << (short)(stackPointer - 2);
-	string address1;
-	address1 = ss.str();
-	ss.str("");
-	ss << std::hex << (short)((beakMemory.readMemory(stackPointer - 1) << 8) | (beakMemory.readMemory(stackPointer - 2)));
-	string value1;
-	value1 = ss.str();
-	string stackVal1 = address1 + ": " + value1;
-	*/
-
 	ss.str("");
 	ss << std::hex << (short)(stackPointer);
 	string address2;
@@ -412,17 +385,6 @@ void DebuggerWindow::displayRegisters()
 	string value2;
 	value2 = ss.str();
 	string stackVal2 = address2 + ": " + value2;
-	/*
-	ss.str("");
-	ss << std::hex << (short)(stackPointer + 2);
-	string address3;
-	address3 = ss.str();
-	ss.str("");
-	ss << std::hex << (short)((beakMemory.readMemory(stackPointer + 3) << 8) | (beakMemory.readMemory(stackPointer + 2)));
-	string value3;
-	value3 = ss.str();
-	string stackVal3 = address3 + ": " + value3;
-	*/
 
 	printText("Reg A: " + a +
 		"\tReg F: " + f +
@@ -441,7 +403,6 @@ void DebuggerWindow::displayRegisters()
 	"\tFlag H: " + to_string(beakMemory.getHFlag()) +
 	"\tFlag C: " + to_string(beakMemory.getCFlag()) +
 	"\nSP: " + stackPointerHex + "\tStack Val: " + value2 + "\nPC: " + memPointerHex +
-	//"\n\n" + "Stack: \n" + stackVal1 + "\n" + stackVal2 + "\n" + stackVal3 +
 	"\n\n" + "(Keys) FF00: " + keyInput +
 	"\n" + "(LCDC) FF40: " + lcdControl +
 	"\n" + "(LCDStat) FF41: " + lcdStatus +

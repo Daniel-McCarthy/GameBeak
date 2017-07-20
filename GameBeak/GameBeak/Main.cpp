@@ -28,6 +28,7 @@ Audio beakAudio = Audio();
 
 //Debug Values
 bool debugOnLaunch = false; //Decides if Debug Window launches on open
+bool paused = debugOnLaunch;
 bool step = false;
 
 //Initialize registers
@@ -48,7 +49,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	//8 kb memory vram
 	//160x144 px res, 2 bit color palette, 4 shades of grey (or light to dark olive green)
 	//Maximum sprite stotal 40, 10 per line
-	//Sorite size 8x8 or 8x16
+	//Sprite size 8x8 or 8x16
 	//20x18 (360) tiles on screen
 	//Horiz sync 9198 KHz
 	//Vert sync 59.73 Hz

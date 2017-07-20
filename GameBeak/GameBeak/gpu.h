@@ -28,6 +28,7 @@ private:
 	const Color lightestGrey = Color(255, 255, 255, 255); //WHITE
 
 	const Color gameBeakPalette[12] = { lightestGrey, lightGrey, darkGrey, darkestGrey, lightestGreen, lightGreen, darkGreen, darkestGreen, lightestPink, lightPink, darkPink, darkestPink };
+	const vector<Color> customPalettes;
 
 public:
 	gpu();
@@ -52,22 +53,13 @@ public:
 	byte getScrollY();
 	byte getWindowX();
 	byte getWindowY();
-	//void drawTile();
-	void drawTiles();
 	void drawDebugTile(int tileNumber, vector<vector<Color>> tile);
-	void drawTileFromBGMap(int x, int y);
 	void drawLineFromBGMap(int lineY);
 	void drawLineFromWindowMap(int lineY);
 	void drawLineFromSpriteMap(int lineY);
-	void drawSpriteFromMap(int spriteNumber);
-	void drawSprite(int x, int y, vector<vector<Color>> tile);
 	void drawAllTiles();
-	//void setFullMapPixel(int x, int y, Color color);
 	Color returnColor(int colorNumber);
 	Color returnColor(int colorNumber, int palette);
 	byte returnPalette(byte palette);
-	//int gpuMode = 1; //BGB defaults this to 1, V-Blank. This should be true.
-	//Texture fullMapTexture;
-	//Uint8* fullMapPixels;
 };
 
