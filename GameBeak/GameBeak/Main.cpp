@@ -103,80 +103,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	//beakMemory.clearRegistersAndFlags();
 	//beakMemory.loadGBBootStrapIntoMemory();
 
-	//open XML palette file
-	char path1[MAX_PATH];
-	string path;
-	GetModuleFileNameA(NULL, path1, MAX_PATH);
-	path = string(path1);
-	path = path.substr(0, path.find_last_of('\\') + 1);
-
-	ifstream colorFile(path + "palettes.xml");
-	if (colorFile.fail())
-	{
-		ofstream file(path + "palettes.xml");
-		file.close();
-		colorFile.open(path + "palettes.xml");
-	}
-
-	string line;
-
-	list<int> colorValues;
-
-	while (getline(colorFile, line))
-	{
-		bool test1 = (line.find("<r>") != string::npos) && (line.find("</r>") != string::npos);
-		bool test2 = (line.find("<g>") != string::npos) && (line.find("</g>") != string::npos);
-		bool test3 = (line.find("<b>") != string::npos) && (line.find("</b>") != string::npos);
-
-		if (test1 || test2 || test3)
-		{
-			int first = line.find_first_of('>') + 1;
-			int last = line.find_last_of('<');
-
-			line = line.substr(first, last - first);
-
-			colorValues.push_back(stoi(line));
-		}
-	}
-
-	if ((colorValues.size() / 12) > 0)
-	{
-		int paletteOffset = 0;
-		int colorOffset = 0;
-
-		while (colorValues.size() >= (3*4))
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				int r = colorValues.front();
-				colorValues.pop_front();
-				int g = colorValues.front();
-				colorValues.pop_front();
-				int b = colorValues.front();
-				colorValues.pop_front();
-
-				Color color = Color(r, g, b, 255);
-
-
-				beakGPU.gameBeakPalette[(paletteOffset * 4) + colorOffset] = color;
-
-				if (colorOffset >= 3)
-				{
-					colorOffset = 0;
-				}
-				else
-				{
-					colorOffset++;
-				}
-			}
-
-			paletteOffset++;
-		}
-
-		paletteSetting = gamebeakPintAlt;
-	}
-
-	colorFile.close();
+	beakGPU.loadPalettesFromXML(beakGPU.openCreatePalettesXML());
+	paletteSetting = gamebeakPintAlt;
 
 	RenderWindow* windowPointer = beakWindow.window;
 
