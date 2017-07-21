@@ -4123,8 +4123,8 @@ void sharpCPU::opcodeB5()
 
 void sharpCPU::opcodeB6()
 {
-	//OR HL from A
-	beakMemory.setA(beakMemory.getA() | beakMemory.getHL());
+	//OR (HL) from A
+	beakMemory.setA(beakMemory.getA() | beakMemory.readMemory(beakMemory.getHL()));
 	mClock += 2;
 	tClock += 8;
 
