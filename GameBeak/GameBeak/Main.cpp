@@ -16,8 +16,20 @@ short stackPointer = 0;
 bool run = true;
 bool interruptNextCycle = false;
 
+//Palette Values:
+const int blackAndWhite = 0;
+const int greenDMG = 1;
+const int gamebeakPink = 2;
+const int gamebeakPintAlt = 3;
+const int bubbleGum = 4;
+const int kigb = 5;
+const int bgb = 6;
+const int noCashGMB = 7;
+const int playGuy = 8;
+const int dreamGBC = 9;
+
 //Settings values
-byte paletteSetting = 2; //[0: Black and White Pocket][1: Green DMG][2: GameBeak Pink]
+byte paletteSetting = 0;
 bool soundEnabled = false;
 bool tileDrawMode = false;
 
@@ -132,7 +144,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		int paletteOffset = 0;
 		int colorOffset = 0;
 
-		while (colorValues.size() > (3*4))
+		while (colorValues.size() >= (3*4))
 		{
 			for (int i = 0; i < 4; i++)
 			{
@@ -161,7 +173,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			paletteOffset++;
 		}
 
-		paletteSetting = 4;
+		paletteSetting = gamebeakPintAlt;
 	}
 
 	colorFile.close();
