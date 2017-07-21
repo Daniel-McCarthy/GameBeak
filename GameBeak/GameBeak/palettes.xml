@@ -1,4 +1,4 @@
-<?xml version="0.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <colorschemes>
 
 	<scheme>
@@ -138,6 +138,149 @@
 			<r>111</r>
 			<g>6</g>
 			<b>57</b>
+		</color4>
+
+	</scheme>
+	
+	<scheme>
+		<name>KiGB</name>
+		<color1>
+			<r>156</r>
+			<g>185</g>
+			<b>22</b>
+		</color1>
+
+		<color2>
+			<r>140</r>
+			<g>170</g>
+			<b>20</b>
+		</color2>
+		
+		<color3>
+			<r>48</r>
+			<g>100</g>
+			<b>48</b>
+		</color3>
+
+		<color4>
+			<r>16</r>
+			<g>63</g>
+			<b>16</b>
+		</color4>
+
+	</scheme>
+	
+	<scheme>
+		<name>BGB</name>
+		<color1>
+			<r>224</r>
+			<g>248</g>
+			<b>208</b>
+		</color1>
+
+		<color2>
+			<r>136</r>
+			<g>192</g>
+			<b>112</b>
+		</color2>
+		
+		<color3>
+			<r>52</r>
+			<g>104</g>
+			<b>86</b>
+		</color3>
+
+		<color4>
+			<r>8</r>
+			<g>24</g>
+			<b>32</b>
+		</color4>
+
+	</scheme>
+	
+	<scheme>
+		
+		<name>NO$GMB</name>
+		<color1>
+			<r>252</r>
+			<g>232</g>
+			<b>140</b>
+		</color1>
+
+		<color2>
+			<r>220</r>
+			<g>180</g>
+			<b>92</b>
+		</color2>
+		
+		<color3>
+			<r>152</r>
+			<g>124</g>
+			<b>60</b>
+		</color3>
+
+		<color4>
+			<r>76</r>
+			<g>60</g>
+			<b>28</b>
+		</color4>
+
+	</scheme>
+	
+	<scheme>
+		
+		<name>PLAYGUY</name>
+		<color1>
+			<r>255</r>
+			<g>238</g>
+			<b>172</b>
+		</color1>
+
+		<color2>
+			<r>172</r>
+			<g>164</g>
+			<b>115</b>
+		</color2>
+		
+		<color3>
+			<r>90</r>
+			<g>82</g>
+			<b>57</b>
+		</color3>
+
+		<color4>
+			<r>0</r>
+			<g>0</g>
+			<b>0</b>
+		</color4>
+
+	</scheme>
+	
+	<scheme>
+		
+		<name>DREAMGBC</name>
+		<color1>
+			<r>255</r>
+			<g>255</g>
+			<b>255</b>
+		</color1>
+
+		<color2>
+			<r>0</r>
+			<g>178</g>
+			<b>181</b>
+		</color2>
+		
+		<color3>
+			<r>0</r>
+			<g>134</g>
+			<b>140</b>
+		</color3>
+
+		<color4>
+			<r>0</r>
+			<g>0</g>
+			<b>0</b>
 		</color4>
 
 	</scheme>
