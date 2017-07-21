@@ -1886,34 +1886,15 @@ void sharpCPU::opcode0E(byte n)
 
 void sharpCPU::opcode0F()
 {
-	/*
-	//Rotate A Right - Set left most bit to current carry flag
-	beakMemory.setCFlag((((beakMemory.getA() & 0x80) >> 7) == 1) ? true : false);
-	beakMemory.setA(rotateRight(beakMemory.getA()));
-	mClock += 2;
-	tClock += 8;
-
-	beakMemory.setZFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setNFlag(false);
-	*/
-
 	//Rotate A Right, put previous bit 0 into Carry flag
-	if (beakMemory.getA() != 0)
-	{
-		beakMemory.setCFlag(((beakMemory.getA() & 0x80) >> 7) > 0);
-	}
-	else
-	{
-		beakMemory.setZFlag(0);
-	}
 
-	//beakMemory.setA(beakMemory.getA() >> 1);
+	beakMemory.setCFlag( (beakMemory.getA() & 0x01) > 0);
 	beakMemory.setA(rotateRight(beakMemory.getA()));
 
 	mClock += 2;
 	tClock += 8;
 
+	beakMemory.setNFlag(false);
 	beakMemory.setNFlag(false);
 	beakMemory.setHFlag(false);
 
@@ -1987,11 +1968,10 @@ void sharpCPU::opcode17()
 {
 	//RLCA Rotate A Left - Set right most bit to current carry flag
 	byte cFlag = (beakMemory.getCFlag() == true) ? 0x01 : 0x00;
-	//beakMemory.setCFlag(((beakMemory.getA() & 0x01) == 1) ? true : false);
-	beakMemory.setCFlag((((beakMemory.getA() & 0x80) >> 7) == 1) ? true : false);
+	beakMemory.setCFlag( ((beakMemory.getA() & 0x80) >> 7) > 0);
 	beakMemory.setA((beakMemory.getA() << 1) | cFlag);
 
-	beakMemory.setZFlag(false); //TODO: Find out if Z can be set. My tests suggested Z does not get set if the register is already 0, but can't become 0 otherwise?
+	beakMemory.setZFlag(false); 
 	beakMemory.setHFlag(false);
 	beakMemory.setNFlag(false);
 	mClock += 2;
