@@ -3915,8 +3915,8 @@ void sharpCPU::opcodeA5()
 
 void sharpCPU::opcodeA6()
 {
-	//And HL from A
-	beakMemory.setA(beakMemory.getA() & beakMemory.getHL());
+	//And (HL) from A
+	beakMemory.setA(beakMemory.getA() & beakMemory.readMemory(beakMemory.getHL()));
 	mClock += 2;
 	tClock += 8;
 
