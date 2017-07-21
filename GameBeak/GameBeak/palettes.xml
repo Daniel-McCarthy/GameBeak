@@ -142,6 +142,35 @@
 
 	</scheme>
 	
+		<scheme>
+		
+		<name>DullCherry</name>
+		<color1>
+			<r>255</r>
+			<g>227</g>
+			<b>254</b>
+		</color1>
+
+		<color2>
+			<r>203</r>
+			<g>160</g>
+			<b>186</b>
+		</color2>
+		
+		<color3>
+			<r>151</r>
+			<g>80</g>
+			<b>118</b>
+		</color3>
+
+		<color4>
+			<r>90</r>
+			<g>0</g>
+			<b>51</b>
+		</color4>
+
+	</scheme>
+	
 	<scheme>
 		<name>KiGB</name>
 		<color1>
