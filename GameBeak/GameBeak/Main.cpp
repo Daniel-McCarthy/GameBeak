@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "Debugger.h"
 
+
 using namespace std;
 using namespace sf;
 
@@ -43,6 +44,15 @@ Audio beakAudio = Audio();
 bool debugOnLaunch = false; //Decides if Debug Window launches on open
 bool paused = debugOnLaunch;
 bool step = false;
+
+bool breakPointEnabled = false;
+short breakPointAt = (short)0x144E;
+
+bool accessBreakpoint = false;
+short accessBreakpointAddress = 0x0000;
+
+bool writeBreakpoint = false;
+short writeBreakpointAddress = 0x0000;
 
 //Initialize registers
 bool flagZ = false;
@@ -131,15 +141,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		ofstream file("logFile.txt");
 		file.close();
 	}
-
-	bool breakPointEnabled = false;
-	short breakPointAt = (short)0x0E1D;
-
-	bool accessBreakpoint = false;
-	short accessBreakpointAddress = 0x0000;
-
-	bool writeBreakpoint = false;
-	short writeBreakpointAddress = 0x0000;
 
 	byte pollingSkipping = 0;
 
