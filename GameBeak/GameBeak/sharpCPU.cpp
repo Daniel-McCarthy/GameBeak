@@ -4882,33 +4882,17 @@ void sharpCPU::opcodeF8(byte n)
 {
 	//Load SP + n into HL
 
-	//TODO: Fix this opcode. Results from tests are very confusing as to when the value is reset to 0/Overflow. No consensus found
-	if (stackPointer > n)
+	if ((stackPointer + n) > 0xFF)
 	{
-		if ((stackPointer + n) > 0xFFFF)
-		{
-			beakMemory.setHL((stackPointer + n) - 65536);//0xFFFF);
-			beakMemory.setHFlag(true);
-			beakMemory.setCFlag(true);
-		}
-		else
-		{
-			beakMemory.setHL(stackPointer + n);
-		}
+		beakMemory.setCFlag(true);
 	}
-	else
+
+	if (((stackPointer & 0x0F) + (n & 0x0F)) > 0x0F)
 	{
-		if ((stackPointer + n) > 0xFF)
-		{
-			beakMemory.setHL((stackPointer + n) - 256);//0xFF);
-			beakMemory.setHFlag(true);
-			beakMemory.setCFlag(true);
-		}
-		else
-		{
-			beakMemory.setHL(stackPointer + n);
-		}
+		beakMemory.setHFlag(true);
 	}
+
+	beakMemory.setHL((short)(stackPointer + n));
 
 	mClock += 3;
 	tClock += 12;
