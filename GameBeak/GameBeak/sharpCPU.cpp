@@ -4741,20 +4741,20 @@ void sharpCPU::opcodeE7()
 	tClock += 16;
 }
 
-void sharpCPU::opcodeE8(byte n)
+void sharpCPU::opcodeE8(signed char n)
 {
 	//Add n to Stack Pointer
 
-	if ((stackPointer + n) > 0xFFFF)
+	if ((stackPointer + (signed char)n) > 0xFFFF)
 	{
-		beakMemory.setStackPointer((stackPointer + n) - 65536);//0xFFFF);
+		beakMemory.setStackPointer((stackPointer + (signed char)n) - 65536);//0xFFFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
 	else
 	{
-		beakMemory.setHFlag(((stackPointer & 0x0F) + (n & 0x0F)) > 0x0F);
-		beakMemory.setStackPointer(stackPointer + n);
+		beakMemory.setHFlag(((stackPointer & 0x0F) + ((signed char)n & 0x0F)) > 0x0F);
+		beakMemory.setStackPointer(stackPointer + (signed char)n);
 		//beakMemory.setHFlag((stackPointer & 0x00FF) == 0xF0);
 		beakMemory.setCFlag(false);
 	}

@@ -252,7 +252,7 @@ public:
 	void opcodeE5();
 	void opcodeE6(byte n);
 	void opcodeE7();
-	void opcodeE8(byte n);
+	void opcodeE8(signed char n);
 	void opcodeE9();
 	void opcodeEA(short nn);
 	void opcodeEE(byte n);
