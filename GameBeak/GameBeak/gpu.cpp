@@ -933,6 +933,35 @@ ifstream gpu::openCreatePalettesXML()
 			file << "\t\t</color4>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
+			file << "\t<scheme>" << endl;
+
+
+			file << "\t\t<name>HEBOWIN</name>\n" << endl;
+			file << "\t\t<color1>" << endl;
+			file << "\t\t\t<r>255</r>" << endl;
+			file << "\t\t\t<g>255</g>" << endl;
+			file << "\t\t\t<b>255</b>" << endl;
+			file << "\t\t</color1>\n" << endl;
+
+			file << "\t\t<color2>" << endl;
+			file << "\t\t\t<r>127</r>" << endl;
+			file << "\t\t\t<g>204</g>" << endl;
+			file << "\t\t\t<b>127</b>" << endl;
+			file << "\t\t</color2>\n" << endl;
+
+			file << "\t\t<color3>" << endl;
+			file << "\t\t\t<r>51</r>" << endl;
+			file << "\t\t\t<g>153</g>" << endl;
+			file << "\t\t\t<b>178</b>" << endl;
+			file << "\t\t</color3>\n" << endl;
+
+			file << "\t\t<color4>" << endl;
+			file << "\t\t\t<r>0</r>" << endl;
+			file << "\t\t\t<g>0</g>" << endl;
+			file << "\t\t\t<b>0</b>" << endl;
+			file << "\t\t</color4>\n" << endl;
+
+			file << "\t</scheme>\n" << endl;
 			file << "\t</colorschemes>\n" << endl;
 		}
 
