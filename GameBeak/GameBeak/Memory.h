@@ -429,7 +429,14 @@ class Memory
 			paused = true;
 		}
 		*/
-		return beakRam[address];
+		if (address == 0xFF41)
+		{
+			return (beakRam[address] | 0x80);
+		}
+		else
+		{
+			return beakRam[address];
+		}
 	}
 
 	vector<uint8_t> readMemory(int address, int bytes)
