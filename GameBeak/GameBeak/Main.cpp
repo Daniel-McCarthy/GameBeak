@@ -138,7 +138,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	if (logging)
 	{
 		//Create and or clear logFile
-		ofstream file("logFile.txt");
+		ofstream file("../logFile.txt");
 		file.close();
 	}
 
@@ -236,7 +236,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 				if(log.length() > 10000)
 				{
-					ofstream file("logFile.txt", ios_base::out | ios_base::app);
+					ofstream file("../logFile.txt", ios_base::out | ios_base::app);
 					if (file.is_open())
 					{
 						file << log << endl;
@@ -277,7 +277,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	if (logging)
 	{
-		ofstream file2("logFile.txt", ios_base::out | ios_base::app);
+		ofstream file2("../logFile.txt", ios_base::out | ios_base::app);
 		if (file2.is_open())
 		{
 			file2 << log << endl;
