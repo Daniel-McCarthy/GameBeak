@@ -788,7 +788,7 @@ class Memory
 
 	void setAF(short newAF)
 	{
-		regAF = newAF;
+		regAF = newAF & 0xFFF0;
 	}
 
 	void setB(byte newB)
