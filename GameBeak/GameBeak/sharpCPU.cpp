@@ -4744,25 +4744,25 @@ void sharpCPU::opcodeE7()
 void sharpCPU::opcodeE8(byte n)
 {
 	//Add n to Stack Pointer
-	stackPointer += n;
 
 	if ((stackPointer + n) > 0xFFFF)
 	{
-		beakMemory.setA((stackPointer + n) - 65536);//0xFFFF);
+		beakMemory.setStackPointer((stackPointer + n) - 65536);//0xFFFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
 	else
 	{
-		beakMemory.setHFlag((stackPointer <= 0x0F) && ((stackPointer + n) > 0x0F));
-		beakMemory.setA(stackPointer + n);
+		beakMemory.setHFlag(((stackPointer & 0x0F) + (n & 0x0F)) > 0x0F);
+		beakMemory.setStackPointer(stackPointer + n);
 		//beakMemory.setHFlag((stackPointer & 0x00FF) == 0xF0);
 		beakMemory.setCFlag(false);
 	}
 	mClock += 2;
 	tClock += 8;
 
-	//beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0); //From tests in BGB this is not set
+	//beakMemory.setZFlag(stackPointer > 0); //From tests in BGB this is not set
+	beakMemory.setZFlag(false);
 	beakMemory.setNFlag(false);
 }
 
