@@ -554,25 +554,33 @@ void gpu::loadPalettesFromXML(ifstream file)
 
 	while (getline(file, line))
 	{
-		bool test1 = (line.find("<color1>") != string::npos) && (line.find("</color1>") != string::npos);
-		bool test2 = (line.find("<color2>") != string::npos) && (line.find("</color2>") != string::npos);
-		bool test3 = (line.find("<color3>") != string::npos) && (line.find("</color3>") != string::npos);
-		bool test4 = (line.find("<color4>") != string::npos) && (line.find("</color4>") != string::npos);
+		bool test1 = (line.find("<bgp>") != string::npos) && (line.find("</bgp>") != string::npos);
+		bool test2 = (line.find("<0bp0>") != string::npos) && (line.find("</0bp0>") != string::npos);
+		bool test3 = (line.find("<0bp1>") != string::npos) && (line.find("</0bp1>") != string::npos);
 
-		if (test1 || test2 || test3 || test4)
+		if (test1 || test2 || test3)
 		{
 			int first = line.find_first_of('>') + 1;
 			int last = line.find_last_of('<');
 
 			line = line.substr(first, last - first);
 
-			unsigned int r = stoi(line.substr(0, 2), 0, 16);
-			unsigned int g = stoi(line.substr(2, 2), 0, 16);
-			unsigned int b = stoi(line.substr(4, 2), 0, 16);
+			for (int i = 0; i < 4; i++)
+			{
+				unsigned int r = stoi(line.substr(0, 2), 0, 16);
+				unsigned int g = stoi(line.substr(2, 2), 0, 16);
+				unsigned int b = stoi(line.substr(4, 2), 0, 16);
 
-			colorValues.push_back(r);
-			colorValues.push_back(g);
-			colorValues.push_back(b);
+				colorValues.push_back(r);
+				colorValues.push_back(g);
+				colorValues.push_back(b);
+
+				if (line.length() > 8)
+				{
+					line = line.substr(9, line.length() - 9);
+				}
+			}
+
 		}
 	}
 	if ((colorValues.size() / 36) > 0)
