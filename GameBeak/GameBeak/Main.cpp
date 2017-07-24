@@ -29,6 +29,7 @@ const int bgb = 7;
 const int noCashGMB = 8;
 const int playGuy = 9;
 const int dreamGBC = 10;
+const int heboWIN = 11;
 
 //Settings values
 byte paletteSetting = 0;
