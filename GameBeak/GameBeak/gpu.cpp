@@ -633,338 +633,327 @@ ifstream gpu::openCreatePalettesXML()
 			file << "\t<scheme>" << endl;
 
 			file << "\t\t<name>BlackWhite</name>\n" << endl;
-			file << "\t\t<color1>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>255</g>" << endl;
-			file << "\t\t\t<b>255</b>" << endl;
-			file << "\t\t</color1>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>FFFFFFFF</color1>" << endl;
+			file << "\t\t\t<color2>B9B9B9FF</color2>" << endl;
+			file << "\t\t\t<color3>696969FF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
 
-			file << "\t\t<color2>" << endl;
-			file << "\t\t\t<r>185</r>" << endl;
-			file << "\t\t\t<g>185</g>" << endl;
-			file << "\t\t\t<b>185</b>" << endl;
-			file << "\t\t</color2>\n" << endl;
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>FFFFFFFF</color1>" << endl;
+			file << "\t\t\t<color2>B9B9B9FF</color2>" << endl;
+			file << "\t\t\t<color3>696969FF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
 
-			file << "\t\t<color3>" << endl;
-			file << "\t\t\t<r>105</r>" << endl;
-			file << "\t\t\t<g>105</g>" << endl;
-			file << "\t\t\t<b>105</b>" << endl;
-			file << "\t\t</color3>\n" << endl;
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>FFFFFFFF</color1>" << endl;
+			file << "\t\t\t<color2>B9B9B9FF</color2>" << endl;
+			file << "\t\t\t<color3>696969FF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
-			file << "\t\t<color4>" << endl;
-			file << "\t\t\t<r>0</r>" << endl;
-			file << "\t\t\t<g>0</g>" << endl;
-			file << "\t\t\t<b>0</b>" << endl;
-			file << "\t\t</color4>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
 			file << "\t<scheme>" << endl;
 
 			file << "\t\t<name>Green</name>\n" << endl;
-			file << "\t\t<color1>" << endl;
-			file << "\t\t\t<r>224</r>" << endl;
-			file << "\t\t\t<g>255</g>" << endl;
-			file << "\t\t\t<b>235</b>" << endl;
-			file << "\t\t</color1>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>E0FFEBFF</color1>" << endl;
+			file << "\t\t\t<color2>88D058FF</color2>" << endl;
+			file << "\t\t\t<color3>34B73CFF</color3>" << endl;
+			file << "\t\t\t<color4>084703FF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
 
-			file << "\t\t<color2>" << endl;
-			file << "\t\t\t<r>136</r>" << endl;
-			file << "\t\t\t<g>208</g>" << endl;
-			file << "\t\t\t<b>88</b>" << endl;
-			file << "\t\t</color2>\n" << endl;
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>E0FFEBFF</color1>" << endl;
+			file << "\t\t\t<color2>88D058FF</color2>" << endl;
+			file << "\t\t\t<color3>34B73CFF</color3>" << endl;
+			file << "\t\t\t<color4>084703FF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
 
-			file << "\t\t<color3>" << endl;
-			file << "\t\t\t<r>52</r>" << endl;
-			file << "\t\t\t<g>183</g>" << endl;
-			file << "\t\t\t<b>60</b>" << endl;
-			file << "\t\t</color3>\n" << endl;
-
-			file << "\t\t<color4>" << endl;
-			file << "\t\t\t<r>8</r>" << endl;
-			file << "\t\t\t<g>71</g>" << endl;
-			file << "\t\t\t<b>3</b>" << endl;
-			file << "\t\t</color4>\n" << endl;
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>E0FFEBFF</color1>" << endl;
+			file << "\t\t\t<color2>88D058FF</color2>" << endl;
+			file << "\t\t\t<color3>34B73CFF</color3>" << endl;
+			file << "\t\t\t<color4>084703FF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
 			file << "\t<scheme>" << endl;
 
 			file << "\t\t<name>Pink</name>\n" << endl;
-			file << "\t\t<color1>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>241</g>" << endl;
-			file << "\t\t\t<b>254</b>" << endl;
-			file << "\t\t</color1>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>FFF1FEFF</color1>" << endl;
+			file << "\t\t\t<color2>FFD6F5FF</color2>" << endl;
+			file << "\t\t\t<color3>FF83D9FF</color3>" << endl;
+			file << "\t\t\t<color4>48183BFF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
 
-			file << "\t\t<color2>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>214</g>" << endl;
-			file << "\t\t\t<b>245</b>" << endl;
-			file << "\t\t</color2>\n" << endl;
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>FFF1FEFF</color1>" << endl;
+			file << "\t\t\t<color2>FFD6F5FF</color2>" << endl;
+			file << "\t\t\t<color3>FF83D9FF</color3>" << endl;
+			file << "\t\t\t<color4>48183BFF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
 
-			file << "\t\t<color3>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>131</g>" << endl;
-			file << "\t\t\t<b>217</b>" << endl;
-			file << "\t\t</color3>\n" << endl;
-
-			file << "\t\t<color4>" << endl;
-			file << "\t\t\t<r>72</r>" << endl;
-			file << "\t\t\t<g>24</g>" << endl;
-			file << "\t\t\t<b>59</b>" << endl;
-			file << "\t\t</color4>\n" << endl;
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>FFF1FEFF</color1>" << endl;
+			file << "\t\t\t<color2>FFD6F5FF</color2>" << endl;
+			file << "\t\t\t<color3>FF83D9FF</color3>" << endl;
+			file << "\t\t\t<color4>48183BFF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
 			file << "\t<scheme>" << endl;
 
 			file << "\t\t<name>PinkAlt</name>\n" << endl;
-			file << "\t\t<color1>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>240</g>" << endl;
-			file << "\t\t\t<b>245</b>" << endl;
-			file << "\t\t</color1>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>FFF0F5FF</color1>" << endl;
+			file << "\t\t\t<color2>FFBADEFF</color2>" << endl;
+			file << "\t\t\t<color3>FF74D9FF</color3>" << endl;
+			file << "\t\t\t<color4>520528FF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
 
-			file << "\t\t<color2>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>186</g>" << endl;
-			file << "\t\t\t<b>222</b>" << endl;
-			file << "\t\t</color2>\n" << endl;
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>FFF0F5FF</color1>" << endl;
+			file << "\t\t\t<color2>FFBADEFF</color2>" << endl;
+			file << "\t\t\t<color3>FF74D9FF</color3>" << endl;
+			file << "\t\t\t<color4>520528FF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
 
-			file << "\t\t<color3>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>116</g>" << endl;
-			file << "\t\t\t<b>217</b>" << endl;
-			file << "\t\t</color3>\n" << endl;
-
-			file << "\t\t<color4>" << endl;
-			file << "\t\t\t<r>82</r>" << endl;
-			file << "\t\t\t<g>5</g>" << endl;
-			file << "\t\t\t<b>40</b>" << endl;
-			file << "\t\t</color4>\n" << endl;
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>FFF0F5FF</color1>" << endl;
+			file << "\t\t\t<color2>FFBADEFF</color2>" << endl;
+			file << "\t\t\t<color3>FF74D9FF</color3>" << endl;
+			file << "\t\t\t<color4>520528FF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
 			file << "\t<scheme>" << endl;
 
 			file << "\t\t<name>BubbleGum</name>\n" << endl;
-			file << "\t\t<color1>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>240</g>" << endl;
-			file << "\t\t\t<b>254</b>" << endl;
-			file << "\t\t</color1>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>FFF0FEFF</color1>" << endl;
+			file << "\t\t\t<color2>FFBADEFF</color2>" << endl;
+			file << "\t\t\t<color3>FF60C2FF</color3>" << endl;
+			file << "\t\t\t<color4>6F0639FF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
 
-			file << "\t\t<color2>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>186</g>" << endl;
-			file << "\t\t\t<b>222</b>" << endl;
-			file << "\t\t</color2>\n" << endl;
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>FFF0FEFF</color1>" << endl;
+			file << "\t\t\t<color2>FFBADEFF</color2>" << endl;
+			file << "\t\t\t<color3>FF60C2FF</color3>" << endl;
+			file << "\t\t\t<color4>6F0639FF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
 
-			file << "\t\t<color3>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>96</g>" << endl;
-			file << "\t\t\t<b>194</b>" << endl;
-			file << "\t\t</color3>\n" << endl;
-
-			file << "\t\t<color4>" << endl;
-			file << "\t\t\t<r>111</r>" << endl;
-			file << "\t\t\t<g>6</g>" << endl;
-			file << "\t\t\t<b>57</b>" << endl;
-			file << "\t\t</color4>\n" << endl;
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>FFF0FEFF</color1>" << endl;
+			file << "\t\t\t<color2>FFBADEFF</color2>" << endl;
+			file << "\t\t\t<color3>FF60C2FF</color3>" << endl;
+			file << "\t\t\t<color4>6F0639FF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
 			file << "\t<scheme>" << endl;
 
 			file << "\t\t<name>GrapeCherry</name>\n" << endl;
-			file << "\t\t<color1>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>227</g>" << endl;
-			file << "\t\t\t<b>254</b>" << endl;
-			file << "\t\t</color1>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>FFE3FEFF</color1>" << endl;
+			file << "\t\t\t<color2>CBA0BAFF</color2>" << endl;
+			file << "\t\t\t<color3>975076FF</color3>" << endl;
+			file << "\t\t\t<color4>5A0033FF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
 
-			file << "\t\t<color2>" << endl;
-			file << "\t\t\t<r>203</r>" << endl;
-			file << "\t\t\t<g>160</g>" << endl;
-			file << "\t\t\t<b>186</b>" << endl;
-			file << "\t\t</color2>\n" << endl;
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>FFE3FEFF</color1>" << endl;
+			file << "\t\t\t<color2>CBA0BAFF</color2>" << endl;
+			file << "\t\t\t<color3>975076FF</color3>" << endl;
+			file << "\t\t\t<color4>5A0033FF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
 
-			file << "\t\t<color3>" << endl;
-			file << "\t\t\t<r>151</r>" << endl;
-			file << "\t\t\t<g>80</g>" << endl;
-			file << "\t\t\t<b>118</b>" << endl;
-			file << "\t\t</color3>\n" << endl;
-
-			file << "\t\t<color4>" << endl;
-			file << "\t\t\t<r>90</r>" << endl;
-			file << "\t\t\t<g>0</g>" << endl;
-			file << "\t\t\t<b>51</b>" << endl;
-			file << "\t\t</color4>\n" << endl;
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>FFE3FEFF</color1>" << endl;
+			file << "\t\t\t<color2>CBA0BAFF</color2>" << endl;
+			file << "\t\t\t<color3>975076FF</color3>" << endl;
+			file << "\t\t\t<color4>5A0033FF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
 			file << "\t<scheme>" << endl;
 
 			file << "\t\t<name>KiGB</name>\n" << endl;
-			file << "\t\t<color1>" << endl;
-			file << "\t\t\t<r>156</r>" << endl;
-			file << "\t\t\t<g>185</g>" << endl;
-			file << "\t\t\t<b>22</b>" << endl;
-			file << "\t\t</color1>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>9CB916FF</color1>" << endl;
+			file << "\t\t\t<color2>8CAA014FF</color2>" << endl;
+			file << "\t\t\t<color3>306430FF</color3>" << endl;
+			file << "\t\t\t<color4>103F10FF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
 
-			file << "\t\t<color2>" << endl;
-			file << "\t\t\t<r>140</r>" << endl;
-			file << "\t\t\t<g>170</g>" << endl;
-			file << "\t\t\t<b>20</b>" << endl;
-			file << "\t\t</color2>\n" << endl;
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>9CB916FF</color1>" << endl;
+			file << "\t\t\t<color2>8CAA014FF</color2>" << endl;
+			file << "\t\t\t<color3>306430FF</color3>" << endl;
+			file << "\t\t\t<color4>103F10FF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
 
-			file << "\t\t<color3>" << endl;
-			file << "\t\t\t<r>48</r>" << endl;
-			file << "\t\t\t<g>100</g>" << endl;
-			file << "\t\t\t<b>48</b>" << endl;
-			file << "\t\t</color3>\n" << endl;
-
-			file << "\t\t<color4>" << endl;
-			file << "\t\t\t<r>16</r>" << endl;
-			file << "\t\t\t<g>63</g>" << endl;
-			file << "\t\t\t<b>16</b>" << endl;
-			file << "\t\t</color4>\n" << endl;
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>9CB916FF</color1>" << endl;
+			file << "\t\t\t<color2>8CAA014FF</color2>" << endl;
+			file << "\t\t\t<color3>306430FF</color3>" << endl;
+			file << "\t\t\t<color4>103F10FF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
 			file << "\t<scheme>" << endl;
 
 			file << "\t\t<name>BGB</name>\n" << endl;
-			file << "\t\t<color1>" << endl;
-			file << "\t\t\t<r>224</r>" << endl;
-			file << "\t\t\t<g>248</g>" << endl;
-			file << "\t\t\t<b>208</b>" << endl;
-			file << "\t\t</color1>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>E0F8D0FF</color1>" << endl;
+			file << "\t\t\t<color2>88C070FF</color2>" << endl;
+			file << "\t\t\t<color3>346856FF</color3>" << endl;
+			file << "\t\t\t<color4>081820FF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
 
-			file << "\t\t<color2>" << endl;
-			file << "\t\t\t<r>136</r>" << endl;
-			file << "\t\t\t<g>192</g>" << endl;
-			file << "\t\t\t<b>112</b>" << endl;
-			file << "\t\t</color2>\n" << endl;
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>E0F8D0FF</color1>" << endl;
+			file << "\t\t\t<color2>88C070FF</color2>" << endl;
+			file << "\t\t\t<color3>346856FF</color3>" << endl;
+			file << "\t\t\t<color4>081820FF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
 
-			file << "\t\t<color3>" << endl;
-			file << "\t\t\t<r>52</r>" << endl;
-			file << "\t\t\t<g>104</g>" << endl;
-			file << "\t\t\t<b>86</b>" << endl;
-			file << "\t\t</color3>\n" << endl;
-
-			file << "\t\t<color4>" << endl;
-			file << "\t\t\t<r>8</r>" << endl;
-			file << "\t\t\t<g>24</g>" << endl;
-			file << "\t\t\t<b>32</b>" << endl;
-			file << "\t\t</color4>\n" << endl;
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>E0F8D0FF</color1>" << endl;
+			file << "\t\t\t<color2>88C070FF</color2>" << endl;
+			file << "\t\t\t<color3>346856FF</color3>" << endl;
+			file << "\t\t\t<color4>081820FF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
 			file << "\t<scheme>" << endl;
 
 			file << "\t\t<name>NO$GMB</name>\n" << endl;
-			file << "\t\t<color1>" << endl;
-			file << "\t\t\t<r>252</r>" << endl;
-			file << "\t\t\t<g>232</g>" << endl;
-			file << "\t\t\t<b>140</b>" << endl;
-			file << "\t\t</color1>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>FCE88CFF</color1>" << endl;
+			file << "\t\t\t<color2>DCB45CFF</color2>" << endl;
+			file << "\t\t\t<color3>987C3CFF</color3>" << endl;
+			file << "\t\t\t<color4>4C3C1CFF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
 
-			file << "\t\t<color2>" << endl;
-			file << "\t\t\t<r>220</r>" << endl;
-			file << "\t\t\t<g>180</g>" << endl;
-			file << "\t\t\t<b>92</b>" << endl;
-			file << "\t\t</color2>\n" << endl;
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>FCE88CFF</color1>" << endl;
+			file << "\t\t\t<color2>DCB45CFF</color2>" << endl;
+			file << "\t\t\t<color3>987C3CFF</color3>" << endl;
+			file << "\t\t\t<color4>4C3C1CFF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
 
-			file << "\t\t<color3>" << endl;
-			file << "\t\t\t<r>152</r>" << endl;
-			file << "\t\t\t<g>124</g>" << endl;
-			file << "\t\t\t<b>60</b>" << endl;
-			file << "\t\t</color3>\n" << endl;
-
-			file << "\t\t<color4>" << endl;
-			file << "\t\t\t<r>76</r>" << endl;
-			file << "\t\t\t<g>60</g>" << endl;
-			file << "\t\t\t<b>28</b>" << endl;
-			file << "\t\t</color4>\n" << endl;
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>FCE88CFF</color1>" << endl;
+			file << "\t\t\t<color2>DCB45CFF</color2>" << endl;
+			file << "\t\t\t<color3>987C3CFF</color3>" << endl;
+			file << "\t\t\t<color4>4C3C1CFF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
 			file << "\t<scheme>" << endl;
 
 			file << "\t\t<name>PLAYGUY</name>\n" << endl;
-			file << "\t\t<color1>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>238</g>" << endl;
-			file << "\t\t\t<b>172</b>" << endl;
-			file << "\t\t</color1>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>FFEEACFF</color1>" << endl;
+			file << "\t\t\t<color2>ACA473FF</color2>" << endl;
+			file << "\t\t\t<color3>5A5239FF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
 
-			file << "\t\t<color2>" << endl;
-			file << "\t\t\t<r>172</r>" << endl;
-			file << "\t\t\t<g>164</g>" << endl;
-			file << "\t\t\t<b>115</b>" << endl;
-			file << "\t\t</color2>\n" << endl;
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>FFEEACFF</color1>" << endl;
+			file << "\t\t\t<color2>ACA473FF</color2>" << endl;
+			file << "\t\t\t<color3>5A5239FF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
 
-			file << "\t\t<color3>" << endl;
-			file << "\t\t\t<r>90</r>" << endl;
-			file << "\t\t\t<g>82</g>" << endl;
-			file << "\t\t\t<b>57</b>" << endl;
-			file << "\t\t</color3>\n" << endl;
-
-			file << "\t\t<color4>" << endl;
-			file << "\t\t\t<r>0</r>" << endl;
-			file << "\t\t\t<g>0</g>" << endl;
-			file << "\t\t\t<b>0</b>" << endl;
-			file << "\t\t</color4>\n" << endl;
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>FFEEACFF</color1>" << endl;
+			file << "\t\t\t<color2>ACA473FF</color2>" << endl;
+			file << "\t\t\t<color3>5A5239FF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
 			file << "\t<scheme>" << endl;
 
 			file << "\t\t<name>DREAMGBC</name>\n" << endl;
-			file << "\t\t<color1>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>255</g>" << endl;
-			file << "\t\t\t<b>255</b>" << endl;
-			file << "\t\t</color1>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>FFFFFFFF</color1>" << endl;
+			file << "\t\t\t<color2>00B2B5FF</color2>" << endl;
+			file << "\t\t\t<color3>00868CFF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
 
-			file << "\t\t<color2>" << endl;
-			file << "\t\t\t<r>0</r>" << endl;
-			file << "\t\t\t<g>178</g>" << endl;
-			file << "\t\t\t<b>181</b>" << endl;
-			file << "\t\t</color2>\n" << endl;
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>FFFFFFFF</color1>" << endl;
+			file << "\t\t\t<color2>00B2B5FF</color2>" << endl;
+			file << "\t\t\t<color3>00868CFF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
 
-			file << "\t\t<color3>" << endl;
-			file << "\t\t\t<r>0</r>" << endl;
-			file << "\t\t\t<g>134</g>" << endl;
-			file << "\t\t\t<b>140</b>" << endl;
-			file << "\t\t</color3>\n" << endl;
-
-			file << "\t\t<color4>" << endl;
-			file << "\t\t\t<r>0</r>" << endl;
-			file << "\t\t\t<g>0</g>" << endl;
-			file << "\t\t\t<b>0</b>" << endl;
-			file << "\t\t</color4>\n" << endl;
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>FFFFFFFF</color1>" << endl;
+			file << "\t\t\t<color2>00B2B5FF</color2>" << endl;
+			file << "\t\t\t<color3>00868CFF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
 			file << "\t<scheme>" << endl;
 
 
 			file << "\t\t<name>HEBOWIN</name>\n" << endl;
-			file << "\t\t<color1>" << endl;
-			file << "\t\t\t<r>255</r>" << endl;
-			file << "\t\t\t<g>255</g>" << endl;
-			file << "\t\t\t<b>255</b>" << endl;
-			file << "\t\t</color1>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>FFFFFFFF</color1>" << endl;
+			file << "\t\t\t<color2>7FCC7FFF</color2>" << endl;
+			file << "\t\t\t<color3>3399B2FF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
 
-			file << "\t\t<color2>" << endl;
-			file << "\t\t\t<r>127</r>" << endl;
-			file << "\t\t\t<g>204</g>" << endl;
-			file << "\t\t\t<b>127</b>" << endl;
-			file << "\t\t</color2>\n" << endl;
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>FFFFFFFF</color1>" << endl;
+			file << "\t\t\t<color2>7FCC7FFF</color2>" << endl;
+			file << "\t\t\t<color3>3399B2FF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
 
-			file << "\t\t<color3>" << endl;
-			file << "\t\t\t<r>51</r>" << endl;
-			file << "\t\t\t<g>153</g>" << endl;
-			file << "\t\t\t<b>178</b>" << endl;
-			file << "\t\t</color3>\n" << endl;
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>FFFFFFFF</color1>" << endl;
+			file << "\t\t\t<color2>7FCC7FFF</color2>" << endl;
+			file << "\t\t\t<color3>3399B2FF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
-			file << "\t\t<color4>" << endl;
-			file << "\t\t\t<r>0</r>" << endl;
-			file << "\t\t\t<g>0</g>" << endl;
-			file << "\t\t\t<b>0</b>" << endl;
-			file << "\t\t</color4>\n" << endl;
+			file << "\t</scheme>\n" << endl;
+
+			file << "\t\t<name>GBC UP A</name>\n" << endl;
+			file << "\t\t<bgp>" << endl;
+			file << "\t\t\t<color1>FFFFFFFF</color1>" << endl;
+			file << "\t\t\t<color2>FFCCCCFF</color2>" << endl;
+			file << "\t\t\t<color3>7F3333FF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</bgp>\n" << endl;
+
+			file << "\t\t<0bp0>" << endl;
+			file << "\t\t\t<color1>FFFFFFFF</color1>" << endl;
+			file << "\t\t\t<color2>FFCCCCFF</color2>" << endl;
+			file << "\t\t\t<color3>7F3333FF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</0bp0>\n" << endl;
+
+			file << "\t\t<0bp1>" << endl;
+			file << "\t\t\t<color1>FFFFFFFF</color1>" << endl;
+			file << "\t\t\t<color2>CCFFCCFF</color2>" << endl;
+			file << "\t\t\t<color3>337F33FF</color3>" << endl;
+			file << "\t\t\t<color4>000000FF</color4>" << endl;
+			file << "\t\t</0bp1>\n" << endl;
 
 			file << "\t</scheme>\n" << endl;
 			file << "\t</colorschemes>\n" << endl;
