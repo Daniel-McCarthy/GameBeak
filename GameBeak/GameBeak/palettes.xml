@@ -1,316 +1,342 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <colorschemes>
 
+
 	<scheme>
 		<name>BlackWhite</name>
 		
-		<color1>
-			<r>255</r>
-			<g>255</g>
-			<b>255</b>
-		</color1>
-
-		<color2>
-			<r>185</r>
-			<g>185</g>
-			<b>185</b>
-		</color2>
+		<bgp>
+			<color1>FFFFFFFF</color1>
+			<color2>B9B9B9FF</color2>
+			<color3>696969FF</color3>
+			<color4>000000FF</color4>
+		</bgp>
 		
-		<color3>
-			<r>105</r>
-			<g>105</g>
-			<b>105</b>
-		</color3>
-
-		<color4>
-			<r>0</r>
-			<g>0</g>
-			<b>0</b>
-		</color4>
+		<0bp0>
+			<color1>FFFFFFFF</color1>
+			<color2>B9B9B9FF</color2>
+			<color3>696969FF</color3>
+			<color4>000000FF</color4>
+		</0bp0>
 		
+		<0bp1>
+			<color1>FFFFFFFF</color1>
+			<color2>B9B9B9FF</color2>
+			<color3>696969FF</color3>
+			<color4>000000FF</color4>
+		</0bp1>
+
 	</scheme>
-
+	
 	<scheme>
 		<name>Green</name>
-		<color1>
-			<r>224</r>
-			<g>255</g>
-			<b>235</b>
-		</color1>
-
-		<color2>
-			<r>136</r>
-			<g>208</g>
-			<b>88</b>
-		</color2>
 		
-		<color3>
-			<r>52</r>
-			<g>183</g>
-			<b>60</b>
-		</color3>
-
-		<color4>
-			<r>8</r>
-			<g>71</g>
-			<b>3</b>
-		</color4>
+		<bgp>
+			<color1>E0FFEBFF</color1>
+			<color2>88D058FF</color2>
+			<color3>34B73CFF</color3>
+			<color4>084703FF</color4>
+		</bgp>
+		
+		<0bp0>
+			<color1>E0FFEBFF</color1>
+			<color2>88D058FF</color2>
+			<color3>34B73CFF</color3>
+			<color4>084703FF</color4>
+		</0bp0>
+		
+		<0bp1>
+			<color1>E0FFEBFF</color1>
+			<color2>88D058FF</color2>
+			<color3>34B73CFF</color3>
+			<color4>084703FF</color4>
+		</0bp1>
 
 	</scheme>
 	
 	<scheme>
 		<name>Pink</name>
-		<color1>
-			<r>255</r>
-			<g>241</g>
-			<b>254</b>
-		</color1>
-
-		<color2>
-			<r>255</r>
-			<g>214</g>
-			<b>245</b>
-		</color2>
 		
-		<color3>
-			<r>255</r>
-			<g>131</g>
-			<b>217</b>
-		</color3>
-
-		<color4>
-			<r>72</r>
-			<g>24</g>
-			<b>59</b>
-		</color4>
+		<bgp>
+			<color1>FFF1FEFF</color1>
+			<color2>FFD6F5FF</color2>
+			<color3>FF83D9FF</color3>
+			<color4>48183BFF</color4>
+		</bgp>
+		
+		<0bp0>
+			<color1>FFF1FEFF</color1>
+			<color2>FFD6F5FF</color2>
+			<color3>FF83D9FF</color3>
+			<color4>48183BFF</color4>
+		</0bp0>
+		
+		<0bp1>
+			<color1>FFF1FEFF</color1>
+			<color2>FFD6F5FF</color2>
+			<color3>FF83D9FF</color3>
+			<color4>48183BFF</color4>
+		</0bp1>
 
 	</scheme>
 	
 	<scheme>
 		<name>PinkAlt</name>
-		<color1>
-			<r>255</r>
-			<g>240</g>
-			<b>245</b>
-		</color1>
-
-		<color2>
-			<r>255</r>
-			<g>186</g>
-			<b>222</b>
-		</color2>
 		
-		<color3>
-			<r>255</r>
-			<g>116</g>
-			<b>217</b>
-		</color3>
+		<bgp>
+			<color1>FFF0F5FF</color1>
+			<color2>FFBADEFF</color2>
+			<color3>FF74D9FF</color3>
+			<color4>520540FF</color4>
+		</bgp>
+		
+		<0bp0>
+			<color1>FFF0F5FF</color1>
+			<color2>FFBADEFF</color2>
+			<color3>FF74D9FF</color3>
+			<color4>520540FF</color4>
+		</0bp0>
+		
+		<0bp1>
+			<color1>FFF0F5FF</color1>
+			<color2>FFBADEFF</color2>
+			<color3>FF74D9FF</color3>
+			<color4>520540FF</color4>
+		</0bp1>
 
-		<color4>
-			<r>82</r>
-			<g>5</g>
-			<b>40</b>
-		</color4>
+	</scheme>
+
+	<scheme>
+		<name>BubbleGum</name>
+		
+		<bgp>
+			<color1>FFF0FEFF</color1>
+			<color2>FFBADEFF</color2>
+			<color3>FF60C2FF</color3>
+			<color4>6F0639FF</color4>
+		</bgp>
+		
+		<0bp0>
+			<color1>FFF0FEFF</color1>
+			<color2>FFBADEFF</color2>
+			<color3>FF60C2FF</color3>
+			<color4>6F0639FF</color4>
+		</0bp0>
+		
+		<0bp1>
+			<color1>FFF0FEFF</color1>
+			<color2>FFBADEFF</color2>
+			<color3>FF60C2FF</color3>
+			<color4>6F0639FF</color4>
+		</0bp1>
 
 	</scheme>
 	
 	<scheme>
-		<name>BubbleGum</name>
-		<color1>
-			<r>255</r>
-			<g>240</g>
-			<b>254</b>
-		</color1>
-
-		<color2>
-			<r>255</r>
-			<g>186</g>
-			<b>222</b>
-		</color2>
+		<name>GrapeCherry</name>
 		
-		<color3>
-			<r>255</r>
-			<g>96</g>
-			<b>194</b>
-		</color3>
-
-		<color4>
-			<r>111</r>
-			<g>6</g>
-			<b>57</b>
-		</color4>
-
-	</scheme>
-	
-		<scheme>
+		<bgp>
+			<color1>FFE3FEFF</color1>
+			<color2>CBA0BAFF</color2>
+			<color3>975076FF</color3>
+			<color4>5A0033FF</color4>
+		</bgp>
 		
-		<name>DullCherry</name>
-		<color1>
-			<r>255</r>
-			<g>227</g>
-			<b>254</b>
-		</color1>
-
-		<color2>
-			<r>203</r>
-			<g>160</g>
-			<b>186</b>
-		</color2>
+		<0bp0>
+			<color1>FFE3FEFF</color1>
+			<color2>CBA0BAFF</color2>
+			<color3>975076FF</color3>
+			<color4>5A0033FF</color4>
+		</0bp0>
 		
-		<color3>
-			<r>151</r>
-			<g>80</g>
-			<b>118</b>
-		</color3>
-
-		<color4>
-			<r>90</r>
-			<g>0</g>
-			<b>51</b>
-		</color4>
+		<0bp1>
+			<color1>FFE3FEFF</color1>
+			<color2>CBA0BAFF</color2>
+			<color3>975076FF</color3>
+			<color4>5A0033FF</color4>
+		</0bp1>
 
 	</scheme>
 	
 	<scheme>
 		<name>KiGB</name>
-		<color1>
-			<r>156</r>
-			<g>185</g>
-			<b>22</b>
-		</color1>
-
-		<color2>
-			<r>140</r>
-			<g>170</g>
-			<b>20</b>
-		</color2>
 		
-		<color3>
-			<r>48</r>
-			<g>100</g>
-			<b>48</b>
-		</color3>
-
-		<color4>
-			<r>16</r>
-			<g>63</g>
-			<b>16</b>
-		</color4>
+		<bgp>
+			<color1>9CB916FF</color1>
+			<color2>8CAA014FF</color2>
+			<color3>306430FF</color3>
+			<color4>103F10FF</color4>
+		</bgp>
+		
+		<0bp0>
+			<color1>9CB916FF</color1>
+			<color2>8CAA014FF</color2>
+			<color3>306430FF</color3>
+			<color4>103F10FF</color4>
+		</0bp0>
+		
+		<0bp1>
+			<color1>9CB916FF</color1>
+			<color2>8CAA14FF</color2>
+			<color3>306430FF</color3>
+			<color4>103F10FF</color4>
+		</0bp1>
 
 	</scheme>
 	
 	<scheme>
 		<name>BGB</name>
-		<color1>
-			<r>224</r>
-			<g>248</g>
-			<b>208</b>
-		</color1>
-
-		<color2>
-			<r>136</r>
-			<g>192</g>
-			<b>112</b>
-		</color2>
 		
-		<color3>
-			<r>52</r>
-			<g>104</g>
-			<b>86</b>
-		</color3>
-
-		<color4>
-			<r>8</r>
-			<g>24</g>
-			<b>32</b>
-		</color4>
+		<bgp>
+			<color1>E0F8D0FF</color1>
+			<color2>88C070FF</color2>
+			<color3>346856FF</color3>
+			<color4>081820FF</color4>
+		</bgp>
+		
+		<0bp0>
+			<color1>E0F8D0FF</color1>
+			<color2>88C070FF</color2>
+			<color3>346856FF</color3>
+			<color4>081820FF</color4>
+		</0bp0>
+		
+		<0bp1>
+			<color1>E0F8D0FF</color1>
+			<color2>88C070FF</color2>
+			<color3>346856FF</color3>
+			<color4>081820FF</color4>
+		</0bp1>
 
 	</scheme>
 	
 	<scheme>
-		
 		<name>NO$GMB</name>
-		<color1>
-			<r>252</r>
-			<g>232</g>
-			<b>140</b>
-		</color1>
-
-		<color2>
-			<r>220</r>
-			<g>180</g>
-			<b>92</b>
-		</color2>
 		
-		<color3>
-			<r>152</r>
-			<g>124</g>
-			<b>60</b>
-		</color3>
-
-		<color4>
-			<r>76</r>
-			<g>60</g>
-			<b>28</b>
-		</color4>
+		<bgp>
+			<color1>FCE88CFF</color1>
+			<color2>DCB45CFF</color2>
+			<color3>987C3CFF</color3>
+			<color4>4C3C1CFF</color4>
+		</bgp>
+		
+		<0bp0>
+			<color1>FCE88CFF</color1>
+			<color2>DCB45CFF</color2>
+			<color3>987C3CFF</color3>
+			<color4>4C3C1CFF</color4>
+		</0bp0>
+		
+		<0bp1>
+			<color1>FCE88CFF</color1>
+			<color2>DCB45CFF</color2>
+			<color3>987C3CFF</color3>
+			<color4>4C3C1CFF</color4>
+		</0bp1>
 
 	</scheme>
 	
 	<scheme>
-		
 		<name>PLAYGUY</name>
-		<color1>
-			<r>255</r>
-			<g>238</g>
-			<b>172</b>
-		</color1>
-
-		<color2>
-			<r>172</r>
-			<g>164</g>
-			<b>115</b>
-		</color2>
 		
-		<color3>
-			<r>90</r>
-			<g>82</g>
-			<b>57</b>
-		</color3>
-
-		<color4>
-			<r>0</r>
-			<g>0</g>
-			<b>0</b>
-		</color4>
+		<bgp>
+			<color1>FFEEACFF</color1>
+			<color2>ACA473FF</color2>
+			<color3>5A5239FF</color3>
+			<color4>000000FF</color4>
+		</bgp>
+		
+		<0bp0>
+			<color1>FFEEACFF</color1>
+			<color2>ACA473FF</color2>
+			<color3>5A5239FF</color3>
+			<color4>000000FF</color4>
+		</0bp0>
+		
+		<0bp1>
+			<color1>FFEEACFF</color1>
+			<color2>ACA473FF</color2>
+			<color3>5A5239FF</color3>
+			<color4>000000FF</color4>
+		</0bp1>
 
 	</scheme>
 	
 	<scheme>
-		
 		<name>DREAMGBC</name>
-		<color1>
-			<r>255</r>
-			<g>255</g>
-			<b>255</b>
-		</color1>
-
-		<color2>
-			<r>0</r>
-			<g>178</g>
-			<b>181</b>
-		</color2>
 		
-		<color3>
-			<r>0</r>
-			<g>134</g>
-			<b>140</b>
-		</color3>
+		<bgp>
+			<color1>FFFFFFFF</color1>
+			<color2>00B2B5FF</color2>
+			<color3>00868CFF</color3>
+			<color4>000000FF</color4>
+		</bgp>
+		
+		<0bp0>
+			<color1>FFFFFFFF</color1>
+			<color2>00B2B5FF</color2>
+			<color3>00868CFF</color3>
+			<color4>000000FF</color4>
+		</0bp0>
+		
+		<0bp1>
+			<color1>FFFFFFFF</color1>
+			<color2>00B2B5FF</color2>
+			<color3>00868CFF</color3>
+			<color4>000000FF</color4>
+		</0bp1>
 
-		<color4>
-			<r>0</r>
-			<g>0</g>
-			<b>0</b>
-		</color4>
+	</scheme>
+	
+	<scheme>
+		<name>HEBOWIN</name>
+		
+		<bgp>
+			<color1>FFFFFFFF</color1>
+			<color2>7FCC7FFF</color2>
+			<color3>3399B2FF</color3>
+			<color4>000000FF</color4>
+		</bgp>
+		
+		<0bp0>
+			<color1>FFFFFFFF</color1>
+			<color2>7FCC7FFF</color2>
+			<color3>3399B2FF</color3>
+			<color4>000000FF</color4>
+		</0bp0>
+		
+		<0bp1>
+			<color1>FFFFFFFF</color1>
+			<color2>7FCC7FFF</color2>
+			<color3>3399B2FF</color3>
+			<color4>000000FF</color4>
+		</0bp1>
+
+	</scheme>
+	
+	<scheme>
+		<name>GBC UP A</name>
+		
+		<bgp>
+			<color1>FFFFFFFF</color1>
+			<color2>FFCCCCFF</color2>
+			<color3>7F3333FF</color3>
+			<color4>000000FF</color4>
+		</bgp>
+		
+		<0bp0>
+			<color1>FFFFFFFF</color1>
+			<color2>FFCCCCFF</color2>
+			<color3>7F3333FF</color3>
+			<color4>000000FF</color4>
+		</0bp0>
+		
+		<0bp1>
+			<color1>FFFFFFFF</color1>
+			<color2>CCFFCCFF</color2>
+			<color3>337F33FF</color3>
+			<color4>000000FF</color4>
+		</0bp1>
 
 	</scheme>
 	

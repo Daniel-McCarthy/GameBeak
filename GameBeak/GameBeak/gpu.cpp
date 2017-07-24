@@ -503,7 +503,7 @@ byte gpu::getWindowY()
 
 Color gpu::returnColor(int colorNumber)
 {
-	return gameBeakPalette[colorNumber + (paletteSetting << 2)];
+	return gameBeakPalette[colorNumber + (paletteSetting * 12)];
 }
 
 Color gpu::returnColor(int colorNumber, int palette)
@@ -520,7 +520,7 @@ Color gpu::returnColor(int colorNumber, int palette)
 	//colorNumber = (paletteData & (3 << (colorNumber * 2))) >> (colorNumber * 2);//(colorNumber + 1);
 	//return gameBeakPalette[colorNumber + paletteSetting << 2)];
 
-	return gameBeakPalette[((beakMemory.readMemory(0xFF47 + palette) & (3 << (colorNumber * 2))) >> (colorNumber * 2)) + (paletteSetting << 2)];
+	return gameBeakPalette[((beakMemory.readMemory(0xFF47 + palette) & (3 << (colorNumber * 2))) >> (colorNumber * 2)) + (paletteSetting * 12) + (palette << 2)];
 
 
 	//The palette variable is being used to select the memory location of the palette
@@ -550,32 +550,37 @@ byte gpu::returnPalette(byte palette)
 void gpu::loadPalettesFromXML(ifstream file)
 {
 	string line;
-
-	list<int> colorValues;
+	list<byte> colorValues;
 
 	while (getline(file, line))
 	{
-		bool test1 = (line.find("<r>") != string::npos) && (line.find("</r>") != string::npos);
-		bool test2 = (line.find("<g>") != string::npos) && (line.find("</g>") != string::npos);
-		bool test3 = (line.find("<b>") != string::npos) && (line.find("</b>") != string::npos);
+		bool test1 = (line.find("<color1>") != string::npos) && (line.find("</color1>") != string::npos);
+		bool test2 = (line.find("<color2>") != string::npos) && (line.find("</color2>") != string::npos);
+		bool test3 = (line.find("<color3>") != string::npos) && (line.find("</color3>") != string::npos);
+		bool test4 = (line.find("<color4>") != string::npos) && (line.find("</color4>") != string::npos);
 
-		if (test1 || test2 || test3)
+		if (test1 || test2 || test3 || test4)
 		{
 			int first = line.find_first_of('>') + 1;
 			int last = line.find_last_of('<');
 
 			line = line.substr(first, last - first);
 
-			colorValues.push_back(stoi(line));
+			unsigned int r = stoi(line.substr(0, 2), 0, 16);
+			unsigned int g = stoi(line.substr(2, 2), 0, 16);
+			unsigned int b = stoi(line.substr(4, 2), 0, 16);
+
+			colorValues.push_back(r);
+			colorValues.push_back(g);
+			colorValues.push_back(b);
 		}
 	}
-
-	if ((colorValues.size() / 12) > 0)
+	if ((colorValues.size() / 36) > 0)
 	{
 		int paletteOffset = 0;
 		int colorOffset = 0;
 
-		while (colorValues.size() >= (3 * 4))
+		while (colorValues.size() >= (4*3))
 		{
 			for (int i = 0; i < 4; i++)
 			{

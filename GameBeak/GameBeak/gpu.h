@@ -18,7 +18,7 @@ private:
 	const Color lightestPink = Color(255, 241, 254, 255); //Pink WHITE
 
 public:
-	Color gameBeakPalette[400] = { lightestPink, lightPink, darkPink, darkestPink };
+	Color gameBeakPalette[4000] = { lightestPink, lightPink, darkPink, darkestPink };
 
 	gpu();
 	~gpu();
