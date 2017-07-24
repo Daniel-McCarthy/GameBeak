@@ -34,6 +34,7 @@ const int dreamGBC = 10;
 byte paletteSetting = 0;
 bool soundEnabled = false;
 bool tileDrawMode = false;
+bool fullMapScreenMode = false;
 
 Memory beakMemory = Memory();
 gpu beakGPU = gpu();
@@ -194,6 +195,23 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 						paused = true;
 						beakGPU.drawAllTiles();
 						beakWindow.drawImageToScreen(beakWindow.debugTileScreen);
+
+					}
+					else
+					{
+						beakWindow.drawImageToScreen(beakWindow.screen);
+						paused = false;
+					}
+				}
+
+				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::Y)
+				{
+					fullMapScreenMode = !fullMapScreenMode;
+
+					if (fullMapScreenMode)
+					{
+						paused = true;
+						beakWindow.drawFullScreenMaps();
 
 					}
 					else

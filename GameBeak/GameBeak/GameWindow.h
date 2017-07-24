@@ -27,6 +27,7 @@ public:
 	void setSpritePixel(int x, int y, Color color);
 	void setDebugPixel(int x, int y, Color color);
 	void drawScreenFromMaps(int scrollX, int ScrollY);
+	void drawFullScreenMaps();
 	void drawImageToScreen(Image image);
 	RenderWindow* window;
 	Texture texture;

@@ -400,6 +400,103 @@ void GameWindow::drawScreenFromMaps(int scrollX, int scrollY)
 	
 }
 
+void GameWindow::drawFullScreenMaps()
+{
+
+	Image fullScreen = Image();
+	fullScreen.create(256, 256, Color(0, 0, 0));
+
+	if (beakGPU.getBackGroundEnabled())
+	{
+		for (int x = 0; x < 256; x++)
+		{
+
+			for (int y = 0; y < 256; y++)
+			{
+				fullScreen.setPixel(x, y, bgPixels[x + (y * 256)]);
+			}
+
+		}
+	}
+
+	if (beakGPU.getWindowEnabled())
+	{
+		//Draw Window
+		int winX = beakGPU.getWindowX() - 7;
+		int winY = beakGPU.getWindowY();
+
+		bool yTest = (winY <= 256) && ((winY + 256) >= 0);
+		bool xTest = (winX < 256) && ((winX + 256) > 0);
+
+		if (xTest && yTest)
+		{
+			int xShift = 0;
+			int yShift = 0;
+			int x = 0;
+			int y = 0;
+
+			if (winX < 0)
+			{
+				xShift = 0 - winX;
+			}
+			else
+			{
+				x = winX;
+			}
+
+			if (winY < 0)
+			{
+				yShift = 0 - winY;
+			}
+			else
+			{
+				y = winY;
+			}
+
+			for (int i = 0; (i + x + xShift) < 160; i++)
+			{
+				for (int j = 0; (j + y + yShift) < 144; j++)
+				{
+					//fullScreen.setPixel(beakGPU.getScrollX() + (x + xShift + i) , beakGPU.getScrollY() + (y + yShift + j), windowPixels[(xShift + i) + ((yShift + j) * 256)]);
+					fullScreen.setPixel((x + xShift + i), (y + yShift + j), windowPixels[(xShift + i) + ((yShift + j) * 256)]);
+				}
+
+			}
+
+		}
+
+	}
+
+
+	//Draw Sprites
+	if (beakGPU.getSpriteEnabled())
+	{
+		int x = 0;
+		int y = 0;
+		while (y < 256)
+		{
+			if (spritePixels[((x)+((y) * 256))].a != 0)
+			{
+				//fullScreen.setPixel(beakGPU.getScrollX() + x, beakGPU.getScrollY() + y, spritePixels[(x)+(y * 256)]);
+				fullScreen.setPixel(x, y, spritePixels[(x)+(y * 256)]);
+			}
+
+			if (x < 255)
+			{
+				x++;
+			}
+			else
+			{
+				x = 0;
+				y++;
+			}
+
+		}
+	}
+
+	drawImageToScreen(fullScreen);
+}
+
 void GameWindow::drawImageToScreen(Image image)
 {
 	beakWindow.texture.loadFromImage(image);
