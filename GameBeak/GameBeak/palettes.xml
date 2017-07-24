@@ -1,343 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <colorschemes>
 
-
 	<scheme>
 		<name>BlackWhite</name>
-		
-		<bgp>
-			<color1>FFFFFFFF</color1>
-			<color2>B9B9B9FF</color2>
-			<color3>696969FF</color3>
-			<color4>000000FF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>FFFFFFFF</color1>
-			<color2>B9B9B9FF</color2>
-			<color3>696969FF</color3>
-			<color4>000000FF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>FFFFFFFF</color1>
-			<color2>B9B9B9FF</color2>
-			<color3>696969FF</color3>
-			<color4>000000FF</color4>
-		</0bp1>
-
+		<bgp>FFFFFFFF|B9B9B9FF|696969FF|000000FF</bgp>
+		<0bp0>FFFFFFFF|B9B9B9FF|696969FF|000000FF</0bp0>
+		<0bp1>FFFFFFFF|B9B9B9FF|696969FF|000000FF</0bp1>
 	</scheme>
-	
+
 	<scheme>
 		<name>Green</name>
-		
-		<bgp>
-			<color1>E0FFEBFF</color1>
-			<color2>88D058FF</color2>
-			<color3>34B73CFF</color3>
-			<color4>084703FF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>E0FFEBFF</color1>
-			<color2>88D058FF</color2>
-			<color3>34B73CFF</color3>
-			<color4>084703FF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>E0FFEBFF</color1>
-			<color2>88D058FF</color2>
-			<color3>34B73CFF</color3>
-			<color4>084703FF</color4>
-		</0bp1>
-
+		<bgp>E0FFEBFF|88D058FF|34B73CFF|084703FF</bgp>
+		<0bp0>E0FFEBFF|88D058FF|34B73CFF|084703FF</0bp0>
+		<0bp1>E0FFEBFF|88D058FF|34B73CFF|084703FF</0bp1>
 	</scheme>
-	
+
 	<scheme>
 		<name>Pink</name>
-		
-		<bgp>
-			<color1>FFF1FEFF</color1>
-			<color2>FFD6F5FF</color2>
-			<color3>FF83D9FF</color3>
-			<color4>48183BFF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>FFF1FEFF</color1>
-			<color2>FFD6F5FF</color2>
-			<color3>FF83D9FF</color3>
-			<color4>48183BFF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>FFF1FEFF</color1>
-			<color2>FFD6F5FF</color2>
-			<color3>FF83D9FF</color3>
-			<color4>48183BFF</color4>
-		</0bp1>
-
+		<bgp>FFF1FEFF|FFD6F5FF|FF83D9FF|48183BFF</bgp>
+		<0bp0>FFF1FEFF|FFD6F5FF|FF83D9FF|48183BFF</0bp0>
+		<0bp1>FFF1FEFF|FFD6F5FF|FF83D9FF|48183BFF</0bp1>
 	</scheme>
-	
+
 	<scheme>
 		<name>PinkAlt</name>
-		
-		<bgp>
-			<color1>FFF0F5FF</color1>
-			<color2>FFBADEFF</color2>
-			<color3>FF74D9FF</color3>
-			<color4>520528FF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>FFF0F5FF</color1>
-			<color2>FFBADEFF</color2>
-			<color3>FF74D9FF</color3>
-			<color4>520528FF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>FFF0F5FF</color1>
-			<color2>FFBADEFF</color2>
-			<color3>FF74D9FF</color3>
-			<color4>520528FF</color4>
-		</0bp1>
-
+		<bgp>FFF0F5FF|FFBADEFF|FF74D9FF|520528FF</bgp>
+		<0bp0>FFF0F5FF|FFBADEFF|FF74D9FF|520528FF</0bp0>
+		<0bp1>FFF0F5FF|FFBADEFF|FF74D9FF|520528FF</0bp1>
 	</scheme>
 
 	<scheme>
 		<name>BubbleGum</name>
-		
-		<bgp>
-			<color1>FFF0FEFF</color1>
-			<color2>FFBADEFF</color2>
-			<color3>FF60C2FF</color3>
-			<color4>6F0639FF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>FFF0FEFF</color1>
-			<color2>FFBADEFF</color2>
-			<color3>FF60C2FF</color3>
-			<color4>6F0639FF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>FFF0FEFF</color1>
-			<color2>FFBADEFF</color2>
-			<color3>FF60C2FF</color3>
-			<color4>6F0639FF</color4>
-		</0bp1>
-
+		<bgp>FFF0FEFF|FFBADEFF|FF60C2FF|6F0639FF</bgp>
+		<0bp0>FFF0FEFF|FFBADEFF|FF60C2FF|6F0639FF</0bp0>
+		<0bp1>FFF0FEFF|FFBADEFF|FF60C2FF|6F0639FF</0bp1>
 	</scheme>
-	
+
 	<scheme>
 		<name>GrapeCherry</name>
-		
-		<bgp>
-			<color1>FFE3FEFF</color1>
-			<color2>CBA0BAFF</color2>
-			<color3>975076FF</color3>
-			<color4>5A0033FF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>FFE3FEFF</color1>
-			<color2>CBA0BAFF</color2>
-			<color3>975076FF</color3>
-			<color4>5A0033FF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>FFE3FEFF</color1>
-			<color2>CBA0BAFF</color2>
-			<color3>975076FF</color3>
-			<color4>5A0033FF</color4>
-		</0bp1>
-
+		<bgp>FFE3FEFF|CBA0BAFF|975076FF|5A0033FF</bgp>
+		<0bp0>FFE3FEFF|CBA0BAFF|975076FF|5A0033FF</0bp0>
+		<0bp1>FFE3FEFF|CBA0BAFF|975076FF|5A0033FF</0bp1>
 	</scheme>
-	
+
 	<scheme>
 		<name>KiGB</name>
-		
-		<bgp>
-			<color1>9CB916FF</color1>
-			<color2>8CAA014FF</color2>
-			<color3>306430FF</color3>
-			<color4>103F10FF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>9CB916FF</color1>
-			<color2>8CAA014FF</color2>
-			<color3>306430FF</color3>
-			<color4>103F10FF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>9CB916FF</color1>
-			<color2>8CAA14FF</color2>
-			<color3>306430FF</color3>
-			<color4>103F10FF</color4>
-		</0bp1>
-
+		<bgp>9CB916FF|8CAA14FF|306430FF|103F10FF</bgp>
+		<0bp0>9CB916FF|8CAA14FF|306430FF|103F10FF</0bp0>
+		<0bp1>9CB916FF|8CAA14FF|306430FF|103F10FF</0bp1>
 	</scheme>
-	
+
 	<scheme>
 		<name>BGB</name>
-		
-		<bgp>
-			<color1>E0F8D0FF</color1>
-			<color2>88C070FF</color2>
-			<color3>346856FF</color3>
-			<color4>081820FF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>E0F8D0FF</color1>
-			<color2>88C070FF</color2>
-			<color3>346856FF</color3>
-			<color4>081820FF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>E0F8D0FF</color1>
-			<color2>88C070FF</color2>
-			<color3>346856FF</color3>
-			<color4>081820FF</color4>
-		</0bp1>
-
+		<bgp>E0F8D0FF|88C070FF|346856FF|081820FF</bgp>
+		<0bp0>E0F8D0FF|88C070FF|346856FF|081820FF</0bp0>
+		<0bp1>E0F8D0FF|88C070FF|346856FF|081820FF</0bp1>
 	</scheme>
-	
+
 	<scheme>
 		<name>NO$GMB</name>
-		
-		<bgp>
-			<color1>FCE88CFF</color1>
-			<color2>DCB45CFF</color2>
-			<color3>987C3CFF</color3>
-			<color4>4C3C1CFF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>FCE88CFF</color1>
-			<color2>DCB45CFF</color2>
-			<color3>987C3CFF</color3>
-			<color4>4C3C1CFF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>FCE88CFF</color1>
-			<color2>DCB45CFF</color2>
-			<color3>987C3CFF</color3>
-			<color4>4C3C1CFF</color4>
-		</0bp1>
-
+		<bgp>FCE88CFF|DCB45CFF|987C3CFF|4C3C1CFF</bgp>
+		<0bp0>FCE88CFF|DCB45CFF|987C3CFF|4C3C1CFF</0bp0>
+		<0bp1>FCE88CFF|DCB45CFF|987C3CFF|4C3C1CFF</0bp1>
 	</scheme>
-	
+
 	<scheme>
 		<name>PLAYGUY</name>
-		
-		<bgp>
-			<color1>FFEEACFF</color1>
-			<color2>ACA473FF</color2>
-			<color3>5A5239FF</color3>
-			<color4>000000FF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>FFEEACFF</color1>
-			<color2>ACA473FF</color2>
-			<color3>5A5239FF</color3>
-			<color4>000000FF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>FFEEACFF</color1>
-			<color2>ACA473FF</color2>
-			<color3>5A5239FF</color3>
-			<color4>000000FF</color4>
-		</0bp1>
-
+		<bgp>FFEEACFF|ACA473FF|5A5239FF|000000FF</bgp>
+		<0bp0>FFEEACFF|ACA473FF|5A5239FF|000000FF</0bp0>
+		<0bp1>FFEEACFF|ACA473FF|5A5239FF|000000FF</0bp1>
 	</scheme>
-	
+
 	<scheme>
 		<name>DREAMGBC</name>
-		
-		<bgp>
-			<color1>FFFFFFFF</color1>
-			<color2>00B2B5FF</color2>
-			<color3>00868CFF</color3>
-			<color4>000000FF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>FFFFFFFF</color1>
-			<color2>00B2B5FF</color2>
-			<color3>00868CFF</color3>
-			<color4>000000FF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>FFFFFFFF</color1>
-			<color2>00B2B5FF</color2>
-			<color3>00868CFF</color3>
-			<color4>000000FF</color4>
-		</0bp1>
-
+		<bgp>FFFFFFFF|00B2B5FF|00868CFF|000000FF</bgp>
+		<0bp0>FFFFFFFF|00B2B5FF|00868CFF|000000FF</0bp0>
+		<0bp1>FFFFFFFF|00B2B5FF|00868CFF|000000FF</0bp1>
 	</scheme>
-	
+
 	<scheme>
 		<name>HEBOWIN</name>
-		
-		<bgp>
-			<color1>FFFFFFFF</color1>
-			<color2>7FCC7FFF</color2>
-			<color3>3399B2FF</color3>
-			<color4>000000FF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>FFFFFFFF</color1>
-			<color2>7FCC7FFF</color2>
-			<color3>3399B2FF</color3>
-			<color4>000000FF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>FFFFFFFF</color1>
-			<color2>7FCC7FFF</color2>
-			<color3>3399B2FF</color3>
-			<color4>000000FF</color4>
-		</0bp1>
-
+		<bgp>FFFFFFFF|7FCC7FFF|3399B2FF|000000FF</bgp>
+		<0bp0>FFFFFFFF|7FCC7FFF|3399B2FF|000000FF</0bp0>
+		<0bp1>FFFFFFFF|7FCC7FFF|3399B2FF|000000FF</0bp1>
 	</scheme>
-	
+
 	<scheme>
 		<name>GBC UP A</name>
-		
-		<bgp>
-			<color1>FFFFFFFF</color1>
-			<color2>FFCCCCFF</color2>
-			<color3>7F3333FF</color3>
-			<color4>000000FF</color4>
-		</bgp>
-		
-		<0bp0>
-			<color1>FFFFFFFF</color1>
-			<color2>FFCCCCFF</color2>
-			<color3>7F3333FF</color3>
-			<color4>000000FF</color4>
-		</0bp0>
-		
-		<0bp1>
-			<color1>FFFFFFFF</color1>
-			<color2>CCFFCCFF</color2>
-			<color3>337F33FF</color3>
-			<color4>000000FF</color4>
-		</0bp1>
-
+		<bgp>FFFFFFFF|FFCCCCFF|7F3333FF|000000FF</bgp>
+		<0bp0>FFFFFFFF|FFCCCCFF|7F3333FF|000000FF</0bp0>
+		<0bp1>FFFFFFFF|CCFFCCFF|337F33FF|000000FF</0bp1>
 	</scheme>
-	
-</colorschemes>
+
+	</colorschemes>
