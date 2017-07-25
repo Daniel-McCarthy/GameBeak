@@ -5380,7 +5380,7 @@ void sharpCPU::opcodeCB18()
 	//Rotate B Right
 
 	byte oldBit = (beakMemory.getB() & 0x01);
-	beakMemory.setB((beakMemory.getA() >> 1) | (beakMemory.getCFlag() << 7));
+	beakMemory.setB((beakMemory.getB() >> 1) | (beakMemory.getCFlag() << 7));
 	beakMemory.setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5397,7 +5397,7 @@ void sharpCPU::opcodeCB19()
 	//Rotate C Right
 
 	byte oldBit = (beakMemory.getC() & 0x01);
-	beakMemory.setC((beakMemory.getA() >> 1) | (beakMemory.getCFlag() << 7));
+	beakMemory.setC((beakMemory.getC() >> 1) | (beakMemory.getCFlag() << 7));
 	beakMemory.setCFlag(oldBit > 0);
 
 	mClock += 2;
