@@ -236,10 +236,10 @@ class Memory
 		else if (address >= 0x4000 && address <= 0x5FFF)
 		{
 			//Set Ram Bank Number /OR/ Set Rom Bank Number 2 bits
-			if (bankingMode)
+			if (!bankingMode)
 			{
 				//Change Rom Bank
-				byte newBankNumber = ((romBankNumber & 0xFC) | (value & 0x03));
+				byte newBankNumber = ((romBankNumber & 0x1F) | ((value & 0x03) << 5));
 				if (romBankNumber != newBankNumber)
 				{
 					changeRomBanks(newBankNumber);
