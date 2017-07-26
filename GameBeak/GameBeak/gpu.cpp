@@ -719,15 +719,15 @@ ifstream gpu::openCreatePalettesXML()
 			file << "\t<scheme>" << endl;
 			file << "\t\t<name>HEBOWIN</name>" << endl;
 			file << "\t\t<bgp>FFFFFFFF|7FCC7FFF|3399B2FF|000000FF</bgp>" << endl;
-			file << "\t\t<0bp0>FFFFFFFF|7FCC7FFF|3399B2FF|000000FF</0bp0>" << endl;
+			file << "\t\t<0bp0>FFFFFFFF|FFCCCCFF|7F3333FF|000000FF</0bp0>" << endl;
 			file << "\t\t<0bp1>FFFFFFFF|7FCC7FFF|3399B2FF|000000FF</0bp1>" << endl;
 			file << "\t</scheme>\n" << endl;
 
 			file << "\t<scheme>" << endl;
 			file << "\t\t<name>GBC UP A</name>" << endl;
 			file << "\t\t<bgp>FFFFFFFF|FFCCCCFF|7F3333FF|000000FF</bgp>" << endl;
-			file << "\t\t<0bp0>FFFFFFFF|FFCCCCFF|7F3333FF|000000FF</0bp0>" << endl;
-			file << "\t\t<0bp1>FFFFFFFF|CCFFCCFF|337F33FF|000000FF</0bp1>" << endl;
+			file << "\t\t<0bp0>FFFFFFFF|CCFFCCFF|337F33FF|000000FF</0bp0>" << endl;
+			file << "\t\t<0bp1>FFFFFFFF|FFCCCCFF|7F3333FF|000000FF</0bp1>" << endl;
 			file << "\t</scheme>\n" << endl;
 
 			file << "\t</colorschemes>" << endl;
