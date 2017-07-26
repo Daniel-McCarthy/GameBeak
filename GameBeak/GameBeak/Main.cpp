@@ -265,7 +265,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 					log = "";
 				}
 			}
-			
+
+			if (!cpu.checkForHaltOrInterrupt())
+			{
+				cpu.selectOpcode(beakMemory.readMemory(memoryPointer++));
+			}
+			else
+			{
+				cpu.selectOpcode(0); //Gets stuck at a halt without this, because no cycles are occuring (no opcode is running) the vblank interrupt never occurs
+			}
 
 			
 			step = false;
@@ -280,14 +288,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 				beakAudio.updateSound();
 			}
 
-			if (!cpu.checkForHaltOrInterrupt())
-			{
-				cpu.selectOpcode(beakMemory.readMemory(memoryPointer++));
-			}
-			else
-			{
-				cpu.selectOpcode(0); //Gets stuck at a halt without this, because no cycles are occuring (no opcode is running) the vblank interrupt never occurs
-			}
+
+
 		}
 
 	}
