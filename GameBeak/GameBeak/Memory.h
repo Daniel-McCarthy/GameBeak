@@ -471,6 +471,7 @@ class Memory
 			paused = true;
 		}
 		*/
+
 		if (memoryControllerMode > 0 && address <= 0x7FFF)
 		{
 			if (memoryControllerMode <= 3)//if (memoryControllerMode == 1)
@@ -526,18 +527,9 @@ class Memory
 	
 	bool writeMemory(unsigned short address, short shortVal)
 	{
-		//TODO: Find out if this is writing backwards, since I have been needing to reverse shorts read in
-		//TODO: I have now reversed it, DOUBLE CHECK THIS! VITAL!!!
-		/*
-		if (writeBreakpoint && memoryPointer == writeBreakpointAddress)
-		{
-			paused = true;
-		}
-		*/
+
 		if (address >= 0x0 && address <= 0xFFFF)
 		{
-			//beakRam[address] = (shortVal & 0xFF00) >> 8;
-			//beakRam[address + 1] = (shortVal & 0x00FF);
 
 			if (address >= 0xC000 && address <= 0xDDFF)
 			{

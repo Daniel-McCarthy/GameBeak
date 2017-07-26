@@ -1723,15 +1723,6 @@ void sharpCPU::opcode04()
 	mClock += 1;
 	tClock += 4;
 
-	/*
-	//Are we sure? Opcode map implies this, Gambatte does not.
-	//Cpu manual says no flags set, but Gearboy does. No$GMB does
-	flagZ = (beakMemory.getB() == 0) ? 1 : 0;
-	flagN = 0;
-	flagH = ((beakMemory.getB() & 0x0F) == 0) ? 1 : 0;
-	flagC = 0;
-	*/
-
 	beakMemory.setZFlag((beakMemory.getB() == 0) ? 1 : 0);
 	beakMemory.setNFlag(false);
 	beakMemory.setHFlag((((beakMemory.getB()) & 0x0F) == 0) ? 1 : 0);
@@ -1894,7 +1885,7 @@ void sharpCPU::opcode0F()
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
+	beakMemory.setZFlag(false);
 	beakMemory.setNFlag(false);
 	beakMemory.setHFlag(false);
 
@@ -2745,7 +2736,7 @@ void sharpCPU::opcode5D()
 
 void sharpCPU::opcode5E()
 {
-	//Load data at HL into D
+	//Load data at HL into E
 	beakMemory.setE(beakMemory.readMemory(beakMemory.getHL()));
 	mClock += 2;
 	tClock += 8;
