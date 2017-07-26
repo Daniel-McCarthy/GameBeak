@@ -2112,25 +2112,342 @@ tuple<string, int> disassembleInstruction(short address)
 	return tuple<string, int>(opcodeString, bytesRead);
 }
 
-/*
-bool checkForAccessWriteBreakpoint(bool access, short accessAddress, bool write, short writeAddress)
+bool checkForWriteBreakpoint(bool &writeBreakpoint, bool &writeBreakpointValue, byte &breakpointValue, short &writeBreakpointAddress)
 {
-	byte opcode = beakMemory.readMemory(memoryPointer);
-	short operand = (beakMemory.readMemory(memoryPointer + 1)) | (beakMemory.readMemory(memoryPointer + 2) << 8);
 
-	switch (opcode)
+	if (writeBreakpoint)
 	{
-		case 0x00:
-		case 0x01:
+		switch (beakMemory.readMemory(memoryPointer))
 		{
-			if ((access && operand == accessAddress) || (write && operand == writeAddress))
+		case 0x02:
+		{
+			if (beakMemory.getBC() == writeBreakpointAddress)
 			{
-				return true;
+				if (writeBreakpointValue)
+				{
+					if (((beakMemory.readMemory(memoryPointer + 2) << 4) | beakMemory.readMemory(memoryPointer + 1)) == breakpointValue)
+					{
+						return true;
+					}
+
+				}
+				else
+				{
+					return true;
+				}
 			}
 			break;
 		}
+		case 0x08:
+		{
+			if (((beakMemory.readMemory(memoryPointer + 2) << 4) | beakMemory.readMemory(memoryPointer + 1)) == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if (beakMemory.getA() == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+		case 0x12:
+		{
+			if (beakMemory.getDE() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if (beakMemory.getA() == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+		}
+		case 0x36:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if (beakMemory.readMemory(memoryPointer + 1) == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+		case 0x22:
+		case 0x32:
+		case 0x77:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if (beakMemory.getA() == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+		case 0x70:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if (beakMemory.getB() == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+		case 0x71:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if (beakMemory.getC() == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+		case 0x72:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if (beakMemory.getD() == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+		case 0x73:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if (beakMemory.getE() == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+		case 0x74:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if (beakMemory.getH() == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+		case 0x75:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if (beakMemory.getL() == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+		case 0x34:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if ((beakMemory.readMemory(beakMemory.getHL()) - 1) == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+
+			break;
+		}
+		case 0x35:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if ((beakMemory.readMemory(beakMemory.getHL()) + 1) == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+		case 0xCB:
+		{
+
+			//Currently ignores breakpoint write value for CB functions
+			switch (beakMemory.readMemory(memoryPointer + 1))
+			{
+			case 0x0E:
+			case 0x16:
+			case 0x26:
+			case 0x2E:
+			case 0x36:
+			case 0x3E:
+			case 0xC6:
+			case 0xCE:
+			case 0xD6:
+			case 0xDE:
+			case 0xE6:
+			case 0xEE:
+			case 0xF6:
+			case 0xFE:
+			{
+				if (beakMemory.getHL() == writeBreakpointAddress)
+				{
+					if (!writeBreakpointValue)
+					{
+						return true;
+					}
+				}
+
+				break;
+			}
+			}
+			break;
+		}
+		case 0xA6:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if ((beakMemory.readMemory(beakMemory.getHL()) & beakMemory.getA()) == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+		case 0xAE:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if ((beakMemory.readMemory(beakMemory.getHL()) ^ beakMemory.getA()) == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+		case 0xB6:
+		{
+			if (beakMemory.getHL() == writeBreakpointAddress)
+			{
+				if (writeBreakpointValue)
+				{
+					if ((beakMemory.readMemory(beakMemory.getHL()) | beakMemory.getA()) == breakpointValue)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					return true;
+				}
+			}
+			break;
+		}
+
+		}
+
 	}
 
 	return false;
 }
-*/

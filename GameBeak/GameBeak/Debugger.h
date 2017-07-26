@@ -10,5 +10,6 @@ using namespace sf;
 #define DEBUGGERH
 
 tuple<string, int> disassembleInstruction(short address);
+bool checkForWriteBreakpoint(bool &writeBreakpoint, bool &writeBreakpointValue, byte &breakpointValue, short &writeBreakpointAddress);
 
 #endif // !DEBUGGERH

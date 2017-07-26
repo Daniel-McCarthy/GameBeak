@@ -53,8 +53,10 @@ short breakPointAt = (short)0x144E;
 bool accessBreakpoint = false;
 short accessBreakpointAddress = 0x0000;
 
-bool writeBreakpoint = false;
-short writeBreakpointAddress = 0x0000;
+bool writeBreakpoint = true;
+bool writeBreakpointValue = false;
+short writeBreakpointAddress = 0xFF40;
+byte breakpointValue = 0x03;
 
 //Initialize registers
 bool flagZ = false;
@@ -289,6 +291,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			}
 
 
+			if (checkForWriteBreakpoint(writeBreakpoint, writeBreakpointValue, breakpointValue, writeBreakpointAddress))
+			{
+				paused = true;
+			}
 
 		}
 
