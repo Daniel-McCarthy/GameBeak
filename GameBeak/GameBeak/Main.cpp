@@ -36,6 +36,7 @@ byte paletteSetting = 0;
 bool soundEnabled = false;
 bool tileDrawMode = false;
 bool fullMapScreenMode = false;
+byte filterSetting = 1;
 
 Memory beakMemory = Memory();
 gpu beakGPU = gpu();

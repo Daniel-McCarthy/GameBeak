@@ -383,14 +383,7 @@ void GameWindow::drawScreenFromMaps(int scrollX, int scrollY)
 		}
 	}
 
-	texture.loadFromImage(screen);
-
-	Sprite sprite(texture);
-	sprite.setScale(window->getView().getSize().x / sprite.getLocalBounds().width, window->getView().getSize().y / sprite.getLocalBounds().height);
-
-	window->clear();
-	window->draw(sprite);
-	window->display();
+	drawImageToScreen(screen);
 
 	for (int i = 0; i < (256 * 256); i++)
 	{
@@ -499,6 +492,11 @@ void GameWindow::drawFullScreenMaps()
 
 void GameWindow::drawImageToScreen(Image image)
 {
+	if (filterSetting > 0)
+	{
+		image = filterSelect(image, (byte)0);
+	}
+
 	beakWindow.texture.loadFromImage(image);
 
 	Sprite sprite(texture);

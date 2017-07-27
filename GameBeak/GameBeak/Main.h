@@ -43,5 +43,6 @@ extern bool paused;
 extern bool step;
 extern bool interruptNextCycle;
 extern byte paletteSetting;
+extern byte filterSetting;
 
 #endif // ! MAINH

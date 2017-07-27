@@ -161,6 +161,7 @@
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="gpu.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="PostProcessing.cpp" />
     <ClCompile Include="sharpCPU.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +174,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Memory.h" />
+    <ClInclude Include="PostProcessing.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sharpCPU.h" />
   </ItemGroup>

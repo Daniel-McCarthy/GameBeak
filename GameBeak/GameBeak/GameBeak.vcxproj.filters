@@ -54,6 +54,9 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="PostProcessing.cpp">
+      <Filter>Source Files\Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -89,11 +92,11 @@
     <ClInclude Include="Binary.h">
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="PostProcessing.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Beak3.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="ICON1.ico">
       <Filter>Resource Files</Filter>
     </Image>
