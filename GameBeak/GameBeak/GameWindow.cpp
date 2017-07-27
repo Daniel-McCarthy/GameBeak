@@ -494,7 +494,7 @@ void GameWindow::drawImageToScreen(Image image)
 {
 	if (filterSetting > 0)
 	{
-		image = filterSelect(image, (byte)0);
+		image = filterSelect(image, (byte)filterSetting);
 	}
 
 	beakWindow.texture.loadFromImage(image);

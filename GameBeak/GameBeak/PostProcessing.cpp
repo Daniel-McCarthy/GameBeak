@@ -525,78 +525,17 @@ Image rainbowFilter(Image screen)
 }
 
 
-
-
-/*
-for (int x = 0; x < 160; x++)
-{
-for (int y = 0; y < 144; y++)
-{
-Color blackPixel = beakGPU.returnColor(3);
-Color pixel1 = screen.getPixel(x, y);
-
-if (pixel1 == blackPixel)
-{
-if (y > 0)
-{
-if (x > 0)
-{
-if (screen.getPixel(x - 1, y - 1) == blackPixel) //if Up-Left pixel is black
-{
-screen.setPixel(x - 1, y, mixColors(pixel1, screen.getPixel(x - 1, y))); //Left
-}
-}
-
-if (x < 160)
-{
-if (screen.getPixel(x + 1, y - 1) == blackPixel) //if Up-Right pixel is black
-{
-screen.setPixel(x + 1, y, mixColors(pixel1, screen.getPixel(x + 1, y))); //Right
-}
-}
-
-//screen.setPixel(x, y - 1, mixColors(pixel1, screen.getPixel(x, y - 1))); //Up
-
-}
-
-if (y < 144)
-{
-if (x > 0)
-{
-if (screen.getPixel(x - 1, y + 1) == blackPixel) //if Down-Left pixel is black
-{
-screen.setPixel(x - 1, y, mixColors(pixel1, screen.getPixel(x - 1, y))); //Left
-}
-}
-
-if (x < 160)
-{
-if (screen.getPixel(x + 1, y + 1) == blackPixel) //if Down-Right pixel is black
-{
-screen.setPixel(x + 1, y, mixColors(pixel1, screen.getPixel(x + 1, y))); //Right
-}
-}
-
-//screen.setPixel(x, y + 1, mixColors(pixel1, screen.getPixel(x, y + 1))); //Down
-}
-}
-}
-}
-*/
-
-
-
 Image filterSelect(Image screen, byte filterNumber)
 {
-	if (filterNumber == 0)
+	if (filterNumber == 1)
 	{
 		return eagleFilter(screen);
 	}
-	if (filterNumber == 1)
+	if (filterNumber == 2)
 	{
 		return scale2XFilter(screen);
 	}
-	if (filterNumber == 2)
+	if (filterNumber == 3)
 	{
 		return scale3XFilter(screen);
 	}

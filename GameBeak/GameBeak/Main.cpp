@@ -36,7 +36,14 @@ byte paletteSetting = 0;
 bool soundEnabled = false;
 bool tileDrawMode = false;
 bool fullMapScreenMode = false;
-byte filterSetting = 1;
+
+//Post-Processing Settings
+const int NONE = 0;
+const int EAGLE = 1;
+const int SCALE2X = 2;
+const int SCALE3X = 3;
+
+byte filterSetting = NONE;
 
 Memory beakMemory = Memory();
 gpu beakGPU = gpu();
