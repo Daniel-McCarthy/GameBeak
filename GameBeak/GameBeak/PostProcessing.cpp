@@ -395,7 +395,7 @@ Image scale3XFilter(Image screen)
 	return scaledScreen;
 }
 
-Image blurFilter(Image screen)
+Image emboldenFilter(Image screen)
 {
 	for (int x = 0; x < 159; x++)
 	{
@@ -422,7 +422,7 @@ Image customFilter(Image screen)
 
 			if (pixel1 == blackPixel)
 			{
-				if (y < 144)
+				if (y < 143)
 				{
 					if (x > 0)
 					{
@@ -432,7 +432,7 @@ Image customFilter(Image screen)
 						}
 					}
 
-					if (x < 160)
+					if (x < 159)
 					{
 						if (screen.getPixel(x + 1, y + 1) == blackPixel) //if Down-Right pixel is black
 						{
@@ -446,6 +446,54 @@ Image customFilter(Image screen)
 		}
 	}
 
+	return screen;
+}
+
+Image blurFilter(Image screen)
+{
+	
+	for (int x = 0; x < 160; x++)
+	{
+		for (int y = 0; y < 144; y++)
+		{
+			Color pixel1 = screen.getPixel(x, y);
+
+			if (y > 0)
+			{
+				if (x > 0)
+				{
+					pixel1 = mixColors(pixel1, screen.getPixel(x - 1, y - 1)); //Up-Left
+					pixel1 = mixColors(pixel1, screen.getPixel(x - 1, y)); //Left
+				}
+
+				if (x < 159)
+				{
+					pixel1 = mixColors(pixel1, screen.getPixel(x + 1, y - 1)); //Up-Right
+					pixel1 = mixColors(pixel1, screen.getPixel(x + 1, y)); //Right
+				}
+
+				pixel1 = mixColors(pixel1, screen.getPixel(x, y - 1)); //Up
+
+			}
+
+			if (y < 143)
+			{
+				if (x > 0)
+				{
+					pixel1 = mixColors(pixel1, screen.getPixel(x - 1, y + 1)); //Down-Left
+				}
+
+				if (x < 160)
+				{
+					pixel1 = mixColors(pixel1, screen.getPixel(x + 1, y + 1)); //Down-Right
+				}
+
+				pixel1 = mixColors(pixel1, screen.getPixel(x, y + 1)); //Down
+			}
+
+			screen.setPixel(x, y, pixel1);
+		}
+	}
 	return screen;
 }
 
@@ -470,7 +518,7 @@ Image zigZagFilter(Image screen)
 						}
 					}
 
-					if (x < 160)
+					if (x < 159)
 					{
 						if (screen.getPixel(x + 1, y - 1) == blackPixel) //if Up-Right pixel is black
 						{
@@ -478,11 +526,9 @@ Image zigZagFilter(Image screen)
 						}
 					}
 
-					//screen.setPixel(x, y - 1, mixColors(pixel1, screen.getPixel(x, y - 1))); //Up
-
 				}
 
-				if (y < 144)
+				if (y < 143)
 				{
 					if (x > 0)
 					{
@@ -492,15 +538,13 @@ Image zigZagFilter(Image screen)
 						}
 					}
 
-					if (x < 160)
+					if (x < 159)
 					{
 						if (screen.getPixel(x + 1, y + 1) == blackPixel) //if Down-Right pixel is black
 						{
 							screen.setPixel(x + 1, y, mixColors(pixel1, screen.getPixel(x + 1, y), 2)); //Right
 						}
 					}
-
-					//screen.setPixel(x, y + 1, mixColors(pixel1, screen.getPixel(x, y + 1))); //Down
 				}
 			}
 		}
@@ -527,6 +571,7 @@ Image rainbowFilter(Image screen)
 
 Image filterSelect(Image screen, byte filterNumber)
 {
+
 	if (filterNumber == 1)
 	{
 		return eagleFilter(screen);
@@ -538,6 +583,22 @@ Image filterSelect(Image screen, byte filterNumber)
 	if (filterNumber == 3)
 	{
 		return scale3XFilter(screen);
+	}
+	if (filterNumber == 4)
+	{
+		return blurFilter(screen);
+	}
+	if (filterNumber == 5)
+	{
+		return customFilter(screen);
+	}
+	if (filterNumber == 6)
+	{
+		return zigZagFilter(screen);
+	}
+	if (filterNumber == 7)
+	{
+		return rainbowFilter(screen);
 	}
 	else
 	{
