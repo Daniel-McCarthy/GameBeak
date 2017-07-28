@@ -670,8 +670,8 @@ ifstream gpu::openCreatePalettesXML()
 			file << "\t<scheme>" << endl;
 			file << "\t\t<name>Ultra-Pink</name>" << endl;
 			file << "\t\t<bgp>52263EFF|FE04E8FF|CCE20AFF|AA7C94FF</bgp>" << endl;
-			file << "\t\t<0bp0>FE98B6FF|52263EFF|E69EB6FF|AA7C94FF</0bp0>" << endl;
-			file << "\t\t<0bp1>FE98B6FF|52263EFF|E69EB6FF|AA7C94FF</0bp1>" << endl;
+			file << "\t\t<0bp0>FE9EB6FF|52263EFF|E69EB6FF|AA7C94FF</0bp0>" << endl;
+			file << "\t\t<0bp1>FE9EB6FF|52263EFF|E69EB6FF|AA7C94FF</0bp1>" << endl;
 			file << "\t</scheme>\n" << endl;
 
 			file << "\t<scheme>" << endl;
