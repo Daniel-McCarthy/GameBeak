@@ -2929,7 +2929,17 @@ void sharpCPU::opcode75()
 void sharpCPU::opcode76()
 {
 	//Halt
-	halt = true;
+	
+	if (checkForInterrupt() && !interruptsEnabled) //If interrupt true while IME is disabled, repeat next opcode.
+	{
+		repeat = true;
+	}
+	else
+	{
+		halt = true; //Halt should only be set if the first case is not true.
+	}
+
+
 	mClock += 1;
 	tClock += 4;
 }
@@ -7909,6 +7919,8 @@ bool sharpCPU::checkForHaltOrInterrupt()
 		{
 			//End halt mode
 			halt = false;
+			mClock += 1;
+			tClock += 4;
 
 			if (interruptNextCycle)
 			{
@@ -7928,27 +7940,12 @@ bool sharpCPU::checkForHaltOrInterrupt()
 	}
 	else
 	{
-		//This functionality has been moved to the start of the opcode execution functionality. This is because in order to properly implement the memoryPointer (PC) not incrementing for the
-		//first cycle after halt while DI I have to decrement after the opcode is read, and before the opcode is executed. This allows for single opcode instructions be repeated and opcodes with
-		//operands use the opcode itself as the first operand as happens on the DMG
 		
 		if (halt)
 		{
-			//CPU docs say next opcode is repeated, but also say next is skipped
-			//AntonioND's doc says that if interrupts are disabled then it continues
-			//executing, but seems to imply halt is still left on for the next time EI happens
-
-			//memoryPointer--; //SHOULD stop system clock //Should return when interrupted //Halting when interrupts enabled have strange effects http://www.devrs.com/gb/files/gbspec.txt
-			//return true;
-			//halt = true;
-
-			//If interrupts are disabled, and a halt is initiated, the next opcode should be skipped
-			//memoryPointer = get<1>(disassembleInstruction(memoryPointer));
-
-			//halt = false; //Not sure? This is probablys supposed to occur
-
-			//Should execute next opcode twice. In other words, if halting when interrupts are disabled, the memoryPointer should not increment the first cycle after.
-			//repeat = true;
+			halt = false; 
+			mClock += 1;
+			tClock += 4;
 
 			return true; //BGB and No$GB never escape DI+Halt
 		}
