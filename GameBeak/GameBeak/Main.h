@@ -41,7 +41,7 @@ extern int memoryControllerMode;
 extern bool run;
 extern bool paused;
 extern bool step;
-extern bool interruptNextCycle;
+extern bool enableInterruptsNextCycle;
 extern byte paletteSetting;
 extern byte filterSetting;
 

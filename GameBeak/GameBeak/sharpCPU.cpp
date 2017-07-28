@@ -17,6 +17,12 @@ void sharpCPU::selectOpcode(byte opcode)
 		repeat = false;
 	}
 
+	if (enableInterruptsNextCycle)
+	{
+		enableInterruptsNextCycle = false;
+		interruptsEnabled = true;
+	}
+
 	switch (opcode & 0xF0)
 	{
 		case 0x00:
@@ -2942,7 +2948,6 @@ void sharpCPU::opcode76()
 		halt = true; //Halt should only be set if the first case is not true.
 	}
 
-
 	mClock += 1;
 	tClock += 4;
 }
@@ -4924,7 +4929,8 @@ void sharpCPU::opcodeFA(short nn)
 void sharpCPU::opcodeFB()
 {
 	//Enable Interrupts
-	interruptsEnabled = true;
+	enableInterruptsNextCycle = true;
+	//interruptsEnabled = true;
 	mClock += 1;
 	tClock += 4;
 }
@@ -7899,12 +7905,6 @@ void sharpCPU::executeInterrupt()
 
 	mClock += 5;
 	tClock += 20;
-
-	if (halt)
-	{
-		mClock += 1;
-		tClock += 4;
-	}
 }
 
 bool sharpCPU::checkForHaltOrInterrupt()
@@ -7919,20 +7919,15 @@ bool sharpCPU::checkForHaltOrInterrupt()
 		if (checkForInterrupt())
 		{
 			//End halt mode
-			halt = false;
-			mClock += 1;
-			tClock += 4;
+			if (halt)
+			{
+				halt = false;
+				mClock += 1;
+				tClock += 4;
+			}
 
-			if (interruptNextCycle)
-			{
-				executeInterrupt();
-				interruptNextCycle = false; 
-				return true; //Temporary? This allows the opcode it is jumped to to be logged/shown in debugger instead of appearing skipped. Could cause a side effect by skipping a loop?
-			}
-			else
-			{
-				interruptNextCycle = true;
-			}
+			executeInterrupt();
+			return true; //Temporary? This allows the opcode it is jumped to to be logged/shown in debugger instead of appearing skipped. Could cause a side effect by skipping a loop?
 		}
 		else if(halt)
 		{

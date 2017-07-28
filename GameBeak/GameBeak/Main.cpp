@@ -15,6 +15,7 @@ DebuggerWindow* debugWindow;
 short memoryPointer = 0x100;
 short stackPointer = 0;
 bool run = true;
+bool enableInterruptsNextCycle = false;
 bool interruptNextCycle = false;
 
 //Palette Values:
