@@ -568,6 +568,20 @@ Image rainbowFilter(Image screen)
 	return screen;
 }
 
+Image lcdFilter1(Image screen)
+{
+
+	for (int y = 0; y < 144; y += 2)
+	{
+		for (int x = 0; x < 160; x++)
+		{
+			screen.setPixel(x, y, mixColors(screen.getPixel(x, y), Color(50, 50, 50, 255)));
+		}
+	}
+
+	return screen;
+}
+
 
 Image filterSelect(Image screen, byte filterNumber)
 {
@@ -599,6 +613,10 @@ Image filterSelect(Image screen, byte filterNumber)
 	if (filterNumber == 7)
 	{
 		return rainbowFilter(screen);
+	}
+	if (filterNumber == 8)
+	{
+		return lcdFilter1(screen);
 	}
 	else
 	{
