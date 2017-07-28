@@ -1479,7 +1479,7 @@ void sharpCPU::selectOpcode(byte opcode)
 				}
 				case 0xC:
 				{
-					//Does not exist
+					opcodeDC((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 0xD:
