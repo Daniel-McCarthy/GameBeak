@@ -4618,7 +4618,25 @@ void sharpCPU::opcodeDA(short nn)
 
 //Opcode DB does not exist?
 
-//Opcode DC does not exist?
+void sharpCPU::opcodeDC(short nn)
+{
+	//Call nn if Carry
+	if (beakMemory.getCFlag())
+	{
+		stackPointer -= 2;
+		beakMemory.writeMemory(stackPointer, memoryPointer);
+		memoryPointer = nn;
+		mClock += 6;
+		tClock += 24;
+	}
+	else
+	{
+		mClock += 3;
+		tClock += 12;
+	}
+}
+
+//Opcode DD does not exist?
 
 void sharpCPU::opcodeDE(byte n)
 {

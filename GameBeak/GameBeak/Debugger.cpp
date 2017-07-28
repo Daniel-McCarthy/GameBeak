@@ -1822,9 +1822,12 @@ tuple<string, int> disassembleInstruction(short address)
 		}
 		case 0xC:
 		{
-			//DC not implemented
-			opcodeString = "DC UNDEFINED";
-			bytesRead = 1;
+			short argument = ((beakMemory.readMemory(address + 1)) | (beakMemory.readMemory(address + 2) << 8));
+			ss << hex << argument;
+			string hexArgument = ss.str();
+			opcodeString = "DC " + hexArgument + " call c, " + hexArgument;
+			bytesRead = 3;
+			ss.str("");
 			break;
 		}
 		case 0xD:

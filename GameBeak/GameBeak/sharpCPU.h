@@ -244,6 +244,7 @@ public:
 	void opcodeD8();
 	void opcodeD9();
 	void opcodeDA(short nn);
+	void opcodeDC(short nn);
 	void opcodeDE(byte n);
 	void opcodeDF();
 	void opcodeE0(byte n);
