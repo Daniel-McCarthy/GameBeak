@@ -668,10 +668,10 @@ ifstream gpu::openCreatePalettesXML()
 			file << "\t</scheme>\n" << endl;
 
 			file << "\t<scheme>" << endl;
-			file << "\t\t<name>BubbleGum</name>" << endl;
-			file << "\t\t<bgp>FFF0FEFF|FFBADEFF|FF60C2FF|6F0639FF</bgp>" << endl;
-			file << "\t\t<0bp0>FFF0FEFF|FFBADEFF|FF60C2FF|6F0639FF</0bp0>" << endl;
-			file << "\t\t<0bp1>FFF0FEFF|FFBADEFF|FF60C2FF|6F0639FF</0bp1>" << endl;
+			file << "\t\t<name>Ultra-Pink</name>" << endl;
+			file << "\t\t<bgp>52263EFF|FE04E8FF|CCE20AFF|AA7C94FF</bgp>" << endl;
+			file << "\t\t<0bp0>FE98B6FF|52263EFF|E69EB6FF|AA7C94FF</0bp0>" << endl;
+			file << "\t\t<0bp1>FE98B6FF|52263EFF|E69EB6FF|AA7C94FF</0bp1>" << endl;
 			file << "\t</scheme>\n" << endl;
 
 			file << "\t<scheme>" << endl;
