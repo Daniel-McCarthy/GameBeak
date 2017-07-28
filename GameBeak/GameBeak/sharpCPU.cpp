@@ -1774,8 +1774,8 @@ void sharpCPU::opcode07()
 	//beakMemory.setA(beakMemory.getA() << 1);
 	beakMemory.setA(rotateLeft(beakMemory.getA()));
 
-	mClock += 2;
-	tClock += 8;
+	mClock += 1;
+	tClock += 4;
 
 	beakMemory.setNFlag(false);
 	beakMemory.setHFlag(false);
@@ -1882,8 +1882,8 @@ void sharpCPU::opcode0F()
 	beakMemory.setCFlag( (beakMemory.getA() & 0x01) > 0);
 	beakMemory.setA(rotateRight(beakMemory.getA()));
 
-	mClock += 2;
-	tClock += 8;
+	mClock += 1;
+	tClock += 4;
 
 	beakMemory.setZFlag(false);
 	beakMemory.setNFlag(false);
@@ -1897,7 +1897,7 @@ void sharpCPU::opcode11(short nn)
 {
 	//Load short into DE
 	beakMemory.setDE(nn);
-	mClock += 4;
+	mClock += 3;
 	tClock += 12;
 }
 
@@ -1905,7 +1905,7 @@ void sharpCPU::opcode12()
 {
 	//Load A into data at DE
 	beakMemory.writeMemory(beakMemory.getDE(), beakMemory.getA());
-	mClock += 1;
+	mClock += 2;
 	tClock += 8;
 }
 
@@ -1965,8 +1965,8 @@ void sharpCPU::opcode17()
 	beakMemory.setZFlag(false); 
 	beakMemory.setHFlag(false);
 	beakMemory.setNFlag(false);
-	mClock += 2;
-	tClock += 8;
+	mClock += 1;
+	tClock += 4;
 
 }
 
@@ -1974,8 +1974,8 @@ void sharpCPU::opcode18(char n) //signed byte
 {
 	//Jump Relative to n
 	memoryPointer += (signed char)n;
-	mClock += 1;
-	tClock += 4;
+	mClock += 3;
+	tClock += 12;
 }
 
 void sharpCPU::opcode19()
@@ -2069,8 +2069,8 @@ void sharpCPU::opcode1F()
 	byte cFlag = (beakMemory.getCFlag() == true) ? 0x80 : 0x00;
 	beakMemory.setCFlag((((beakMemory.getA() & 0x80) >> 7) == 1) ? true : false);
 	beakMemory.setA((beakMemory.getA() >> 1) | cFlag);
-	mClock += 2;
-	tClock += 8;
+	mClock += 1;
+	tClock += 4;
 
 	beakMemory.setZFlag(false);
 	beakMemory.setHFlag(false);
@@ -2204,6 +2204,9 @@ void sharpCPU::opcode27()
 	beakMemory.setHFlag(false);
 	beakMemory.setZFlag(aValue == 0);
 	beakMemory.setA(aValue & 0xFF);
+
+	mClock += 1;
+	tClock += 4;
 }
 
 void sharpCPU::opcode28(byte n)
@@ -2882,48 +2885,48 @@ void sharpCPU::opcode70()
 {
 	//Load B into data at HL
 	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getB());
-	mClock += 1;
-	tClock += 4;
+	mClock += 2;
+	tClock += 8;
 }
 
 void sharpCPU::opcode71()
 {
 	//Load C into data at HL
 	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getC());
-	mClock += 1;
-	tClock += 4;
+	mClock += 2;
+	tClock += 8;
 }
 
 void sharpCPU::opcode72()
 {
 	//Load D into data at HL
 	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getD());
-	mClock += 1;
-	tClock += 4;
+	mClock += 2;
+	tClock += 8;
 }
 
 void sharpCPU::opcode73()
 {
 	//Load E into data at HL
 	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getE());
-	mClock += 1;
-	tClock += 4;
+	mClock += 2;
+	tClock += 8;
 }
 
 void sharpCPU::opcode74()
 {
 	//Load H into data at HL
 	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getH());
-	mClock += 1;
-	tClock += 4;
+	mClock += 2;
+	tClock += 8;
 }
 
 void sharpCPU::opcode75()
 {
 	//Load L into data at HL
 	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getL());
-	mClock += 1;
-	tClock += 4;
+	mClock += 2;
+	tClock += 8;
 }
 
 void sharpCPU::opcode76()
@@ -3178,8 +3181,8 @@ void sharpCPU::opcode86()
 		//beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
 		beakMemory.setCFlag(false);
 	}
-	mClock += 1;
-	tClock += 4;
+	mClock += 2;
+	tClock += 8;
 
 	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
 	beakMemory.setNFlag(false);
@@ -3202,8 +3205,8 @@ void sharpCPU::opcode87()
 		//beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
 		beakMemory.setCFlag(false);
 	}
-	mClock += 2;
-	tClock += 8;
+	mClock += 1;
+	tClock += 4;
 
 	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
 	beakMemory.setNFlag(false);
@@ -3582,8 +3585,8 @@ void sharpCPU::opcode96()
 		//beakMemory.setCFlag(false);
 	}
 
-	mClock += 1;
-	tClock += 4;
+	mClock += 2;
+	tClock += 8;
 
 	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
 	beakMemory.setNFlag(true);
@@ -3609,8 +3612,8 @@ void sharpCPU::opcode97()
 		//beakMemory.setCFlag(false);
 	}
 
-	mClock += 2;
-	tClock += 8;
+	mClock += 1;
+	tClock += 4;
 
 	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
 	beakMemory.setNFlag(true);
@@ -3770,8 +3773,8 @@ void sharpCPU::opcode9E()
 		beakMemory.setCFlag(false);
 	}
 
-	mClock += 1;
-	tClock += 4;
+	mClock += 2;
+	tClock += 8;
 
 	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
 	beakMemory.setNFlag(true);
@@ -3793,8 +3796,8 @@ void sharpCPU::opcode9F()
 		beakMemory.setCFlag(false);
 	}
 
-	mClock += 2;
-	tClock += 8;
+	mClock += 1;
+	tClock += 4;
 
 	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
 	beakMemory.setNFlag(true);
@@ -4624,8 +4627,6 @@ void sharpCPU::opcodeDA(short nn)
 	}
 }
 
-//Opcode DA does not exist?
-
 //Opcode DB does not exist?
 
 void sharpCPU::opcodeDC(short nn)
@@ -4908,7 +4909,7 @@ void sharpCPU::opcodeF9()
 {
 	//Load SP into HL
 	stackPointer = beakMemory.getHL();
-	mClock += 1;
+	mClock += 2;
 	tClock += 8;
 }
 
@@ -4924,7 +4925,7 @@ void sharpCPU::opcodeFB()
 {
 	//Enable Interrupts
 	interruptsEnabled = true;
-	mClock += 2;
+	mClock += 1;
 	tClock += 4;
 }
 //Opcode FC doesn't exist?
@@ -7543,8 +7544,8 @@ void sharpCPU::opcodeCBE6()
 	//Set Bit 4 of data at HL
 	short hl = beakMemory.getHL();
 	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) | 0x10));
-	mClock += 2;
-	tClock += 8;
+	mClock += 3;
+	tClock += 12;
 }
 
 void sharpCPU::opcodeCBE7()
