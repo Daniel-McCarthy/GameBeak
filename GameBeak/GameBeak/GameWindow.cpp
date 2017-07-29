@@ -1,4 +1,5 @@
 #include "GameWindow.h"
+#include "PostProcessing.h"
 #include "Main.h"
 #include <Windows.h>
 #include <SFML\System.hpp>
