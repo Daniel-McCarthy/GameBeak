@@ -22,6 +22,7 @@ public:
 
 	void updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshClocksSinceLastUpdate);
 	void setIcon(int width, int height, string path);
+	Color getBGPixel(int x, int y);
 	void setBGPixel(int x, int y, Color color);
 	void setWindowPixel(int x, int y, Color color);
 	void setSpritePixel(int x, int y, Color color);

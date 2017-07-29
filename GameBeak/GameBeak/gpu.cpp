@@ -396,6 +396,11 @@ void gpu::drawLineFromSpriteMap(int lineY)
 	bool xFlip = false;
 	bool palette = false;
 
+	byte scrollX = getScrollX();
+	byte scrollY = getScrollY();
+
+	Color bgColor = returnColor(0, 0);
+
 	for (int i = 0; i < 40; i++)
 	{
 		y = beakMemory.readMemory(mapAddress + (i * 4));
@@ -441,12 +446,13 @@ void gpu::drawLineFromSpriteMap(int lineY)
 				for (int j = 0; j < 8; j++)
 				{
 					byte colorNumber = ((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6);
-					Color color;
 
 					if (colorNumber > 0)
 					{
-						color = returnColor(colorNumber, palette + 1);
-						beakWindow.setSpritePixel(x + j, lineY, color);
+						if (!priority || (priority && (beakWindow.getBGPixel(scrollX + x + j, lineY + scrollY) == bgColor)))
+						{
+							beakWindow.setSpritePixel(x + j, lineY, returnColor(colorNumber, palette + 1));
+						}
 					}
 
 					rowHalf1 <<= 1;

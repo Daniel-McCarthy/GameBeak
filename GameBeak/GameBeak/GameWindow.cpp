@@ -265,6 +265,11 @@ void GameWindow::setBGPixel(int x, int y, Color color)
 	bgPixels[x + (y * 256)] = color;
 }
 
+Color GameWindow::getBGPixel(int x, int y)
+{
+	return bgPixels[x + (y * 256)];
+}
+
 void GameWindow::setWindowPixel(int x, int y, Color color)
 {
 	windowPixels[x + (y * 256)] = color;
