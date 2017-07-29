@@ -413,7 +413,7 @@ void DebuggerWindow::displayRegisters()
 	"\n" + "(IF) FF0F: " + interruptIF +
 	"\n" + "(TIMA) FF05: " + tima +
 	"\n" + "(ScrollX) FF43: " + scrollX +
-	"\n" + "(ScrollY) FF042: " + scrollY);
+	"\n" + "(ScrollY) FF42: " + scrollY);
 }
 
 void DebuggerWindow::displayMemory()
