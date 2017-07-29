@@ -486,9 +486,14 @@ class Memory
 			//if (address >= 0 && address <= 0xFFFF)
 			if (address >= 0x8000 && address <= 0xFFFF)
 			{
-				if (address == 0xFF46)
+				if (address == (unsigned short)0xFF46)
 				{
 					transferDMA(byte);
+				}
+				if (address == (unsigned short)0xFF41)
+				{
+					beakRam[address] = ((beakRam[0xFF41] & 0x87) | (byte & 0x78) | 0x01); //Bit 7 is always 1, Bit 0, 1, and 2 are read Only
+					//&0x87 clears bits 3, 4, 5, 6 from Stat. &0xF8 clears all but bit bit 0, 1, 2, and 7 from value being written.
 				}
 				else
 				{
