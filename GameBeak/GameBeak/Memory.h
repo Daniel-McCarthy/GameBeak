@@ -916,43 +916,43 @@ class Memory
 			}
 		}
 
+		beakRam[(unsigned short)0xFF00] = ((byte)0xCF); //Joypad
+		beakRam[(unsigned short)0xFF04] = ((byte)0xAB);
+		beakRam[(unsigned short)0xFF05] = ((byte)0x00); //TIMA
+		beakRam[(unsigned short)0xFF06] = ((byte)0x00); //TMA
+		beakRam[(unsigned short)0xFF07] = ((byte)0x00); //TAC
+		beakRam[(unsigned short)0xFF0F] = ((byte)0xE1); //IF
+		beakRam[(unsigned short)0xFF10] = ((byte)0x80); //NR10
+		beakRam[(unsigned short)0xFF11] = ((byte)0xBF); //NR11
+		beakRam[(unsigned short)0xFF12] = ((byte)0xF3); //NR12
+		beakRam[(unsigned short)0xFF14] = ((byte)0xBF); //NR14
+		beakRam[(unsigned short)0xFF16] = ((byte)0x3F); //NR21
+		beakRam[(unsigned short)0xFF17] = ((byte)0x00); //NR22
+		beakRam[(unsigned short)0xFF19] = ((byte)0xBF); //NR24
+		beakRam[(unsigned short)0xFF1A] = ((byte)0x7F); //NR30
+		beakRam[(unsigned short)0xFF1B] = ((byte)0xFF); //NR31
+		beakRam[(unsigned short)0xFF1C] = ((byte)0x9F); //NR32
+		beakRam[(unsigned short)0xFF1E] = ((byte)0xBF); //NR33
+		beakRam[(unsigned short)0xFF20] = ((byte)0xFF); //NR41
+		beakRam[(unsigned short)0xFF21] = ((byte)0x00); //NR42
+		beakRam[(unsigned short)0xFF22] = ((byte)0x00); //NR43
+		beakRam[(unsigned short)0xFF23] = ((byte)0xBF); //NR30
+		beakRam[(unsigned short)0xFF24] = ((byte)0x77); //NR50
+		beakRam[(unsigned short)0xFF25] = ((byte)0xF3); //NR51
+		beakRam[(unsigned short)0xFF26] = ((byte)0xF1); //NR52 //F1 for GB //F0 for SGB
+		beakRam[(unsigned short)0xFF40] = ((byte)0x91); //LCD Ctrl
+		beakRam[(unsigned short)0xFF41] = ((byte)0x85); //LCD Status
+		beakRam[(unsigned short)0xFF42] = ((byte)0x00); //SCY
+		beakRam[(unsigned short)0xFF43] = ((byte)0x00); //SCX
+		beakRam[(unsigned short)0xFF44] = ((byte)0x00); //LY
+		beakRam[(unsigned short)0xFF45] = ((byte)0x00); //LYC
+		beakRam[(unsigned short)0xFF47] = ((byte)0xFC); //BGP
+		beakRam[(unsigned short)0xFF48] = ((byte)0xFF); //OBP0
+		beakRam[(unsigned short)0xFF49] = ((byte)0xFF); //0BP1
+		beakRam[(unsigned short)0xFF4A] = ((byte)0x00); //WY
+		beakRam[(unsigned short)0xFF4B] = ((byte)0x00); //WX
+		beakRam[(unsigned short)0xFFFF] = ((byte)0x00); //IE
 		
-		writeMemory((short)0xFF04, (byte)0xAB);
-		writeMemory((short)0xFF05, (byte)0x00); //TIMA
-		writeMemory((short)0xFF06, (byte)0x00); //TMA
-		writeMemory((short)0xFF07, (byte)0x00); //TAC
-		writeMemory((short)0xFF0F, (byte)0xE1); //IF
-		writeMemory((short)0xFF10, (byte)0x80); //NR10
-		writeMemory((short)0xFF11, (byte)0xBF); //NR11
-		writeMemory((short)0xFF12, (byte)0xF3); //NR12
-		writeMemory((short)0xFF14, (byte)0xBF); //NR14
-		writeMemory((short)0xFF16, (byte)0x3F); //NR21
-		writeMemory((short)0xFF17, (byte)0x00); //NR22
-		writeMemory((short)0xFF19, (byte)0xBF); //NR24
-		writeMemory((short)0xFF1A, (byte)0x7F); //NR30
-		writeMemory((short)0xFF1B, (byte)0xFF); //NR31
-		writeMemory((short)0xFF1C, (byte)0x9F); //NR32
-		writeMemory((short)0xFF1E, (byte)0xBF); //NR33
-		writeMemory((short)0xFF20, (byte)0xFF); //NR41
-		writeMemory((short)0xFF21, (byte)0x00); //NR42
-		writeMemory((short)0xFF22, (byte)0x00); //NR43
-		writeMemory((short)0xFF23, (byte)0xBF); //NR30
-		writeMemory((short)0xFF24, (byte)0x77); //NR50
-		writeMemory((short)0xFF25, (byte)0xF3); //NR51
-		writeMemory((short)0xFF26, (byte)0xF1); //NR52 //F1 for GB //F0 for SGB
-		writeMemory((short)0xFF40, (byte)0x91); //LCD Ctrl
-		writeMemory((short)0xFF41, (byte)0x85); //LCD Status
-		writeMemory((short)0xFF42, (byte)0x00); //SCY
-		writeMemory((short)0xFF43, (byte)0x00); //SCX
-		writeMemory((short)0xFF44, (byte)0x00); //LY
-		writeMemory((short)0xFF45, (byte)0x00); //LYC
-		writeMemory((short)0xFF47, (byte)0xFC); //BGP
-		writeMemory((short)0xFF48, (byte)0xFF); //OBP0
-		writeMemory((short)0xFF49, (byte)0xFF); //0BP1
-		writeMemory((short)0xFF4A, (byte)0x00); //WY
-		writeMemory((short)0xFF4B, (byte)0x00); //WX
-		writeMemory((short)0xFFFF, (byte)0x00); //IE
-
 
 	}
 
