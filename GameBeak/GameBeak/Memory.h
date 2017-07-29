@@ -462,6 +462,16 @@ class Memory
 		}
 	}
 
+	void directMemoryWrite(unsigned short address, uint8_t byte)
+	{
+		/*
+			Write to Ram without ordinary restrictions. Only to be used by hardware emulating functions and not game instructions.
+		*/
+
+		beakRam[address] = byte;
+
+	}
+
 	bool writeMemory(unsigned short address, uint8_t byte)
 	{
 		//TODO: Rethink error checking for addresses, 4096 is silly restriction, can't access whole ram map
@@ -492,7 +502,7 @@ class Memory
 				}
 				if (address == (unsigned short)0xFF41)
 				{
-					beakRam[address] = ((beakRam[0xFF41] & 0x87) | (byte & 0x78) | 0x01); //Bit 7 is always 1, Bit 0, 1, and 2 are read Only
+					beakRam[address] = ((beakRam[address] & 0x87) | (byte & 0x78) | 0x80); //Bit 7 is always 1, Bit 0, 1, and 2 are read Only
 					//&0x87 clears bits 3, 4, 5, 6 from Stat. &0xF8 clears all but bit bit 0, 1, 2, and 7 from value being written.
 				}
 				else

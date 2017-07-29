@@ -21,12 +21,12 @@ byte gpu::getLCDStatus()
 
 void gpu::setLCDStatus(byte newStatus)
 {
-	beakMemory.writeMemory(0xFF41, newStatus);
+	beakMemory.directMemoryWrite(0xFF41, newStatus);
 }
 
 void gpu::setLCDMode(byte status)
 {
-	beakMemory.writeMemory(0xFF41, (byte)((getLCDStatus() & 0xFC) | status));
+	beakMemory.directMemoryWrite(0xFF41, (byte)((getLCDStatus() & 0xFC) | status));
 }
 
 byte gpu::getLCDMode()
