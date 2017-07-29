@@ -82,7 +82,13 @@ class Memory
 		{
 			//MBC1
 			writeRom0ToRam();
-			changeRomBanks(1);
+			changeMBC1RomBanks(1);
+		}
+		else if (memoryControllerMode <= 6)
+		{
+			//MBC2
+			writeRom0ToRam();
+			changeMBC2RomBanks(1);
 		}
 		else
 		{
@@ -167,22 +173,48 @@ class Memory
 		}
 	}
 
-	void changeRomBanks(int bankNumber)
+	void changeMBC1RomBanks(int bankNumber)
 	{
 		if (bankNumber == 0 || bankNumber == 20 || bankNumber == 40 || bankNumber == 60)
 		{
 			bankNumber++;
 		}
 
-		int bankAddress = 0x4000 * bankNumber;
-
-		int fixedBankAddress = 0x4000;
-		for (int i = 0; i < 0x4000; i++)
+		if ((bankNumber >= 0) && (bankNumber <= 0x7F))
 		{
-			beakRam[fixedBankAddress + i] = beakRom[bankAddress + i];
+
+			int bankAddress = 0x4000 * bankNumber;
+
+			int fixedBankAddress = 0x4000;
+			for (int i = 0; i < 0x4000; i++)
+			{
+				beakRam[fixedBankAddress + i] = beakRom[bankAddress + i];
+			}
+
+			romBankNumber = bankNumber;
+		}
+	}
+
+	void changeMBC2RomBanks(int bankNumber)
+	{
+		if (bankNumber == 0)
+		{
+			bankNumber++;
 		}
 
-		romBankNumber = bankNumber;
+		if ((bankNumber >= 0) && (bankNumber <= 0x0F))
+		{
+
+			int bankAddress = 0x4000 * bankNumber;
+
+			int fixedBankAddress = 0x4000;
+			for (int i = 0; i < 0x4000; i++)
+			{
+				beakRam[fixedBankAddress + i] = beakRom[bankAddress + i];
+			}
+
+			romBankNumber = bankNumber;
+		}
 	}
 
 	void changeRamBanks(int bankNumber)
@@ -229,7 +261,7 @@ class Memory
 
 			if (romBankNumber != newBankNumber)
 			{
-				changeRomBanks(newBankNumber);
+				changeMBC1RomBanks(newBankNumber);
 			}
 
 		}
@@ -242,7 +274,7 @@ class Memory
 				byte newBankNumber = ((romBankNumber & 0x1F) | ((value & 0x03) << 5));
 				if (romBankNumber != newBankNumber)
 				{
-					changeRomBanks(newBankNumber);
+					changeMBC1RomBanks(newBankNumber);
 				}
 			}
 			else
@@ -268,6 +300,40 @@ class Memory
 			{
 				bankingMode = false;
 			}
+		}
+
+	}
+
+	void writeMBC2Value(short address, byte value)
+	{
+		if (address >= 0x0000 && address <= 0x1FFF)
+		{
+			//Ram Enable/Disable
+			if ((value & 0x0F) == 0x0A)
+			{
+				//Enable Ram
+				ramEnabled = true;
+			}
+			else
+			{
+				//Disable Ram
+				ramEnabled = false;
+			}
+		}
+		else if (address >= 0x2000 && address <= 0x3FFF)
+		{
+			//Set Rom Bank Number 5 bits
+			byte newBankNumber = (value & 0x0F);
+
+			if (romBankNumber != newBankNumber)
+			{
+				changeMBC1RomBanks(newBankNumber);
+			}
+
+		}
+		else if (address >= 0xA000 && address <= 0xA1FF)
+		{
+			//External Ram 512x4bits
 		}
 
 	}
@@ -487,6 +553,10 @@ class Memory
 			if (memoryControllerMode <= 3)//if (memoryControllerMode == 1)
 			{
 				writeMBC1Value(address, byte);
+			}
+			else if(memoryControllerMode <= 6)
+			{
+				writeMBC2Value(address, byte);
 			}
 			//TODO: Add more MBC controllers
 
