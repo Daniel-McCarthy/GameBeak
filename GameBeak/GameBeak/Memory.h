@@ -19,8 +19,8 @@ class Memory
 {
 	private:
 	byte beakRam[0xFFFF+1];
-	byte beakExternalRam[0x8000];
-	byte beakRom[0x100000]; //64kb for rom
+	byte beakExternalRam[0x1E000];
+	byte beakRom[0x500000]; //64kb for rom
 	string title;
 	bool ramEnabled = false;
 	byte romBankNumber = 0;
