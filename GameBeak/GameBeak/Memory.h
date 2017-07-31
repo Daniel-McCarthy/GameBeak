@@ -90,6 +90,36 @@ class Memory
 			writeRom0ToRam();
 			changeMBC2RomBanks(1);
 		}
+		else if (memoryControllerMode <= 9)
+		{
+			//8: Rom+Ram
+			//9: Rom+Ram+Battery
+
+			writeRom0ToRam();
+		}
+		else if (memoryControllerMode <= 0x0D)
+		{
+			//0B: MMM01
+			//0C: MMM01+Ram
+			//0D: MMM01+Ram+Battery
+
+			writeRom0ToRam();
+		}
+		else if (memoryControllerMode <= 0x10)
+		{
+			//0F: MBC3+Timer+Battery
+			//10: MBC3+Timer+Ram+Battery
+			//11: MBC3
+			//12: MBC3+Ram
+			//13: MBC3+Ram+Battery
+
+			writeRom0ToRam();
+		}
+		else if (memoryControllerMode <= 0x1E)
+		{
+			writeRom0ToRam();
+			changeMBC5RomBanks(1);
+		}
 		else
 		{
 			writeFullRomToRam(); //TODO: Change this back when you have MBC Rom banking properly implemented. This will load more of the file until it can be loaded properly
@@ -203,6 +233,24 @@ class Memory
 		}
 
 		if ((bankNumber >= 0) && (bankNumber <= 0x0F))
+		{
+
+			int bankAddress = 0x4000 * bankNumber;
+
+			int fixedBankAddress = 0x4000;
+			for (int i = 0; i < 0x4000; i++)
+			{
+				beakRam[fixedBankAddress + i] = beakRom[bankAddress + i];
+			}
+
+			romBankNumber = bankNumber;
+		}
+	}
+
+
+	void changeMBC5RomBanks(int bankNumber)
+	{
+		if ((bankNumber >= 0) && (bankNumber <= 0x1FF))
 		{
 
 			int bankAddress = 0x4000 * bankNumber;
@@ -337,6 +385,73 @@ class Memory
 		}
 
 	}
+
+	void writeMBC5Value(short address, byte value)
+	{
+		if (address >= 0x0000 && address <= 0x1FFF)
+		{
+			//Ram Enable/Disable
+			if ((value & 0x0F) == 0x0A)
+			{
+				//Enable Ram
+				ramEnabled = true;
+			}
+			else
+			{
+				//Disable Ram
+				ramEnabled = false;
+			}
+		}
+		else if (address >= 0x2000 && address <= 0x2FFF)
+		{
+			//Set Low 8 bits of Rom Bank Number
+			byte newBankNumber = ((romBankNumber & 0x100) | (value)); //Keeps the 9th bit of current rom bank number, joins entire value.
+
+			if (romBankNumber != newBankNumber)
+			{
+				changeMBC5RomBanks(newBankNumber);
+			}
+
+		}
+		else if (address >= 0x3000 && address <= 0x3FFF)
+		{
+			//Set the 9th bit of Rom Bank Number
+			byte newBankNumber = ((romBankNumber & 0xFF) | (value << 8));
+
+			if (romBankNumber != newBankNumber)
+			{
+				changeMBC5RomBanks(newBankNumber);
+			}
+
+		}
+		else if (address >= 0x4000 && address <= 0x5FFF)
+		{
+			//Set Ram Bank Number
+			if (!bankingMode)
+			{
+				//Change Rom Bank
+				byte newBankNumber = (value & 0x0F);
+				if (romBankNumber != newBankNumber)
+				{
+					changeMBC1RomBanks(newBankNumber);
+				}
+			}
+			else
+			{
+				//Change Ram Bank
+				byte newBankNumber = value & 0x03;
+
+				if (ramBankNumber != newBankNumber)
+				{
+					changeRamBanks(newBankNumber);
+				}
+			}
+
+		}
+
+
+	}
+
 
 	void loadDecompressedNintendoLogoToMemory()
 	{
@@ -557,6 +672,31 @@ class Memory
 			else if(memoryControllerMode <= 6)
 			{
 				writeMBC2Value(address, byte);
+			}
+			else if (memoryControllerMode <= 9)
+			{
+				//8: Rom+Ram
+				//9: Rom+Ram+Battery
+			}
+			else if (memoryControllerMode <= 0x0D)
+			{
+				//0B: MMM01
+				//0C: MMM01+Ram
+				//0D: MMM01+Ram+Battery
+			}
+			else if (memoryControllerMode <= 0x10)
+			{
+				//0F: MBC3+Timer+Battery
+				//10: MBC3+Timer+Ram+Battery
+				//11: MBC3
+				//12: MBC3+Ram
+				//13: MBC3+Ram+Battery
+
+				//Add this later: MBC3 is not currently ready (RTC)
+			}
+			else if (memoryControllerMode <= 0x1E)
+			{
+				writeMBC5Value(address, byte);
 			}
 			//TODO: Add more MBC controllers
 
