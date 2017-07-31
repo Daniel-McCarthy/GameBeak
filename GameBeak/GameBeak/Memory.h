@@ -23,7 +23,7 @@ class Memory
 	byte beakRom[0x500000]; //64kb for rom
 	string title;
 	bool ramEnabled = false;
-	byte romBankNumber = 0;
+	short romBankNumber = 0;
 	byte ramBankNumber = 0;
 	bool bankingMode = false; //0: Rom 1: Ram
 
