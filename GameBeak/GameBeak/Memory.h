@@ -95,7 +95,7 @@ class Memory
 			//8: Rom+Ram
 			//9: Rom+Ram+Battery
 
-			writeRom0ToRam();
+			writeFullRomToRam();
 		}
 		else if (memoryControllerMode <= 0x0D)
 		{
@@ -103,7 +103,7 @@ class Memory
 			//0C: MMM01+Ram
 			//0D: MMM01+Ram+Battery
 
-			writeFullRomToRam();
+			writeRom0ToRam();
 		}
 		else if (memoryControllerMode <= 0x10)
 		{
