@@ -327,7 +327,7 @@ class Memory
 
 			if (romBankNumber != newBankNumber)
 			{
-				changeMBC1RomBanks(newBankNumber);
+				changeMBC2RomBanks(newBankNumber);
 			}
 
 		}
