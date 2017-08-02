@@ -651,7 +651,7 @@ Image _2xSaI(Image screen)
 
 		for (int x = 0; x < 160; x++)
 		{
-			if((y < (144)) && (x > 1))
+			if ((y < (144)))
 			{
 				/*
 				A B C D
@@ -662,26 +662,51 @@ Image _2xSaI(Image screen)
 				B is current pixel
 				*/
 
+				if (x < 1)
+				{
+					a = screen.getPixel(x - 1, y);
+					b = screen.getPixel(x, y);
+					c = screen.getPixel(x + 1, y);
+					d = screen.getPixel(x + 2, y);
 
-				a = screen.getPixel(x - 1, y);
-				b = screen.getPixel(x, y);
-				c = screen.getPixel(x + 1, y);
-				d = screen.getPixel(x + 2, y);
+					e = screen.getPixel(x - 1, y + 1);
+					f = screen.getPixel(x, y + 1);
+					g = screen.getPixel(x + 1, y + 1);
+					h = screen.getPixel(x + 2, y + 1);
 
-				e = screen.getPixel(x - 1, y + 1);
-				f = screen.getPixel(x, y + 1);
-				g = screen.getPixel(x + 1, y + 1);
-				h = screen.getPixel(x + 2, y + 1);
+					i = screen.getPixel(x - 1, y + 2);
+					j = screen.getPixel(x, y + 2);
+					k = screen.getPixel(x + 1, y + 2);
+					l = screen.getPixel(x + 2, y + 2);
 
-				i = screen.getPixel(x - 1, y + 2);
-				j = screen.getPixel(x, y + 2);
-				k = screen.getPixel(x + 1, y + 2);
-				l = screen.getPixel(x + 2, y + 2);
+					m = screen.getPixel(x - 1, y + 3);
+					n = screen.getPixel(x, y + 3);
+					o = screen.getPixel(x + 1, y + 3);
+					p = screen.getPixel(x + 2, y + 3);
+				}
+				else
+				{
+					a = screen.getPixel(x, y);
+					b = screen.getPixel(x, y);
+					c = screen.getPixel(x + 1, y);
+					d = screen.getPixel(x + 2, y);
 
-				m = screen.getPixel(x - 1, y + 3);
-				n = screen.getPixel(x, y + 3);
-				o = screen.getPixel(x + 1, y + 3);
-				p = screen.getPixel(x + 2, y + 3);
+					e = screen.getPixel(x, y + 1);
+					f = screen.getPixel(x, y + 1);
+					g = screen.getPixel(x + 1, y + 1);
+					h = screen.getPixel(x + 2, y + 1);
+
+					i = screen.getPixel(x, y + 2);
+					j = screen.getPixel(x, y + 2);
+					k = screen.getPixel(x + 1, y + 2);
+					l = screen.getPixel(x + 2, y + 2);
+
+					m = screen.getPixel(x, y + 3);
+					n = screen.getPixel(x, y + 3);
+					o = screen.getPixel(x + 1, y + 3);
+					p = screen.getPixel(x + 2, y + 3);
+				}
+
 
 				if ((f == k) && (g != j))
 				{
