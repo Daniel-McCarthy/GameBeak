@@ -11,7 +11,23 @@ Color mixColors(Color color1, Color color2, float div)
 	return Color((color1.r + color2.r) / div, (color1.g + color2.g) / div, (color1.b + color2.b) / div, 0xFF);
 }
 
+Color linearInterpolation(Color color1, Color color2, float div)
+{
+	return Color((color1.r + (color2.r - color1.r) * div), (color1.g + (color2.g - color1.g) * div), (color1.b + (color2.b - color1.b) * div), 0xFF);
+}
 
+Color cosineInterpolation(Color color1, Color color2, float div)
+{
+	return Color((color1.r * (1.0 - div) + color2.r * div), (color1.g * (1.0 - div) + color2.g * div), (color1.b * (1.0 - div) + color2.b * div), 0xFF);
+}
+
+Color cosineInterpolation4(Color color1, Color color2, Color color3, Color color4, float div)
+{
+	Color topInterpolation = cosineInterpolation(color1, color2, div);
+	Color bottomInterpolation = cosineInterpolation(color3, color4, div);
+
+	return cosineInterpolation(topInterpolation, bottomInterpolation, div);
+}
 
 Image eagleFilter(Image screen)
 {
