@@ -601,7 +601,8 @@ Image lcdFilter1(Image screen)
 
 Image _2xSaI(Image screen)
 {
-	auto compareColors = [](auto color1, auto color2, auto color3, auto color4)
+
+	auto compareColors = [](auto color1, auto color2, auto color3, auto color4, auto invert)
 	{
 		int a = 0, b = 0, c = 0;
 
@@ -623,14 +624,30 @@ Image _2xSaI(Image screen)
 			b++;
 		}
 
-		if (a <= 1)
+		if (!invert)
 		{
-			c++;
-		}
+			if (a <= 1)
+			{
+				c++;
+			}
 
-		if (b <= 1)
+			if (b <= 1)
+			{
+				c--;
+			}
+		}
+		else
 		{
-			c--;
+
+			if (a <= 1)
+			{
+				c--;
+			}
+
+			if (b <= 1)
+			{
+				c++;
+			}
 		}
 
 		return c;
@@ -805,10 +822,10 @@ Image _2xSaI(Image screen)
 
 					int compareValue = 0;
 
-					compareValue += compareColors(f, g, e, b);
-					compareValue += compareColors(g, f, h, c);
-					compareValue += compareColors(g, f, i, n);
-					compareValue += compareColors(f, g, l, o);
+					compareValue += compareColors(f, g, e, b, false);
+					compareValue += compareColors(g, f, h, c, true);
+					compareValue += compareColors(g, f, i, n, true);
+					compareValue += compareColors(f, g, l, o, false);
 
 					if (compareValue > 0)
 					{
