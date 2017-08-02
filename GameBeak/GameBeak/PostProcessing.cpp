@@ -633,9 +633,6 @@ Image _2xSaI(Image screen)
 			c--;
 		}
 
-
-		
-		
 		return c;
 	};
 
@@ -651,38 +648,76 @@ Image _2xSaI(Image screen)
 
 		for (int x = 0; x < 160; x++)
 		{
-			if ((y < (144)))
+			/*
+			A B C D
+			E F G H
+			I J K L
+			M N O P
+
+			F is current pixel
+			*/
+
+			if (x < 1)
 			{
-				/*
-				A B C D
-				E F G H
-				I J K L
-				M N O P
-
-				B is current pixel
-				*/
-
-				if (x < 1)
+				if (y > 0)
+				{
+					a = screen.getPixel(x - 1, y - 1);
+					b = screen.getPixel(x, y - 1);
+					c = screen.getPixel(x + 1, y - 1);
+					d = screen.getPixel(x + 2, y - 1);
+				}
+				else
 				{
 					a = screen.getPixel(x - 1, y);
 					b = screen.getPixel(x, y);
 					c = screen.getPixel(x + 1, y);
 					d = screen.getPixel(x + 2, y);
+				}
 
-					e = screen.getPixel(x - 1, y + 1);
-					f = screen.getPixel(x, y + 1);
-					g = screen.getPixel(x + 1, y + 1);
-					h = screen.getPixel(x + 2, y + 1);
+				e = screen.getPixel(x - 1, y);
+				f = screen.getPixel(x, y);
+				g = screen.getPixel(x + 1, y);
+				h = screen.getPixel(x + 2, y);
 
-					i = screen.getPixel(x - 1, y + 2);
-					j = screen.getPixel(x, y + 2);
-					k = screen.getPixel(x + 1, y + 2);
-					l = screen.getPixel(x + 2, y + 2);
 
-					m = screen.getPixel(x - 1, y + 3);
-					n = screen.getPixel(x, y + 3);
-					o = screen.getPixel(x + 1, y + 3);
-					p = screen.getPixel(x + 2, y + 3);
+				if((y + 1) <= 144)
+				{
+					i = screen.getPixel(x - 1, y + 1);
+					j = screen.getPixel(x, y + 1);
+					k = screen.getPixel(x + 1, y + 1);
+					l = screen.getPixel(x + 2, y + 1);
+				}
+				else
+				{
+					i = e;
+					j = f;
+					k = g;
+					l = h;
+				}
+
+				if((y + 2) <= 144)
+				{
+					m = screen.getPixel(x - 1, y + 2);
+					n = screen.getPixel(x, y + 2);
+					o = screen.getPixel(x + 1, y + 2);
+					p = screen.getPixel(x + 2, y + 2);
+				}
+				else
+				{
+					m = i;
+					n = j;
+					o = k;
+					p = l;
+				}
+			}
+			else
+			{
+				if (y > 0)
+				{
+					a = screen.getPixel(x, y - 1);
+					b = screen.getPixel(x, y - 1);
+					c = screen.getPixel(x + 1, y - 1);
+					d = screen.getPixel(x + 2, y - 1);
 				}
 				else
 				{
@@ -690,143 +725,142 @@ Image _2xSaI(Image screen)
 					b = screen.getPixel(x, y);
 					c = screen.getPixel(x + 1, y);
 					d = screen.getPixel(x + 2, y);
-
-					e = screen.getPixel(x, y + 1);
-					f = screen.getPixel(x, y + 1);
-					g = screen.getPixel(x + 1, y + 1);
-					h = screen.getPixel(x + 2, y + 1);
-
-					i = screen.getPixel(x, y + 2);
-					j = screen.getPixel(x, y + 2);
-					k = screen.getPixel(x + 1, y + 2);
-					l = screen.getPixel(x + 2, y + 2);
-
-					m = screen.getPixel(x, y + 3);
-					n = screen.getPixel(x, y + 3);
-					o = screen.getPixel(x + 1, y + 3);
-					p = screen.getPixel(x + 2, y + 3);
 				}
 
+				e = screen.getPixel(x, y);
+				f = screen.getPixel(x, y);
+				g = screen.getPixel(x + 1, y);
+				h = screen.getPixel(x + 2, y);
 
-				if ((f == k) && (g != j))
+				i = screen.getPixel(x, y + 1);
+				j = screen.getPixel(x, y + 1);
+				k = screen.getPixel(x + 1, y + 1);
+				l = screen.getPixel(x + 2, y + 1);
+
+				m = screen.getPixel(x, y + 2);
+				n = screen.getPixel(x, y + 2);
+				o = screen.getPixel(x + 1, y + 2);
+				p = screen.getPixel(x + 2, y + 2);
+			}
+
+
+			if ((f == k) && (g != j))
+			{
+				if (((f == b) && (g == l)) || ((f == j) && (f == c) && (g != b) && (g == d)))
 				{
-					if (((f == b) && (g == l)) || ((f == j) && (f == c) && (g != b) && (g == d)))
-					{
-						color1 = f;
-					}
-					else
-					{
-						color1 = cosineInterpolation(f, g, .5);
-					}
-
-					if (((f == e) && (j == o)) || ((f == g) && (f == i) && (e != j) && (j == m)))
-					{
-						color2 = f;
-					}
-					else
-					{
-						color2 = cosineInterpolation(f, j, .5);
-					}
-
-					color3 = f;
-
-				}
-				else if ((g == j) && (f != k))
-				{
-					if (((g == c) && (f == i)) || ((g == b) && (g == k) && (f != c) && (h == i)))
-					{
-						color1 = g;
-					}
-					else
-					{
-						color1 = cosineInterpolation(f, g, .5);
-					}
-
-					if (((j == i) && (f == c)) || ((j == e) && (j == k) && (f != i) && (f == a)))
-					{
-						color2 = j;
-					}
-					else
-					{
-						color2 = cosineInterpolation(f, j, .5);
-					}
-
-					color3 = g;
-				}
-				else if ((f == k) && (g == j))
-				{
-
-					if (f == g)
-					{
-						color1 = f;
-						color2 = f;
-						color3 = f;
-					}
-					else
-					{
-						color1 = cosineInterpolation(f, j, .5);
-						color2 = cosineInterpolation(f, g, .5);
-
-						int compareValue = 0;
-
-						compareValue += compareColors(f, g, e, b);
-						compareValue += compareColors(g, f, h, c);
-						compareValue += compareColors(g, f, i, n);
-						compareValue += compareColors(f, g, l, o);
-
-						if (compareValue > 0)
-						{
-							color3 = f;
-						}
-						else if (compareValue < 0)
-						{
-							color3 = g;
-						}
-						else
-						{
-							color3 = cosineInterpolation4(f, g, j, k, .5);
-						}
-					}
-
+					color1 = f;
 				}
 				else
 				{
-					color3 = cosineInterpolation4(f, g, j, k, .5);
-
-					if ((f == j) && (f == c) && (g != b) && (g == d))
-					{
-						color1 = f;
-					}
-					else if((g == b) && (g == k) && (f != c) && (a == f))
-					{
-						color1 = g;
-					}
-					else
-					{
-						color1 = cosineInterpolation(f , g, .5);
-					}
-
-					if ((f == g) && (f == i) && (e != j) && (j == m))
-					{
-						color2 = f;
-					}
-					else if ((j == e) && (j == k) && (f != i) && (a == f))
-					{
-						color2 = j;
-					}
-					else
-					{
-						color2 = cosineInterpolation(f, j, .5);
-					}
-
+					color1 = cosineInterpolation(f, g, .5);
 				}
 
-				scaledScreen.setPixel((x * 2), (y * 2), f);
-				scaledScreen.setPixel((x * 2) + 1, (y * 2), color1);
-				scaledScreen.setPixel((x * 2), (y * 2) + 1, color2);
-				scaledScreen.setPixel((x * 2) + 1, (y * 2) + 1, color3);
+				if (((f == e) && (j == o)) || ((f == g) && (f == i) && (e != j) && (j == m)))
+				{
+					color2 = f;
+				}
+				else
+				{
+					color2 = cosineInterpolation(f, j, .5);
+				}
+
+				color3 = f;
 
 			}
+			else if ((g == j) && (f != k))
+			{
+				if (((g == c) && (f == i)) || ((g == b) && (g == k) && (f != c) && (h == i)))
+				{
+					color1 = g;
+				}
+				else
+				{
+					color1 = cosineInterpolation(f, g, .5);
+				}
+
+				if (((j == i) && (f == c)) || ((j == e) && (j == k) && (f != i) && (f == a)))
+				{
+					color2 = j;
+				}
+				else
+				{
+					color2 = cosineInterpolation(f, j, .5);
+				}
+
+				color3 = g;
+			}
+			else if ((f == k) && (g == j))
+			{
+
+				if (f == g)
+				{
+					color1 = f;
+					color2 = f;
+					color3 = f;
+				}
+				else
+				{
+					color1 = cosineInterpolation(f, j, .5);
+					color2 = cosineInterpolation(f, g, .5);
+
+					int compareValue = 0;
+
+					compareValue += compareColors(f, g, e, b);
+					compareValue += compareColors(g, f, h, c);
+					compareValue += compareColors(g, f, i, n);
+					compareValue += compareColors(f, g, l, o);
+
+					if (compareValue > 0)
+					{
+						color3 = f;
+					}
+					else if (compareValue < 0)
+					{
+						color3 = g;
+					}
+					else
+					{
+						color3 = cosineInterpolation4(f, g, j, k, .5);
+					}
+				}
+
+			}
+			else
+			{
+				color3 = cosineInterpolation4(f, g, j, k, .5);
+
+				if ((f == j) && (f == c) && (g != b) && (g == d))
+				{
+					color1 = f;
+				}
+				else if ((g == b) && (g == k) && (f != c) && (a == f))
+				{
+					color1 = g;
+				}
+				else
+				{
+					color1 = cosineInterpolation(f, g, .5);
+				}
+
+				if ((f == g) && (f == i) && (e != j) && (j == m))
+				{
+					color2 = f;
+				}
+				else if ((j == e) && (j == k) && (f != i) && (a == f))
+				{
+					color2 = j;
+				}
+				else
+				{
+					color2 = cosineInterpolation(f, j, .5);
+				}
+
+			}
+
+			scaledScreen.setPixel((x * 2), (y * 2), f);
+			scaledScreen.setPixel((x * 2) + 1, (y * 2), color1);
+			scaledScreen.setPixel((x * 2), (y * 2) + 1, color2);
+			scaledScreen.setPixel((x * 2) + 1, (y * 2) + 1, color3);
 
 		}
 
