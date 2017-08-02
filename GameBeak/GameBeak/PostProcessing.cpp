@@ -583,6 +583,217 @@ Image lcdFilter1(Image screen)
 }
 
 
+Image _2xSaI(Image screen)
+{
+	auto compareColors = [](auto color1, auto color2, auto color3, auto color4)
+	{
+		int a = 0, b = 0, c = 0;
+
+		if (color1 == color3)
+		{
+			a++;
+		}
+		else if (color2 == color3)
+		{
+			b++;
+		}
+
+		if (color1 == color4)
+		{
+			a++;
+		}
+		else if (color2 == color4)
+		{
+			b++;
+		}
+
+		if (a <= 1)
+		{
+			c++;
+		}
+
+		if (b <= 1)
+		{
+			c--;
+		}
+
+
+		
+		
+		return c;
+	};
+
+	Image scaledScreen;
+	scaledScreen.create(160 * 2, 144 * 2);
+
+	Color a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p;
+
+	Color color1, color2, color3;
+
+	for (int y = 0; y < 144; y++)
+	{
+
+		for (int x = 0; x < 160; x++)
+		{
+			if((y < (144)) && (x > 1))
+			{
+				/*
+				A B C D
+				E F G H
+				I J K L
+				M N O P
+
+				B is current pixel
+				*/
+
+
+				a = screen.getPixel(x - 1, y);
+				b = screen.getPixel(x, y);
+				c = screen.getPixel(x + 1, y);
+				d = screen.getPixel(x + 2, y);
+
+				e = screen.getPixel(x - 1, y + 1);
+				f = screen.getPixel(x, y + 1);
+				g = screen.getPixel(x + 1, y + 1);
+				h = screen.getPixel(x + 2, y + 1);
+
+				i = screen.getPixel(x - 1, y + 2);
+				j = screen.getPixel(x, y + 2);
+				k = screen.getPixel(x + 1, y + 2);
+				l = screen.getPixel(x + 2, y + 2);
+
+				m = screen.getPixel(x - 1, y + 3);
+				n = screen.getPixel(x, y + 3);
+				o = screen.getPixel(x + 1, y + 3);
+				p = screen.getPixel(x + 2, y + 3);
+
+				if ((f == k) && (g != j))
+				{
+					if (((f == b) && (g == l)) || ((f == j) && (f == c) && (g != b) && (g == d)))
+					{
+						color1 = f;
+					}
+					else
+					{
+						color1 = cosineInterpolation(f, g, .5);
+					}
+
+					if (((f == e) && (j == o)) || ((f == g) && (f == i) && (e != j) && (j == m)))
+					{
+						color2 = f;
+					}
+					else
+					{
+						color2 = cosineInterpolation(f, j, .5);
+					}
+
+					color3 = f;
+
+				}
+				else if ((g == j) && (f != k))
+				{
+					if (((g == c) && (f == i)) || ((g == b) && (g == k) && (f != c) && (h == i)))
+					{
+						color1 = g;
+					}
+					else
+					{
+						color1 = cosineInterpolation(f, g, .5);
+					}
+
+					if (((j == i) && (f == c)) || ((j == e) && (j == k) && (f != i) && (f == a)))
+					{
+						color2 = j;
+					}
+					else
+					{
+						color2 = cosineInterpolation(f, j, .5);
+					}
+
+					color3 = g;
+				}
+				else if ((f == k) && (g == j))
+				{
+
+					if (f == g)
+					{
+						color1 = f;
+						color2 = f;
+						color3 = f;
+					}
+					else
+					{
+						color1 = cosineInterpolation(f, j, .5);
+						color2 = cosineInterpolation(f, g, .5);
+
+						int compareValue = 0;
+
+						compareValue += compareColors(f, g, e, b);
+						compareValue += compareColors(g, f, h, c);
+						compareValue += compareColors(g, f, i, n);
+						compareValue += compareColors(f, g, l, o);
+
+						if (compareValue > 0)
+						{
+							color3 = f;
+						}
+						else if (compareValue < 0)
+						{
+							color3 = g;
+						}
+						else
+						{
+							color3 = cosineInterpolation4(f, g, j, k, .5);
+						}
+					}
+
+				}
+				else
+				{
+					color3 = cosineInterpolation4(f, g, j, k, .5);
+
+					if ((f == j) && (f == c) && (g != b) && (g == d))
+					{
+						color1 = f;
+					}
+					else if((g == b) && (g == k) && (f != c) && (a == f))
+					{
+						color1 = g;
+					}
+					else
+					{
+						color1 = cosineInterpolation(f , g, .5);
+					}
+
+					if ((f == g) && (f == i) && (e != j) && (j == m))
+					{
+						color2 = f;
+					}
+					else if ((j == e) && (j == k) && (f != i) && (a == f))
+					{
+						color2 = j;
+					}
+					else
+					{
+						color2 = cosineInterpolation(f, j, .5);
+					}
+
+				}
+
+				scaledScreen.setPixel((x * 2), (y * 2), f);
+				scaledScreen.setPixel((x * 2) + 1, (y * 2), color1);
+				scaledScreen.setPixel((x * 2), (y * 2) + 1, color2);
+				scaledScreen.setPixel((x * 2) + 1, (y * 2) + 1, color3);
+
+			}
+
+		}
+
+	}
+
+	return scaledScreen;
+}
+
 Image filterSelect(Image screen, byte filterNumber)
 {
 
@@ -617,6 +828,10 @@ Image filterSelect(Image screen, byte filterNumber)
 	if (filterNumber == 8)
 	{
 		return lcdFilter1(screen);
+	}
+	if (filterNumber == 10)
+	{
+		return _2xSaI(screen);
 	}
 	else
 	{
