@@ -13,12 +13,18 @@ Color mixColors(Color color1, Color color2, float div)
 
 Color linearInterpolation(Color color1, Color color2, float div)
 {
-	return Color((color1.r + (color2.r - color1.r) * div), (color1.g + (color2.g - color1.g) * div), (color1.b + (color2.b - color1.b) * div), 0xFF);
+	return Color((color1.r * (1.0 - div) + color2.r * div), (color1.g * (1.0 - div) + color2.g * div), (color1.b * (1.0 - div) + color2.b * div), 0xFF);
 }
 
 Color cosineInterpolation(Color color1, Color color2, float div)
 {
-	return Color((color1.r * (1.0 - div) + color2.r * div), (color1.g * (1.0 - div) + color2.g * div), (color1.b * (1.0 - div) + color2.b * div), 0xFF);
+	div = ((1 - cos(div * 3.14f)) / 2);
+
+	int r = (color1.r * (1 - div) + (color2.r * div));
+	int g = (color1.g * (1 - div) + (color2.g * div));
+	int b = (color1.b * (1 - div) + (color2.b * div));
+
+	return(Color(r, g, b, 0xFF));
 }
 
 Color cosineInterpolation4(Color color1, Color color2, Color color3, Color color4, float div)
