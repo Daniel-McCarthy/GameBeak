@@ -820,6 +820,277 @@ Image _2xSaI(Image screen)
 	return scaledScreen;
 }
 
+Image super2xSaI(Image screen)
+{
+
+	auto compareColors = [](auto color1, auto color2, auto color3, auto color4, auto invert)
+	{
+		int a = 0, b = 0, c = 0;
+
+		if (color1 == color3)
+		{
+			a++;
+		}
+		else if (color2 == color3)
+		{
+			b++;
+		}
+
+		if (color1 == color4)
+		{
+			a++;
+		}
+		else if (color2 == color4)
+		{
+			b++;
+		}
+
+		if (!invert)
+		{
+			if (a <= 1)
+			{
+				c++;
+			}
+
+			if (b <= 1)
+			{
+				c--;
+			}
+		}
+		else
+		{
+
+			if (a <= 1)
+			{
+				c--;
+			}
+
+			if (b <= 1)
+			{
+				c++;
+			}
+		}
+
+		return c;
+	};
+
+	Image scaledScreen;
+	scaledScreen.create(160 * 2, 144 * 2);
+
+	Color a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p;
+
+	Color color1, color2, color3, color4;
+
+	for (int y = 0; y < 144; y++)
+	{
+
+		for (int x = 0; x < 160; x++)
+		{
+			/*
+			A B C D
+			E F G H
+			I J K L
+			M N O P
+
+			F is current pixel
+			*/
+
+			if (x < 1)
+			{
+				if (y > 0)
+				{
+					a = screen.getPixel(x - 1, y - 1);
+					b = screen.getPixel(x, y - 1);
+					c = screen.getPixel(x + 1, y - 1);
+					d = screen.getPixel(x + 2, y - 1);
+				}
+				else
+				{
+					a = screen.getPixel(x - 1, y);
+					b = screen.getPixel(x, y);
+					c = screen.getPixel(x + 1, y);
+					d = screen.getPixel(x + 2, y);
+				}
+
+				e = screen.getPixel(x - 1, y);
+				f = screen.getPixel(x, y);
+				g = screen.getPixel(x + 1, y);
+				h = screen.getPixel(x + 2, y);
+
+
+				if ((y + 1) <= 144)
+				{
+					i = screen.getPixel(x - 1, y + 1);
+					j = screen.getPixel(x, y + 1);
+					k = screen.getPixel(x + 1, y + 1);
+					l = screen.getPixel(x + 2, y + 1);
+				}
+				else
+				{
+					i = e;
+					j = f;
+					k = g;
+					l = h;
+				}
+
+				if ((y + 2) <= 144)
+				{
+					m = screen.getPixel(x - 1, y + 2);
+					n = screen.getPixel(x, y + 2);
+					o = screen.getPixel(x + 1, y + 2);
+					p = screen.getPixel(x + 2, y + 2);
+				}
+				else
+				{
+					m = i;
+					n = j;
+					o = k;
+					p = l;
+				}
+			}
+			else
+			{
+				if (y > 0)
+				{
+					a = screen.getPixel(x, y - 1);
+					b = screen.getPixel(x, y - 1);
+					c = screen.getPixel(x + 1, y - 1);
+					d = screen.getPixel(x + 2, y - 1);
+				}
+				else
+				{
+					a = screen.getPixel(x, y);
+					b = screen.getPixel(x, y);
+					c = screen.getPixel(x + 1, y);
+					d = screen.getPixel(x + 2, y);
+				}
+
+				e = screen.getPixel(x, y);
+				f = screen.getPixel(x, y);
+				g = screen.getPixel(x + 1, y);
+				h = screen.getPixel(x + 2, y);
+
+				i = screen.getPixel(x, y + 1);
+				j = screen.getPixel(x, y + 1);
+				k = screen.getPixel(x + 1, y + 1);
+				l = screen.getPixel(x + 2, y + 1);
+
+				m = screen.getPixel(x, y + 2);
+				n = screen.getPixel(x, y + 2);
+				o = screen.getPixel(x + 1, y + 2);
+				p = screen.getPixel(x + 2, y + 2);
+			}
+
+
+			if ((j == g) && (f != k))
+			{
+				color4 = j;
+				color2 = j;
+			}
+			else if ((f == k) && (j != g))
+			{
+				color4 = f;
+				color2 = f;
+			}
+			else if ((f == k) && (j == g))
+			{
+				int compareValue = 0;
+
+				compareValue += compareColors(g, f, i, n, false); //done
+				compareValue += compareColors(g, f, e, b, false);
+				compareValue += compareColors(g, f, o, l, false);
+				compareValue += compareColors(g, f, c, h, false); //done
+
+				if (compareValue > 0)
+				{
+					color2 = g;
+					color4 = g;
+				}
+				else if (compareValue < 0)
+				{
+					color2 = f;
+					color4 = f;
+				}
+				else
+				{
+					color2 = cosineInterpolation(f, g, .5);
+					color4 = cosineInterpolation(f, g, .5);
+				}
+
+				//color4 = color2;
+			}
+			else
+			{
+				if ((g == k) && (k == n) && (j != o) && (k != m))
+				{
+					color4 = cosineInterpolation4(k, k, k, j, .5);
+				}
+				else if ((f == j) && (j == o) && (n != k) && (j != p))
+				{
+					color4 = cosineInterpolation4(j, j, j, k, .5);
+				}
+				else
+				{
+					color4 = cosineInterpolation(j, k, .5);
+				}
+
+				if ((g == k) && (g == b) && (f != c) && (g != a))
+				{
+					color2 = cosineInterpolation4(g, g, g, f, .5);
+				}
+				else if ((f == j) && (f == c) && (b != g) && (f != d))
+				{
+					color2 = cosineInterpolation4(g, f, f, f, .5);
+				}
+				else
+				{
+					color2 = cosineInterpolation(f, g, .5);
+				}
+			}
+				
+			if ((f == k) && (j != g) && (e == f) && (f != o))
+			{
+				color3 = cosineInterpolation(j, f, .5);
+			}
+			else if ((f == i) && (g == f) && (e != j) && (f != m))
+			{
+				color3 = cosineInterpolation(f, j, .5);
+			}
+			else
+			{
+				color3 = j;
+			}
+
+			if ((j == g) && (f != k) && (i == j) && (j != c))
+			{
+				color1 = cosineInterpolation(j, f, .5);
+			}
+			else if ((e == j) && (k == j) && (i != f) && (j != a))
+			{
+				color1 = cosineInterpolation(f, j, .5);
+			}
+			else
+			{
+				color1 = f;
+			}
+				
+			
+
+
+
+			scaledScreen.setPixel((x * 2), (y * 2), color1);
+			scaledScreen.setPixel((x * 2) + 1, (y * 2), color2);
+			scaledScreen.setPixel((x * 2), (y * 2) + 1, color3);
+			scaledScreen.setPixel((x * 2) + 1, (y * 2) + 1, color4);
+
+		}
+
+	}
+
+	return scaledScreen;
+
+}
+
 Image SuperEagle(Image screen)
 {
 
@@ -1136,6 +1407,10 @@ Image filterSelect(Image screen, byte filterNumber)
 	if (filterNumber == 10)
 	{
 		return _2xSaI(screen);
+	}
+	if (filterNumber == 11)
+	{
+		return super2xSaI(screen);
 	}
 	else
 	{
