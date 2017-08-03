@@ -9,7 +9,9 @@
 using namespace std;
 using namespace sf;
 
-GameWindow beakWindow = GameWindow("GameBeak", 320, 288);
+int resolutionScaling = 2;
+
+GameWindow beakWindow = GameWindow("GameBeak", 320 * resolutionScaling, 288 * resolutionScaling);
 DebuggerWindow* debugWindow;
 
 short memoryPointer = 0x100;
