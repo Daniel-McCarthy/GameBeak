@@ -43,6 +43,8 @@ const int NONE = 0;
 const int EAGLE = 1;
 const int SCALE2X = 2;
 const int SCALE3X = 3;
+const int SUPEREAGLE = 9;
+const int SAI2X = 10;
 
 byte filterSetting = NONE;
 
