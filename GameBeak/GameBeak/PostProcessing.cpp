@@ -148,11 +148,11 @@ Image scale2XFilter(Image screen)
 		for (int y = 1; y < (screen.getSize().y - 1); y++)
 		{
 
-			Color currentPixel = screen.getPixel(x, y);
-			Color upColor = screen.getPixel(x, y - 1); //Left
-			Color downColor = screen.getPixel(x, y + 1); //Left
+			Color currentPixel = screen.getPixel(x, y); //Center
+			Color upColor = screen.getPixel(x, y - 1); //Up
+			Color downColor = screen.getPixel(x, y + 1); //Down
 			Color leftColor = screen.getPixel(x - 1, y); //Left
-			Color rightColor = screen.getPixel(x + 1, y); //Left
+			Color rightColor = screen.getPixel(x + 1, y); //Right
 
 			if ( (leftColor == upColor) && (upColor != rightColor) && (leftColor != downColor) )
 			{
@@ -283,9 +283,9 @@ Image scale3XFilter(Image screen)
 
 			//E1
 			if ( ( (leftColor == upColor) && (upColor != rightColor) && (leftColor != downColor) && (currentPixel != upRightColor) )
-				|| ( (upColor == downColor) && (leftColor != upColor) && (downColor != rightColor) && (currentPixel != upLeftColor) ))
+				|| ( (upColor == rightColor) && (leftColor != upColor) && (downColor != rightColor) && (currentPixel != upLeftColor) ))
 			{
-				pixel1 = leftColor;
+				pixel1 = upColor;
 			}
 			else
 			{
@@ -318,7 +318,7 @@ Image scale3XFilter(Image screen)
 
 
 			//E5
-			if ( ( (upColor == rightColor) && (upColor != leftColor) && (rightColor != downColor) && (currentPixel != downLeftColor) )  || ( (downColor == rightColor) && (leftColor != downColor) && (upColor != rightColor) && (currentPixel != upRightColor) ) )
+			if ( ( (upColor == rightColor) && (upColor != leftColor) && (rightColor != downColor) && (currentPixel != downRightColor) )  || ( (downColor == rightColor) && (leftColor != downColor) && (upColor != rightColor) && (currentPixel != upRightColor) ) )
 			{
 				pixel5 = rightColor;
 			}
