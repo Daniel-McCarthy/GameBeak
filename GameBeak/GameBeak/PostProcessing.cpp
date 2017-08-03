@@ -560,17 +560,20 @@ Image _2xSaI(Image screen)
 		return c;
 	};
 
+	int screenX = screen.getSize().x;
+	int screenY = screen.getSize().y;
+
 	Image scaledScreen;
-	scaledScreen.create(160 * 2, 144 * 2);
+	scaledScreen.create(screenX * 2, screenY * 2);
 
 	Color a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p;
 
 	Color color1, color2, color3;
 
-	for (int y = 0; y < 144; y++)
+	for (int y = 0; y < screenY; y++)
 	{
 
-		for (int x = 0; x < 160; x++)
+		for (int x = 0; x < screenX; x++)
 		{
 			/*
 			A B C D
@@ -604,7 +607,7 @@ Image _2xSaI(Image screen)
 				h = screen.getPixel(x + 2, y);
 
 
-				if((y + 1) <= 144)
+				if((y + 1) <= screenY)
 				{
 					i = screen.getPixel(x - 1, y + 1);
 					j = screen.getPixel(x, y + 1);
@@ -619,7 +622,7 @@ Image _2xSaI(Image screen)
 					l = h;
 				}
 
-				if((y + 2) <= 144)
+				if((y + 2) <= screenY)
 				{
 					m = screen.getPixel(x - 1, y + 2);
 					n = screen.getPixel(x, y + 2);
@@ -847,17 +850,20 @@ Image super2xSaI(Image screen)
 		return c;
 	};
 
+	int screenX = screen.getSize().x;
+	int screenY = screen.getSize().y;
+
 	Image scaledScreen;
-	scaledScreen.create(160 * 2, 144 * 2);
+	scaledScreen.create(screenX * 2, screenY * 2);
 
 	Color a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p;
 
 	Color color1, color2, color3, color4;
 
-	for (int y = 0; y < 144; y++)
+	for (int y = 0; y < screenY; y++)
 	{
 
-		for (int x = 0; x < 160; x++)
+		for (int x = 0; x < screenX; x++)
 		{
 			/*
 			A B C D
@@ -1118,17 +1124,20 @@ Image SuperEagle(Image screen)
 		return c;
 	};
 
+	int screenX = screen.getSize().x;
+	int screenY = screen.getSize().y;
+
 	Image scaledScreen;
-	scaledScreen.create(160 * 2, 144 * 2);
+	scaledScreen.create(screen.getSize().x * 2, screen.getSize().y * 2);
 
 	Color a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p;
 
 	Color color1, color2, color3, color4;
 
-	for (int y = 0; y < 144; y++)
+	for (int y = 0; y < screenY; y++)
 	{
 
-		for (int x = 0; x < 160; x++)
+		for (int x = 0; x < screenX; x++)
 		{
 			/*
 			A B C D
@@ -1162,7 +1171,7 @@ Image SuperEagle(Image screen)
 				h = screen.getPixel(x + 2, y);
 
 
-				if ((y + 1) <= 144)
+				if ((y + 1) <= screenY)
 				{
 					i = screen.getPixel(x - 1, y + 1);
 					j = screen.getPixel(x, y + 1);
@@ -1177,7 +1186,7 @@ Image SuperEagle(Image screen)
 					l = h;
 				}
 
-				if ((y + 2) <= 144)
+				if ((y + 2) <= screenY)
 				{
 					m = screen.getPixel(x - 1, y + 2);
 					n = screen.getPixel(x, y + 2);
