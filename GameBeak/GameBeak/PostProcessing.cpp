@@ -111,14 +111,17 @@ Image scale2XFilter(Image screen)
 	Image scaledScreen;
 	scaledScreen.create(screen.getSize().x * 2, screen.getSize().y * 2, Color(0, 0, 0, 255));
 
+	int screenX = screen.getSize().x;
+	int screenY = screen.getSize().y;
+
 	Color pixel1;
 	Color pixel2;
 	Color pixel3;
 	Color pixel4;
 
-	for (int x = 1; x < (screen.getSize().x - 1); x++) //This ensures every pixel indexed will not be an edge. It will always have 8 surrounding pixels.
+	for (int x = 1; x < (screenX - 1); x++) //This ensures every pixel indexed will not be an edge. It will always have 8 surrounding pixels.
 	{
-		for (int y = 1; y < (screen.getSize().y - 1); y++)
+		for (int y = 1; y < (screenY - 1); y++)
 		{
 
 			Color currentPixel = screen.getPixel(x, y); //Center
@@ -170,42 +173,6 @@ Image scale2XFilter(Image screen)
 
 		}
 	}
-	/*
-	for (int i = 0; i < 160; i++)
-	{
-	Color oldPixel1 = screen.getPixel(i, 0);
-
-	scaledScreen.setPixel((i * 2) + 1, 0, oldPixel1);
-	scaledScreen.setPixel((i * 2), 0, oldPixel1);
-	scaledScreen.setPixel((i * 2) + 1, 1, oldPixel1);
-	scaledScreen.setPixel((i * 2), 1, oldPixel1);
-
-	Color oldPixel2 = screen.getPixel(i, 143);
-
-	scaledScreen.setPixel((i * 2) + 1, (143 * 2), oldPixel2);
-	scaledScreen.setPixel((i * 2), (143 * 2) + 1, oldPixel2);
-	scaledScreen.setPixel((i * 2) + 1, (143 * 2) + 1, oldPixel2);
-	scaledScreen.setPixel((i * 2), (143 * 2), oldPixel2);
-	}
-
-	for (int i = 1; i < 143; i++)
-	{
-	Color oldPixel1 = screen.getPixel(0, i);
-
-	scaledScreen.setPixel(0, (i * 2) + 1, oldPixel1);
-	scaledScreen.setPixel(0, (i * 2), oldPixel1);
-	scaledScreen.setPixel(1, (i * 2) + 1, oldPixel1);
-	scaledScreen.setPixel(1, (i * 2), oldPixel1);
-
-	Color oldPixel2 = screen.getPixel(159, i);
-
-	scaledScreen.setPixel((159 * 2), (i * 2) + 1, oldPixel2);
-	scaledScreen.setPixel((159 * 2) + 1, (i * 2), oldPixel2);
-	scaledScreen.setPixel((159 * 2) + 1, (i * 2) + 1, oldPixel2);
-	scaledScreen.setPixel((159 * 2), (i * 2), oldPixel2);
-	}
-
-	*/
 
 	return scaledScreen;
 }
@@ -214,6 +181,9 @@ Image scale3XFilter(Image screen)
 {
 	Image scaledScreen;
 	scaledScreen.create(screen.getSize().x * 3, screen.getSize().y * 3, Color(0, 0, 0, 255));
+
+	int screenX = screen.getSize().x;
+	int screenY = screen.getSize().y;
 
 	Color pixel0;
 	Color pixel1;
@@ -227,9 +197,9 @@ Image scale3XFilter(Image screen)
 	Color pixel7;
 	Color pixel8;
 
-	for (int x = 1; x < (screen.getSize().x - 1); x++) //This ensures every pixel indexed will not be an edge. It will always have 8 surrounding pixels.
+	for (int x = 1; x < (screenX - 1); x++) //This ensures every pixel indexed will not be an edge. It will always have 8 surrounding pixels.
 	{
-		for (int y = 1; y < (screen.getSize().y - 1); y++)
+		for (int y = 1; y < (screenY - 1); y++)
 		{
 
 			Color currentPixel = screen.getPixel(x, y);
