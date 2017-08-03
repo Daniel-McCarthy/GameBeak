@@ -27,12 +27,13 @@ const int gamebeakPink = 2;
 const int gamebeakPintAlt = 3;
 const int ultraPink = 4;
 const int grapeCherry = 5;
-const int kigb = 6;
-const int bgb = 7;
-const int noCashGMB = 8;
-const int playGuy = 9;
-const int dreamGBC = 10;
-const int heboWIN = 11;
+const int mintPink = 6;
+const int kigb = 7;
+const int bgb = 8;
+const int noCashGMB = 9;
+const int playGuy = 1;
+const int dreamGBC = 11;
+const int heboWIN = 12;
 
 //Settings values
 byte paletteSetting = 0;

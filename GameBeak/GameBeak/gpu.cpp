@@ -688,6 +688,13 @@ ifstream gpu::openCreatePalettesXML()
 			file << "\t</scheme>\n" << endl;
 
 			file << "\t<scheme>" << endl;
+			file << "\t\t<name>MintPink</name>" << endl;
+			file << "\t\t<bgp>FFA5CEFF|19C7F0FF|33EF12FF|511733FF</bgp>" << endl;
+			file << "\t\t<0bp0>FFA5CEFF|19C7F0FF|33EF12FF|511733FF</0bp0>" << endl;
+			file << "\t\t<0bp1>FFA5CEFF|19C7F0FF|33EF12FF|511733FF</0bp1>" << endl;
+			file << "\t</scheme>\n" << endl;
+
+			file << "\t<scheme>" << endl;
 			file << "\t\t<name>KiGB</name>" << endl;
 			file << "\t\t<bgp>9CB916FF|8CAA14FF|306430FF|103F10FF</bgp>" << endl;
 			file << "\t\t<0bp0>9CB916FF|8CAA14FF|306430FF|103F10FF</0bp0>" << endl;
