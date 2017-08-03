@@ -37,17 +37,20 @@ Color cosineInterpolation4(Color color1, Color color2, Color color3, Color color
 
 Image eagleFilter(Image screen)
 {
+	int screenX = screen.getSize().x;
+	int screenY = screen.getSize().y;
+
 	Image scaledScreen;
-	scaledScreen.create(screen.getSize().x * 2, screen.getSize().y * 2, Color(0,0,0,255));
+	scaledScreen.create(screenX * 2, screenY * 2, Color(0,0,0,255));
 
 	Color pixel1;
 	Color pixel2;
 	Color pixel3;
 	Color pixel4;
 
-	for (int x = 1; x < (screen.getSize().x - 1); x++) //This ensures every pixel indexed will not be an edge. It will always have 8 surrounding pixels.
+	for (int x = 1; x < (screenX - 1); x++) //This ensures every pixel indexed will not be an edge. It will always have 8 surrounding pixels.
 	{
-		for (int y = 1; y < (screen.getSize().y - 1); y++)
+		for (int y = 1; y < (screenY - 1); y++)
 		{
 
 			Color currentPixel = screen.getPixel(x, y);
