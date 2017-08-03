@@ -93,42 +93,6 @@ Image eagleFilter(Image screen)
 
 		}
 	}
-	/*
-	for (int i = 0; i < 160; i++)
-	{
-		Color oldPixel1 = screen.getPixel(i, 0);
-
-		scaledScreen.setPixel((i * 2) + 1, 0, oldPixel1);
-		scaledScreen.setPixel((i * 2), 0, oldPixel1);
-		scaledScreen.setPixel((i * 2) + 1, 1, oldPixel1);
-		scaledScreen.setPixel((i * 2), 1, oldPixel1);
-
-		Color oldPixel2 = screen.getPixel(i, 143);
-
-		scaledScreen.setPixel((i * 2) + 1, (143 * 2), oldPixel2);
-		scaledScreen.setPixel((i * 2), (143 * 2) + 1, oldPixel2);
-		scaledScreen.setPixel((i * 2) + 1, (143 * 2) + 1, oldPixel2);
-		scaledScreen.setPixel((i * 2), (143 * 2), oldPixel2);
-	}
-
-	for (int i = 1; i < 143; i++)
-	{
-		Color oldPixel1 = screen.getPixel(0, i);
-
-		scaledScreen.setPixel(0, (i * 2) + 1, oldPixel1);
-		scaledScreen.setPixel(0, (i * 2), oldPixel1);
-		scaledScreen.setPixel(1, (i * 2) + 1, oldPixel1);
-		scaledScreen.setPixel(1, (i * 2), oldPixel1);
-
-		Color oldPixel2 = screen.getPixel(159, i);
-
-		scaledScreen.setPixel((159 * 2), (i * 2) + 1, oldPixel2);
-		scaledScreen.setPixel((159 * 2) + 1, (i * 2), oldPixel2);
-		scaledScreen.setPixel((159 * 2) + 1, (i * 2) + 1, oldPixel2);
-		scaledScreen.setPixel((159 * 2), (i * 2), oldPixel2);
-	}
-	
-	*/
 
 	return scaledScreen;
 }
@@ -371,42 +335,6 @@ Image scale3XFilter(Image screen)
 
 		}
 	}
-	/*
-	for (int i = 0; i < 160; i++)
-	{
-	Color oldPixel1 = screen.getPixel(i, 0);
-
-	scaledScreen.setPixel((i * 2) + 1, 0, oldPixel1);
-	scaledScreen.setPixel((i * 2), 0, oldPixel1);
-	scaledScreen.setPixel((i * 2) + 1, 1, oldPixel1);
-	scaledScreen.setPixel((i * 2), 1, oldPixel1);
-
-	Color oldPixel2 = screen.getPixel(i, 143);
-
-	scaledScreen.setPixel((i * 2) + 1, (143 * 2), oldPixel2);
-	scaledScreen.setPixel((i * 2), (143 * 2) + 1, oldPixel2);
-	scaledScreen.setPixel((i * 2) + 1, (143 * 2) + 1, oldPixel2);
-	scaledScreen.setPixel((i * 2), (143 * 2), oldPixel2);
-	}
-
-	for (int i = 1; i < 143; i++)
-	{
-	Color oldPixel1 = screen.getPixel(0, i);
-
-	scaledScreen.setPixel(0, (i * 2) + 1, oldPixel1);
-	scaledScreen.setPixel(0, (i * 2), oldPixel1);
-	scaledScreen.setPixel(1, (i * 2) + 1, oldPixel1);
-	scaledScreen.setPixel(1, (i * 2), oldPixel1);
-
-	Color oldPixel2 = screen.getPixel(159, i);
-
-	scaledScreen.setPixel((159 * 2), (i * 2) + 1, oldPixel2);
-	scaledScreen.setPixel((159 * 2) + 1, (i * 2), oldPixel2);
-	scaledScreen.setPixel((159 * 2) + 1, (i * 2) + 1, oldPixel2);
-	scaledScreen.setPixel((159 * 2), (i * 2), oldPixel2);
-	}
-
-	*/
 
 	return scaledScreen;
 }
