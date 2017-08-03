@@ -506,7 +506,7 @@ Image lcdFilter1(Image screen)
 }
 
 
-Image _2xSaI(Image screen)
+Image saI2X(Image screen)
 {
 
 	auto compareColors = [](auto color1, auto color2, auto color3, auto color4, auto invert)
@@ -1070,7 +1070,7 @@ Image super2xSaI(Image screen)
 
 }
 
-Image SuperEagle(Image screen)
+Image superEagle(Image screen)
 {
 
 	auto compareColors = [](auto color1, auto color2, auto color3, auto color4, auto invert)
@@ -1384,11 +1384,11 @@ Image filterSelect(Image screen, byte filterNumber)
 	}
 	if (filterNumber == 9)
 	{
-		return SuperEagle(screen);
+		return superEagle(screen);
 	}
 	if (filterNumber == 10)
 	{
-		return _2xSaI(screen);
+		return saI2X(screen);
 	}
 	if (filterNumber == 11)
 	{
