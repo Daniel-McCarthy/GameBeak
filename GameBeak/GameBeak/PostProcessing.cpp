@@ -1376,8 +1376,14 @@ Image xBR2(Image screen)
 
 	Color a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u;
 
-	int xOffset = 0;
-	int yOffset = 0;
+	int xOffsetLeftEndRow = 0;
+	int xOffsetLeftInnerRow = 0;
+	int xOffsetRightEndRow = 0;
+	int xOffsetRightInnerRow = 0;
+	int yOffsetTopEndRow = 0;
+	int yOffsetTopInnerRow = 0;
+	int yOffsetBottomEndRow = 0;
+	int yOffsetBottomInnerRow = 0;
 
 	Color color1, color2, color3, color4;
 
@@ -1386,91 +1392,116 @@ Image xBR2(Image screen)
 		for (int x = 0; x < screenX; x++)
 		{
 			//Keeps from indexing pixels before the top side of the image
-			if (y > 1)
+			if (y < 4)
 			{
-				yOffset = 0;
-			}
-			else if (y == 1)
-			{
-				yOffset = 1;
+				if (y > 1) //No offset needed
+				{
+					int yOffsetTopEndRow = 0;
+					int yOffsetTopInnerRow = 0;
+				}
+				else if (y == 1)
+				{
+					int yOffsetTopEndRow = 1;
+					int yOffsetTopInnerRow = 0;
+				}
+				else
+				{
+					int yOffsetTopEndRow = 2;
+					int yOffsetTopInnerRow = 1;
+				}
 			}
 			else
 			{
-				yOffset = 2;
+				//Keeps from indexing pixels past the bottom side of the image
+				if (y < (screenY - 2))
+				{
+					int yOffsetBottomEndRow = 0;
+					int yOffsetBottomInnerRow = 0;
+				}
+				else if (y == (screenY - 2))
+				{
+					int yOffsetBottomEndRow = -1;
+					int yOffsetBottomInnerRow = 0;
+				}
+				else
+				{
+					int yOffsetBottomEndRow = -2;
+					int yOffsetBottomInnerRow = -1;
+				}
 			}
 
 			//Keeps from indexing pixels before the left side of the image
-			if (x > 1)
+			if (x < 4)
 			{
-				xOffset = 0;
-			}
-			else if (x == 1)
-			{
-				xOffset = 1;
+
+				if (x > 1)
+				{
+					int xOffsetLeftEndRow = 0;
+					int xOffsetLeftInnerRow = 0;
+				}
+				else if (x == 1)
+				{
+					int xOffsetLeftEndRow = 1;
+					int xOffsetLeftInnerRow = 0;
+				}
+				else
+				{
+					int xOffsetLeftEndRow = 2;
+					int xOffsetLeftInnerRow = 1;
+				}
 			}
 			else
 			{
-				xOffset = 2;
+				//Keeps from indexing pixels past the right side of the image
+				if (x < (screenX - 1))
+				{
+					int xOffsetRightEndRow = 0;
+					int xOffsetRightInnerRow = 0;
+				}
+				else if (x == (screenX - 1))
+				{
+					int xOffsetRightEndRow = -1;
+					int xOffsetRightInnerRow = 0;
+				}
+				else
+				{
+					int xOffsetRightEndRow = -2;
+					int xOffsetRightInnerRow = -1;
+				}
 			}
 
-			//Keeps from indexing pixels past the bottom side of the image
-			if (y < screenY)
-			{
-				yOffset = 0;
-			}
-			else if (y == screenY)
-			{
-				yOffset = -1;
-			}
-			else
-			{
-				yOffset = -2;
-			}
 
-			//Keeps from indexing pixels past the right side of the image
-			if (x < screenX)
-			{
-				xOffset = 0;
-			}
-			else if (x == screenX)
-			{
-				xOffset = -1;
-			}
-			else
-			{
-				xOffset = -2;
-			}
 
 			//First 3 Colors: Row 1
-			a = screen.getPixel(x - 1 + xOffset, y - 2 + yOffset);
-			b = screen.getPixel(x + xOffset, y - 2 + yOffset);
-			c = screen.getPixel(x + 1 + xOffset, y - 2 + yOffset);
+			a = screen.getPixel(x - 1 + xOffsetLeftInnerRow, y - 2 + yOffsetTopEndRow);
+			b = screen.getPixel(x, y - 2 + yOffsetTopEndRow);
+			c = screen.getPixel(x + 1 + xOffsetRightInnerRow, y - 2 + yOffsetTopEndRow);
 	
 			//Next 5 Colors: Row 2
-			d = screen.getPixel(x - 2 + xOffset, y - 1 + yOffset);
-			e = screen.getPixel(x - 1 + xOffset, y - 1 + yOffset);
-			f = screen.getPixel(x + xOffset, y - 1 + yOffset);
-			g = screen.getPixel(x + 1 + xOffset, y - 1 + yOffset);
-			h = screen.getPixel(x + 2 + xOffset, y - 1 + yOffset);
+			d = screen.getPixel(x - 2 + xOffsetLeftEndRow, y - 1 + yOffsetTopInnerRow);
+			e = screen.getPixel(x - 1 + xOffsetLeftInnerRow, y - 1 + yOffsetTopInnerRow);
+			f = screen.getPixel(x, y - 1 + yOffsetTopInnerRow);
+			g = screen.getPixel(x + 1 + xOffsetRightInnerRow, y - 1 + yOffsetTopInnerRow);
+			h = screen.getPixel(x + 2 + xOffsetRightEndRow, y - 1 + yOffsetTopInnerRow);
 
 			//Next 5 Colors: Row 3
-			i = screen.getPixel(x - 2 + xOffset, y + yOffset);
-			j = screen.getPixel(x - 1 + xOffset, y + yOffset);
-			k = screen.getPixel(x + xOffset, y + yOffset);
-			l = screen.getPixel(x + 1 + xOffset, y + yOffset);
-			m = screen.getPixel(x + 2 + xOffset, y + yOffset);
+			i = screen.getPixel(x - 2 + +xOffsetLeftEndRow, y);
+			j = screen.getPixel(x - 1 + xOffsetLeftInnerRow, y);
+			k = screen.getPixel(x, y);
+			l = screen.getPixel(x + 1 + xOffsetRightInnerRow, y);
+			m = screen.getPixel(x + 2 + +xOffsetRightEndRow, y);
 
 			//Next 5 Colors: Row 4
-			n = screen.getPixel(x - 2 + xOffset, y + 1 + yOffset);
-			o = screen.getPixel(x - 1 + xOffset, y + 1 + yOffset);
-			p = screen.getPixel(x + xOffset, y + 1 + yOffset);
-			q = screen.getPixel(x + 1 + xOffset, y + 1 + yOffset);
-			r = screen.getPixel(x + 2 + xOffset, y + 1 + yOffset);
+			n = screen.getPixel(x - 2 + +xOffsetLeftEndRow, y + 1 + yOffsetBottomInnerRow);
+			o = screen.getPixel(x - 1 + xOffsetLeftInnerRow, y + 1 + yOffsetBottomInnerRow);
+			p = screen.getPixel(x, y + 1 + yOffsetBottomInnerRow);
+			q = screen.getPixel(x + 1 + xOffsetRightInnerRow, y + 1 + yOffsetBottomInnerRow);
+			r = screen.getPixel(x + 2 + +xOffsetRightEndRow, y + 1 + yOffsetBottomInnerRow);
 
 			//Last 3 Colors: Row 5
-			s = screen.getPixel(x - 1 + xOffset, y + 2 + yOffset);
-			t = screen.getPixel(x + xOffset, y + 2 + yOffset);
-			u = screen.getPixel(x + 1 + xOffset, y + 2 + yOffset);
+			s = screen.getPixel(x - 1 + xOffsetLeftInnerRow, y + 2 + yOffsetBottomEndRow);
+			t = screen.getPixel(x, y + 2 + yOffsetBottomEndRow);
+			u = screen.getPixel(x + 1 + xOffsetRightInnerRow, y + 2 + yOffsetBottomEndRow);
 
 
 
