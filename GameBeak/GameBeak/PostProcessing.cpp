@@ -1453,12 +1453,12 @@ Image xBR2(Image screen)
 			else
 			{
 				//Keeps from indexing pixels past the right side of the image
-				if (x < (screenX - 1))
+				if (x < (screenX - 2))
 				{
 					xOffsetRightEndRow = 0;
 					xOffsetRightInnerRow = 0;
 				}
-				else if (x == (screenX - 1))
+				else if (x == (screenX - 2))
 				{
 					xOffsetRightEndRow = -1;
 					xOffsetRightInnerRow = 0;
