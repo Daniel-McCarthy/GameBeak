@@ -144,10 +144,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		debugWindow = new DebuggerWindow("DebugBeak", 400, 400);
 	}
 
-	int clocks = 0;
+	int clocks = 4500;//4516;//4518;//4516;
 	int clocksSinceLastTimerTIMAIncrement = 0;
 	int clocksSinceLastTimerDIVIncrement = 0;
 	int clocksSinceLastScanLineComplete = 0;
+	int clocksSinceLastVBlank = 0;
 	int clocksSinceLastScreenRefresh = 0;
 
 	beakMemory.loadDecompressedNintendoLogoToMemory();
@@ -239,14 +240,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 						paused = false;
 					}
 				}
-				
+
 				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::Escape)
 				{
 					run = false;
 				}
 
 			}
-			
+
 			pollingSkipping = 0;
 		}
 		else
@@ -297,7 +298,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			step = false;
 			clocks += cpu.tClock;
 			cpu.updateTIMA(clocks, clocksSinceLastTimerTIMAIncrement, clocksSinceLastTimerDIVIncrement);
-			beakWindow.updateLCD(clocks, clocksSinceLastScanLineComplete, clocksSinceLastScreenRefresh);
+			beakWindow.updateLCD(clocks, clocksSinceLastScanLineComplete, clocksSinceLastScreenRefresh, clocksSinceLastVBlank);
 			cpu.mClock = 0;
 			cpu.tClock = 0;
 

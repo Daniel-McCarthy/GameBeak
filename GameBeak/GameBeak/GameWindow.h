@@ -20,7 +20,7 @@ public:
 	GameWindow(string title, int width, int height);
 	~GameWindow();
 
-	void updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshClocksSinceLastUpdate);
+	void updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshClocksSinceLastUpdate, int& clocksSinceLastVBlank);
 	void setIcon(int width, int height, string path);
 	Color getBGPixel(int x, int y);
 	void setBGPixel(int x, int y, Color color);
@@ -40,6 +40,7 @@ public:
 	int getGPUMode();
 	Image screen;
 	Image debugTileScreen;
+	bool poweringOn = true;
 };
 
 //#endif

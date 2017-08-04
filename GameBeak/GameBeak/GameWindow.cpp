@@ -78,7 +78,7 @@ void GameWindow::setIcon(int width, int height, string path)
 	window->setIcon(32, 32, image.getPixelsPtr());
 }
 
-void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshClocksSinceLastUpdate)
+void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshClocksSinceLastUpdate, int& clocksSinceLastVBlank)
 {
 	//if (beakMemory.getLCDEnabled())
 	//{
@@ -92,13 +92,17 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 		//40: SML 80: Tetris
 		if ((clocks - lineClocksSinceLastUpdate) >= 204)//40)//80)//40)//80)//56)//102)//204)
 		{
-			ly++;
-			beakMemory.setLCDLY(ly);
+			//if (!poweringOn)
+			{
+				ly++;
+				beakMemory.setLCDLY(ly);
+			}
 
 			if (ly >= 144)
 			{
 				beakGPU.setLCDMode(1);
 				gpuMode = 1;
+				clocksSinceLastVBlank = clocks;
 				//beakGPU.setLCDStatus((beakGPU.getLCDStatus() & 0xC7) | 0x8);
 				//Set LCD Interrupt if V-Blank Event is set
 				if ((beakGPU.getLCDStatus() & 0x8) > 0)
@@ -146,16 +150,17 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 		//V-Blank
 		//if greater than 456, inc ly, if ly > 153, set mode to 2, set ly to 0
 		//50: SML 100: Tetris
+
 		if ((clocks - lineClocksSinceLastUpdate) >= 456)//100)//50)//100)//114)//228)//456)
 		{
-			ly++;
-			beakMemory.setLCDLY(ly);
-
+			if (!poweringOn)
+			{
+				ly++;
+				beakMemory.setLCDLY(ly);
+			}
+			/*
 			if (ly >= 154)
 			{
-				beakGPU.setLCDMode(2);
-				gpuMode = 2;
-				//beakGPU.setLCDStatus((beakGPU.getLCDStatus() & 0xC7) | 0x10);
 
 				//Set LCD Interrupt if OAM event is enabled
 				if ((beakGPU.getLCDStatus() & 0x10) > 0)
@@ -166,8 +171,28 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 				ly = 0;
 				beakMemory.setLCDLY(ly);
 			}
+			*/
 
 			lineClocksSinceLastUpdate = clocks;
+		}
+
+		if ((clocks - clocksSinceLastVBlank) >= 4560)
+		{
+
+			beakGPU.setLCDMode(2);
+			gpuMode = 2;
+			//beakGPU.setLCDStatus((beakGPU.getLCDStatus() & 0xC7) | 0x10);
+			lineClocksSinceLastUpdate = clocks;//-1;
+			poweringOn = false;
+
+			//Set LCD Interrupt if OAM event is enabled
+			if ((beakGPU.getLCDStatus() & 0x10) > 0)
+			{
+				beakMemory.writeMemory(0xFF0F, (byte)(beakMemory.readMemory(0xFF0F) | 0x02));
+			}
+
+			ly = 0;
+			beakMemory.setLCDLY(ly);
 		}
 
 	}
@@ -176,6 +201,12 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 		//OAM Mode
 		//if greater than 80, set mode to 3
 		//15: SML 30: Tetris
+		 /*
+		if (lineClocksSinceLastUpdate == -1)
+		{
+			lineClocksSinceLastUpdate = clocks;
+		}
+		*/
 		if ((clocks - lineClocksSinceLastUpdate) >= 80)//15)//30)//15)//20)//40)//80)
 		{
 			beakGPU.setLCDMode(3);
@@ -302,6 +333,7 @@ void GameWindow::drawScreenFromMaps(int scrollX, int scrollY)
 		byte x = 0;
 		byte y = 0;
 
+		
 		for (int i = 0; i < 160; i++)
 		{
 			x = scrollX + i;
@@ -309,6 +341,7 @@ void GameWindow::drawScreenFromMaps(int scrollX, int scrollY)
 			for (int j = 0; j < 144; j++)
 			{
 				y = scrollY + j;
+
 				screen.setPixel(i, j, bgPixels[x + (y * 256)]);
 			}
 
