@@ -1396,18 +1396,18 @@ Image xBR2(Image screen)
 			{
 				if (y > 1) //No offset needed
 				{
-					int yOffsetTopEndRow = 0;
-					int yOffsetTopInnerRow = 0;
+					yOffsetTopEndRow = 0;
+					yOffsetTopInnerRow = 0;
 				}
 				else if (y == 1)
 				{
-					int yOffsetTopEndRow = 1;
-					int yOffsetTopInnerRow = 0;
+					yOffsetTopEndRow = 1;
+					yOffsetTopInnerRow = 0;
 				}
 				else
 				{
-					int yOffsetTopEndRow = 2;
-					int yOffsetTopInnerRow = 1;
+					yOffsetTopEndRow = 2;
+					yOffsetTopInnerRow = 1;
 				}
 			}
 			else
@@ -1415,18 +1415,18 @@ Image xBR2(Image screen)
 				//Keeps from indexing pixels past the bottom side of the image
 				if (y < (screenY - 2))
 				{
-					int yOffsetBottomEndRow = 0;
-					int yOffsetBottomInnerRow = 0;
+					yOffsetBottomEndRow = 0;
+					yOffsetBottomInnerRow = 0;
 				}
 				else if (y == (screenY - 2))
 				{
-					int yOffsetBottomEndRow = -1;
-					int yOffsetBottomInnerRow = 0;
+					yOffsetBottomEndRow = -1;
+					yOffsetBottomInnerRow = 0;
 				}
 				else
 				{
-					int yOffsetBottomEndRow = -2;
-					int yOffsetBottomInnerRow = -1;
+					 yOffsetBottomEndRow = -2;
+					 yOffsetBottomInnerRow = -1;
 				}
 			}
 
@@ -1436,18 +1436,18 @@ Image xBR2(Image screen)
 
 				if (x > 1)
 				{
-					int xOffsetLeftEndRow = 0;
-					int xOffsetLeftInnerRow = 0;
+					xOffsetLeftEndRow = 0;
+					xOffsetLeftInnerRow = 0;
 				}
 				else if (x == 1)
 				{
-					int xOffsetLeftEndRow = 1;
-					int xOffsetLeftInnerRow = 0;
+					xOffsetLeftEndRow = 1;
+					xOffsetLeftInnerRow = 0;
 				}
 				else
 				{
-					int xOffsetLeftEndRow = 2;
-					int xOffsetLeftInnerRow = 1;
+					xOffsetLeftEndRow = 2;
+					xOffsetLeftInnerRow = 1;
 				}
 			}
 			else
@@ -1455,18 +1455,18 @@ Image xBR2(Image screen)
 				//Keeps from indexing pixels past the right side of the image
 				if (x < (screenX - 1))
 				{
-					int xOffsetRightEndRow = 0;
-					int xOffsetRightInnerRow = 0;
+					xOffsetRightEndRow = 0;
+					xOffsetRightInnerRow = 0;
 				}
 				else if (x == (screenX - 1))
 				{
-					int xOffsetRightEndRow = -1;
-					int xOffsetRightInnerRow = 0;
+					xOffsetRightEndRow = -1;
+					xOffsetRightInnerRow = 0;
 				}
 				else
 				{
-					int xOffsetRightEndRow = -2;
-					int xOffsetRightInnerRow = -1;
+					xOffsetRightEndRow = -2;
+					xOffsetRightInnerRow = -1;
 				}
 			}
 
