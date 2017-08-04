@@ -49,7 +49,7 @@ const int SCALE3X = 3;
 const int SUPEREAGLE = 9;
 const int SAI2X = 10;
 const int SUPER2XSAI = 11;
-const int XBR2X = 11;
+const int XBR2X = 12;
 
 byte filterSetting = NONE;
 
