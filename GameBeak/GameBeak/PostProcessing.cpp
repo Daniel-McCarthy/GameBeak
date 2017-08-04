@@ -1347,6 +1347,254 @@ Image superEagle(Image screen)
 	return scaledScreen;
 }
 
+Image xBR2(Image screen)
+{
+	/*
+	   a  b  c
+	d  e  f  g  h
+	i  j  k  l  m
+	n  o  p  q  r
+	   s  t  u
+	
+	Current pixel is k
+	*/
+
+	auto compareColors = [](auto color1, auto color2)
+	{
+		int y = (abs(color1.r - color2.r) * .299f) + (abs(color1.g - color2.g) * .587f) + (abs(color1.b - color2.b) * .114f);
+		int u = (abs(color1.r - color2.r) * -.168736f) + (abs(color1.g - color2.g) * -.331264f) + (abs(color1.b - color2.b) * .5f);
+		int v = (abs(color1.r - color2.r) * .5f) + (abs(color1.g - color2.g) * -.418688f) + (abs(color1.b - color2.b) * 0.081312f);
+
+		return (y * 48) + (u * 7) + (v * 6); //Multiplication values can be modified for different results
+	};
+
+	int screenX = screen.getSize().x;
+	int screenY = screen.getSize().y;
+
+	Image scaledScreen;
+	scaledScreen.create(screen.getSize().x * 2, screen.getSize().y * 2);
+
+	Color a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u;
+
+	int xOffset = 0;
+	int yOffset = 0;
+
+	Color color1, color2, color3, color4;
+
+	for (int y = 0; y < screenY; y++)
+	{
+		for (int x = 0; x < screenX; x++)
+		{
+			//Keeps from indexing pixels before the top side of the image
+			if (y > 1)
+			{
+				yOffset = 0;
+			}
+			else if (y == 1)
+			{
+				yOffset = 1;
+			}
+			else
+			{
+				yOffset = 2;
+			}
+
+			//Keeps from indexing pixels before the left side of the image
+			if (x > 1)
+			{
+				xOffset = 0;
+			}
+			else if (x == 1)
+			{
+				xOffset = 1;
+			}
+			else
+			{
+				xOffset = 2;
+			}
+
+			//Keeps from indexing pixels past the bottom side of the image
+			if (y < screenY)
+			{
+				yOffset = 0;
+			}
+			else if (y == screenY)
+			{
+				yOffset = -1;
+			}
+			else
+			{
+				yOffset = -2;
+			}
+
+			//Keeps from indexing pixels past the right side of the image
+			if (x < screenX)
+			{
+				xOffset = 0;
+			}
+			else if (x == screenX)
+			{
+				xOffset = -1;
+			}
+			else
+			{
+				xOffset = -2;
+			}
+
+			//First 3 Colors: Row 1
+			a = screen.getPixel(x - 1 + xOffset, y - 2 + yOffset);
+			b = screen.getPixel(x + xOffset, y - 2 + yOffset);
+			c = screen.getPixel(x + 1 + xOffset, y - 2 + yOffset);
+	
+			//Next 5 Colors: Row 2
+			d = screen.getPixel(x - 2 + xOffset, y - 1 + yOffset);
+			e = screen.getPixel(x - 1 + xOffset, y - 1 + yOffset);
+			f = screen.getPixel(x + xOffset, y - 1 + yOffset);
+			g = screen.getPixel(x + 1 + xOffset, y - 1 + yOffset);
+			h = screen.getPixel(x + 2 + xOffset, y - 1 + yOffset);
+
+			//Next 5 Colors: Row 3
+			i = screen.getPixel(x - 2 + xOffset, y + yOffset);
+			j = screen.getPixel(x - 1 + xOffset, y + yOffset);
+			k = screen.getPixel(x + xOffset, y + yOffset);
+			l = screen.getPixel(x + 1 + xOffset, y + yOffset);
+			m = screen.getPixel(x + 2 + xOffset, y + yOffset);
+
+			//Next 5 Colors: Row 4
+			n = screen.getPixel(x - 2 + xOffset, y + 1 + yOffset);
+			o = screen.getPixel(x - 1 + xOffset, y + 1 + yOffset);
+			p = screen.getPixel(x + xOffset, y + 1 + yOffset);
+			q = screen.getPixel(x + 1 + xOffset, y + 1 + yOffset);
+			r = screen.getPixel(x + 2 + xOffset, y + 1 + yOffset);
+
+			//Last 3 Colors: Row 5
+			s = screen.getPixel(x - 1 + xOffset, y + 2 + yOffset);
+			t = screen.getPixel(x + xOffset, y + 2 + yOffset);
+			u = screen.getPixel(x + 1 + xOffset, y + 2 + yOffset);
+
+
+
+			int comparison_k_j = compareColors(k, j);
+			int comparison_k_f = compareColors(k, f);
+			int comparison_k_l = compareColors(k, l);
+			int comparison_k_p = compareColors(k, p);
+			int comparison_k_o = compareColors(k, o);
+			int comparison_k_g = compareColors(k, g);
+			int comparison_e_i = compareColors(e, i);
+			int comparison_e_b = compareColors(e, b);
+			int comparison_j_f = compareColors(j, f);
+			int comparison_j_p = compareColors(j, p);
+			int comparison_j_d = compareColors(j, d);
+			int comparison_f_l = compareColors(f, l);
+			int comparison_f_a = compareColors(f, a);
+			int comparison_k_e = compareColors(k, e);
+			int comparison_k_q = compareColors(k, q);
+			int comparison_g_m = compareColors(g, m);
+			int comparison_g_b = compareColors(g, b);
+			int comparison_l_p = compareColors(l, p);
+			int comparison_l_h = compareColors(l, h);
+			int comparison_f_c = compareColors(f, c);
+			int comparison_o_i = compareColors(o, i);
+			int comparison_o_t = compareColors(o, t);
+			int comparison_p_s = compareColors(p, s);
+			int comparison_j_n = compareColors(j, n);
+			int comparison_q_m = compareColors(q, m);
+			int comparison_q_t = compareColors(q, t);
+			int comparison_p_u = compareColors(p, u);
+			int comparison_p_r = compareColors(p, r);
+
+			int detectUpRightDiagonalLine = (comparison_k_o + comparison_k_g + comparison_e_i + comparison_e_b + (4 * comparison_j_f));
+			int detectDownRightDiagonalLine = (comparison_j_p + comparison_j_d + comparison_f_l + comparison_f_a + (4 * comparison_k_e));
+
+			//Upper-Left Line Detection
+			if (detectUpRightDiagonalLine < detectDownRightDiagonalLine)
+			{
+				if (comparison_k_j <= comparison_k_f)
+				{
+					color1 = cosineInterpolation(j, k, .5);
+				}
+				else
+				{
+					color1 = cosineInterpolation(f, k, .5);
+				}
+			}
+			else
+			{
+				color1 = k;
+			}
+
+			detectDownRightDiagonalLine = (comparison_k_q + comparison_k_e + comparison_g_m + comparison_g_b + (4 * comparison_f_l));
+			detectUpRightDiagonalLine = (comparison_l_p + comparison_l_h + comparison_j_f + comparison_f_c + (4 * comparison_k_g));
+
+			//Upper-Right Line Detection
+			if (detectDownRightDiagonalLine < detectUpRightDiagonalLine)
+			{
+				if (comparison_k_f <= comparison_k_l)
+				{
+					color2 = cosineInterpolation(f, k, .5);
+				}
+				else
+				{
+					color2 = cosineInterpolation(l, k, .5);
+				}
+			}
+			else
+			{
+				color2 = k;
+			}
+
+			detectDownRightDiagonalLine = (comparison_k_e + comparison_k_q + comparison_o_i + comparison_o_t + (4 * comparison_j_p));
+			detectUpRightDiagonalLine = (comparison_j_f + comparison_j_n + comparison_l_p + comparison_p_s + (4 * comparison_k_o));
+
+			//Lower-Left Line Detection
+			if (detectDownRightDiagonalLine < detectUpRightDiagonalLine)
+			{
+				if (comparison_k_j <= comparison_k_p)
+				{
+					color3 = cosineInterpolation(j, k, .5);
+				}
+				else
+				{
+					color3 = cosineInterpolation(p, k, .5);
+				}
+			}
+			else
+			{
+				color3 = k;
+			}
+
+
+			detectUpRightDiagonalLine = (comparison_k_g + comparison_k_o + comparison_q_m + comparison_q_t + (4 * comparison_l_p));
+			detectDownRightDiagonalLine = (comparison_j_p + comparison_p_u + comparison_p_r + comparison_f_l + (4 * comparison_k_q));
+
+			//Lower-Right Line Detection
+			if (detectUpRightDiagonalLine < detectDownRightDiagonalLine)
+			{
+				if (comparison_k_l <= comparison_k_p)
+				{
+					color4 = cosineInterpolation(l, k, .5);
+				}
+				else
+				{
+					color4 = cosineInterpolation(p, k, .5);
+				}
+			}
+			else
+			{
+				color4 = k;
+			}
+
+
+			scaledScreen.setPixel((x * 2), (y * 2), color1);
+			scaledScreen.setPixel((x * 2) + 1, (y * 2), color2);
+			scaledScreen.setPixel((x * 2), (y * 2) + 1, color3);
+			scaledScreen.setPixel((x * 2) + 1, (y * 2) + 1, color4);
+		}
+	}
+
+	return scaledScreen;
+}
+
 Image filterSelect(Image screen, byte filterNumber)
 {
 
@@ -1393,6 +1641,10 @@ Image filterSelect(Image screen, byte filterNumber)
 	if (filterNumber == 11)
 	{
 		return super2xSaI(screen);
+	}
+	if (filterNumber == 12)
+	{
+		return xBR2(screen);
 	}
 	else
 	{
