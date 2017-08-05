@@ -376,7 +376,7 @@ void gpu::drawLineFromSpriteMap(int lineY)
 	//False: 8x8 | True: 8x16
 	bool spriteSize = getSpriteSize();
 
-	byte y = 0;
+	int y = 0;
 	byte x = 0;
 	int tileY = 0;
 	int tileX = 0;
@@ -403,13 +403,13 @@ void gpu::drawLineFromSpriteMap(int lineY)
 
 	for (int i = 0; i < 40; i++)
 	{
-		y = beakMemory.readMemory(mapAddress + (i * 4));
+		y = beakMemory.readMemory(mapAddress + (i * 4)) - 16;
 
-		if (y > 8)
+		if (y > -8)
 		{
-			y -= 16;
-			x = beakMemory.readMemory(mapAddress + (i * 4) + 1) - 8;
 
+			x = beakMemory.readMemory(mapAddress + (i * 4) + 1) - 8;
+			
 			bool isSpriteOnLine = (y <= lineY) && ((y + ((spriteSize == 0) ? 8 : 16)) > lineY);
 			//(y <= lineY)  if the start of the sprite is at lineY or before it
 			//(y + (spriteSize == 0) ? 8 : 16)) > lineY) if the end of the sprite is past lineY (By way of commenting, this isn't the problem)
@@ -417,6 +417,8 @@ void gpu::drawLineFromSpriteMap(int lineY)
 
 			if (isSpriteOnLine)
 			{
+
+
 				lineToDraw = lineY - y;
 
 				tileNumber = beakMemory.readMemory(mapAddress + (i * 4) + 2);
