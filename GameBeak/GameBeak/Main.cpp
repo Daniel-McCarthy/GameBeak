@@ -31,7 +31,7 @@ const int mintPink = 6;
 const int kigb = 7;
 const int bgb = 8;
 const int noCashGMB = 9;
-const int playGuy = 1;
+const int playGuy = 10;
 const int dreamGBC = 11;
 const int heboWIN = 12;
 
