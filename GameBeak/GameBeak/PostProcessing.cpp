@@ -35,6 +35,7 @@ Color cosineInterpolation4(Color color1, Color color2, Color color3, Color color
 	return cosineInterpolation(topInterpolation, bottomInterpolation, div);
 }
 
+
 Image eagleFilter(Image screen)
 {
 	int screenX = screen.getSize().x;
@@ -106,6 +107,9 @@ Image eagleFilter(Image screen)
 	return scaledScreen;
 }
 
+/*
+	Scale2X Scaling Algorithm by Andrea Mazzoleni.
+*/
 Image scale2XFilter(Image screen)
 {
 	Image scaledScreen;
@@ -177,6 +181,9 @@ Image scale2XFilter(Image screen)
 	return scaledScreen;
 }
 
+/*
+	Scale3X Scaling Algorithm by Andrea Mazzoleni.
+*/
 Image scale3XFilter(Image screen)
 {
 	Image scaledScreen;
@@ -506,6 +513,9 @@ Image lcdFilter1(Image screen)
 }
 
 
+/*
+	2xSaI Scaling Algorithm by Derek Liauw Kie Fa. 
+*/
 Image saI2X(Image screen)
 {
 
@@ -796,6 +806,9 @@ Image saI2X(Image screen)
 	return scaledScreen;
 }
 
+/*
+	Super 2xSaI Scaling Algorithm by Derek Liauw Kie Fa.
+*/
 Image super2xSaI(Image screen)
 {
 
@@ -1070,6 +1083,9 @@ Image super2xSaI(Image screen)
 
 }
 
+/*
+	Super Eagle Scaling Algorithm by Derek Liauw Kie Fa.
+*/
 Image superEagle(Image screen)
 {
 
@@ -1347,6 +1363,9 @@ Image superEagle(Image screen)
 	return scaledScreen;
 }
 
+/*
+	xBR Scaling Algorithm by Hyllian.
+*/
 Image xBR2(Image screen)
 {
 	/*
