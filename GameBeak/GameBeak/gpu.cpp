@@ -738,9 +738,9 @@ ifstream gpu::openCreatePalettesXML()
 
 			file << "\t<scheme>" << endl;
 			file << "\t\t<name>FPGABOY</name>" << endl;
-			file << "\t\t<bgp>BFB9FDFF|6E58D7FF|7F3333FF|28196BFF</bgp>" << endl;
-			file << "\t\t<0bp0>BFB9FDFF|6E58D7FF|7F3333FF|28196BFF</0bp0>" << endl;
-			file << "\t\t<0bp1>BFB9FDFF|6E58D7FF|7F3333FF|28196BFF</0bp1>" << endl;
+			file << "\t\t<bgp>BFB9FDFF|6E58D7FF|28196BFF|000000FF</bgp>" << endl;
+			file << "\t\t<0bp0>BFB9FDFF|6E58D7FF|28196BFF|000000FF</0bp0>" << endl;
+			file << "\t\t<0bp1>BFB9FDFF|6E58D7FF|28196BFF|000000FF</0bp1>" << endl;
 			file << "\t</scheme>\n" << endl;
 
 			file << "\t<scheme>" << endl;
