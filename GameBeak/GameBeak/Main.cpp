@@ -34,6 +34,7 @@ const int noCashGMB = 9;
 const int playGuy = 10;
 const int dreamGBC = 11;
 const int heboWIN = 12;
+const int fpgaBoy = 13;
 
 //Settings values
 byte paletteSetting = 0;
