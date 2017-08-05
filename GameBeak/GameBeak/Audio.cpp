@@ -40,17 +40,25 @@ FF26 ON/OFF
 
 Audio::Audio()
 {
-	char path1[MAX_PATH];
-	string path;
-	GetModuleFileNameA(NULL, path1, MAX_PATH);
-	path = string(path1);
-	path = path.substr(0, path.find_last_of('\\') + 1);
 
-	if (buffer.loadFromFile(path + "Beep.wav"))
-	//if (buffer.loadFromFile(path + "Boop.wav"))
+	/////////////////
+
+	const int sampleRate = 44100;
+	double x = 0;
+	short samples[sampleRate];
+
+	for (int i = 0; i < sampleRate; i++) {
+		samples[i] = 30000 * cos(x*6.28318);
+		x += 0.0099773242630385;
+	}
+
+	if (buffer.loadFromSamples(samples, sampleRate, 1, sampleRate))
 	{
 		sound.setBuffer(buffer);
 	}
+
+	///////////////
+
 }
 
 
