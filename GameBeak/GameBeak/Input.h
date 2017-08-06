@@ -31,6 +31,8 @@ void readInput()
 	byte keyInput = getKeyInput();
 	bool interrupt = false;
 
+	bool right = false, left = false, up = false, down = false;
+
 	if (((keyInput & 0x10) >> 4) == 1)
 	{
 		beakWindow.window->setKeyRepeatEnabled(false);
@@ -77,38 +79,74 @@ void readInput()
 		beakWindow.window->setKeyRepeatEnabled(true);
 
 		if (Keyboard::isKeyPressed(Keyboard::Right)) { //Right arrow //Right
-			keyInput &= 0xFE;
-			interrupt = true;
-		}
-		else
-		{
-			keyInput |= 0x01;
+			right = true;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Left)) { //Left arrow //Left
-			keyInput &= 0xFD;
-			interrupt = true;
+			left = true;
 		}
-		else
+
+		if (!(right && left)) //Detect if both inputs are NOT enabled at once
 		{
+			if (right)
+			{
+				keyInput &= 0xFE;
+				interrupt = true;
+			}
+			else
+			{
+				keyInput |= 0x01;
+			}
+
+			if (left)
+			{
+				keyInput &= 0xFD;
+				interrupt = true;
+			}
+			else
+			{
+				keyInput |= 0x02;
+			}
+		}
+		else //To solve issue of multiple key input on one axis we will ignore input when both left and right are pressed at the same time.
+		{
+			keyInput |= 0x01;
 			keyInput |= 0x02;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Up)) { //Up arrow //Up
-			keyInput &= 0xFB;
-			interrupt = true;
-		}
-		else
-		{
-			keyInput |= 0x04;
+			up = true;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Down)) { //Down arrow //Down
-			keyInput &= 0xF7;
-			interrupt = true;
+			down = true;
 		}
-		else
+
+		if (!(up && down)) //Detect if both inputs are NOT enabled at once
 		{
+			if (up)
+			{
+				keyInput &= 0xFB;
+				interrupt = true;
+			}
+			else
+			{
+				keyInput |= 0x04;
+			}
+
+			if (down)
+			{
+				keyInput &= 0xF7;
+				interrupt = true;
+			}
+			else
+			{
+				keyInput |= 0x08;
+			}
+		}
+		else //To solve issue of multiple key input on one axis we will ignore input when both left and right are pressed at the same time.
+		{
+			keyInput |= 0x04;
 			keyInput |= 0x08;
 		}
 
