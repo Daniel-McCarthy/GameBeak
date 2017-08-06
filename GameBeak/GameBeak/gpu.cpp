@@ -453,7 +453,7 @@ void gpu::drawLineFromSpriteMap(int lineY)
 					{
 						if (!priority || (priority && (beakWindow.getBGPixel(scrollX + x + j, lineY + scrollY) == bgColor)))
 						{
-							beakWindow.setSpritePixel(x + j, lineY, returnColor(colorNumber, palette + 1));
+							beakWindow.setSpritePixel(x + j, lineY, returnColor(colorNumber, palette));
 						}
 					}
 
@@ -474,8 +474,6 @@ void gpu::drawDebugTile(int tileNumber, vector<vector<Color>> tile)
 
 	int y = tileNumber / 20;
 	int x = tileNumber - (20 * y);
-
-	cout << "helloKitty" << endl;
 
 	for (int i = 0; i < 8; i++)
 	{
