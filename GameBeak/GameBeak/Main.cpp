@@ -37,7 +37,7 @@ const int heboWIN = 12;
 const int fpgaBoy = 13;
 
 //Settings values
-byte paletteSetting = 0;
+byte paletteSetting = gamebeakPinkAlt;
 bool soundEnabled = false;
 bool tileDrawMode = false;
 bool fullMapScreenMode = false;
@@ -115,6 +115,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	//[Left]  | [Blue]   [Dark blue]  [Grayscale]
 	//[Right] | [Green]  [Dark Green] [Inverted]
 
+	ifstream palettesXML = beakGPU.openCreatePalettesXML();
+
+	if (palettesXML.fail())
+	{
+		paletteSetting = 0;
+	}
+	else
+	{
+		beakGPU.loadPalettesFromXML(beakGPU.openCreatePalettesXML());
+	}
+
 	//beakMemory.clearRegistersAndFlags();
 	//beakMemory.loadGBBootStrapIntoMemory();
 	beakMemory.initializeGameBoyValues();
@@ -135,10 +146,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	//beakMemory.clearRegistersAndFlags();
 	//beakMemory.loadGBBootStrapIntoMemory();
 
-	beakGPU.loadPalettesFromXML(beakGPU.openCreatePalettesXML());
-	paletteSetting = gamebeakPintAlt;
-
 	RenderWindow* windowPointer = beakWindow.window;
+
 
 	if (debugOnLaunch)
 	{
@@ -233,7 +242,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 					{
 						paused = true;
 						beakWindow.drawFullScreenMaps();
-
 					}
 					else
 					{
@@ -268,7 +276,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		{
 				readInput();
 
-			
 			if (logging)
 			{
 				log += get<0>(disassembleInstruction(memoryPointer)) + '\n';
