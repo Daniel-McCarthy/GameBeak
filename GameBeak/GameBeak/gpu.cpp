@@ -453,7 +453,7 @@ void gpu::drawLineFromSpriteMap(int lineY)
 					{
 						if (!priority || (priority && (beakWindow.getBGPixel(scrollX + x + j, lineY + scrollY) == bgColor)))
 						{
-							beakWindow.setSpritePixel(x + j, lineY, returnColor(colorNumber, palette));
+							beakWindow.setSpritePixel(x + j, lineY, returnColor(colorNumber, palette + 1)); //Plus 1 because 0 is BG palette, so value must be 1 or 2 to access OBJ1 or OBj2.
 						}
 					}
 

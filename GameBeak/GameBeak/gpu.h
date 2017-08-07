@@ -12,13 +12,13 @@ using namespace sf;
 class gpu
 {
 private:
-	const Color darkestPink = Color(72, 24, 59, 255); //Pink Black
-	const Color darkPink = Color(255, 131, 217, 255); //Dark Pink
-	const Color lightPink = Color(255, 214, 245, 255); //Light Pink
-	const Color lightestPink = Color(255, 241, 254, 255); //Pink WHITE
+	const Color darkestPink = Color(72, 24, 59, 255); //Pink Black //48183BFF
+	const Color darkPink = Color(255, 131, 217, 255); //Dark Pink //FF83D9FF
+	const Color lightPink = Color(255, 214, 245, 255); //Light Pink //FFD6F5FF
+	const Color lightestPink = Color(255, 241, 254, 255); //Pink WHITE //FFF1FEFF
 
 public:
-	Color gameBeakPalette[4000] = { lightestPink, lightPink, darkPink, darkestPink };
+	Color gameBeakPalette[4000] = { lightestPink, lightPink, darkPink, darkestPink, lightestPink, lightPink, darkPink, darkestPink, lightestPink, lightPink, darkPink, darkestPink };
 
 	gpu();
 	~gpu();
