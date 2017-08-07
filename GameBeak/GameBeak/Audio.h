@@ -10,6 +10,8 @@ public:
 	void updateSound();
 
 	sf::Sound sound;
+	sf::Sound sound2;
 	sf::SoundBuffer buffer;
+	sf::SoundBuffer buffer2;
 };
 
