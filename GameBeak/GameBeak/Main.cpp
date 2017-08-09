@@ -16,6 +16,7 @@ DebuggerWindow* debugWindow;
 
 short memoryPointer = 0x100;
 short stackPointer = 0;
+int clocks = 4500;
 bool run = true;
 bool enableInterruptsNextCycle = false;
 bool interruptNextCycle = false;
@@ -152,7 +153,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		debugWindow = new DebuggerWindow("DebugBeak", 400, 400);
 	}
 
-	int clocks = 4500;//4516;//4518;//4516;
+	//int clocks = 4500;//4516;//4518;//4516;
 	int clocksSinceLastTimerTIMAIncrement = 0;
 	int clocksSinceLastTimerDIVIncrement = 0;
 	int clocksSinceLastScanLineComplete = 0;
