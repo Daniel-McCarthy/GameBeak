@@ -11,7 +11,7 @@ using namespace sf;
 
 int resolutionScaling = 2;
 
-GameWindow beakWindow = GameWindow("GameBeak", 320 * resolutionScaling, 288 * resolutionScaling);
+GameWindow beakWindow("GameBeak", 320 * resolutionScaling, 288 * resolutionScaling);
 DebuggerWindow* debugWindow;
 
 short memoryPointer = 0x100;
