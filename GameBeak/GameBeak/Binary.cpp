@@ -57,3 +57,102 @@ byte reverseBits(byte number)
 	number = ((number & 0xAA) >> 1)  | ((number & 0x55) << 1);
 	return number;
 }
+
+std::string hexToASCII(int value)
+{
+	std::string output = "";
+
+	if (value > 0)
+	{
+		while (value > 0)
+		{
+			byte toConvert = value & 0x0F;
+			value >>= 4;
+
+			if (toConvert > 9)
+			{
+				//0x41 is ASCII 'a', value of character will index appropriate letter
+				toConvert -= 0xA;
+				output = (char)(0x61 + toConvert) + output;
+			}
+			else
+			{
+				//0x30 is ASCII '0', value of number will index appropriate character
+				output = (char)(0x30 + toConvert) + output;
+			}
+
+		}
+
+		return output;
+	}
+	else
+	{
+		return "0";
+	}
+}
+
+std::string hexToASCIIU(unsigned short value)
+{
+	std::string output = "";
+
+	if (value > 0)
+	{
+		while (value > 0)
+		{
+			byte toConvert = value & 0x0F;
+			value >>= 4;
+
+			if (toConvert > 9)
+			{
+				//0x41 is ASCII 'a', value of character will index appropriate letter
+				toConvert -= 0xA;
+				output = (char)(0x61 + toConvert) + output;
+			}
+			else
+			{
+				//0x30 is ASCII '0', value of number will index appropriate character
+				output = (char)(0x30 + toConvert) + output;
+			}
+
+		}
+
+		return output;
+	}
+	else
+	{
+		return "0";
+	}
+}
+
+std::string hexToASCII(byte value)
+{
+	std::string output = "";
+
+	if (value > 0)
+	{
+		while (value > 0)
+		{
+			byte toConvert = value & 0x0F;
+			value >>= 4;
+
+			if (toConvert > 9)
+			{
+				//0x41 is ASCII 'a', value of character will index appropriate letter
+				toConvert -= 0xA;
+				output = (char)(0x61 + toConvert) + output;
+			}
+			else
+			{
+				//0x30 is ASCII '0', value of number will index appropriate character
+				output = (char)(0x30 + toConvert) + output;
+			}
+
+		}
+
+		return output;
+	}
+	else
+	{
+		return "0";
+	}
+}
