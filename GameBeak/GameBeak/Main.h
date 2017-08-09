@@ -36,12 +36,11 @@ extern short regHL;
 
 extern short memoryPointer;
 extern short stackPointer;
-
+extern sharpCPU cpu;
 #include "Memory.h"
 extern Memory beakMemory;
 extern GameWindow beakWindow;
 extern gpu beakGPU;
-extern sharpCPU cpu;
 #include "Audio.h"
 extern Audio beakAudio;
 extern int memoryControllerMode;
