@@ -35,24 +35,6 @@ DebuggerWindow::DebuggerWindow(string title, int width, int height)
 }
 
 
-DebuggerWindow::DebuggerWindow(RenderWindow* tempWindow)
-{
-	//Set Window
-	window = tempWindow;
-	window->setFramerateLimit(60);
-
-	//Set Icon
-	char path1[MAX_PATH];
-	string path;
-	GetModuleFileNameA(NULL, path1, MAX_PATH);
-	path = string(path1);
-	path = path.substr(0, path.find_last_of('\\') + 1);
-	setIcon(32, 32, path + "Beak3.png");
-
-	//Set Font
-	font.loadFromFile(path + "cour.ttf");
-}
-
 DebuggerWindow::~DebuggerWindow()
 {
 	delete(window);
