@@ -760,17 +760,10 @@ class Memory
 
 	bool writeMemory(unsigned short address, uint8_t byte)
 	{
-		//TODO: Rethink error checking for addresses, 4096 is silly restriction, can't access whole ram map
-		/*
-		if (writeBreakpoint && memoryPointer == writeBreakpointAddress)
-		{
-			paused = true;
-		}
-		*/
 
 		if (memoryControllerMode > 0 && address <= 0x7FFF)
 		{
-			if (memoryControllerMode <= 3)//if (memoryControllerMode == 1)
+			if (memoryControllerMode <= 3)
 			{
 				writeMBC1Value(address, byte);
 			}
