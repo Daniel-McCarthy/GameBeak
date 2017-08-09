@@ -23,6 +23,19 @@ public:
 	int tClock = 0;
 	int mClock = 0;
 
+
+	int returnTClock();
+	int returnMClock();
+	bool returnHalt();
+	bool returnInterrupt();
+	bool returnRepeat();
+	bool returnIME();
+	void setTClock(int tClock);
+	void setmClock(int mClock);
+	void setHalt(bool halt);
+	void setInterrupt(bool interrupt);
+	void setIME(bool ime);
+	void setRepeat(bool repeat);
 	void selectOpcode(byte opcode);
 	bool checkForHaltOrInterrupt();
 	bool checkForInterrupt();

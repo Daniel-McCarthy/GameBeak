@@ -7958,3 +7958,63 @@ bool sharpCPU::checkForHaltOrInterrupt()
 	//0058 Serial Transfer Completion Interrupt
 	//0060 High to Low P10-P13 Interrupt Start Address
 }
+
+
+int sharpCPU::returnTClock()
+{
+	return tClock;
+}
+
+int sharpCPU::returnMClock()
+{
+	return mClock;
+}
+
+bool sharpCPU::returnHalt()
+{
+	return halt;
+}
+
+bool sharpCPU::returnInterrupt()
+{
+	return interrupt;
+}
+
+bool sharpCPU::returnIME()
+{
+	return interruptsEnabled;
+}
+
+bool sharpCPU::returnRepeat()
+{
+	return repeat;
+}
+
+void sharpCPU::setTClock(int newTClock)
+{
+	tClock = newTClock;
+}
+
+void sharpCPU::setmClock(int newMClock)
+{
+	mClock = newMClock;
+}
+
+void sharpCPU::setHalt(bool newHalt)
+{
+	halt = newHalt;
+}
+
+void sharpCPU::setIME(bool ime)
+{
+	interruptsEnabled = ime;
+}
+
+void sharpCPU::setInterrupt(bool newInterrupt)
+{
+	interrupt = newInterrupt;
+}
+void sharpCPU::setRepeat(bool newRepeat)
+{
+	repeat = newRepeat;
+}
