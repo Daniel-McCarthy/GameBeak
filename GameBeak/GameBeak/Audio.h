@@ -1,7 +1,11 @@
+#pragma once
 #include <SFML\Audio.hpp>
 #include "Memory.h"
 
-#pragma once
+
+#ifndef AUDIOH
+#define AUDIOH
+
 class Audio
 {
 public:
@@ -15,3 +19,4 @@ public:
 	sf::SoundBuffer buffer2;
 };
 
+#endif
