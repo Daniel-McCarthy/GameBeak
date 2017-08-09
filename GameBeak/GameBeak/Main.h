@@ -29,6 +29,8 @@ using namespace sf;
 
 //sfg::SFGUI sfGUI;
 
+extern int clocks;
+
 extern short regAF;
 extern short regBC;
 extern short regDE;
