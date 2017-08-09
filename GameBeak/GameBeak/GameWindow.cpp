@@ -36,36 +36,6 @@ GameWindow::GameWindow(string title, int width, int height)
 	setIcon(32, 32, path + "Beak3.png");
 }
 
-
-GameWindow::GameWindow(RenderWindow* tempWindow)
-{
-	//Set Window
-	window = tempWindow;
-	window->setFramerateLimit(60);
-	texture.create(160, 144);
-	screen = Image();
-	screen.create(160, 144, beakGPU.returnColor(0));
-	debugTileScreen = Image();
-	debugTileScreen.create(160, 144, beakGPU.returnColor(0));
-
-	Color pink = beakGPU.returnColor(0, 0);
-	for (int i = 0; i < (256 * 256); i++)
-	{
-		bgPixels[i] = pink;
-		windowPixels[i] = pink;
-		spritePixels[i] = pink;
-	}
-	
-
-	//Set Icon
-	char path1[MAX_PATH];
-	string path;
-	GetModuleFileNameA(NULL, path1, MAX_PATH);
-	path = string(path1);
-	path = path.substr(0, path.find_last_of('\\') + 1);
-	setIcon(32, 32, path + "Beak3.png");
-}
-
 GameWindow::~GameWindow()
 {
 	delete(window);
