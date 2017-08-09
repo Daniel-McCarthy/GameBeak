@@ -13,6 +13,10 @@ It is planned to support Gameboy Color and Gameboy Advance games later on in dev
 ![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-5.png)
 ![Alt text](https://dl.dropboxusercontent.com/u/3623911/GameBeak%20Preview-6.png)
 
+---
+This is a personal learning project and not ready for use as a primary emulator.
+For those wishing to learn to make a project of their own, the links below are highly
+recommended. Additionally, the [Wadatsumi emulator](https://github.com/mehcode/wadatsumi) is well documented.
 
 # Resources:
 
