@@ -1286,6 +1286,343 @@ class Memory
 
 	}
 
+
+	
+	void saveState()
+	{
+		char path1[MAX_PATH];
+		string path;
+		GetModuleFileNameA(NULL, path1, MAX_PATH);
+		path = string(path1);
+		path = path.substr(0, path.find_last_of('\\') + 1);
+
+		ofstream file(path + "save1.egg");
+		if (file.is_open())
+		{
+			file << "[Title:]" << title << endl;
+			file << "[MBC:]" << hexToASCII(memoryControllerMode) << endl;
+			file << "[Rom Bank:]" << hexToASCIIU(romBankNumber) << endl;
+			file << "[Ram Bank:]" << hexToASCII(ramBankNumber) << endl;
+			file << "[AF:]" << hexToASCIIU(regAF) << endl;
+			file << "[BC:]" << hexToASCIIU(regBC) << endl;
+			file << "[DE:]" << hexToASCIIU(regDE) << endl;
+			file << "[HL:]" << hexToASCIIU(regHL) << endl;
+			file << "[PC:]" << hexToASCIIU(memoryPointer) << endl;
+			file << "[SP:]" << hexToASCIIU(stackPointer) << endl;
+			file << "[Halt:]" << hexToASCII(cpu.returnHalt()) << endl;
+			file << "[Interrupt:]" << hexToASCII(cpu.returnInterrupt()) << endl;
+			file << "[PendingIMESet:]" << hexToASCII(enableInterruptsNextCycle) << endl;
+			file << "[IME:]" << hexToASCII(cpu.returnIME()) << endl;
+			file << "[Repeat:]" << hexToASCII(cpu.returnRepeat()) << endl;
+			file << "[Clocks:]" << hexToASCII(clocks) << endl;
+			file << "[GPUMode:]" << hexToASCII(beakWindow.gpuMode) << endl;
+			file << "[Memory:]";
+
+			for (int i = 0x8000; i < 0xFFFF; i++)
+			{
+				byte ram = beakRam[i];
+
+				file << hexToASCII(beakRam[i]) << ';';
+			}
+
+		}
+
+		file.close();
+
+		//paused = true;
+	}
+	
+	
+	void loadSaveState()
+	{
+		char path1[MAX_PATH];
+		string path;
+		GetModuleFileNameA(NULL, path1, MAX_PATH);
+		path = string(path1);
+		path = path.substr(0, path.find_last_of('\\') + 1);
+
+		ifstream savestateFile(path + "save1.egg");
+		if (!savestateFile.fail())
+		{
+			string line;
+			list<byte> colorValues;
+
+			bool quit = false;
+			bool setRomBank = false;
+			bool setRamBank = false;
+
+			while (getline(savestateFile, line) && !quit)
+			{
+				if (line.find("[Title:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+
+					line = line.substr(last, line.length() - last);
+
+					if (title != line)
+					{
+						quit = true;
+					}
+				}
+				else if (line.find("[MBC:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last - 2);
+
+					unsigned int mbc = stoi(line, 0, 16);
+
+					switch (mbc)
+					{
+						case 1:
+						case 2:
+						case 3:
+						{
+							//MBC1
+							setRomBank = true;
+							setRamBank = true;
+							break;
+						}
+						case 5:
+						case 6:
+						{
+							//MBC2
+							setRomBank = true;
+						}
+						//case 0x0B:
+						//case 0x0C:
+						//case 0x0D:
+						case 0x11:
+						case 0x12:
+						case 0x13:
+						{
+							//MBC3
+							setRomBank = true;
+							setRamBank = true;
+							break;
+						}
+						case 0x19:
+						case 0x1A:
+						case 0x1B:
+						case 0x1C:
+						case 0x1D:
+						case 0x1E:
+						{
+							//MBC5
+							setRomBank = true;
+							setRamBank = true;
+							break;
+						}
+						//case 0x20:
+						//case 0x22:
+						//case 0xFD:
+						//case 0xFE:
+						//case 0xFF:
+
+
+					}
+
+
+				}
+				else if (line.find("[Rom Bank:]") != string::npos)
+				{
+					if (setRomBank == true)
+					{
+						int last = line.find_last_of(']') + 1;
+						line = line.substr(last, line.length() - last - 2);
+
+						unsigned int romBank = stoi(line, 0, 16);
+
+						//Change Rom Bank based on which memory controller it is
+						switch (memoryControllerMode)
+						{
+							case 1:
+							case 2:
+							case 3:
+							{
+								//MBC1
+								changeMBC1RomBanks(romBank);
+								break;
+							}
+							case 5:
+							case 6:
+							{
+								//MBC2
+								changeMBC2RomBanks(romBank);
+							}
+							//case 0x0B:
+							//case 0x0C:
+							//case 0x0D:
+							case 0x11:
+							case 0x12:
+							case 0x13:
+							{
+								//MBC3
+								changeMBC3RomBanks(romBank);
+								break;
+							}
+							case 0x19:
+							case 0x1A:
+							case 0x1B:
+							case 0x1C:
+							case 0x1D:
+							case 0x1E:
+							{
+								//MBC5
+								changeMBC5RomBanks(romBank);
+								break;
+							}
+						}
+					}
+				}
+				else if (line.find("[Ram Bank:]") != string::npos)
+				{
+					if (setRamBank == true)
+					{
+						int last = line.find_last_of(']') + 1;
+						line = line.substr(last, line.length() - last);
+
+						unsigned int ramBank = stoi(line, 0, 16);
+						
+
+						changeRamBanks(ramBank);
+					}
+				}
+				else if (line.find("[AF:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int af = stoi(line, 0, 16);
+
+					setAF(af);
+				}
+				else if (line.find("[BC:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int bc = stoi(line, 0, 16);
+
+					setBC(bc);
+				}
+				else if (line.find("[DE:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int de = stoi(line, 0, 16);
+
+					setDE(de);
+				}
+				else if (line.find("[HL:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int hl = stoi(line, 0, 16);
+
+					setHL(hl);
+				}
+				else if (line.find("[PC:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int pc = stoi(line, 0, 16);
+
+					memoryPointer = pc;
+				}
+				else if (line.find("[SP:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int sp = stoi(line, 0, 16);
+
+					stackPointer = sp;
+				}
+				else if (line.find("[HALT:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int halt = stoi(line, 0, 16);
+
+					cpu.setHalt(halt > 0);
+				}
+				else if (line.find("[Interrupt:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int interruptVal = stoi(line, 0, 16);
+
+					cpu.setInterrupt(interruptVal > 0);
+				}
+				else if (line.find("[PendingIMESet:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int imeSet = stoi(line, 0, 16);
+
+					enableInterruptsNextCycle = (imeSet > 0);
+				}
+				else if (line.find("[IME:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int ime = stoi(line, 0, 16);
+
+					cpu.setIME(ime > 0);
+				}
+				else if (line.find("[Repeat:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int repeat = stoi(line, 0, 16);
+
+					cpu.setRepeat(repeat > 0);
+				}
+				else if (line.find("[Clocks:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int clocksVal = stoi(line, 0, 16);
+
+					clocks = clocksVal;
+				}
+				else if (line.find("[GPUMode:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					unsigned int gpuMode = stoi(line, 0, 16);
+
+					beakWindow.gpuMode = gpuMode;
+				}
+				else if (line.find("[Memory:]") != string::npos)
+				{
+					int last = line.find_last_of(']') + 1;
+					line = line.substr(last, line.length() - last);
+
+					for (int i = 0x8000; i < 0xFFFF; i++)
+					{
+						int nextDelimiter = line.find_first_of(';');
+						beakRam[i] = stoi(line.substr(0, nextDelimiter), 0, 16);
+						line = line.substr(nextDelimiter + 1, line.length() - (nextDelimiter + 1));
+					}
+				}
+			}
+		}
+		//paused = true;
+	}
+	
+
+
 };
 
 #endif

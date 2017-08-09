@@ -196,6 +196,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 		}
 		
+		
+		if (Keyboard::isKeyPressed(Keyboard::Key::Num0))
+		{
+			beakMemory.saveState();
+		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Key::Num1))
+		{
+			beakMemory.loadSaveState();
+		}
+		
 		Event event;
 
 		//Poll Debug Window
