@@ -46,10 +46,10 @@ extern byte filterSetting;
 
 extern short memoryPointer;
 extern short stackPointer;
+extern GameWindow beakWindow;
 extern sharpCPU cpu;
 #include "Memory.h"
 extern Memory beakMemory;
-extern GameWindow beakWindow;
 extern gpu beakGPU;
 #include "Audio.h"
 extern Audio beakAudio;
