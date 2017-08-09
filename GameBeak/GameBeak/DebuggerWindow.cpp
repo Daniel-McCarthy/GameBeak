@@ -15,8 +15,15 @@ using namespace sf;
 DebuggerWindow::DebuggerWindow(string title, int width, int height)
 {
 	//Set Window
-	window = new RenderWindow(VideoMode(width, height), title);
-	window->setFramerateLimit(60);
+	//window = new RenderWindow(VideoMode(width, height), title);
+	window.create(VideoMode(width, height), title);
+	//window = 
+	//auto sfgWindow = sfg::Window::Create();
+
+	//desktop.Add(sfgWindow);
+
+	//window->resetGLStates();
+	window.setFramerateLimit(60);
 
 	//Set Icon
 	char path1[MAX_PATH];
@@ -37,22 +44,22 @@ DebuggerWindow::DebuggerWindow(string title, int width, int height)
 
 DebuggerWindow::~DebuggerWindow()
 {
-	delete(window);
 }
 
 void DebuggerWindow::setIcon(int width, int height, string path)
 {
 	Image image;
 	image.loadFromFile(path);
-	window->setIcon(32, 32, image.getPixelsPtr());
+	window.setIcon(32, 32, image.getPixelsPtr());
 }
 
 void DebuggerWindow::runLoop()
 {
 	if (run)
 	{
+
 		Event event;
-		while (window->pollEvent(event))
+		while (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
 			{
@@ -125,7 +132,7 @@ void DebuggerWindow::runLoop()
 			run = false;
 		}
 
-		if (window->hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Up))
+		if (window.hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Up))
 		{
 			if (memoryPosition - 16 >= 0)
 			{
@@ -133,7 +140,7 @@ void DebuggerWindow::runLoop()
 			}
 		}
 
-		if (window->hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Down))
+		if (window.hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Down))
 		{
 			if (memoryPosition + 16 < 0xFFFF)
 			{
@@ -145,7 +152,7 @@ void DebuggerWindow::runLoop()
 			}
 		}
 
-		if (window->hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Up) && (Keyboard::isKeyPressed(Keyboard::Key::RShift) || Keyboard::isKeyPressed(Keyboard::Key::LShift)))
+		if (window.hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Up) && (Keyboard::isKeyPressed(Keyboard::Key::RShift) || Keyboard::isKeyPressed(Keyboard::Key::LShift)))
 		{
 			if (memoryPosition - 256 >= 0)
 			{
@@ -157,7 +164,7 @@ void DebuggerWindow::runLoop()
 			}
 		}
 
-		if (window->hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Down) && (Keyboard::isKeyPressed(Keyboard::Key::RShift) || Keyboard::isKeyPressed(Keyboard::Key::LShift)))
+		if (window.hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Down) && (Keyboard::isKeyPressed(Keyboard::Key::RShift) || Keyboard::isKeyPressed(Keyboard::Key::LShift)))
 		{
 			if (memoryPosition + 256 <= 0xFFFF)
 			{
@@ -169,9 +176,9 @@ void DebuggerWindow::runLoop()
 			}
 		}
 
-		window->setVisible(true);
+		window.setVisible(true);
 
-		window->clear();
+		window.clear();
 
 		if (debuggerPage == 0)
 		{
@@ -214,26 +221,26 @@ void DebuggerWindow::runLoop()
 
 		//displayMemory();
 
-		window->display();
+		window.display();
 
 	}
 	else
 	{
-		window->setVisible(false);
+		window.setVisible(false);
 	}
 }
 
 void DebuggerWindow::printText(string text)
 {
 	Text textConverted(text, font, 12);
-	window->draw(textConverted);
+	window.draw(textConverted);
 }
 
 void DebuggerWindow::printText(string text, int x, int y)
 {
 	Text textConverted(text, font, 12);
 	textConverted.setPosition(x, y);
-	window->draw(textConverted);
+	window.draw(textConverted);
 
 }
 
@@ -242,21 +249,21 @@ void DebuggerWindow::printText(string text, int x, int y, Color color)
 	Text textConverted(text, font, 12);
 	textConverted.setFillColor(color);
 	textConverted.setPosition(x, y);
-	window->draw(textConverted);
+	window.draw(textConverted);
 
 }
 
 void DebuggerWindow::drawButton(int x, int y)
 {
 	buttonSprite.setPosition(x, y);
-	window->draw(buttonSprite);
+	window.draw(buttonSprite);
 }
 
 void DebuggerWindow::drawButton(int x, int y, float scaleX, float scaleY)
 {
 	buttonSprite.setPosition(x, y);
 	buttonSprite.setScale(scaleX, scaleY);
-	window->draw(buttonSprite);
+	window.draw(buttonSprite);
 }
 
 void DebuggerWindow::displayRegisters()

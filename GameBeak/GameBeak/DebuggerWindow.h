@@ -30,7 +30,7 @@ public:
 	void drawButton(int x, int y, float scaleX, float scaleY);
 	void runLoop();
 
-	RenderWindow* window;
+	RenderWindow window;
 	Texture texture;
 	Uint8* pixels;
 	bool run = true;
