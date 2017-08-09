@@ -36,6 +36,14 @@ extern short regBC;
 extern short regDE;
 extern short regHL;
 
+extern int memoryControllerMode;
+extern bool run;
+extern bool paused;
+extern bool step;
+extern bool enableInterruptsNextCycle;
+extern byte paletteSetting;
+extern byte filterSetting;
+
 extern short memoryPointer;
 extern short stackPointer;
 extern sharpCPU cpu;
@@ -45,12 +53,5 @@ extern GameWindow beakWindow;
 extern gpu beakGPU;
 #include "Audio.h"
 extern Audio beakAudio;
-extern int memoryControllerMode;
-extern bool run;
-extern bool paused;
-extern bool step;
-extern bool enableInterruptsNextCycle;
-extern byte paletteSetting;
-extern byte filterSetting;
 
 #endif // ! MAINH
