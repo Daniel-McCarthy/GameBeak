@@ -146,8 +146,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	//beakMemory.clearRegistersAndFlags();
 	//beakMemory.loadGBBootStrapIntoMemory();
 
-	RenderWindow* windowPointer = beakWindow.window;
-
 
 	if (debugOnLaunch)
 	{
@@ -209,7 +207,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		{
 
 			//Poll Main SFML Window
-			while (beakWindow.window->pollEvent(event))
+			while (beakWindow.window.pollEvent(event))
 			{
 				if (event.type == Event::Closed)
 				{

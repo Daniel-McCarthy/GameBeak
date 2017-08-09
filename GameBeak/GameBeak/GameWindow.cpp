@@ -10,8 +10,9 @@ using namespace sf;
 GameWindow::GameWindow(string title, int width, int height)
 {
 	//Set Window
-	window = new RenderWindow(VideoMode(width, height), title);
-	window->setFramerateLimit(60);
+	//window = new RenderWindow(VideoMode(width, height), title);
+	window.create(VideoMode(width, height), title);
+	window.setFramerateLimit(60);
 	texture.create(160, 144);
 	screen = Image();
 	screen.create(160, 144, beakGPU.returnColor(0));
@@ -38,14 +39,13 @@ GameWindow::GameWindow(string title, int width, int height)
 
 GameWindow::~GameWindow()
 {
-	delete(window);
 }
 
 void GameWindow::setIcon(int width, int height, string path)
 {
 	Image image;
 	image.loadFromFile(path);
-	window->setIcon(32, 32, image.getPixelsPtr());
+	window.setIcon(32, 32, image.getPixelsPtr());
 }
 
 void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshClocksSinceLastUpdate, int& clocksSinceLastVBlank)
@@ -509,11 +509,11 @@ void GameWindow::drawImageToScreen(Image image)
 	beakWindow.texture.loadFromImage(image);
 
 	Sprite sprite(texture);
-	sprite.setScale(window->getView().getSize().x / sprite.getLocalBounds().width, window->getView().getSize().y / sprite.getLocalBounds().height);
+	sprite.setScale(window.getView().getSize().x / sprite.getLocalBounds().width, window.getView().getSize().y / sprite.getLocalBounds().height);
 
-	window->clear();
-	window->draw(sprite);
-	window->display();
+	window.clear();
+	window.draw(sprite);
+	window.display();
 }
 
 int GameWindow::getGPUMode()

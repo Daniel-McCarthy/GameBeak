@@ -30,7 +30,7 @@ public:
 	void drawScreenFromMaps(int scrollX, int ScrollY);
 	void drawFullScreenMaps();
 	void drawImageToScreen(Image image);
-	RenderWindow* window;
+	RenderWindow window;
 	Texture texture;
 	Color bgPixels[256 * 256];
 	Color windowPixels[256 * 256];
