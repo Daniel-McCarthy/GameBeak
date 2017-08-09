@@ -72,13 +72,13 @@ class Memory
 
 		byte cartridgeType = beakRom[0x147];
 		byte romSize = beakRom[0x148];
-		memoryControllerMode = cartridgeType;//romSize;
+		memoryControllerMode = cartridgeType;
 		if (memoryControllerMode == 0)
 		{
 			//None
 			writeFullRomToRam();
 		}
-		else if (memoryControllerMode <= 3) //else if (memoryControllerMode == 1)
+		else if (memoryControllerMode <= 3)
 		{
 			//MBC1
 			writeRom0ToRam();
@@ -122,7 +122,7 @@ class Memory
 		}
 		else
 		{
-			writeFullRomToRam(); //TODO: Change this back when you have MBC Rom banking properly implemented. This will load more of the file until it can be loaded properly
+			writeFullRomToRam();
 			//writeRom0ToRam();
 		}
 
@@ -808,7 +808,6 @@ class Memory
 		}
 		else
 		{
-			//if (address >= 0 && address <= 0xFFFF)
 			if (address >= 0x8000 && address <= 0xFFFF)
 			{
 				if (address == (unsigned short)0xFF46)
@@ -826,7 +825,6 @@ class Memory
 					if (address >= 0xC000 && address <= 0xDDFF)
 					{
 						//ECHO. Anything written to here also gets written to CXXXX
-						//writeMemory(address + 0x2000, shortVal);
 						beakRam[address + 0x2000] = byte;
 					}
 					else if (address >= 0xE000 && address <= 0xFDFF)
@@ -1624,5 +1622,6 @@ class Memory
 
 
 };
+
 
 #endif
