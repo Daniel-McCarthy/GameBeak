@@ -1279,6 +1279,43 @@ class Memory
 	}
 
 
+
+	bool loadSaveFile(string filepath)
+	{
+
+		ifstream inputFile(filepath, ios::binary | ios::ate);
+
+		if (inputFile.is_open())
+		{
+			int fileLength = (int)inputFile.tellg();
+			inputFile.seekg(0, ios::beg);
+			vector<char> savefile(fileLength);
+			inputFile.read(savefile.data(), fileLength);
+
+			if (fileLength >= 0x2000)
+			{
+				unsigned short address = 0xA000;
+				for (unsigned short i = 0x0; i < 0x1FFF; i++)
+				{
+					beakRam[address + i] = (uint8_t)savefile.at(i);
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			cout << "Error: Save file does not exist." << endl;
+			return false;
+		}
+
+		inputFile.close();
+
+		return true;
+	}
+
 	
 	void saveState()
 	{
