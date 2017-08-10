@@ -188,6 +188,62 @@ class Memory
 		return true;
 	}
 
+	/*
+	Load Rom and Attempt to Load Save if selected
+	*/
+	bool loadRom(string path, bool findAndLoadSaveFile)
+	{
+		ifstream inputFile(path, ios::binary | ios::ate);
+
+		if (inputFile.is_open())
+		{
+			int fileLength = (int)inputFile.tellg();
+			inputFile.seekg(0, ios::beg);
+			vector<char> rom(fileLength);
+			inputFile.read(rom.data(), fileLength);
+
+			if (rom.size() <= 0x100000)
+			{
+				int address = 0;// 0x100;//? //0x200;
+				for (int i = 0x0; i < (int)rom.size(); i++)
+				{
+					//writeMemory(address + i, (uint8_t)rom.at(i));
+					beakRom[address + i] = (uint8_t)rom.at(i);
+				}
+			}
+			else
+			{
+				cout << "Error: Rom too large. It does not fit in GameBoy's memory." << endl;
+				return false;
+			}
+		}
+		else
+		{
+			cout << "Error: Rom does not exist." << endl;
+			return false;
+		}
+
+		inputFile.close();
+
+		if (findAndLoadSaveFile)
+		{
+			//Attempt to open file, if it was successful close it and call the full loadSave function
+			string savePath = path.substr(0, path.find_first_of('.')) + ".sav";
+
+			ifstream saveFile(savePath, ios::binary | ios::ate);
+
+			bool fileExists = saveFile.is_open();
+			saveFile.close();
+
+			if (fileExists)
+			{
+				loadSaveFile(savePath);
+			}
+		}
+
+		return true;
+	}
+
 	void writeRom0ToRam()
 	{
 		for (int i = 0; i < 0x3FFF; i++)
