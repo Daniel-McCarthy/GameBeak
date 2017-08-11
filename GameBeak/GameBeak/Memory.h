@@ -262,12 +262,12 @@ class Memory
 
 	void changeMBC1RomBanks(int bankNumber)
 	{
-		if (bankNumber == 0 || bankNumber == 0x20 || bankNumber == 0x40 || bankNumber == 0x60)
+		if (bankNumber == 0)
 		{
 			bankNumber++;
 		}
 
-		if ((bankNumber >= 0) && (bankNumber <= 0x7F))
+		if ((bankNumber >= 0) && (bankNumber <= 0x1F))
 		{
 
 			int bankAddress = 0x4000 * bankNumber;
