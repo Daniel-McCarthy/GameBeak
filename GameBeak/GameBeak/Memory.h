@@ -162,7 +162,7 @@ class Memory
 			vector<char> rom(fileLength);
 			inputFile.read(rom.data(), fileLength);
 
-			if (rom.size() <= 0x100000)
+			if (rom.size() <= 0x500000)
 			{
 				int address = 0;// 0x100;//? //0x200;
 				for (int i = 0x0; i < (int)rom.size(); i++)
