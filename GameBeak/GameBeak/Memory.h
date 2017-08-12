@@ -579,6 +579,11 @@ class Memory
 		else if (address >= 0x3000 && address <= 0x3FFF)
 		{
 			//Set the 9th bit of Rom Bank Number
+			if (value > 0) //Ensure we are only setting 1 bit to newBankNumber
+			{
+				value = 1;
+			}
+
 			byte newBankNumber = ((romBankNumber & 0xFF) | (value << 8));
 
 			if (romBankNumber != newBankNumber)
