@@ -595,19 +595,10 @@ class Memory
 		else if (address >= 0x4000 && address <= 0x5FFF)
 		{
 			//Set Ram Bank Number
-			if (!bankingMode)
-			{
-				//Change Rom Bank
-				byte newBankNumber = (value & 0x0F);
-				if (romBankNumber != newBankNumber)
-				{
-					changeMBC1RomBanks(newBankNumber);
-				}
-			}
-			else
+			if (bankingMode)
 			{
 				//Change Ram Bank
-				byte newBankNumber = value & 0x03;
+				byte newBankNumber = value & 0x0F;
 
 				if (ramBankNumber != newBankNumber)
 				{
