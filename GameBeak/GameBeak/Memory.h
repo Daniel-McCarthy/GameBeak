@@ -115,6 +115,7 @@ class Memory
 			//13: MBC3+Ram+Battery
 
 			writeRom0ToRam();
+			changeMBC3RomBanks(1);
 		}
 		else if (memoryControllerMode <= 0x1E)
 		{
@@ -525,8 +526,8 @@ class Memory
 			{
 				//Update RTC registers
 
-				LPSYSTEMTIME time;
-				GetSystemTime(time);
+				//LPSYSTEMTIME time;
+				//GetSystemTime(time);
 
 
 				/*
@@ -848,6 +849,7 @@ class Memory
 				//13: MBC3+Ram+Battery
 
 				//Add this later: MBC3 is not currently ready (RTC)
+				writeMBC3Value(address, byte);
 			}
 			else if (memoryControllerMode <= 0x1E)
 			{
@@ -1453,6 +1455,7 @@ class Memory
 				{
 					int last = line.find_last_of(']') + 1;
 					line = line.substr(last, line.length() - last - 2);
+
 
 					unsigned int mbc = stoi(line, 0, 16);
 
