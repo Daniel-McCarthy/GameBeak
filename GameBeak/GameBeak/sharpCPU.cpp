@@ -7764,7 +7764,7 @@ void sharpCPU::updateTIMA(int curClocks, int& clocksSinceLastTIMAUpdate, int& cl
 	If so, it writes the incremented value to the timer register and requests an interrupt if it overflows.
 	*/
 
-	bool timerEnabled = (((beakMemory.readMemory(0xFF07) & 0x04) >> 3) > 0);
+	bool timerEnabled = ((beakMemory.readMemory(0xFF07) & 0x04) > 0);
 
 	if (timerEnabled)
 	{
