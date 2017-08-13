@@ -18,7 +18,13 @@ private:
 	const Color lightestPink = Color(255, 241, 254, 255); //Pink WHITE //FFF1FEFF
 
 public:
-	Color gameBeakPalette[4000] = { lightestPink, lightPink, darkPink, darkestPink, lightestPink, lightPink, darkPink, darkestPink, lightestPink, lightPink, darkPink, darkestPink };
+	Color gameBeakPalette[4000] = { lightestPink, lightPink, darkPink, darkestPink,
+									lightestPink, lightPink, darkPink, darkestPink,
+									lightestPink, lightPink, darkPink, darkestPink };
+
+	byte gameboyColorBackGroundPalette[64]; //2 bytes per color, 4 colors per BG Palette, 8 BG Palettes
+	//byte scrollXHistory[144];
+	//byte scrollYHistory[144];
 
 	gpu();
 	~gpu();

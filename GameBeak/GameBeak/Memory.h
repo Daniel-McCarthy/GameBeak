@@ -869,9 +869,39 @@ class Memory
 					beakRam[address] = ((beakRam[address] & 0x87) | (value & 0x78) | 0x80); //Bit 7 is always 1, Bit 0, 1, and 2 are read Only
 					//&0x87 clears bits 3, 4, 5, 6 from Stat. &0xF8 clears all but bit bit 0, 1, 2, and 7 from value being written.
 				}
+				else if (address == (unsigned short)0xFF68)
+				{
+					//Set GBC Background Palette Index
+					beakRam[address] = (0x40 | (value));
+					//Bit 7: Increment on Write //Bit 6: Unused //Bit 5-0 Index (0-35)
+				}
+				else if (address == (unsigned short)0xFF69)
+				{
+					//Write GBC Background Palette Index
+
+					byte bgPaletteIndexRegister = beakMemory.readMemory(0xFF68);
+					byte index = bgPaletteIndexRegister & 0x3F;
+
+					beakGPU.gameboyColorBackGroundPalette[index] = value;
+
+					//If Auto-Increment enabled, increment index by 1
+					if ((bgPaletteIndexRegister & 0x80) > 0)
+					{
+
+						if (index >= 0x3F)
+						{
+							index = 0;
+						}
+						else
+						{
+							index++;
+						}
+
+							writeMemory((unsigned short)0xFF68, (byte)(index | (bgPaletteIndexRegister & 0x80)));
+					}
+				}
 				else
 				{
-
 					if (address >= 0xC000 && address <= 0xDDFF)
 					{
 						//ECHO. Anything written to here also gets written to CXXXX
