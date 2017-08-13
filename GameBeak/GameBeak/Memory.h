@@ -879,7 +879,7 @@ class Memory
 				{
 					//Write GBC Background Palette Index
 
-					byte bgPaletteIndexRegister = beakMemory.readMemory(0xFF68);
+					byte bgPaletteIndexRegister = readMemory(0xFF68);
 					byte index = bgPaletteIndexRegister & 0x3F;
 
 					beakGPU.gameboyColorBackGroundPalette[index] = value;
@@ -898,6 +898,37 @@ class Memory
 						}
 
 							writeMemory((unsigned short)0xFF68, (byte)(index | (bgPaletteIndexRegister & 0x80)));
+					}
+				}
+				else if (address == (unsigned short)0xFF6A)
+				{
+					//Set GBC Sprite Palette Index
+					beakRam[address] = (0x40 | (value));
+					//Bit 7: Increment on Write //Bit 6: Unused //Bit 5-0 Index (0-35)
+				}
+				else if (address == (unsigned short)0xFF6B)
+				{
+					//Write GBC Sprite Palette Index
+
+					byte spritePaletteIndexRegister = readMemory(0xFF6A);
+					byte index = spritePaletteIndexRegister & 0x3F;
+
+					beakGPU.gameboyColorSpritePalette[index] = value;
+
+					//If Auto-Increment enabled, increment index by 1
+					if ((spritePaletteIndexRegister & 0x80) > 0)
+					{
+
+						if (index >= 0x3F)
+						{
+							index = 0;
+						}
+						else
+						{
+							index++;
+						}
+
+						writeMemory((unsigned short)0xFF6A, (byte)(index | (spritePaletteIndexRegister & 0x80)));
 					}
 				}
 				else

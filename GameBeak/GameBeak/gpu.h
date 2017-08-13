@@ -23,6 +23,7 @@ public:
 									lightestPink, lightPink, darkPink, darkestPink };
 
 	byte gameboyColorBackGroundPalette[64]; //2 bytes per color, 4 colors per BG Palette, 8 BG Palettes
+	byte gameboyColorSpritePalette[64]; //2 bytes per color, 4 colors per Sprite Palette, 8 Sprite Palettes
 	//byte scrollXHistory[144];
 	//byte scrollYHistory[144];
 
