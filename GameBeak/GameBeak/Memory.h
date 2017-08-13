@@ -802,28 +802,28 @@ class Memory
 		}
 	}
 
-	void directMemoryWrite(unsigned short address, uint8_t byte)
+	void directMemoryWrite(unsigned short address, uint8_t value)
 	{
 		/*
 			Write to Ram without ordinary restrictions. Only to be used by hardware emulating functions and not game instructions.
 		*/
 
-		beakRam[address] = byte;
+		beakRam[address] = value;
 
 	}
 
-	bool writeMemory(unsigned short address, uint8_t byte)
+	bool writeMemory(unsigned short address, uint8_t value)
 	{
 
 		if (memoryControllerMode > 0 && address <= 0x7FFF)
 		{
 			if (memoryControllerMode <= 3)
 			{
-				writeMBC1Value(address, byte);
+				writeMBC1Value(address, value);
 			}
 			else if(memoryControllerMode <= 6)
 			{
-				writeMBC2Value(address, byte);
+				writeMBC2Value(address, value);
 			}
 			else if (memoryControllerMode <= 9)
 			{
@@ -845,11 +845,11 @@ class Memory
 				//13: MBC3+Ram+Battery
 
 				//Add this later: MBC3 is not currently ready (RTC)
-				writeMBC3Value(address, byte);
+				writeMBC3Value(address, value);
 			}
 			else if (memoryControllerMode <= 0x1E)
 			{
-				writeMBC5Value(address, byte);
+				writeMBC5Value(address, value);
 			}
 			//TODO: Add more MBC controllers
 
@@ -861,12 +861,12 @@ class Memory
 				if (address == (unsigned short)0xFF46)
 				{
 					//Initiate DMA Transfer Register
-					transferDMA(byte);
+					transferDMA(value);
 				}
 				else if (address == (unsigned short)0xFF41)
 				{
 					//Set LCDC Status
-					beakRam[address] = ((beakRam[address] & 0x87) | (byte & 0x78) | 0x80); //Bit 7 is always 1, Bit 0, 1, and 2 are read Only
+					beakRam[address] = ((beakRam[address] & 0x87) | (value & 0x78) | 0x80); //Bit 7 is always 1, Bit 0, 1, and 2 are read Only
 					//&0x87 clears bits 3, 4, 5, 6 from Stat. &0xF8 clears all but bit bit 0, 1, 2, and 7 from value being written.
 				}
 				else
@@ -875,18 +875,18 @@ class Memory
 					if (address >= 0xC000 && address <= 0xDDFF)
 					{
 						//ECHO. Anything written to here also gets written to CXXXX
-						beakRam[address + 0x2000] = byte;
+						beakRam[address + 0x2000] = value;
 					}
 					else if (address >= 0xE000 && address <= 0xFDFF)
 					{
-						beakRam[address - 0x2000] = byte;
+						beakRam[address - 0x2000] = value;
 					}
 
 					unsigned int test = (unsigned int)address;
 
-					beakRam[address] = byte;
+					beakRam[address] = value;
 
-					if (beakRam[address] == byte)
+					if (beakRam[address] == value)
 					{
 						return true;
 					}
