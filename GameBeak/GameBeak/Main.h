@@ -48,9 +48,9 @@ extern short memoryPointer;
 extern short stackPointer;
 extern GameWindow beakWindow;
 extern sharpCPU cpu;
+extern gpu beakGPU;
 #include "Memory.h"
 extern Memory beakMemory;
-extern gpu beakGPU;
 #include "Audio.h"
 extern Audio beakAudio;
 
