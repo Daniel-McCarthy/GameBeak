@@ -794,11 +794,17 @@ class Memory
 	//DMA Transfer
 	void transferDMA(byte address)
 	{
-		int baseAddress = address << 8;//*= 100;
+		//TODO:This should occur over time, not all at once
 
-		for (int i = 0; i < 160; i++)
+
+		if (address <= 0xF1)
 		{
-			writeMemory(0xFE00 + i, readMemory(baseAddress + i));
+			int baseAddress = address << 8;//*= 100;
+
+			for (int i = 0; i < 160; i++)
+			{
+				writeMemory(0xFE00 + i, readMemory(baseAddress + i));
+			}
 		}
 	}
 
