@@ -32,7 +32,6 @@ public:
 
 	RenderWindow window;
 	Texture texture;
-	Uint8* pixels;
 	bool run = true;
 	Font font;
 
