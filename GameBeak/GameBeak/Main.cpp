@@ -71,7 +71,7 @@ short breakPointAt = (short)0x144E;
 bool accessBreakpoint = false;
 short accessBreakpointAddress = 0x0000;
 
-bool writeBreakpoint = true;
+bool writeBreakpoint = false;
 bool writeBreakpointValue = false;
 short writeBreakpointAddress = 0xFF40;
 byte breakpointValue = 0x03;
