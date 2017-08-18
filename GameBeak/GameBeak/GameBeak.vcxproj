@@ -158,6 +158,7 @@
     <ClCompile Include="Binary.cpp" />
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="DebuggerWindow.cpp" />
+    <ClCompile Include="DLLExport.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="gpu.cpp" />
     <ClCompile Include="Main.cpp" />
