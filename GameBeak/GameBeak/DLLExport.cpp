@@ -16,4 +16,9 @@ extern "C"
 	{
 		return beakWindow.screen;
 	}
+
+	__declspec(dllexport) void setRom(byte* rom, int romSize)
+	{
+		beakMemory.loadRom(rom, romSize);
+	}
 }
