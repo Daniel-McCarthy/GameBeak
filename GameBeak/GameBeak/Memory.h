@@ -249,7 +249,7 @@ class Memory
 	/*
 	Load Rom From Array
 	*/
-	bool loadRom(byte* rom, int romSize, bool findAndLoadSaveFile)
+	bool loadRom(byte* rom, int romSize)
 	{
 
 		if (romSize > 0)
