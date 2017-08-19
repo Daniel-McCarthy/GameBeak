@@ -12,6 +12,15 @@ extern "C"
 		return paused;
 	}
 
+	__declspec(dllexport) void setRunState(bool runEnabled)
+	{
+		run = runEnabled;
+	}
+	__declspec(dllexport) bool getRunState()
+	{
+		return run;
+	}
+
 	__declspec(dllexport) Image getScreenData()
 	{
 		return beakWindow.screen;
