@@ -245,6 +245,73 @@ class Memory
 		return true;
 	}
 
+
+	/*
+	Load Rom From Array
+	*/
+	bool loadRom(byte* rom, int romSize, bool findAndLoadSaveFile)
+	{
+
+		if (romSize > 0)
+		{
+
+			if (romSize <= 0x500000)
+			{
+				for (int i = 0x0; i < romSize; i++)
+				{
+					beakRom[i] = (uint8_t)rom[i];
+				}
+			}
+			else
+			{
+				cout << "Error: Rom too large. It does not fit in GameBoy's memory." << endl;
+				return false;
+			}
+		}
+		else
+		{
+			cout << "Error: Rom is empty." << endl;
+			return false;
+		}
+
+		return true;
+	}
+
+	/*
+	Load Rom And Save File From Array
+	*/
+	bool loadRom(byte* rom, int romSize, byte* save, int saveSize)
+	{
+
+		if (romSize > 0)
+		{
+
+			if (romSize <= 0x500000)
+			{
+				for (int i = 0x0; i < romSize; i++)
+				{
+					beakRom[i] = (uint8_t)rom[i];
+				}
+			}
+			else
+			{
+				cout << "Error: Rom too large. It does not fit in GameBoy's memory." << endl;
+				return false;
+			}
+		}
+		else
+		{
+			cout << "Error: Rom is empty." << endl;
+			return false;
+		}
+
+
+		loadSaveFile(save, saveSize);
+
+
+		return true;
+	}
+
 	void writeRom0ToRam()
 	{
 		for (int i = 0; i < 0x3FFF; i++)
@@ -1435,6 +1502,38 @@ class Memory
 		}
 
 		inputFile.close();
+
+		return true;
+	}
+
+	/*
+	Load Save File From Array
+	*/
+	bool loadSaveFile(byte* saveFile, int saveSize)
+	{
+
+		if (saveSize > 0)
+		{
+
+			if (saveSize >= 0x2000)
+			{
+				unsigned short address = 0xA000;
+				for (unsigned short i = 0x0; i < 0x1FFF; i++)
+				{
+					beakRam[address + i] = (uint8_t)saveFile[i];
+				}
+			}
+			else
+			{
+				cout << "Error: Save file is too large." << endl;
+				return false;
+			}
+		}
+		else
+		{
+			cout << "Error: Save file has no data." << endl;
+			return false;
+		}
 
 		return true;
 	}
