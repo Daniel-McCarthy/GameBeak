@@ -30,4 +30,9 @@ extern "C"
 	{
 		beakMemory.loadRom(rom, romSize);
 	}
+
+	__declspec(dllexport) void initiateEmulator()
+	{
+		startEmulator();
+	}
 }
