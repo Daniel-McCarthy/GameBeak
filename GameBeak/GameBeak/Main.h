@@ -54,4 +54,6 @@ extern Memory beakMemory;
 #include "Audio.h"
 extern Audio beakAudio;
 
+extern void startEmulator();
+
 #endif // ! MAINH

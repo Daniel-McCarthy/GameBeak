@@ -86,7 +86,8 @@ short regBC = 0;
 short regDE = 0;
 short regHL = 0;
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+//int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+void startEmulator()
 {
 	//Gameboy/Gameboy Pocket:
 	//8 bit CPU, 4.194 MHz clock fr
@@ -349,7 +350,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	delete(debugWindow);
 
-	return 0;
+	//return 0;
 }
 
 
