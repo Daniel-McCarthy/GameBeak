@@ -2,18 +2,14 @@
 #include "PostProcessing.h"
 #include "Main.h"
 #include <Windows.h>
-#include <SFML\System.hpp>
-#include <SFML\Graphics.hpp>
-
-using namespace sf;
 
 GameWindow::GameWindow(string title, int width, int height)
 {
 	//Set Window
 	//window = new RenderWindow(VideoMode(width, height), title);
-	window.create(VideoMode(width, height), title);
-	window.setFramerateLimit(60);
-	texture.create(160, 144);
+	//window.create(VideoMode(width, height), title);
+	//window.setFramerateLimit(60);
+	//texture.create(160, 144);
 	screen = Image();
 	screen.create(160, 144, beakGPU.returnColor(0));
 	debugTileScreen = Image();
@@ -392,7 +388,7 @@ void GameWindow::drawScreenFromMaps(int scrollX, int scrollY)
 		}
 	}
 
-	drawImageToScreen(screen);
+	//drawImageToScreen(screen);
 
 	for (int i = 0; i < (256 * 256); i++)
 	{

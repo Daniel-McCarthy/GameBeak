@@ -1,13 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include <iostream>
-#include <SFML\Window.hpp>
-#include <SFML\Graphics.hpp>
 
-#include <SFGUI/SFGUI.hpp>
-#include <SFGUI/Widgets.hpp>
-
-#include <SFML/Graphics.hpp>
 #include <sstream>
 #include <fstream>
 #include <string>
@@ -21,13 +15,10 @@
 #include "sharpCPU.h"
 
 using namespace std;
-using namespace sf;
 
 #pragma once
 #ifndef  MAINH
 #define MAINH
-
-//sfg::SFGUI sfGUI;
 
 extern int clocks;
 

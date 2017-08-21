@@ -3,20 +3,17 @@
 //#ifndef WINDOWH
 //#define WINDOWH
 
-#include <SFML\Graphics.hpp>
 #include <string>
 #include <vector>
 
 #include <Windows.h>
 
 using namespace std;
-using namespace sf;
 
 class GameWindow
 {
 public:
 	GameWindow() {}
-	GameWindow::GameWindow(RenderWindow* window);
 	GameWindow(string title, int width, int height);
 	~GameWindow();
 
@@ -30,8 +27,6 @@ public:
 	void drawScreenFromMaps(int scrollX, int ScrollY);
 	void drawFullScreenMaps();
 	void drawImageToScreen(Image image);
-	RenderWindow window;
-	Texture texture;
 	Color bgPixels[256 * 256];
 	Color windowPixels[256 * 256];
 	Color spritePixels[256 * 256];
