@@ -1,6 +1,8 @@
 #include "GameWindow.h"
 #include "PostProcessing.h"
 #include "Main.h"
+#include "Color.h"
+#include "Image.h"
 #include <Windows.h>
 
 GameWindow::GameWindow(string title, int width, int height)
@@ -10,10 +12,8 @@ GameWindow::GameWindow(string title, int width, int height)
 	//window.create(VideoMode(width, height), title);
 	//window.setFramerateLimit(60);
 	//texture.create(160, 144);
-	screen = Image();
-	screen.create(160, 144, beakGPU.returnColor(0));
-	debugTileScreen = Image();
-	debugTileScreen.create(160, 144, beakGPU.returnColor(0));
+	screen = Image(160, 144, beakGPU.returnColor(0));
+	debugTileScreen = Image(160, 144, beakGPU.returnColor(0));
 
 	Color pink = beakGPU.returnColor(0, 0);
 	for (int i = 0; i < (256 * 256); i++)
@@ -25,23 +25,16 @@ GameWindow::GameWindow(string title, int width, int height)
 
 
 	//Set Icon
-	char path1[MAX_PATH];
-	string path;
-	GetModuleFileNameA(NULL, path1, MAX_PATH);
-	path = string(path1);
-	path = path.substr(0, path.find_last_of('\\') + 1);
-	setIcon(32, 32, path + "Beak3.png");
+	//char path1[MAX_PATH];
+	//string path;
+	//GetModuleFileNameA(NULL, path1, MAX_PATH);
+	//path = string(path1);
+	//path = path.substr(0, path.find_last_of('\\') + 1);
+	//setIcon(32, 32, path + "Beak3.png");
 }
 
 GameWindow::~GameWindow()
 {
-}
-
-void GameWindow::setIcon(int width, int height, string path)
-{
-	Image image;
-	image.loadFromFile(path);
-	window.setIcon(32, 32, image.getPixelsPtr());
 }
 
 void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshClocksSinceLastUpdate, int& clocksSinceLastVBlank)
@@ -290,11 +283,11 @@ void GameWindow::drawScreenFromMaps(int scrollX, int scrollY)
 	if (beakGPU.getBackGroundEnabled())
 	{
 
-		IntRect screenRect;
-		screenRect.left = scrollX;
-		screenRect.top = scrollY;
-		screenRect.width = 160;
-		screenRect.height = 144;
+		//IntRect screenRect;
+		//screenRect.left = scrollX;
+		//screenRect.top = scrollY;
+		//screenRect.width = 160;
+		//screenRect.height = 144;
 
 		byte x = 0;
 		byte y = 0;
@@ -401,8 +394,7 @@ void GameWindow::drawScreenFromMaps(int scrollX, int scrollY)
 void GameWindow::drawFullScreenMaps()
 {
 
-	Image fullScreen = Image();
-	fullScreen.create(256, 256, Color(0, 0, 0));
+	Image fullScreen = Image(256, 256, Color(0, 0, 0));
 
 	if (beakGPU.getBackGroundEnabled())
 	{
@@ -492,9 +484,10 @@ void GameWindow::drawFullScreenMaps()
 		}
 	}
 
-	drawImageToScreen(fullScreen);
+	//drawImageToScreen(fullScreen);
 }
 
+/*
 void GameWindow::drawImageToScreen(Image image)
 {
 	if (filterSetting > 0)
@@ -511,6 +504,7 @@ void GameWindow::drawImageToScreen(Image image)
 	window.draw(sprite);
 	window.display();
 }
+*/
 
 int GameWindow::getGPUMode()
 {

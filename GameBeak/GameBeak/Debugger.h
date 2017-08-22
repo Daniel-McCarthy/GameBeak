@@ -4,8 +4,6 @@
 #include <tuple>
 #include <sstream>
 
-using namespace sf;
-
 #ifndef DEBUGGERH
 #define DEBUGGERH
 

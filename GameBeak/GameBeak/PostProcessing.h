@@ -1,9 +1,10 @@
 #pragma once
 
 #include "Main.h"
+#include "Image.h"
+#include "Color.h"
 
 using namespace std;
-using namespace sf;
 
 #ifndef POSTPROCESSH
 #define POSTPROCESSH

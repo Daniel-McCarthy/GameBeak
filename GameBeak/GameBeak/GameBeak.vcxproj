@@ -89,12 +89,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfgui-0.3.2-vs2017-32\include;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-system.2.4.0.0\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfgui-0.3.2-vs2017-32\lib;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-audio.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-network.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-window.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-graphics.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-system.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfgui-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -104,12 +104,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfgui-0.3.2-vs2017-32\include;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-system.2.4.0.0\build\native\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfgui-0.3.2-vs2017-32\lib;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-audio.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-network.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-window.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-graphics.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;C:\Users\Dan\Dropbox\Public\Github Repos\GameBeak\GameBeak\packages\sfml-system.2.4.0.0\build\native\lib\Win32\v140\Debug\dynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfgui-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -153,11 +153,13 @@
   <ItemGroup>
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Binary.cpp" />
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="Debugger.cpp" />
     <ClCompile Include="DebuggerWindow.cpp" />
     <ClCompile Include="DLLExport.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="gpu.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PostProcessing.cpp" />
     <ClCompile Include="sharpCPU.cpp" />
@@ -165,10 +167,12 @@
   <ItemGroup>
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Binary.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="Debugger.h" />
     <ClInclude Include="DebuggerWindow.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="gpu.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Memory.h" />

@@ -1,12 +1,9 @@
 #pragma once
 
-//#include <SDL.h>
-#include <SFML\System.hpp>
-#include <SFML\Graphics.hpp>
 #include <string>
+#include "Color.h"
 
 using namespace std;
-using namespace sf;
 
 #ifndef DEBUGWINDOWH
 #define DEBUGWINDOWH
@@ -18,7 +15,7 @@ public:
 	~DebuggerWindow();
 
 	DebuggerWindow(string title, int width, int height);
-	DebuggerWindow(RenderWindow* tempWindow);
+	//DebuggerWindow(RenderWindow* tempWindow);
 	void setIcon(int width, int height, string path);
 	void displayRegisters();
 	void displayMemory();
@@ -30,13 +27,13 @@ public:
 	void drawButton(int x, int y, float scaleX, float scaleY);
 	void runLoop();
 
-	RenderWindow window;
-	Texture texture;
+	//RenderWindow window;
+	//Texture texture;
 	bool run = true;
-	Font font;
+	//Font font;
 
-	Sprite buttonSprite;
-	Texture buttonTexture;
+	//Sprite buttonSprite;
+	//Texture buttonTexture;
 
 	int memoryPosition = 0x0;
 	int debuggerPage = 0;

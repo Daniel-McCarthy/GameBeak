@@ -41,8 +41,7 @@ Image eagleFilter(Image screen)
 	int screenX = screen.getSize().x;
 	int screenY = screen.getSize().y;
 
-	Image scaledScreen;
-	scaledScreen.create(screenX * 2, screenY * 2, Color(0,0,0,255));
+	Image scaledScreen(screenX * 2, screenY * 2, Color(0,0,0,255));
 
 	Color pixel1;
 	Color pixel2;
@@ -112,8 +111,7 @@ Image eagleFilter(Image screen)
 */
 Image scale2XFilter(Image screen)
 {
-	Image scaledScreen;
-	scaledScreen.create(screen.getSize().x * 2, screen.getSize().y * 2, Color(0, 0, 0, 255));
+	Image scaledScreen(screen.getSize().x * 2, screen.getSize().y * 2, Color(0, 0, 0, 255));
 
 	int screenX = screen.getSize().x;
 	int screenY = screen.getSize().y;
@@ -186,8 +184,7 @@ Image scale2XFilter(Image screen)
 */
 Image scale3XFilter(Image screen)
 {
-	Image scaledScreen;
-	scaledScreen.create(screen.getSize().x * 3, screen.getSize().y * 3, Color(0, 0, 0, 255));
+	Image scaledScreen(screen.getSize().x * 3, screen.getSize().y * 3, Color(0, 0, 0, 255));
 
 	int screenX = screen.getSize().x;
 	int screenY = screen.getSize().y;
@@ -331,8 +328,8 @@ Image emboldenFilter(Image screen)
 	{
 		for (int y = 0; y < 144; y++)
 		{
-			sf::Color pixel1 = screen.getPixel(x, y);
-			sf::Color pixel2 = screen.getPixel(x + 1, y);
+			Color pixel1 = screen.getPixel(x, y);
+			Color pixel2 = screen.getPixel(x + 1, y);
 
 			screen.setPixel(x, y, pixel1*pixel2);
 		}
@@ -433,8 +430,8 @@ Image zigZagFilter(Image screen)
 	{
 		for (int y = 0; y < 144; y += 2)
 		{
-			sf::Color blackPixel = beakGPU.returnColor(3);
-			sf::Color pixel1 = screen.getPixel(x, y);
+			Color blackPixel = beakGPU.returnColor(3);
+			Color pixel1 = screen.getPixel(x, y);
 
 			if (pixel1 == blackPixel)
 			{
@@ -573,8 +570,7 @@ Image saI2X(Image screen)
 	int screenX = screen.getSize().x;
 	int screenY = screen.getSize().y;
 
-	Image scaledScreen;
-	scaledScreen.create(screenX * 2, screenY * 2);
+	Image scaledScreen(screenX * 2, screenY * 2);
 
 	Color a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p;
 
@@ -866,8 +862,7 @@ Image super2xSaI(Image screen)
 	int screenX = screen.getSize().x;
 	int screenY = screen.getSize().y;
 
-	Image scaledScreen;
-	scaledScreen.create(screenX * 2, screenY * 2);
+	Image scaledScreen(screenX * 2, screenY * 2);
 
 	Color a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p;
 
@@ -1143,8 +1138,7 @@ Image superEagle(Image screen)
 	int screenX = screen.getSize().x;
 	int screenY = screen.getSize().y;
 
-	Image scaledScreen;
-	scaledScreen.create(screen.getSize().x * 2, screen.getSize().y * 2);
+	Image scaledScreen(screen.getSize().x * 2, screen.getSize().y * 2);
 
 	Color a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p;
 
@@ -1390,8 +1384,7 @@ Image xBR2(Image screen)
 	int screenX = screen.getSize().x;
 	int screenY = screen.getSize().y;
 
-	Image scaledScreen;
-	scaledScreen.create(screen.getSize().x * 2, screen.getSize().y * 2);
+	Image scaledScreen(screen.getSize().x * 2, screen.getSize().y * 2);
 
 	Color a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u;
 

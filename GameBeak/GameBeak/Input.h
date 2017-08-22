@@ -3,10 +3,7 @@
 #include <Windows.h>
 #include "Main.h"
 #include "Memory.h"
-#include <SFML\System.hpp>
 #include <fstream>
-
-using namespace sf;
 
 #ifndef INPUTH
 #define INPUTH
@@ -25,7 +22,7 @@ byte getKeyInput()
 }
 
 
-
+/*
 void readInput()
 {
 	byte keyInput = getKeyInput();
@@ -171,6 +168,6 @@ void readInput()
 
 	beakMemory.writeMemory(0xFF00, keyInput);
 }
-
+*/
 
 #endif // !INPUTH

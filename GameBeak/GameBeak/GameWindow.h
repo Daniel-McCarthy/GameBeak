@@ -5,6 +5,8 @@
 
 #include <string>
 #include <vector>
+#include "Color.h"
+#include "Image.h"
 
 #include <Windows.h>
 

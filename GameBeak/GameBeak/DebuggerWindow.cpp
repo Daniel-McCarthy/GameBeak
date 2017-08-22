@@ -1,29 +1,24 @@
 #include "DebuggerWindow.h"
 #include "Main.h"
 #include "GameWindow.h"
-//#include <SDL_ttf.h>
-#include <SFML\Window.hpp>
-#include <SFML\System.hpp>
-#include <SFML\Graphics.hpp>
 #include <Windows.h>
 #include <tuple>
 #include "Debugger.h"
 
 using namespace std;
-using namespace sf;
 
 DebuggerWindow::DebuggerWindow(string title, int width, int height)
 {
 	//Set Window
 	//window = new RenderWindow(VideoMode(width, height), title);
-	window.create(VideoMode(width, height), title);
+	//window = Image(VideoMode(width, height), title);
 	//window = 
 	//auto sfgWindow = sfg::Window::Create();
 
 	//desktop.Add(sfgWindow);
 
 	//window->resetGLStates();
-	window.setFramerateLimit(60);
+	//window.setFramerateLimit(60);
 
 	//Set Icon
 	char path1[MAX_PATH];
@@ -34,11 +29,11 @@ DebuggerWindow::DebuggerWindow(string title, int width, int height)
 	setIcon(32, 32, path + "Beak3.png");
 
 	//Set Button
-	buttonTexture.loadFromFile(path + "Button.png");
-	buttonSprite = Sprite(buttonTexture);
+	//buttonTexture.loadFromFile(path + "Button.png");
+	//buttonSprite = Sprite(buttonTexture);
 
 	//Set Font
-	font.loadFromFile(path + "cour.ttf");
+	//font.loadFromFile(path + "cour.ttf");
 }
 
 
@@ -49,8 +44,8 @@ DebuggerWindow::~DebuggerWindow()
 void DebuggerWindow::setIcon(int width, int height, string path)
 {
 	Image image;
-	image.loadFromFile(path);
-	window.setIcon(32, 32, image.getPixelsPtr());
+	//image.loadFromFile(path);
+	//window.setIcon(32, 32, image.getPixelsPtr());
 }
 
 void DebuggerWindow::runLoop()
@@ -58,38 +53,38 @@ void DebuggerWindow::runLoop()
 	if (run)
 	{
 
-		Event event;
-		while (window.pollEvent(event))
+		//Event event;
+		//while (window.pollEvent(event))
 		{
-			if (event.type == Event::Closed)
+			//if (event.type == Event::Closed)
 			{
 				run = false;
 			}
 			
-			if (event.type == Event::MouseButtonPressed)
+			//if (event.type == Event::MouseButtonPressed)
 			{
-				if (event.mouseButton.button == Mouse::Button::Left)
+				//if (event.mouseButton.button == Mouse::Button::Left)
 				{
-					int x = event.mouseButton.x;
-					int y = event.mouseButton.y;
+					//int x = event.mouseButton.x;
+					//int y = event.mouseButton.y;
 
 					//Button 1 //Play/Pause
-					if ((x > 50) && (x < 50 + buttonSprite.getGlobalBounds().width)
-						&& ((y > 350) && (y < 350 + buttonSprite.getGlobalBounds().height)))
+					//if ((x > 50) && (x < 50 + buttonSprite.getGlobalBounds().width)
+						//&& ((y > 350) && (y < 350 + buttonSprite.getGlobalBounds().height)))
 					{
 						paused = !paused;
 					}
 
 					//Button 2 //Step
-					if ((x > 150) && (x < 150 + buttonSprite.getGlobalBounds().width)
-						&& ((y > 350) && (y < 350 + buttonSprite.getGlobalBounds().height)))
+					//if ((x > 150) && (x < 150 + buttonSprite.getGlobalBounds().width)
+						//&& ((y > 350) && (y < 350 + buttonSprite.getGlobalBounds().height)))
 					{
 						step = true;
 					}
 
 					//Button 3 //Reset
-					if ((x > 250) && (x < 250 + buttonSprite.getGlobalBounds().width)
-						&& ((y > 350) && (y < 350 + buttonSprite.getGlobalBounds().height)))
+					//if ((x > 250) && (x < 250 + buttonSprite.getGlobalBounds().width)
+						//&& ((y > 350) && (y < 350 + buttonSprite.getGlobalBounds().height)))
 					{
 						memoryPointer = 0x100; //0x0
 						//beakMemory.clearRegistersAndFlags();
@@ -99,22 +94,22 @@ void DebuggerWindow::runLoop()
 
 
 					//Button 4 //Registers Window
-					if ((x > 50) && (x < 50 + buttonSprite.getGlobalBounds().width)
-						&& ((y > 300) && (y < 300 + buttonSprite.getGlobalBounds().height)))
+					//if ((x > 50) && (x < 50 + buttonSprite.getGlobalBounds().width)
+						//&& ((y > 300) && (y < 300 + buttonSprite.getGlobalBounds().height)))
 					{
 						debuggerPage = 0;
 					}
 
 					//Button 2 //Memory Window
-					if ((x > 150) && (x < 150 + buttonSprite.getGlobalBounds().width)
-						&& ((y > 300) && (y < 300 + buttonSprite.getGlobalBounds().height)))
+					//if ((x > 150) && (x < 150 + buttonSprite.getGlobalBounds().width)
+						//&& ((y > 300) && (y < 300 + buttonSprite.getGlobalBounds().height)))
 					{
 						debuggerPage = 1;
 					}
 
 					//Button 3 //Disassembler Window
-					if ((x > 250) && (x < 250 + buttonSprite.getGlobalBounds().width)
-						&& ((y > 300) && (y < 300 + buttonSprite.getGlobalBounds().height)))
+					//if ((x > 250) && (x < 250 + buttonSprite.getGlobalBounds().width)
+						//&& ((y > 300) && (y < 300 + buttonSprite.getGlobalBounds().height)))
 					{
 						debuggerPage = 2;
 					}
@@ -127,12 +122,12 @@ void DebuggerWindow::runLoop()
 			}
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Key::Escape))
+		//if (Keyboard::isKeyPressed(Keyboard::Key::Escape))
 		{
 			run = false;
 		}
 
-		if (window.hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Up))
+		//if (window.hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Up))
 		{
 			if (memoryPosition - 16 >= 0)
 			{
@@ -140,7 +135,7 @@ void DebuggerWindow::runLoop()
 			}
 		}
 
-		if (window.hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Down))
+		//if (window.hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Down))
 		{
 			if (memoryPosition + 16 < 0xFFFF)
 			{
@@ -152,7 +147,7 @@ void DebuggerWindow::runLoop()
 			}
 		}
 
-		if (window.hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Up) && (Keyboard::isKeyPressed(Keyboard::Key::RShift) || Keyboard::isKeyPressed(Keyboard::Key::LShift)))
+		//if (window.hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Up) && (Keyboard::isKeyPressed(Keyboard::Key::RShift) || Keyboard::isKeyPressed(Keyboard::Key::LShift)))
 		{
 			if (memoryPosition - 256 >= 0)
 			{
@@ -164,7 +159,7 @@ void DebuggerWindow::runLoop()
 			}
 		}
 
-		if (window.hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Down) && (Keyboard::isKeyPressed(Keyboard::Key::RShift) || Keyboard::isKeyPressed(Keyboard::Key::LShift)))
+		//if (window.hasFocus() && debuggerPage == 1 && Keyboard::isKeyPressed(Keyboard::Key::Down) && (Keyboard::isKeyPressed(Keyboard::Key::RShift) || Keyboard::isKeyPressed(Keyboard::Key::LShift)))
 		{
 			if (memoryPosition + 256 <= 0xFFFF)
 			{
@@ -176,9 +171,9 @@ void DebuggerWindow::runLoop()
 			}
 		}
 
-		window.setVisible(true);
+		//window.setVisible(true);
 
-		window.clear();
+		//window.clear();
 
 		if (debuggerPage == 0)
 		{
@@ -198,7 +193,7 @@ void DebuggerWindow::runLoop()
 		//Setup Registers/Memory/Disassembler Buttons
 		int buttonPosX = 50;
 		int buttonPosY = 300;
-
+		
 		drawButton(buttonPosX, buttonPosY, .5, .5);
 		printText("Registers", buttonPosX + 10, buttonPosY + 13, Color::Black);
 		drawButton(buttonPosX + 100, buttonPosY, .5, .5);
@@ -221,49 +216,49 @@ void DebuggerWindow::runLoop()
 
 		//displayMemory();
 
-		window.display();
+		//window.display();
 
 	}
 	else
 	{
-		window.setVisible(false);
+		//window.setVisible(false);
 	}
 }
 
 void DebuggerWindow::printText(string text)
 {
-	Text textConverted(text, font, 12);
-	window.draw(textConverted);
+	//Text textConverted(text, font, 12);
+	//window.draw(textConverted);
 }
 
 void DebuggerWindow::printText(string text, int x, int y)
 {
-	Text textConverted(text, font, 12);
-	textConverted.setPosition(x, y);
-	window.draw(textConverted);
+	//Text textConverted(text, font, 12);
+	//textConverted.setPosition(x, y);
+	//window.draw(textConverted);
 
 }
 
 void DebuggerWindow::printText(string text, int x, int y, Color color)
 {
-	Text textConverted(text, font, 12);
-	textConverted.setFillColor(color);
-	textConverted.setPosition(x, y);
-	window.draw(textConverted);
+	//Text textConverted(text, font, 12);
+	//textConverted.setFillColor(color);
+	//textConverted.setPosition(x, y);
+	//window.draw(textConverted);
 
 }
 
 void DebuggerWindow::drawButton(int x, int y)
 {
-	buttonSprite.setPosition(x, y);
-	window.draw(buttonSprite);
+	//buttonSprite.setPosition(x, y);
+	//window.draw(buttonSprite);
 }
 
 void DebuggerWindow::drawButton(int x, int y, float scaleX, float scaleY)
 {
-	buttonSprite.setPosition(x, y);
-	buttonSprite.setScale(scaleX, scaleY);
-	window.draw(buttonSprite);
+	//buttonSprite.setPosition(x, y);
+	//buttonSprite.setScale(scaleX, scaleY);
+	//window.draw(buttonSprite);
 }
 
 void DebuggerWindow::displayRegisters()

@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML\Audio.hpp>
 #include "Memory.h"
 
 
@@ -13,10 +12,10 @@ public:
 	~Audio();
 	void updateSound();
 
-	sf::Sound sound;
-	sf::Sound sound2;
-	sf::SoundBuffer buffer;
-	sf::SoundBuffer buffer2;
+	//sf::Sound sound;
+	//sf::Sound sound2;
+	//sf::SoundBuffer buffer;
+	//sf::SoundBuffer buffer2;
 };
 
 #endif

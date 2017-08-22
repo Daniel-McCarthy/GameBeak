@@ -52,14 +52,14 @@ Audio::Audio()
 		x += 0.0099773242630385;
 	}
 
-	if (buffer.loadFromSamples(samples, sampleRate, 1, sampleRate))
+	//if (buffer.loadFromSamples(samples, sampleRate, 1, sampleRate))
 	{
-		sound.setBuffer(buffer);
+		//sound.setBuffer(buffer);
 	}
 
-	if (buffer2.loadFromSamples(samples, sampleRate, 1, sampleRate))
+	//if (buffer2.loadFromSamples(samples, sampleRate, 1, sampleRate))
 	{
-		sound2.setBuffer(buffer2);
+		//sound2.setBuffer(buffer2);
 	}
 
 	///////////////
@@ -95,30 +95,30 @@ void Audio::updateSound()
 		}
 		*/
 
-		sound.setPitch((float)(chanOneFreq / 400));
+		//sound.setPitch((float)(chanOneFreq / 400));
 
-		sound.setVolume(.5);
+		//sound.setVolume(.5);
 
-		sound.play();
+		//sound.play();
 
 		//Sound 2
 
-		sound2.pause();
+		//sound2.pause();
 
 		int chanTwoFreq = ((beakMemory.readMemory(0xFF19) & 7) << 8) | (beakMemory.readMemory(0xFF18));
 
-		sound2.setPitch((float)(chanTwoFreq / 400));
+		//sound2.setPitch((float)(chanTwoFreq / 400));
 
-		sound2.setVolume(.5);
+		//sound2.setVolume(.5);
 
-		sound2.play();
+		//sound2.play();
 		
 		
 	}
 	else
 	{
-		sound.pause();
-		sound2.pause();
+		//sound.pause();
+		//sound2.pause();
 	}
 
 }

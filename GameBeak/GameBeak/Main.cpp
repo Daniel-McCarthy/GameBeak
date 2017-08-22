@@ -7,12 +7,11 @@
 
 
 using namespace std;
-using namespace sf;
 
 int resolutionScaling = 2;
 
 GameWindow beakWindow("GameBeak", 320 * resolutionScaling, 288 * resolutionScaling);
-DebuggerWindow* debugWindow;
+//DebuggerWindow* debugWindow;
 
 short memoryPointer = 0x100;
 short stackPointer = 0;
@@ -149,11 +148,6 @@ void startEmulator()
 	//beakMemory.loadGBBootStrapIntoMemory();
 
 
-	if (debugOnLaunch)
-	{
-		debugWindow = new DebuggerWindow("DebugBeak", 400, 400);
-	}
-
 	//int clocks = 4500;//4516;//4518;//4516;
 	int clocksSinceLastTimerTIMAIncrement = 0;
 	int clocksSinceLastTimerDIVIncrement = 0;
@@ -163,21 +157,13 @@ void startEmulator()
 
 	beakMemory.loadDecompressedNintendoLogoToMemory();
 
-	bool logging = false;
-	string log = "";
-
-	if (logging)
-	{
-		//Create and or clear logFile
-		ofstream file("../logFile.txt");
-		file.close();
-	}
 
 	byte pollingSkipping = 0;
 
 	while (run)
 	{
 		
+		/*
 		if (Keyboard::isKeyPressed(Keyboard::Key::Tilde))
 		{
 			if (debugWindow == NULL)
@@ -196,8 +182,9 @@ void startEmulator()
 			step = false;
 
 		}
-		
-		
+		*/
+
+		/*
 		if (Keyboard::isKeyPressed(Keyboard::Key::Num0))
 		{
 			beakMemory.saveState();
@@ -207,67 +194,10 @@ void startEmulator()
 		{
 			beakMemory.loadSaveState();
 		}
-		
-		Event event;
-
-		//Poll Debug Window
-		if (debugWindow != NULL)
-		{
-			debugWindow->runLoop();
-		}
+		*/
 
 		if(pollingSkipping == 250)
 		{
-
-			//Poll Main SFML Window
-			while (beakWindow.window.pollEvent(event))
-			{
-				if (event.type == Event::Closed)
-				{
-					run = false;
-				}
-				
-				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::T)
-				{
-					tileDrawMode = !tileDrawMode;
-
-					if (tileDrawMode)
-					{
-						paused = true;
-						beakGPU.drawAllTiles();
-						beakWindow.drawImageToScreen(beakWindow.debugTileScreen);
-
-					}
-					else
-					{
-						beakWindow.drawImageToScreen(beakWindow.screen);
-						paused = false;
-					}
-				}
-
-				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::Y)
-				{
-					fullMapScreenMode = !fullMapScreenMode;
-
-					if (fullMapScreenMode)
-					{
-						paused = true;
-						beakWindow.drawFullScreenMaps();
-					}
-					else
-					{
-						beakWindow.drawImageToScreen(beakWindow.screen);
-						paused = false;
-					}
-				}
-
-				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::Escape)
-				{
-					run = false;
-				}
-
-			}
-
 			pollingSkipping = 0;
 		}
 		else
@@ -285,24 +215,7 @@ void startEmulator()
 
 		if (!paused || step)
 		{
-				readInput();
-
-			if (logging)
-			{
-				log += get<0>(disassembleInstruction(memoryPointer)) + '\n';
-
-				if(log.length() > 10000)
-				{
-					ofstream file("../logFile.txt", ios_base::out | ios_base::app);
-					if (file.is_open())
-					{
-						file << log << endl;
-					}
-					file.close();
-
-					log = "";
-				}
-			}
+			//readInput();
 
 			if (!cpu.checkForHaltOrInterrupt())
 			{
@@ -336,19 +249,6 @@ void startEmulator()
 
 	}
 
-
-
-	if (logging)
-	{
-		ofstream file2("../logFile.txt", ios_base::out | ios_base::app);
-		if (file2.is_open())
-		{
-			file2 << log << endl;
-		}
-		file2.close();
-	}
-
-	delete(debugWindow);
 
 	//return 0;
 }

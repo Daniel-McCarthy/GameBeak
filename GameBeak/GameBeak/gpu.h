@@ -3,11 +3,10 @@
 //#include <SDL.h>
 #include <Windows.h>
 #include <vector>
+#include "Color.h"
 #include "Windows.h"
-#include <SFML\Graphics\Color.hpp>
 
 using namespace std;
-using namespace sf;
 
 class gpu
 {
