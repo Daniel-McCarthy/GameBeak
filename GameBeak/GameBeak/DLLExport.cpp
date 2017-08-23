@@ -4,6 +4,7 @@
 
 extern "C"
 {
+
 	__declspec(dllexport) void setPauseState(bool pauseEnabled)
 	{
 		paused = pauseEnabled;
@@ -20,23 +21,6 @@ extern "C"
 	__declspec(dllexport) bool getRunState()
 	{
 		return run;
-	}
-
-	struct ImageData
-	{
-		int width, height;
-		int* pixelData;
-	};
-
-	__declspec(dllexport) ImageData getScreenData()
-	{
-		//return beakWindow.screen;
-		Image screen = beakWindow.screen;
-		ImageData screenStruct;
-		screenStruct.width = screen.getSize().x;
-		screenStruct.height = screen.getSize().y;
-		screenStruct.pixelData = screen.getIntArray();
-		return screenStruct;
 	}
 
 	__declspec(dllexport) int* getScreenPixelData()
