@@ -23,6 +23,12 @@ extern "C"
 		return run;
 	}
 
+	__declspec(dllexport) int* getRegisters()
+	{
+		static int registers[] = { regAF, regBC, regDE, regHL };
+		return registers;
+	}
+
 	__declspec(dllexport) int* getScreenPixelData()
 	{
 		static int* pixelData = beakWindow.screen.getIntArray();
