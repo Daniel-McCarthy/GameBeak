@@ -159,7 +159,6 @@
     <ClCompile Include="DLLExport.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="gpu.cpp" />
-    <ClCompile Include="Image.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PostProcessing.cpp" />
     <ClCompile Include="sharpCPU.cpp" />

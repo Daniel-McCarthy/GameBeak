@@ -101,6 +101,17 @@ public:
 	//Have a constructor that allows setting of a default color across all of the array
 	//Have a constructor that allows creation of an image from array of colors
 
+	int* getIntArray()
+	{
+		vector<int> intValues;
+
+		for (int i = 0; i < pixels.size(); i++)
+		{
+			intValues.push_back(pixels[i].getInt());
+		}
+
+		return &intValues[0];
+	}
 
 };
 
