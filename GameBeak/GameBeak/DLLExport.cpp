@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "Main.h"
+#include "Image.h"
 
 extern "C"
 {
@@ -21,9 +22,34 @@ extern "C"
 		return run;
 	}
 
-	__declspec(dllexport) Image getScreenData()
+	struct ImageData
 	{
-		return beakWindow.screen;
+		int width, height;
+		int* pixelData;
+	};
+
+	__declspec(dllexport) ImageData getScreenData()
+	{
+		//return beakWindow.screen;
+		Image screen = beakWindow.screen;
+		ImageData screenStruct;
+		screenStruct.width = screen.getSize().x;
+		screenStruct.height = screen.getSize().y;
+		screenStruct.pixelData = screen.getIntArray();
+		return screenStruct;
+	}
+
+	__declspec(dllexport) int* getScreenPixelData()
+	{
+		static int* pixelData = beakWindow.screen.getIntArray();
+		return beakWindow.screen.getIntArray();
+	}
+
+	__declspec(dllexport) int* getScreenDimensions()
+	{
+		static int dimensions[] = { beakWindow.screen.getSize().x, beakWindow.screen.getSize().y };
+	
+		return dimensions;
 	}
 
 	__declspec(dllexport) void setRom(byte* rom, int romSize)
