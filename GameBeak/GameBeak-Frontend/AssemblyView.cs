@@ -46,5 +46,23 @@ namespace GameBeak_Frontend
             pcValue.Text = pc.ToString("X4");
         }
 
+
+        void updateFlagDisplay()
+        {
+            short flagRegister = NativeMethods.getAF();
+
+            byte flagZ = (byte)((flagRegister & 0x80) >> 7);
+            byte flagN = (byte)((flagRegister & 0x40) >> 6);
+            byte flagH = (byte)((flagRegister & 0x20) >> 5);
+            byte flagC = (byte)((flagRegister & 0x10) >> 4);
+
+            zFlagValue.Text = flagZ.ToString();
+            hFlagValue.Text = flagH.ToString();
+            nFlagValue.Text = flagN.ToString();
+            cFlagValue.Text = flagC.ToString();
+
+
+        }
+
     }
 }
