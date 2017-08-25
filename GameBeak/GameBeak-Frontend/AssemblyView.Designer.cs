@@ -407,6 +407,7 @@
             this.Name = "AssemblyView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GameBeak - Assembly View";
+            this.Load += new System.EventHandler(this.AssemblyView_Load);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
