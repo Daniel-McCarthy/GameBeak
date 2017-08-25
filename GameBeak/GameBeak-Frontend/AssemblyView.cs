@@ -92,5 +92,14 @@ namespace GameBeak_Frontend
             listBox1.SelectedIndex = 0;
         }
 
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+            NativeMethods.setPauseState(true);
+            updateDisplayValues();
+            updatePCValues();
+            updateFlagDisplay();
+            updateAssemblyDisplay();
+        }
+
     }
 }
