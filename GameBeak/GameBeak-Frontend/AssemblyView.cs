@@ -74,5 +74,13 @@ namespace GameBeak_Frontend
             updateAssemblyDisplay();
         }
 
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            updateDisplayValues();
+            updatePCValues();
+            updateFlagDisplay();
+            updateAssemblyDisplay();
+        }
+
     }
 }
