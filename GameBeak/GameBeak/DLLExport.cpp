@@ -83,6 +83,11 @@ extern "C"
 		step = true;
 	}
 
+	__declspec(dllexport) byte readMemoryByte(short address)
+	{
+		return beakMemory.readMemory(address);
+	}
+
 	__declspec(dllexport) void initiateEmulator()
 	{
 		startEmulator();
