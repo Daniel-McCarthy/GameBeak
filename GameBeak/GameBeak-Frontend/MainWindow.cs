@@ -30,6 +30,21 @@ namespace GameBeak_Frontend
                 screenUpdateThread.Abort();
         }
 
+        private void debuggerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(assemblyView == null || assemblyView.IsDisposed)
+            {
+                assemblyView = new AssemblyView();
+                assemblyView.Show();
+            }
+            else
+            {
+                assemblyView.Show();
+                assemblyView.BringToFront();
+            }
+        }
+    }
+
     public class NativeMethods
     {
 
