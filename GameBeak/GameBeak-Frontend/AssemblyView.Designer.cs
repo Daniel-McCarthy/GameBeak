@@ -397,9 +397,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(122)))), ((int)(((byte)(175)))));
             this.ClientSize = new System.Drawing.Size(532, 360);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.refreshButton);
+            this.Controls.Add(this.pauseButton);
+            this.Controls.Add(this.runButton);
+            this.Controls.Add(this.stepButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.listBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -421,9 +422,9 @@
 
         #endregion
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button stepButton;
+        private System.Windows.Forms.Button runButton;
+        private System.Windows.Forms.Button pauseButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label spValuesLabel;
         private System.Windows.Forms.Label spLabel;
