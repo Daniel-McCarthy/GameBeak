@@ -114,7 +114,7 @@
             // 
             this.afLabel.AutoSize = true;
             this.afLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.afLabel.Location = new System.Drawing.Point(6, 23);
+            this.afLabel.Location = new System.Drawing.Point(6, 20);
             this.afLabel.Name = "afLabel";
             this.afLabel.Size = new System.Drawing.Size(31, 16);
             this.afLabel.TabIndex = 0;
@@ -124,7 +124,7 @@
             // 
             this.bcLabel.AutoSize = true;
             this.bcLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bcLabel.Location = new System.Drawing.Point(6, 39);
+            this.bcLabel.Location = new System.Drawing.Point(6, 36);
             this.bcLabel.Name = "bcLabel";
             this.bcLabel.Size = new System.Drawing.Size(32, 16);
             this.bcLabel.TabIndex = 1;
@@ -134,7 +134,7 @@
             // 
             this.deLabel.AutoSize = true;
             this.deLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deLabel.Location = new System.Drawing.Point(6, 55);
+            this.deLabel.Location = new System.Drawing.Point(6, 52);
             this.deLabel.Name = "deLabel";
             this.deLabel.Size = new System.Drawing.Size(33, 16);
             this.deLabel.TabIndex = 2;
@@ -144,7 +144,7 @@
             // 
             this.hlLabel.AutoSize = true;
             this.hlLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hlLabel.Location = new System.Drawing.Point(8, 71);
+            this.hlLabel.Location = new System.Drawing.Point(8, 68);
             this.hlLabel.Name = "hlLabel";
             this.hlLabel.Size = new System.Drawing.Size(31, 16);
             this.hlLabel.TabIndex = 3;
