@@ -29,6 +29,26 @@ extern "C"
 		return registers;
 	}
 
+	__declspec(dllexport) short getAF()
+	{
+		return regAF;
+	}
+
+	__declspec(dllexport) short getBC()
+	{
+		return regBC;
+	}
+
+	__declspec(dllexport) short getDE()
+	{
+		return regDE;
+	}
+
+	__declspec(dllexport) short getHL()
+	{
+		return regHL;
+	}
+
 	__declspec(dllexport) int* getScreenPixelData()
 	{
 		static int* pixelData = beakWindow.screen.getIntArray();
