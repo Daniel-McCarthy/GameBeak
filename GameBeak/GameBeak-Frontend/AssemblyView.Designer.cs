@@ -193,7 +193,7 @@
             this.groupBox1.Controls.Add(this.hlLabel);
             this.groupBox1.Location = new System.Drawing.Point(3, 1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(190, 105);
+            this.groupBox1.Size = new System.Drawing.Size(97, 96);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Registers";
@@ -205,9 +205,9 @@
             this.groupBox2.Controls.Add(this.spValue);
             this.groupBox2.Controls.Add(this.spValuesLabel);
             this.groupBox2.Controls.Add(this.spLabel);
-            this.groupBox2.Location = new System.Drawing.Point(3, 112);
+            this.groupBox2.Location = new System.Drawing.Point(3, 103);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(190, 68);
+            this.groupBox2.Size = new System.Drawing.Size(227, 68);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Stack Values";
@@ -271,9 +271,9 @@
             this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(138)))), ((int)(((byte)(235)))));
             this.groupBox3.Controls.Add(this.pcValue);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Location = new System.Drawing.Point(3, 185);
+            this.groupBox3.Location = new System.Drawing.Point(3, 177);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(190, 100);
+            this.groupBox3.Size = new System.Drawing.Size(227, 157);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Other Values";
@@ -286,6 +286,110 @@
             this.pcValue.Name = "pcValue";
             this.pcValue.Size = new System.Drawing.Size(0, 16);
             this.pcValue.TabIndex = 5;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(138)))), ((int)(((byte)(235)))));
+            this.groupBox4.Controls.Add(this.nFlagValue);
+            this.groupBox4.Controls.Add(this.zFlagLabel);
+            this.groupBox4.Controls.Add(this.cFlagValue);
+            this.groupBox4.Controls.Add(this.cFlagLabel);
+            this.groupBox4.Controls.Add(this.zFlagValue);
+            this.groupBox4.Controls.Add(this.hFlagLabel);
+            this.groupBox4.Controls.Add(this.hFlagValue);
+            this.groupBox4.Controls.Add(this.nFlagLabel);
+            this.groupBox4.Location = new System.Drawing.Point(106, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(124, 94);
+            this.groupBox4.TabIndex = 8;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Flags";
+            // 
+            // zFlagLabel
+            // 
+            this.zFlagLabel.AutoSize = true;
+            this.zFlagLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.zFlagLabel.Location = new System.Drawing.Point(15, 27);
+            this.zFlagLabel.Name = "zFlagLabel";
+            this.zFlagLabel.Size = new System.Drawing.Size(21, 16);
+            this.zFlagLabel.TabIndex = 8;
+            this.zFlagLabel.Text = "Z:";
+            // 
+            // nFlagLabel
+            // 
+            this.nFlagLabel.AutoSize = true;
+            this.nFlagLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nFlagLabel.Location = new System.Drawing.Point(75, 27);
+            this.nFlagLabel.Name = "nFlagLabel";
+            this.nFlagLabel.Size = new System.Drawing.Size(23, 16);
+            this.nFlagLabel.TabIndex = 9;
+            this.nFlagLabel.Text = "N:";
+            // 
+            // hFlagLabel
+            // 
+            this.hFlagLabel.AutoSize = true;
+            this.hFlagLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hFlagLabel.Location = new System.Drawing.Point(15, 59);
+            this.hFlagLabel.Name = "hFlagLabel";
+            this.hFlagLabel.Size = new System.Drawing.Size(23, 16);
+            this.hFlagLabel.TabIndex = 10;
+            this.hFlagLabel.Text = "H:";
+            // 
+            // cFlagLabel
+            // 
+            this.cFlagLabel.AutoSize = true;
+            this.cFlagLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cFlagLabel.Location = new System.Drawing.Point(76, 59);
+            this.cFlagLabel.Name = "cFlagLabel";
+            this.cFlagLabel.Size = new System.Drawing.Size(22, 16);
+            this.cFlagLabel.TabIndex = 11;
+            this.cFlagLabel.Text = "C:";
+            // 
+            // zFlagValue
+            // 
+            this.zFlagValue.AutoSize = true;
+            this.zFlagValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.zFlagValue.Location = new System.Drawing.Point(41, 29);
+            this.zFlagValue.Name = "zFlagValue";
+            this.zFlagValue.Size = new System.Drawing.Size(0, 13);
+            this.zFlagValue.TabIndex = 10;
+            // 
+            // nFlagValue
+            // 
+            this.nFlagValue.AutoSize = true;
+            this.nFlagValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nFlagValue.Location = new System.Drawing.Point(99, 29);
+            this.nFlagValue.Name = "nFlagValue";
+            this.nFlagValue.Size = new System.Drawing.Size(0, 13);
+            this.nFlagValue.TabIndex = 10;
+            // 
+            // hFlagValue
+            // 
+            this.hFlagValue.AutoSize = true;
+            this.hFlagValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hFlagValue.Location = new System.Drawing.Point(41, 61);
+            this.hFlagValue.Name = "hFlagValue";
+            this.hFlagValue.Size = new System.Drawing.Size(0, 13);
+            this.hFlagValue.TabIndex = 7;
+            // 
+            // cFlagValue
+            // 
+            this.cFlagValue.AutoSize = true;
+            this.cFlagValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cFlagValue.Location = new System.Drawing.Point(99, 61);
+            this.cFlagValue.Name = "cFlagValue";
+            this.cFlagValue.Size = new System.Drawing.Size(0, 13);
+            this.cFlagValue.TabIndex = 7;
+            // 
+            // refreshButton
+            // 
+            this.refreshButton.Location = new System.Drawing.Point(344, 310);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(63, 44);
+            this.refreshButton.TabIndex = 7;
+            this.refreshButton.Text = "Refresh";
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // AssemblyView
             // 
@@ -309,6 +413,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -336,5 +442,6 @@
         private System.Windows.Forms.Label afValue;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label pcValue;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }
