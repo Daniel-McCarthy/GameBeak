@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssemblyView));
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.stepButton = new System.Windows.Forms.Button();
+            this.runButton = new System.Windows.Forms.Button();
+            this.pauseButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.afLabel = new System.Windows.Forms.Label();
             this.bcLabel = new System.Windows.Forms.Label();
@@ -51,10 +51,21 @@
             this.stackValue = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pcValue = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.zFlagLabel = new System.Windows.Forms.Label();
+            this.nFlagLabel = new System.Windows.Forms.Label();
+            this.hFlagLabel = new System.Windows.Forms.Label();
+            this.cFlagLabel = new System.Windows.Forms.Label();
+            this.zFlagValue = new System.Windows.Forms.Label();
+            this.nFlagValue = new System.Windows.Forms.Label();
+            this.hFlagValue = new System.Windows.Forms.Label();
+            this.cFlagValue = new System.Windows.Forms.Label();
+            this.refreshButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBox1
@@ -216,7 +227,7 @@
             // 
             this.afValue.AutoSize = true;
             this.afValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.afValue.Location = new System.Drawing.Point(71, 23);
+            this.afValue.Location = new System.Drawing.Point(45, 20);
             this.afValue.Name = "afValue";
             this.afValue.Size = new System.Drawing.Size(0, 16);
             this.afValue.TabIndex = 4;
@@ -225,7 +236,7 @@
             // 
             this.bcValue.AutoSize = true;
             this.bcValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bcValue.Location = new System.Drawing.Point(71, 39);
+            this.bcValue.Location = new System.Drawing.Point(45, 36);
             this.bcValue.Name = "bcValue";
             this.bcValue.Size = new System.Drawing.Size(0, 16);
             this.bcValue.TabIndex = 5;
@@ -234,7 +245,7 @@
             // 
             this.deValue.AutoSize = true;
             this.deValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deValue.Location = new System.Drawing.Point(71, 55);
+            this.deValue.Location = new System.Drawing.Point(45, 52);
             this.deValue.Name = "deValue";
             this.deValue.Size = new System.Drawing.Size(0, 16);
             this.deValue.TabIndex = 6;
@@ -243,7 +254,7 @@
             // 
             this.hlValue.AutoSize = true;
             this.hlValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hlValue.Location = new System.Drawing.Point(71, 71);
+            this.hlValue.Location = new System.Drawing.Point(45, 68);
             this.hlValue.Name = "hlValue";
             this.hlValue.Size = new System.Drawing.Size(0, 16);
             this.hlValue.TabIndex = 7;
@@ -445,5 +456,14 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label pcValue;
         private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label cFlagLabel;
+        private System.Windows.Forms.Label hFlagLabel;
+        private System.Windows.Forms.Label nFlagLabel;
+        private System.Windows.Forms.Label zFlagLabel;
+        private System.Windows.Forms.Label zFlagValue;
+        private System.Windows.Forms.Label cFlagValue;
+        private System.Windows.Forms.Label hFlagValue;
+        private System.Windows.Forms.Label nFlagValue;
+        private System.Windows.Forms.Button refreshButton;
     }
 }
