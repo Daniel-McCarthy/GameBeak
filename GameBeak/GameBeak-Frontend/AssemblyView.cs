@@ -64,5 +64,15 @@ namespace GameBeak_Frontend
 
         }
 
+        private void stepButton_Click(object sender, EventArgs e)
+        {
+            //Call function in DLL to step emulator
+            NativeMethods.setStep();
+            updateDisplayValues();
+            updatePCValues();
+            updateFlagDisplay();
+            updateAssemblyDisplay();
+        }
+
     }
 }
