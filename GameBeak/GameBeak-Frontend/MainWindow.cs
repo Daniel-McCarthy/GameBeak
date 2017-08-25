@@ -13,6 +13,9 @@ namespace GameBeak_Frontend
 {
     public partial class MainWindow : Form
     {
+        private Thread emulatorThread;
+        private Thread screenUpdateThread;
+
         public MainWindow()
         {
             InitializeComponent();
