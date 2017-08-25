@@ -78,6 +78,11 @@ extern "C"
 		beakMemory.loadRom(rom, romSize);
 	}
 
+	__declspec(dllexport) void setStep()
+	{
+		step = true;
+	}
+
 	__declspec(dllexport) void initiateEmulator()
 	{
 		startEmulator();
