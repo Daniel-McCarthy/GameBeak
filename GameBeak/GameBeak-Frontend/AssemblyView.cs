@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace GameBeak_Frontend
 {
@@ -46,6 +47,30 @@ namespace GameBeak_Frontend
             pcValue.Text = pc.ToString("X4");
         }
 
+
+        void updateAssemblyDisplay()
+        {
+            short address = NativeMethods.getPC();
+
+            int stringSize = 0;
+
+            StringBuilder disassembledAssembly = new StringBuilder(100);
+
+            listBox1.Items.Clear();
+
+            for (int i = 0; i < 16; i++)
+            {
+                if (address < short.MaxValue)
+                {
+                    NativeMethods.disassembleAddress(ref address, disassembledAssembly, ref stringSize);
+
+                    listBox1.Items.Add(disassembledAssembly.ToString());
+                }
+            }
+
+
+            listBox1.SelectedIndex = 0;
+        }
 
         void updateFlagDisplay()
         {
