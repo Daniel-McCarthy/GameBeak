@@ -78,14 +78,15 @@
             this.stepButton.UseVisualStyleBackColor = true;
             this.stepButton.Click += new System.EventHandler(this.stepButton_Click);
             // 
-            // button2
+            // runButton
             // 
-            this.button2.Location = new System.Drawing.Point(329, 310);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(106, 44);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Run";
-            this.button2.UseVisualStyleBackColor = true;
+            this.runButton.Location = new System.Drawing.Point(413, 310);
+            this.runButton.Name = "runButton";
+            this.runButton.Size = new System.Drawing.Size(52, 44);
+            this.runButton.TabIndex = 5;
+            this.runButton.Text = "Run";
+            this.runButton.UseVisualStyleBackColor = true;
+            this.runButton.Click += new System.EventHandler(this.runButton_Click);
             // 
             // button3
             // 
