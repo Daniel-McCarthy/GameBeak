@@ -18,6 +18,18 @@ namespace GameBeak_Frontend
             InitializeComponent();
         }
 
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            NativeMethods.setRunState(false);
+
+            if(emulatorThread != null)
+                emulatorThread.Abort();
+
+            if(screenUpdateThread != null)
+                screenUpdateThread.Abort();
+        }
+
     public class NativeMethods
     {
 
