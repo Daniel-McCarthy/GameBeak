@@ -49,6 +49,12 @@ extern "C"
 		return regHL;
 	}
 
+	__declspec(dllexport) int* getStackValues()
+	{
+		static int stackValues[] = { stackPointer, beakMemory.readMemory(stackPointer) };
+		return stackValues;
+	}
+
 	__declspec(dllexport) int* getScreenPixelData()
 	{
 		static int* pixelData = beakWindow.screen.getIntArray();
