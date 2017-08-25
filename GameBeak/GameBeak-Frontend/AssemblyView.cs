@@ -16,5 +16,11 @@ namespace GameBeak_Frontend
         {
             InitializeComponent();
         }
+        void updatePCValues()
+        {
+            short pc = NativeMethods.getPC();
+            pcValue.Text = pc.ToString("X4");
+        }
+
     }
 }
