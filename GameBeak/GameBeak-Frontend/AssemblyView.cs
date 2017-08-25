@@ -101,5 +101,14 @@ namespace GameBeak_Frontend
             updateAssemblyDisplay();
         }
 
+        private void runButton_Click(object sender, EventArgs e)
+        {
+            NativeMethods.setPauseState(false);
+            updateDisplayValues();
+            updatePCValues();
+            updateFlagDisplay();
+            updateAssemblyDisplay();
+        }
+
     }
 }
