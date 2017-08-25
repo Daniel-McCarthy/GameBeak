@@ -92,4 +92,26 @@ extern "C"
 	{
 		startEmulator();
 	}
+
+	__declspec(dllexport) void disassembleAddress(short& address, char* cString, int& stringLength)
+	{
+		tuple<string, int> disassembledTuple = disassembleInstruction(address);
+
+		address += get<1>(disassembledTuple);
+
+		string disassembledString = get<0>(disassembledTuple);
+		stringLength = disassembledString.length();
+
+		for (int i = 0; i < 100; i++)
+		{
+			if (i < disassembledString.length())
+			{
+				cString[i] = (char)disassembledString[i];
+			}
+			else
+			{
+				cString[i] = NULL;
+			}
+		}
+	}
 }
