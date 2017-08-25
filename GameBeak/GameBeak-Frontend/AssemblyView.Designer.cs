@@ -88,14 +88,15 @@
             this.runButton.UseVisualStyleBackColor = true;
             this.runButton.Click += new System.EventHandler(this.runButton_Click);
             // 
-            // button3
+            // pauseButton
             // 
-            this.button3.Location = new System.Drawing.Point(441, 310);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(79, 44);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Pause";
-            this.button3.UseVisualStyleBackColor = true;
+            this.pauseButton.Location = new System.Drawing.Point(471, 310);
+            this.pauseButton.Name = "pauseButton";
+            this.pauseButton.Size = new System.Drawing.Size(49, 44);
+            this.pauseButton.TabIndex = 6;
+            this.pauseButton.Text = "Pause";
+            this.pauseButton.UseVisualStyleBackColor = true;
+            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
             // panel1
             // 
