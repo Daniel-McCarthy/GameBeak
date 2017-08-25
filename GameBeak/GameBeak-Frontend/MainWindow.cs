@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.IO;
+using System.Diagnostics;
 using SFML;
 using SFML.Graphics;
 using SFML.Window;
@@ -30,6 +32,33 @@ namespace GameBeak_Frontend
             InitializeComponent();
         }
 
+
+        /*
+         *  Load Rom File 
+        */
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string filePath = (openFileDialog1.ShowDialog() == DialogResult.OK) ? openFileDialog1.FileName : "Error: No such file found.";
+
+            if(File.Exists(filePath))
+            {
+                byte[] rom = File.ReadAllBytes(filePath);
+
+                NativeMethods.setRom(rom, rom.Length);
+
+                NativeMethods.setPauseState(true);
+
+                emulatorThread = new Thread(NativeMethods.initiateEmulator);
+                emulatorThread.Start();
+
+                //screenUpdateThread = new Thread(updateScreen);
+                //screenUpdateThread.Start();
+            }
+            else
+            {
+                MessageBox.Show(filePath);
+            }
+        }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
