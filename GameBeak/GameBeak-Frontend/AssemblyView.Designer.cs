@@ -68,14 +68,15 @@
             this.listBox1.Size = new System.Drawing.Size(302, 292);
             this.listBox1.TabIndex = 2;
             // 
-            // button1
+            // stepButton
             // 
-            this.button1.Location = new System.Drawing.Point(218, 310);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(105, 44);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Step";
-            this.button1.UseVisualStyleBackColor = true;
+            this.stepButton.Location = new System.Drawing.Point(255, 310);
+            this.stepButton.Name = "stepButton";
+            this.stepButton.Size = new System.Drawing.Size(83, 44);
+            this.stepButton.TabIndex = 4;
+            this.stepButton.Text = "Step";
+            this.stepButton.UseVisualStyleBackColor = true;
+            this.stepButton.Click += new System.EventHandler(this.stepButton_Click);
             // 
             // button2
             // 
