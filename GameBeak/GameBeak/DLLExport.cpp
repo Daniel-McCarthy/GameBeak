@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "Main.h"
 #include "Image.h"
+#include "Debugger.h"
 
 extern "C"
 {
