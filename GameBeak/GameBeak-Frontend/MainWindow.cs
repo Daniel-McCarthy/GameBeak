@@ -16,6 +16,8 @@ namespace GameBeak_Frontend
         private Thread emulatorThread;
         private Thread screenUpdateThread;
 
+        private AssemblyView assemblyView;
+
         public MainWindow()
         {
             InitializeComponent();
