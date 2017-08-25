@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using SFML;
+using SFML.Graphics;
+using SFML.Window;
+using System.Windows;
+
+using sf = SFML.Graphics;
 using System.Threading;
 
 namespace GameBeak_Frontend
