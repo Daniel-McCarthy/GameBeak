@@ -55,6 +55,11 @@ extern "C"
 		return stackValues;
 	}
 
+	__declspec(dllexport) short getPC()
+	{
+		return memoryPointer;
+	}
+
 	__declspec(dllexport) int* getScreenPixelData()
 	{
 		static int* pixelData = beakWindow.screen.getIntArray();
