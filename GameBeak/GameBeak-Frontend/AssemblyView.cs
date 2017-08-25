@@ -82,5 +82,15 @@ namespace GameBeak_Frontend
             updateAssemblyDisplay();
         }
 
+        private void AssemblyView_Load(object sender, EventArgs e)
+        {
+            updateDisplayValues();
+            updatePCValues();
+            updateFlagDisplay();
+            updateAssemblyDisplay();
+
+            listBox1.SelectedIndex = 0;
+        }
+
     }
 }
