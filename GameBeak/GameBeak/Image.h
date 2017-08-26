@@ -87,7 +87,7 @@ public:
 		}
 		else
 		{
-			pixels[x + (x*y)] = pixel;
+			pixels[x + (sizeValues.x*y)] = pixel;
 			return true;
 		}
 	}
