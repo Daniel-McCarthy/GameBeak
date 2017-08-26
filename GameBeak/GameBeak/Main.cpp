@@ -160,27 +160,7 @@ void startEmulator()
 
 	while (run)
 	{
-		
-		/*
-		if (Keyboard::isKeyPressed(Keyboard::Key::Tilde))
-		{
-			if (debugWindow == NULL)
-			{
-				debugWindow = new DebuggerWindow("DebugBeak", 400, 400);
-			}
-			else
-			{
-				debugWindow->run = !debugWindow->run;
-			}
 
-			//Reset game for debugging
-			//memoryPointer = 0x100;
-			//beakMemory.initializeGameBoyValues();
-			paused = true;
-			step = false;
-
-		}
-		*/
 
 		/*
 		if (Keyboard::isKeyPressed(Keyboard::Key::Num0))
