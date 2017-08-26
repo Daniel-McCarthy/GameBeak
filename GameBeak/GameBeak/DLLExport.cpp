@@ -115,4 +115,44 @@ extern "C"
 			}
 		}
 	}
+
+	__declspec(dllexport) void setKeyInput(int keyCode, bool enabled)
+	{
+
+		switch (keyCode)
+		{
+			case 0:
+			{
+				beakInput.keyUp = enabled;
+			}
+			case 1:
+			{
+				beakInput.keyDown = enabled;
+			}
+			case 2:
+			{
+				beakInput.keyLeft = enabled;
+			}
+			case 3:
+			{
+				beakInput.keyRight = enabled;
+			}
+			case 4:
+			{
+				beakInput.keyStart = enabled;
+			}
+			case 5:
+			{
+				beakInput.keySelect = enabled;
+			}
+			case 6:
+			{
+				beakInput.keyA = enabled;
+			}
+			case 7:
+			{
+				beakInput.keyB = enabled;
+			}
+		}
+	}
 }
