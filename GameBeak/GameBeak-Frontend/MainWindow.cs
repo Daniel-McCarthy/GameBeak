@@ -51,8 +51,8 @@ namespace GameBeak_Frontend
                 emulatorThread = new Thread(NativeMethods.initiateEmulator);
                 emulatorThread.Start();
 
-                //screenUpdateThread = new Thread(updateScreen);
-                //screenUpdateThread.Start();
+                screenUpdateThread = new Thread(updateScreen);
+                screenUpdateThread.Start();
             }
             else
             {
