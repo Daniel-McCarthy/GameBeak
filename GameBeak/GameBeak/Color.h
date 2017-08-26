@@ -17,8 +17,8 @@ public:
 	int getInt();
 
 	Color();
-	Color(unsigned char r, unsigned char g, unsigned char b);
-	Color(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+	Color(unsigned char newR, unsigned char newG, unsigned char newB);
+	Color(unsigned char newR, unsigned char newG, unsigned char newB, unsigned char newA);
 
 	bool operator!=(Color& operand);
 	void operator*=(Color& operand);
