@@ -1,10 +1,7 @@
 #pragma once
 
-//#include <SDL.h>
-#include <Windows.h>
 #include <vector>
 #include "Color.h"
-#include "Windows.h"
 
 using namespace std;
 
@@ -21,21 +18,21 @@ public:
 									lightestPink, lightPink, darkPink, darkestPink,
 									lightestPink, lightPink, darkPink, darkestPink };
 
-	byte gameboyColorBackGroundPalette[64]; //2 bytes per color, 4 colors per BG Palette, 8 BG Palettes
-	byte gameboyColorSpritePalette[64]; //2 bytes per color, 4 colors per Sprite Palette, 8 Sprite Palettes
-	//byte scrollXHistory[144];
-	//byte scrollYHistory[144];
+	//unsigned char gameboyColorBackGroundPalette[64]; //2 unsigned chars per color, 4 colors per BG Palette, 8 BG Palettes
+	//unsigned char gameboyColorSpritePalette[64]; //2 unsigned chars per color, 4 colors per Sprite Palette, 8 Sprite Palettes
+	//unsigned char scrollXHistory[144];
+	//unsigned char scrollYHistory[144];
 
 	gpu();
 	~gpu();
-	byte getLCDStatus();
-	void setLCDStatus(byte newStatus);
-	void setLCDMode(byte status);
-	byte getLCDLYCompare();
-	byte getLCDLY();
-	byte getLCDMode();
-	byte getLCDLYCCheckEnabled();
-	byte getLCDControl();
+	unsigned char getLCDStatus();
+	void setLCDStatus(unsigned char newStatus);
+	void setLCDMode(unsigned char status);
+	unsigned char getLCDLYCompare();
+	unsigned char getLCDLY();
+	unsigned char getLCDMode();
+	unsigned char getLCDLYCCheckEnabled();
+	unsigned char getLCDControl();
 	bool getLCDOn();
 	bool getWindowTileMapLocation();
 	bool getWindowEnabled();
@@ -44,10 +41,10 @@ public:
 	bool getSpriteSize();
 	bool getSpriteEnabled();
 	bool getBackGroundEnabled();
-	byte getScrollX();
-	byte getScrollY();
-	byte getWindowX();
-	byte getWindowY();
+	unsigned char getScrollX();
+	unsigned char getScrollY();
+	unsigned char getWindowX();
+	unsigned char getWindowY();
 	void drawDebugTile(int tileNumber, vector<vector<Color>> tile);
 	void drawLineFromBGMap(int lineY);
 	void drawLineFromWindowMap(int lineY);
@@ -55,7 +52,7 @@ public:
 	void drawAllTiles();
 	Color returnColor(int colorNumber);
 	Color returnColor(int colorNumber, int palette);
-	byte returnPalette(byte palette);
+	unsigned char returnPalette(unsigned char palette);
 	void loadPalettesFromXML(ifstream file);
 	ifstream openCreatePalettesXML();
 
