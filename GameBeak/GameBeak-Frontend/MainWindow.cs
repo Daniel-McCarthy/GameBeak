@@ -72,9 +72,9 @@ namespace GameBeak_Frontend
                 screenUpdateThread.Abort();
         }
 
-        private void debuggerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void assemblyViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(assemblyView == null || assemblyView.IsDisposed)
+            if (assemblyView == null || assemblyView.IsDisposed)
             {
                 assemblyView = new AssemblyView();
                 assemblyView.Show();
