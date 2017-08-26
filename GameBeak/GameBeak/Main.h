@@ -44,6 +44,8 @@ extern gpu beakGPU;
 extern Memory beakMemory;
 #include "Audio.h"
 extern Audio beakAudio;
+#include "Input.h"
+extern KeyInput beakInput;
 
 extern void startEmulator();
 
