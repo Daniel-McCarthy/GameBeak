@@ -61,10 +61,26 @@ extern "C"
 		return memoryPointer;
 	}
 
-	__declspec(dllexport) int* getScreenPixelData()
+	__declspec(dllexport) int* getCurrentMemoryMap()
 	{
-		static int* pixelData = beakWindow.screen.getIntArray();
-		return beakWindow.screen.getIntArray();
+
+		static int romData[0x8000];
+		copy(beakMemory.beakExternalRam, beakMemory.beakExternalRam + 0x7FFF, romData);
+		return romData;
+	}
+
+	__declspec(dllexport) void getScreenPixelData(int* pixelData)
+	{
+
+		//beakWindow.screen.getIntArray(pixelData);
+		//beakGPU.screenUpdated = false;
+
+		while (beakGPU.screenDrawing)
+		{
+
+		}
+		beakWindow.screen.getIntArray(pixelData);
+	}
 
 	__declspec(dllexport) bool getScreenUpdated()
 	{
