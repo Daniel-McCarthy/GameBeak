@@ -84,6 +84,106 @@ namespace GameBeak_Frontend
                 assemblyView.BringToFront();
             }
         }
+
+        /*
+            bool keyUp = false;
+            bool keyDown = false;
+            bool keyLeft = false;
+            bool keyRight = false;
+            bool keyStart = false;
+            bool keySelect = false;
+            bool keyA = false;
+            bool keyB = false;
+         */
+        private void MainWindow_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Up)
+            {
+                //this.BackColor = System.Drawing.Color.Aqua;
+                NativeMethods.setKeyInput(0, true);
+            }
+
+            if(e.KeyCode == Keys.Down)
+            {
+                NativeMethods.setKeyInput(1, true);
+            }
+
+            if(e.KeyCode == Keys.Left)
+            {
+                NativeMethods.setKeyInput(2, true);
+            }
+
+            if(e.KeyCode == Keys.Right)
+            {
+                NativeMethods.setKeyInput(3, true);
+            }
+
+            if(e.KeyCode == Keys.Enter)
+            {
+                NativeMethods.setKeyInput(4, true);
+            }
+
+            if(e.KeyCode == Keys.RShiftKey)
+            {
+                NativeMethods.setKeyInput(5, true);
+            }
+
+            if(e.KeyCode == Keys.Z)
+            {
+                NativeMethods.setKeyInput(6, true);
+            }
+
+            if(e.KeyCode == Keys.X)
+            {
+                NativeMethods.setKeyInput(7, true);
+            }
+        }
+
+        private void MainWindow_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            
+            if (e.KeyCode == Keys.Up)
+            {
+                //this.BackColor = System.Drawing.Color.Aqua;
+                NativeMethods.setKeyInput(0, false);
+            }
+
+            if (e.KeyCode == Keys.Down)
+            {
+                NativeMethods.setKeyInput(1, false);
+            }
+
+            if (e.KeyCode == Keys.Left)
+            {
+                NativeMethods.setKeyInput(2, false);
+            }
+
+            if (e.KeyCode == Keys.Right)
+            {
+                NativeMethods.setKeyInput(3, false);
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                NativeMethods.setKeyInput(4, false);
+            }
+
+            if (e.KeyCode == Keys.RShiftKey)
+            {
+                NativeMethods.setKeyInput(5, false);
+            }
+
+            if (e.KeyCode == Keys.Z)
+            {
+                NativeMethods.setKeyInput(6, false);
+            }
+
+            if (e.KeyCode == Keys.X)
+            {
+                NativeMethods.setKeyInput(7, false);
+            }
+            
+        }
     }
 
     public class NativeMethods
