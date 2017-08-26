@@ -65,6 +65,17 @@ extern "C"
 	{
 		static int* pixelData = beakWindow.screen.getIntArray();
 		return beakWindow.screen.getIntArray();
+
+	__declspec(dllexport) bool getScreenUpdated()
+	{
+		return beakGPU.screenUpdated;
+	}
+
+	__declspec(dllexport) bool getScreenDrawing()
+	{
+		return beakGPU.screenDrawing;
+	}
+
 	}
 
 	__declspec(dllexport) int* getScreenDimensions()
