@@ -92,11 +92,6 @@ extern "C"
 		return beakGPU.screenDrawing;
 	}
 
-	__declspec(dllexport) int getFirstScreenColor()
-	{
-		return beakWindow.screen.getFirstInt();
-	}
-
 	__declspec(dllexport) int* getScreenDimensions()
 	{
 		static int dimensions[] = { beakWindow.screen.getSize().x, beakWindow.screen.getSize().y };
