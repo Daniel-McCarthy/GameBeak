@@ -37,7 +37,7 @@ const int heboWIN = 12;
 const int fpgaBoy = 13;
 
 //Settings values
-byte paletteSetting = gamebeakPinkAlt;
+byte paletteSetting = 0;
 bool soundEnabled = false;
 bool tileDrawMode = false;
 bool fullMapScreenMode = false;
