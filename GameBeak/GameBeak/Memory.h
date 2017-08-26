@@ -949,6 +949,7 @@ public:
 					beakRam[address] = (0x40 | (value));
 					//Bit 7: Increment on Write //Bit 6: Unused //Bit 5-0 Index (0-35)
 				}
+				/*
 				else if (address == (unsigned short)0xFF69)
 				{
 					//Write GBC Background Palette Index
@@ -974,12 +975,14 @@ public:
 							writeMemory((unsigned short)0xFF68, (byte)(index | (bgPaletteIndexRegister & 0x80)));
 					}
 				}
+				*//*
 				else if (address == (unsigned short)0xFF6A)
 				{
 					//Set GBC Sprite Palette Index
 					beakRam[address] = (0x40 | (value));
 					//Bit 7: Increment on Write //Bit 6: Unused //Bit 5-0 Index (0-35)
 				}
+				*//*
 				else if (address == (unsigned short)0xFF6B)
 				{
 					//Write GBC Sprite Palette Index
@@ -1005,6 +1008,7 @@ public:
 						writeMemory((unsigned short)0xFF6A, (byte)(index | (spritePaletteIndexRegister & 0x80)));
 					}
 				}
+				*/
 				else
 				{
 					if (address >= 0xC000 && address <= 0xDDFF)
