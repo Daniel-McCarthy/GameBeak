@@ -85,6 +85,20 @@ namespace GameBeak_Frontend
             }
         }
 
+        private void memoryViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (memoryView == null || memoryView.IsDisposed)
+            {
+                memoryView = new MemoryView();
+                memoryView.Show();
+            }
+            else
+            {
+                memoryView.Show();
+                memoryView.BringToFront();
+            }
+        }
+
         /*
             bool keyUp = false;
             bool keyDown = false;
