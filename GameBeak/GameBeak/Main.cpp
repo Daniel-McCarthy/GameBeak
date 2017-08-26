@@ -131,7 +131,7 @@ void startEmulator()
 	//beakMemory.clearRegistersAndFlags();
 	//beakMemory.loadGBBootStrapIntoMemory();
 	beakMemory.initializeGameBoyValues();
-	beakMemory.loadRom("C://Users//Dan//Desktop//GB//lazerpong.gb"); //Working? Maybe a tad glitchy?
+	//beakMemory.loadRom("C://Users//Dan//Desktop//GB//lazerpong.gb"); //Working? Maybe a tad glitchy?
 	//beakMemory.loadRom("C://Users//Dan//Desktop//desertboy.gb"); //None //Working
 	//beakMemory.loadRom("C://Users//Dan//Desktop//cpu_instrs.gb");
 	//beakMemory.loadRom("C://Users//Dan//Desktop//06.gb");
