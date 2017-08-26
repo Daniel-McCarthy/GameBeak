@@ -48,5 +48,10 @@ namespace GameBeak_Frontend
             }
         }
 
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            loadMemory();
+        }
+
     }
 }
