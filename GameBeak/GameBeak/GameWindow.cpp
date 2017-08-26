@@ -73,7 +73,10 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 				{
 					if (beakMemory.getLCDEnabled())
 					{
+						beakGPU.screenDrawing = true;
 						drawScreenFromMaps(beakGPU.getScrollX(), beakGPU.getScrollY());
+						beakGPU.screenUpdated = true;
+						beakGPU.screenDrawing = false;
 					}
 					refreshClocksSinceLastUpdate = clocks;
 				}
@@ -282,12 +285,6 @@ void GameWindow::drawScreenFromMaps(int scrollX, int scrollY)
 
 	if (beakGPU.getBackGroundEnabled())
 	{
-
-		//IntRect screenRect;
-		//screenRect.left = scrollX;
-		//screenRect.top = scrollY;
-		//screenRect.width = 160;
-		//screenRect.height = 144;
 
 		byte x = 0;
 		byte y = 0;

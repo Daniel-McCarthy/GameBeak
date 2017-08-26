@@ -33,6 +33,8 @@ public:
 	unsigned char getLCDMode();
 	unsigned char getLCDLYCCheckEnabled();
 	unsigned char getLCDControl();
+	bool screenUpdated = false;
+	bool screenDrawing = false;
 	bool getLCDOn();
 	bool getWindowTileMapLocation();
 	bool getWindowEnabled();
