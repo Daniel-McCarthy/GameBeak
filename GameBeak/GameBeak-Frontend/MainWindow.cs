@@ -228,5 +228,7 @@ namespace GameBeak_Frontend
 
         [DllImport("GameBeak.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void disassembleAddress(ref short address, [MarshalAs(UnmanagedType.LPStr)] StringBuilder cString, ref int stringSize);
+        [DllImport("GameBeak.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void setKeyInput(int keyCode, bool enabled);
     }
 }
