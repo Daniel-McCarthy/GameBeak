@@ -53,5 +53,20 @@ namespace GameBeak_Frontend
             loadMemory();
         }
 
+        private void thousandthNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            baseAddress &= 0x0FFF;
+            baseAddress |= (ushort)((int)thousandthNumericUpDown.Value << 12);
+
+            loadMemory();
+        }
+
+        private void hundredthNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            baseAddress &= 0xF0FF;
+            baseAddress |= (ushort)((int)hundredthNumericUpDown.Value << 8);
+
+            loadMemory();
+        }
     }
 }
