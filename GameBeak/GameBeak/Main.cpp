@@ -58,6 +58,7 @@ Memory beakMemory = Memory();
 gpu beakGPU = gpu();
 sharpCPU cpu = sharpCPU();
 Audio beakAudio = Audio();
+KeyInput beakInput = KeyInput();
 
 //Debug Values
 bool debugOnLaunch = false; //Decides if Debug Window launches on open
@@ -215,7 +216,7 @@ void startEmulator()
 
 		if (!paused || step)
 		{
-			//readInput();
+			beakInput.readInput();
 
 			if (!cpu.checkForHaltOrInterrupt())
 			{
