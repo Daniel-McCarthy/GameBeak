@@ -24,5 +24,28 @@ namespace GameBeak_Frontend
         {
         }
 
+        private void loadMemory()
+        {
+            richTextBox1.Text = "";
+
+            for(int y = 0; y < 16; y++)
+            {
+                richTextBox1.Text += (baseAddress + (y * 16)).ToString("X4") + ':';
+
+                for(int x = 0; x < 16; x++)
+                {
+                    if (x < 16)
+                    {
+                        richTextBox1.Text += " ";
+                    }
+
+                    richTextBox1.Text += NativeMethods.readMemoryByte((short)(baseAddress + (y * 16) + x)).ToString("X2");
+
+                }
+
+                richTextBox1.Text += '\n';
+            }
+        }
+
     }
 }
