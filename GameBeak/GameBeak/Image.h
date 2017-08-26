@@ -106,7 +106,7 @@ public:
 
 		for (int i = 0; i < pixels.size(); i++)
 		{
-			intValues.push_back(pixels[i].getInt());
+			intValues[i] = pixels[i].getInt();
 		}
 
 	}
