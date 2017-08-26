@@ -34,10 +34,12 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debuggerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.assemblyViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.memoryViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.debuggerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -78,6 +80,29 @@
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
+            // debuggerToolStripMenuItem
+            // 
+            this.debuggerToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.assemblyViewToolStripMenuItem,
+            this.memoryViewToolStripMenuItem});
+            this.debuggerToolStripMenuItem.Name = "debuggerToolStripMenuItem";
+            this.debuggerToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.debuggerToolStripMenuItem.Text = "Debugger";
+            // 
+            // assemblyViewToolStripMenuItem
+            // 
+            this.assemblyViewToolStripMenuItem.Name = "assemblyViewToolStripMenuItem";
+            this.assemblyViewToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.assemblyViewToolStripMenuItem.Text = "Assembly View";
+            this.assemblyViewToolStripMenuItem.Click += new System.EventHandler(this.assemblyViewToolStripMenuItem_Click);
+            // 
+            // memoryViewToolStripMenuItem
+            // 
+            this.memoryViewToolStripMenuItem.Name = "memoryViewToolStripMenuItem";
+            this.memoryViewToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.memoryViewToolStripMenuItem.Text = "Memory View";
+            this.memoryViewToolStripMenuItem.Click += new System.EventHandler(this.memoryViewToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -101,13 +126,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-            // 
-            // debuggerToolStripMenuItem
-            // 
-            this.debuggerToolStripMenuItem.Name = "debuggerToolStripMenuItem";
-            this.debuggerToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.debuggerToolStripMenuItem.Text = "Debugger";
-            this.debuggerToolStripMenuItem.Click += new System.EventHandler(this.debuggerToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -142,6 +160,8 @@
         private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem debuggerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem assemblyViewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem memoryViewToolStripMenuItem;
     }
 }
 
