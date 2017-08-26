@@ -22,7 +22,7 @@ byte getKeyInput()
 }
 
 
-/*
+
 void readInput()
 {
 	byte keyInput = getKeyInput();
@@ -32,49 +32,58 @@ void readInput()
 
 	if (((keyInput & 0x10) >> 4) == 1)
 	{
-		beakWindow.window.setKeyRepeatEnabled(false);
+		//beakWindow.window.setKeyRepeatEnabled(false);
 
+		/*
 		if (Keyboard::isKeyPressed(Keyboard::Z)) { //Z //A
 			keyInput &= 0xFE;
 			interrupt = true;
 		}
 		else
 		{
+		*/
 			keyInput |= 0x01;
-		}
+		//}
 
+			/*
 		if (Keyboard::isKeyPressed(Keyboard::X)) { //X //B
 			keyInput &= 0xFD;
 			interrupt = true;
 		}
 		else
 		{
+		*/
 			keyInput |= 0x02;
-		}
+		//}
 
+			/*
 		if (Keyboard::isKeyPressed(Keyboard::RShift)) { //Control //Select
 			keyInput &= 0xFB;
 			interrupt = true;
 		}
 		else
 		{
+		*/
 			keyInput |= 0x04;
-		}
+		//}
 
+			/*
 		if (Keyboard::isKeyPressed(Keyboard::Return)) { //Enter //Start
 			keyInput &= 0xF7;
 			interrupt = true;
 		}
 		else
 		{
+		*/
 			keyInput |= 0x08;
-		}
+		//}
 
 	}
 	else if (((keyInput & 0x20) >> 5) == 1)//(keyInput == 0x20)
 	{
-		beakWindow.window.setKeyRepeatEnabled(true);
+		//beakWindow.window.setKeyRepeatEnabled(true);
 
+		/*
 		if (Keyboard::isKeyPressed(Keyboard::Right)) { //Right arrow //Right
 			right = true;
 		}
@@ -82,7 +91,7 @@ void readInput()
 		if (Keyboard::isKeyPressed(Keyboard::Left)) { //Left arrow //Left
 			left = true;
 		}
-
+		*/
 		if (!(right && left)) //Detect if both inputs are NOT enabled at once
 		{
 			if (right)
@@ -111,6 +120,7 @@ void readInput()
 			keyInput |= 0x02;
 		}
 
+		/*
 		if (Keyboard::isKeyPressed(Keyboard::Up)) { //Up arrow //Up
 			up = true;
 		}
@@ -118,6 +128,7 @@ void readInput()
 		if (Keyboard::isKeyPressed(Keyboard::Down)) { //Down arrow //Down
 			down = true;
 		}
+		*/
 
 		if (!(up && down)) //Detect if both inputs are NOT enabled at once
 		{
@@ -168,6 +179,6 @@ void readInput()
 
 	beakMemory.writeMemory(0xFF00, keyInput);
 }
-*/
+
 
 #endif // !INPUTH
