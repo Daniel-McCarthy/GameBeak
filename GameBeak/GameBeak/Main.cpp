@@ -117,8 +117,8 @@ void startEmulator()
 	//[Left]  | [Blue]   [Dark blue]  [Grayscale]
 	//[Right] | [Green]  [Dark Green] [Inverted]
 
-	ifstream palettesXML = beakGPU.openCreatePalettesXML();
-
+	//ifstream palettesXML = beakGPU.openCreatePalettesXML();
+	/*
 	if (palettesXML.fail())
 	{
 		paletteSetting = 0;
@@ -127,7 +127,7 @@ void startEmulator()
 	{
 		beakGPU.loadPalettesFromXML(beakGPU.openCreatePalettesXML());
 	}
-
+	*/
 	//beakMemory.clearRegistersAndFlags();
 	//beakMemory.loadGBBootStrapIntoMemory();
 	beakMemory.initializeGameBoyValues();
