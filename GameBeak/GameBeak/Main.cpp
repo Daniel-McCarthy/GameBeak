@@ -204,11 +204,12 @@ void startEmulator()
 			cpu.mClock = 0;
 			cpu.tClock = 0;
 
+			/*
 			if (soundEnabled)
 			{
 				beakAudio.updateSound();
 			}
-
+			*/
 
 			if (checkForWriteBreakpoint(writeBreakpoint, writeBreakpointValue, breakpointValue, writeBreakpointAddress))
 			{
