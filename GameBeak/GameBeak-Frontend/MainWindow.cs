@@ -26,6 +26,7 @@ namespace GameBeak_Frontend
         private Thread screenUpdateThread;
 
         private AssemblyView assemblyView;
+        private MemoryView memoryView;
 
         public MainWindow()
         {
