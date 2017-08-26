@@ -158,9 +158,6 @@ void startEmulator()
 
 	beakMemory.loadDecompressedNintendoLogoToMemory();
 
-
-	byte pollingSkipping = 0;
-
 	while (run)
 	{
 		
@@ -197,14 +194,6 @@ void startEmulator()
 		}
 		*/
 
-		if(pollingSkipping == 250)
-		{
-			pollingSkipping = 0;
-		}
-		else
-		{
-			pollingSkipping++;
-		}
 
 		if (breakPointEnabled)
 		{
