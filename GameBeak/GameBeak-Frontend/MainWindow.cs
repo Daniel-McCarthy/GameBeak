@@ -61,6 +61,45 @@ namespace GameBeak_Frontend
             }
         }
 
+        private void updateScreen()
+        {
+            while (NativeMethods.getRunState())
+            {  
+                //Retrieve Image X/Y Sizes
+                int[] dimensions = new int[2];
+                Marshal.Copy(NativeMethods.getScreenDimensions(), dimensions, 0, 2);
+
+                //Retrieve Image Pixel Data
+                int pixelCount = (dimensions[0] * dimensions[1]);
+                int[] pixelDataInts = new int[pixelCount];
+                NativeMethods.getScreenPixelData(pixelDataInts);
+
+                //Convert Image Pixel Data to Bytes
+                byte[] pixelDataBytes = new byte[pixelCount * sizeof(int)];
+                Buffer.BlockCopy(pixelDataInts, 0, pixelDataBytes, 0, pixelDataBytes.Length);
+
+                //Create SFML image from X/Y Sizes and Pixel Data Bytes
+                sf.Image newScreen = new sf.Image((uint)dimensions[0], (uint)dimensions[1], pixelDataBytes);
+
+                //Convert SFML Image to Bitmap
+                Bitmap bmp = new Bitmap((int)newScreen.Size.X, (int)newScreen.Size.Y);
+
+                for (int x = 0; x < newScreen.Size.X; x++)
+                {
+                    for (int y = 0; y < newScreen.Size.Y; y++)
+                    {
+                        sf.Color pixel = newScreen.GetPixel((uint)x, (uint)y);
+                        int pixelColor = ((pixel.A << 24) | (pixel.R << 16) | (pixel.G << 8) | (pixel.B));
+                        bmp.SetPixel(x, y, System.Drawing.Color.FromArgb(pixelColor));
+                    }
+                }
+
+                pictureBox1.Image = bmp;
+                
+                Thread.Sleep(8);
+            }
+        }
+
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             NativeMethods.setRunState(false);
