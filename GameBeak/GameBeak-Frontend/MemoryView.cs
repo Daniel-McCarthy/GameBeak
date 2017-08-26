@@ -22,6 +22,7 @@ namespace GameBeak_Frontend
 
         private void MemoryView_Load(object sender, EventArgs e)
         {
+            loadMemory();
         }
 
         private void loadMemory()
