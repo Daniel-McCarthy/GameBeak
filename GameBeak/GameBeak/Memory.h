@@ -18,7 +18,8 @@ using namespace std;
 
 class Memory
 {
-	private:
+	//private:
+public:
 	byte beakRam[0xFFFF+1];
 	byte beakExternalRam[0x1E000];
 	byte beakRom[0x500000]; //64kb for rom
