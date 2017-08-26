@@ -218,6 +218,12 @@ namespace GameBeak_Frontend
         [DllImport("GameBeak.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void getScreenPixelData(int[] pixelDataArray);
         [DllImport("GameBeak.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool getScreenUpdated();
+        [DllImport("GameBeak.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern bool getScreenDrawing();
+        [DllImport("GameBeak.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int getFirstScreenColor();
+        [DllImport("GameBeak.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void setRom(byte[] rom, int romSize);
         [DllImport("GameBeak.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void setStep();
