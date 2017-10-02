@@ -209,7 +209,7 @@ void gpu::drawTiles()
 
 
 //DrawLineFromMap: Draws a single specific line of the background map
-void gpu::drawLineFromBGMap(int lineY)
+void gpu::drawLineFromBGMap(unsigned char  lineY)
 {
 
 	int mapAddress;
@@ -285,7 +285,7 @@ void gpu::drawLineFromBGMap(int lineY)
 
 }
 
-void gpu::drawLineFromWindowMap(int lineY)
+void gpu::drawLineFromWindowMap(unsigned char lineY)
 {
 
 	int mapAddress;
@@ -366,7 +366,7 @@ void gpu::drawLineFromWindowMap(int lineY)
 
 #include "Binary.h"
 
-void gpu::drawLineFromSpriteMap(int lineY)
+void gpu::drawLineFromSpriteMap(unsigned char lineY)
 {
 	//Todo: Support priority.
 

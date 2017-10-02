@@ -50,9 +50,9 @@ public:
 	byte getWindowX();
 	byte getWindowY();
 	void drawDebugTile(int tileNumber, vector<vector<Color>> tile);
-	void drawLineFromBGMap(int lineY);
-	void drawLineFromWindowMap(int lineY);
-	void drawLineFromSpriteMap(int lineY);
+	void drawLineFromBGMap(unsigned char  lineY);
+	void drawLineFromWindowMap(unsigned char  lineY);
+	void drawLineFromSpriteMap(unsigned char  lineY);
 	void drawAllTiles();
 	Color returnColor(int colorNumber);
 	Color returnColor(int colorNumber, int palette);

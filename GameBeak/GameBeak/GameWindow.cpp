@@ -262,33 +262,33 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 
 }
 
-void GameWindow::setBGPixel(int x, int y, Color color)
+void GameWindow::setBGPixel(unsigned char  x, unsigned char  y, Color color)
 {
 	bgPixels[x + (y * 256)] = color;
 }
 
-Color GameWindow::getBGPixel(int x, int y)
+Color GameWindow::getBGPixel(unsigned char  x, unsigned char  y)
 {
 	return bgPixels[x + (y * 256)];
 }
 
-void GameWindow::setWindowPixel(int x, int y, Color color)
+void GameWindow::setWindowPixel(unsigned char  x, unsigned char  y, Color color)
 {
 	windowPixels[x + (y * 256)] = color;
 }
 
-void GameWindow::setSpritePixel(int x, int y, Color color)
+void GameWindow::setSpritePixel(unsigned char  x, unsigned char  y, Color color)
 {
 	spritePixels[x + (y * 256)] = color;
 }
 
-void GameWindow::setDebugPixel(int x, int y, Color color)
+void GameWindow::setDebugPixel(unsigned char  x, unsigned char  y, Color color)
 {
 	//tileDebugPixels[x + (y * 256)] = color;
 	debugTileScreen.setPixel(x, y, color);
 }
 
-void GameWindow::drawScreenFromMaps(int scrollX, int scrollY)
+void GameWindow::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrollY)
 {
 
 	if (beakGPU.getBackGroundEnabled())

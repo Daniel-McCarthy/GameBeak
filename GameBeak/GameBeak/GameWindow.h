@@ -22,12 +22,12 @@ public:
 
 	void updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshClocksSinceLastUpdate, int& clocksSinceLastVBlank);
 	void setIcon(int width, int height, string path);
-	Color getBGPixel(int x, int y);
-	void setBGPixel(int x, int y, Color color);
-	void setWindowPixel(int x, int y, Color color);
-	void setSpritePixel(int x, int y, Color color);
-	void setDebugPixel(int x, int y, Color color);
-	void drawScreenFromMaps(int scrollX, int ScrollY);
+	Color getBGPixel(unsigned char  x, unsigned char  y);
+	void setBGPixel(unsigned char  x, unsigned char  y, Color color);
+	void setWindowPixel(unsigned char  x, unsigned char  y, Color color);
+	void setSpritePixel(unsigned char  x, unsigned char  y, Color color);
+	void setDebugPixel(unsigned char  x, unsigned char  y, Color color);
+	void drawScreenFromMaps(unsigned char  scrollX, unsigned char  ScrollY);
 	void drawFullScreenMaps();
 	void drawImageToScreen(Image image);
 	RenderWindow window;
