@@ -65,8 +65,8 @@ bool debugOnLaunch = false; //Decides if Debug Window launches on open
 bool paused = debugOnLaunch;
 bool step = false;
 
-bool breakPointEnabled = !true;
-short breakPointAt = (short)0x03D0;//339;
+bool breakPointEnabled = false;
+short breakPointAt = (short)0x144E;
 
 bool accessBreakpoint = false;
 short accessBreakpointAddress = 0x0000;
@@ -130,10 +130,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	//beakMemory.clearRegistersAndFlags();
 	//beakMemory.loadGBBootStrapIntoMemory();
 	beakMemory.initializeGameBoyValues();
-	beakMemory.loadRom("C://Users//Dan//Desktop//Tetris (World).gb");
-	//beakMemory.loadRom("C://Users//Dan//Desktop//Legend of Zelda, The - Link's Awakening (USA, Europe).gb");
-	//beakMemory.loadRom("C://Users//Dan//Desktop//GB//lazerpong.gb"); //Working? Maybe a tad glitchy?
-	//beakMemory.loadRom("C://Users//Dan//Desktop//GB//desertboy.gb"); //None //Working
+	beakMemory.loadRom("C://Users//Dan//Desktop//GB//lazerpong.gb"); //Working? Maybe a tad glitchy?
+	//beakMemory.loadRom("C://Users//Dan//Desktop//desertboy.gb"); //None //Working
 	//beakMemory.loadRom("C://Users//Dan//Desktop//cpu_instrs.gb");
 	//beakMemory.loadRom("C://Users//Dan//Desktop//06.gb");
 	//beakMemory.loadRom("C://Users//Dan//Desktop//GBLANDER.gb"); //None 
@@ -141,7 +139,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	//beakMemory.loadRom("C://Users//Dan//Desktop//Poke97.gb"); //None //Works? Fully?
 	//beakMemory.loadRom("C://Users//Dan//Desktop//TEST.gb"); //None //Displays properly, but gets stuck on first screen
 	//beakMemory.loadRom("C://Users//Dan//Desktop//snake.gb"); //None //Works fully
-	//beakMemory.loadRom("C://Users//Dan//Desktop//GB//BubbleFactory.gb"); //MBC1
+	//beakMemory.loadRom("C://Users//Dan//Desktop//BubbleFactory.gb"); //MBC1
 	//beakMemory.loadRom("C://Users//Dan//Desktop//dummy4.gb"); //None
 	//beakMemory.loadRom("C://Users//Dan//Desktop//dummy5.gb"); //None
 
