@@ -3248,25 +3248,18 @@ void sharpCPU::opcode8D()
 void sharpCPU::opcode8E()
 {
 	//Add data at HL and Carry flag to A
-	if ((beakMemory.getA() + beakMemory.readMemory(beakMemory.getHL()) + beakMemory.getCFlag()) > 0xFF)
-	{
-		beakMemory.setA((beakMemory.getA() + beakMemory.readMemory(beakMemory.getHL()) + beakMemory.getCFlag()) - 256);//0xFF);
-		beakMemory.setHFlag(true);
-		beakMemory.setCFlag(true);
-	}
-	else
-	{
-		beakMemory.setHFlag(((beakMemory.getA() & 0x0F) + (beakMemory.readMemory(beakMemory.getHL()) & 0x0F) + beakMemory.getCFlag()) > 0x0F);
-		//beakMemory.setHFlag((beakMemory.getA() <= 0x0F) && ((beakMemory.readMemory(beakMemory.getHL()) + beakMemory.getA() + beakMemory.getCFlag()) > 0x0F));
-		beakMemory.setA(beakMemory.getA() + beakMemory.readMemory(beakMemory.getHL()) + beakMemory.getCFlag());
-		//beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
-		beakMemory.setCFlag(false);
-	}
+	int data = beakMemory.readMemory(beakMemory.getHL());
+	int carry = beakMemory.getCFlag() ? 1 : 0;
+	int result = beakMemory.getA() + data + carry;
+
+	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (data & 0x0F) + carry) & 0x10) > 0);
+	beakMemory.setA((uint8_t)result & 0xFF);
+	beakMemory.setCFlag(result > 0xFF);
+	beakMemory.setZFlag(beakMemory.getA() == 0);
+	beakMemory.setNFlag(false);
+
 	mClock += 2;
 	tClock += 8;
-
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
 }
 
 void sharpCPU::opcode8F()
