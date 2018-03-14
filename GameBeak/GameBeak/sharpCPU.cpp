@@ -3215,6 +3215,7 @@ void sharpCPU::opcode8B()
 void sharpCPU::opcode8C()
 {
 	//Add H and Carry flag to A
+	int carry = beakMemory.getCFlag() ? 1 : 0;
 	int result = beakMemory.getA() + beakMemory.getH() + carry;
 
 	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getH() & 0x0F) + carry) & 0x10) > 0);
