@@ -1807,7 +1807,7 @@ void sharpCPU::opcode09()
 
 	if (totalSum > 0xFFFF)
 	{
-		int overflow = totalSum - 65536;//0xFFFF;
+		int overflow = totalSum & 0xFFFF;
 		beakMemory.setHL(0 + overflow);
 		beakMemory.setCFlag(true);
 		beakMemory.setHFlag(true);
@@ -1995,7 +1995,7 @@ void sharpCPU::opcode19()
 
 	if (totalSum > 0xFFFF)
 	{
-		short overflow = (totalSum - 65536);//0xFFFF;
+		short overflow = (totalSum & 0xFFFF);
 		beakMemory.setHL(0 + overflow);
 		beakMemory.setCFlag(true);
 		beakMemory.setHFlag(true);
@@ -2242,7 +2242,7 @@ void sharpCPU::opcode29()
 
 	if (totalSum > 0xFFFF)
 	{
-		short overflow = (totalSum - 65536);//0xFFFF;
+		short overflow = (totalSum & 0xFFFF);
 		beakMemory.setHL(0 + overflow);
 		beakMemory.setCFlag(true);
 		beakMemory.setHFlag(true);
@@ -2427,7 +2427,7 @@ void sharpCPU::opcode39()
 	//Add SP to HL
 	if ((beakMemory.getHL() + stackPointer) > 0xFFFF)
 	{
-		beakMemory.setHL((beakMemory.getHL() + stackPointer) - 65536);//0xFFFF);
+		beakMemory.setHL((beakMemory.getHL() + stackPointer) & 0xFFFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -3283,7 +3283,7 @@ void sharpCPU::opcode90()
 	//Sub B from A
 	if ((beakMemory.getA() - beakMemory.getB()) < 0x00)
 	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getB()) + 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() - beakMemory.getB()) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -3310,7 +3310,7 @@ void sharpCPU::opcode91()
 	//Sub C from A
 	if ((beakMemory.getA() - beakMemory.getC()) < 0x00)
 	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getC()) + 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() - beakMemory.getC()) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -3337,7 +3337,7 @@ void sharpCPU::opcode92()
 	//Sub D from A
 	if ((beakMemory.getA() - beakMemory.getD()) < 0x00)
 	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getD()) + 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() - beakMemory.getD()) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -3364,7 +3364,7 @@ void sharpCPU::opcode93()
 	//Sub E from A
 	if ((beakMemory.getA() - beakMemory.getE()) < 0x00)
 	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getE()) + 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() - beakMemory.getE()) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -3391,7 +3391,7 @@ void sharpCPU::opcode94()
 	//Sub B from H
 	if ((beakMemory.getA() - beakMemory.getH()) < 0x00)
 	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getH()) + 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() - beakMemory.getH()) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -3418,7 +3418,7 @@ void sharpCPU::opcode95()
 	//Sub L from A
 	if ((beakMemory.getA() - beakMemory.getL()) < 0x00)
 	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getL()) + 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() - beakMemory.getL()) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -3444,7 +3444,7 @@ void sharpCPU::opcode96()
 	//Sub data at HL from A
 	if ((beakMemory.getA() - beakMemory.readMemory(beakMemory.getHL())) < 0x00)
 	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.readMemory(beakMemory.getHL())) + 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() - beakMemory.readMemory(beakMemory.getHL())) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -3471,7 +3471,7 @@ void sharpCPU::opcode97()
 	//Sub A from A
 	if ((beakMemory.getA() - beakMemory.getA()) < 0x00)
 	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getA()) + 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() - beakMemory.getA()) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -3498,7 +3498,7 @@ void sharpCPU::opcode98()
 	//Sub B and Carry flag from A
 	if ((beakMemory.getA() - (beakMemory.getB() + beakMemory.getCFlag())) < 0x00)
 	{
-		beakMemory.setA((beakMemory.getA() - (beakMemory.getB() + beakMemory.getCFlag())) + 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() - (beakMemory.getB() + beakMemory.getCFlag())) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -3521,7 +3521,7 @@ void sharpCPU::opcode99()
 	//Sub C and Carry flag from A
 	if ((beakMemory.getA() - (beakMemory.getC() + beakMemory.getCFlag())) < 0x00)
 	{
-		beakMemory.setA((beakMemory.getA() - (beakMemory.getC() + beakMemory.getCFlag())) + 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() - (beakMemory.getC() + beakMemory.getCFlag())) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -4313,7 +4313,7 @@ void sharpCPU::opcodeCE(byte n)
 	//beakMemory.setA(beakMemory.getA() + n + beakMemory.getCFlag());
 	if ((beakMemory.getA() + n + beakMemory.getCFlag()) > 0xFF)
 	{
-		beakMemory.setA((beakMemory.getA() + n + beakMemory.getCFlag()) - 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() + n + beakMemory.getCFlag()) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -4419,7 +4419,7 @@ void sharpCPU::opcodeD6(byte n)
 
 	if ((beakMemory.getA() - n) < 0x00)
 	{
-		beakMemory.setA((beakMemory.getA() - n) + 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() - n) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -4518,7 +4518,7 @@ void sharpCPU::opcodeDE(byte n)
 	//Sub n and Carry flag from A
 	if ((beakMemory.getA() - (n + beakMemory.getCFlag())) < 0x00)
 	{
-		beakMemory.setA((beakMemory.getA() - (n + beakMemory.getCFlag())) + 256);//0xFF);
+		beakMemory.setA((beakMemory.getA() - (n + beakMemory.getCFlag())) & 0xFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
@@ -4615,7 +4615,7 @@ void sharpCPU::opcodeE8(signed char n)
 
 	if ((stackPointer + (signed char)n) > 0xFFFF)
 	{
-		beakMemory.setStackPointer((stackPointer + (signed char)n) - 65536);//0xFFFF);
+		beakMemory.setStackPointer((stackPointer + (signed char)n) & 0xFFFF);
 		beakMemory.setHFlag(true);
 		beakMemory.setCFlag(true);
 	}
