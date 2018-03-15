@@ -3281,216 +3281,140 @@ void sharpCPU::opcode8F()
 void sharpCPU::opcode90()
 {
 	//Sub B from A
-	if ((beakMemory.getA() - beakMemory.getB()) < 0x00)
-	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getB()) & 0xFF);
-		beakMemory.setHFlag(true);
-		beakMemory.setCFlag(true);
-	}
-	else
-	{
-		beakMemory.setCFlag(beakMemory.getA() < beakMemory.getB());
-		beakMemory.setHFlag((beakMemory.getA() & 0x0F) < (beakMemory.getB() & 0x0F));
-		//beakMemory.setHFlag(beakMemory.getA() < beakMemory.getB());
-		//beakMemory.setHFlag((beakMemory.getA() > 0x0F) && ((beakMemory.getA() - beakMemory.getB()) <= 0x0F));
-		beakMemory.setA(beakMemory.getA() - beakMemory.getB());
-		//beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
-		//beakMemory.setCFlag(false);
-	}
+
+	uint8_t result = beakMemory.getA();
+	result -= beakMemory.getB();
+
+	beakMemory.setCFlag(beakMemory.getB() > beakMemory.getA());
+	beakMemory.setHFlag((beakMemory.getB() & 0x0F) > (beakMemory.getA() & 0x0F));
+	beakMemory.setNFlag(true);
+	beakMemory.setZFlag(result == 0);
+	beakMemory.setA(result);
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
 }
 
 void sharpCPU::opcode91()
 {
 	//Sub C from A
-	if ((beakMemory.getA() - beakMemory.getC()) < 0x00)
-	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getC()) & 0xFF);
-		beakMemory.setHFlag(true);
-		beakMemory.setCFlag(true);
-	}
-	else
-	{
-		beakMemory.setCFlag(beakMemory.getA() < beakMemory.getC());
-		beakMemory.setHFlag((beakMemory.getA() & 0x0F) < (beakMemory.getC() & 0x0F));
-		//beakMemory.setHFlag(beakMemory.getA() < beakMemory.getC());
-		//beakMemory.setHFlag((beakMemory.getA() > 0x0F) && ((beakMemory.getA() - beakMemory.getC()) <= 0x0F));
-		beakMemory.setA(beakMemory.getA() - beakMemory.getC());
-		//beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
-		//beakMemory.setCFlag(false);
-	}
+
+	uint8_t result = beakMemory.getA();
+	result -= beakMemory.getC();
+
+	beakMemory.setCFlag(beakMemory.getC() > beakMemory.getA());
+	beakMemory.setHFlag((beakMemory.getC() & 0x0F) > (beakMemory.getA() & 0x0F));
+	beakMemory.setNFlag(true);
+	beakMemory.setZFlag(result == 0);
+	beakMemory.setA(result);
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
 }
 
 void sharpCPU::opcode92()
 {
 	//Sub D from A
-	if ((beakMemory.getA() - beakMemory.getD()) < 0x00)
-	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getD()) & 0xFF);
-		beakMemory.setHFlag(true);
-		beakMemory.setCFlag(true);
-	}
-	else
-	{
-		beakMemory.setCFlag(beakMemory.getA() < beakMemory.getD());
-		beakMemory.setHFlag((beakMemory.getA() & 0x0F) < (beakMemory.getD() & 0x0F));
-		//beakMemory.setHFlag(beakMemory.getA() < beakMemory.getD());
-		//beakMemory.setHFlag((beakMemory.getA() > 0x0F) && ((beakMemory.getA() - beakMemory.getD()) <= 0x0F));
-		beakMemory.setA(beakMemory.getA() - beakMemory.getD());
-		//beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
-		//beakMemory.setCFlag(false);
-	}
+
+	uint8_t result = beakMemory.getA();
+	result -= beakMemory.getD();
+
+	beakMemory.setCFlag(beakMemory.getD() > beakMemory.getA());
+	beakMemory.setHFlag((beakMemory.getD() & 0x0F) > (beakMemory.getA() & 0x0F));
+	beakMemory.setNFlag(true);
+	beakMemory.setZFlag(result == 0);
+	beakMemory.setA(result);
 
 	mClock += 1;
 	tClock += 4;
-
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
 }
 
 void sharpCPU::opcode93()
 {
 	//Sub E from A
-	if ((beakMemory.getA() - beakMemory.getE()) < 0x00)
-	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getE()) & 0xFF);
-		beakMemory.setHFlag(true);
-		beakMemory.setCFlag(true);
-	}
-	else
-	{
-		beakMemory.setCFlag(beakMemory.getA() < beakMemory.getE());
-		beakMemory.setHFlag((beakMemory.getA() & 0x0F) < (beakMemory.getE() & 0x0F));
-		//beakMemory.setHFlag(beakMemory.getA() < beakMemory.getE());
-		//beakMemory.setHFlag((beakMemory.getA() > 0x0F) && ((beakMemory.getA() - beakMemory.getE()) <= 0x0F));
-		beakMemory.setA(beakMemory.getA() - beakMemory.getE());
-		//beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
-		//beakMemory.setCFlag(false);
-	}
+
+	uint8_t result = beakMemory.getA();
+	result -= beakMemory.getE();
+
+	beakMemory.setCFlag(beakMemory.getE() > beakMemory.getA());
+	beakMemory.setHFlag((beakMemory.getE() & 0x0F) > (beakMemory.getA() & 0x0F));
+	beakMemory.setNFlag(true);
+	beakMemory.setZFlag(result == 0);
+	beakMemory.setA(result);
 
 	mClock += 1;
 	tClock += 4;
-
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
 }
 
 void sharpCPU::opcode94()
 {
 	//Sub B from H
-	if ((beakMemory.getA() - beakMemory.getH()) < 0x00)
-	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getH()) & 0xFF);
-		beakMemory.setHFlag(true);
-		beakMemory.setCFlag(true);
-	}
-	else
-	{
-		beakMemory.setCFlag(beakMemory.getA() < beakMemory.getH());
-		beakMemory.setHFlag((beakMemory.getA() & 0x0F) < (beakMemory.getH() & 0x0F));
-		//beakMemory.setHFlag(beakMemory.getA() < beakMemory.getH());
-		//beakMemory.setHFlag((beakMemory.getA() > 0x0F) && ((beakMemory.getA() - beakMemory.getH()) <= 0x0F));
-		beakMemory.setA(beakMemory.getA() - beakMemory.getH());
-		//beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
-		//beakMemory.setCFlag(false);
-	}
+
+	uint8_t result = beakMemory.getA();
+	result -= beakMemory.getH();
+
+	beakMemory.setCFlag(beakMemory.getH() > beakMemory.getA());
+	beakMemory.setHFlag((beakMemory.getH() & 0x0F) > (beakMemory.getA() & 0x0F));
+	beakMemory.setNFlag(true);
+	beakMemory.setZFlag(result == 0);
+	beakMemory.setA(result);
 
 	mClock += 1;
 	tClock += 4;
-
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
 }
 
 void sharpCPU::opcode95()
 {
 	//Sub L from A
-	if ((beakMemory.getA() - beakMemory.getL()) < 0x00)
-	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getL()) & 0xFF);
-		beakMemory.setHFlag(true);
-		beakMemory.setCFlag(true);
-	}
-	else
-	{
-		beakMemory.setCFlag(beakMemory.getA() < beakMemory.getL());
-		beakMemory.setHFlag((beakMemory.getA() & 0x0F) < (beakMemory.getL() & 0x0F));
-		//beakMemory.setHFlag((beakMemory.getA() > 0x0F) && ((beakMemory.getA() - beakMemory.getL()) <= 0x0F));
-		beakMemory.setA(beakMemory.getA() - beakMemory.getL());
-		//beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
-		//beakMemory.setCFlag(false);
-	}
+
+	uint8_t result = beakMemory.getA();
+	result -= beakMemory.getL();
+
+	beakMemory.setCFlag(beakMemory.getL() > beakMemory.getA());
+	beakMemory.setHFlag((beakMemory.getL() & 0x0F) > (beakMemory.getA() & 0x0F));
+	beakMemory.setNFlag(true);
+	beakMemory.setZFlag(result == 0);
+	beakMemory.setA(result);
 
 	mClock += 1;
 	tClock += 4;
-
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
 }
 
 void sharpCPU::opcode96()
 {
 	//Sub data at HL from A
-	if ((beakMemory.getA() - beakMemory.readMemory(beakMemory.getHL())) < 0x00)
-	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.readMemory(beakMemory.getHL())) & 0xFF);
-		beakMemory.setHFlag(true);
-		beakMemory.setCFlag(true);
-	}
-	else
-	{
-		beakMemory.setCFlag(beakMemory.getA() < beakMemory.readMemory(beakMemory.getHL()));
-		beakMemory.setHFlag((beakMemory.getA() & 0x0F) < (beakMemory.readMemory(beakMemory.getHL()) & 0x0F));
-		//beakMemory.setHFlag(beakMemory.getA() < beakMemory.readMemory(beakMemory.getHL()));
-		//beakMemory.setHFlag((beakMemory.getA() > 0x0F) && ((beakMemory.getA() - beakMemory.readMemory(beakMemory.getHL())) <= 0x0F));
-		beakMemory.setA(beakMemory.getA() - beakMemory.readMemory(beakMemory.getHL()));
-		//beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
-		//beakMemory.setCFlag(false);
-	}
 
-	mClock += 2;
-	tClock += 8;
+	uint8_t result = beakMemory.getA();
+	uint8_t n = beakMemory.readMemory(beakMemory.getHL());
+	result -= n;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
+	beakMemory.setCFlag(n > beakMemory.getA());
+	beakMemory.setHFlag((n & 0x0F) > (beakMemory.getA() & 0x0F));
 	beakMemory.setNFlag(true);
+	beakMemory.setZFlag(result == 0);
+	beakMemory.setA(result);
+
+	mClock += 1;
+	tClock += 4;
 }
 
 void sharpCPU::opcode97()
 {
 	//Sub A from A
-	if ((beakMemory.getA() - beakMemory.getA()) < 0x00)
-	{
-		beakMemory.setA((beakMemory.getA() - beakMemory.getA()) & 0xFF);
-		beakMemory.setHFlag(true);
-		beakMemory.setCFlag(true);
-	}
-	else
-	{
-		beakMemory.setCFlag(false);
-		beakMemory.setHFlag(false);
-		//beakMemory.setHFlag(beakMemory.getA() < beakMemory.getA());
-		//beakMemory.setHFlag((beakMemory.getA() > 0x0F) && ((beakMemory.getA() - beakMemory.getA()) <= 0x0F));
-		beakMemory.setA(beakMemory.getA() - beakMemory.getA());
-		//beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
-		//beakMemory.setCFlag(false);
-	}
+
+	uint8_t result = beakMemory.getA();
+	result -= beakMemory.getA();
+
+	beakMemory.setCFlag(beakMemory.getA() > beakMemory.getA());
+	beakMemory.setHFlag((beakMemory.getA() & 0x0F) > (beakMemory.getA() & 0x0F));
+	beakMemory.setNFlag(true);
+	beakMemory.setZFlag(result == 0);
+	beakMemory.setA(result);
 
 	mClock += 1;
 	tClock += 4;
-
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
 }
 
 void sharpCPU::opcode98()
@@ -4417,24 +4341,18 @@ void sharpCPU::opcodeD6(byte n)
 {
 	//Subtract n from A
 
-	if ((beakMemory.getA() - n) < 0x00)
-	{
-		beakMemory.setA((beakMemory.getA() - n) & 0xFF);
-		beakMemory.setHFlag(true);
-		beakMemory.setCFlag(true);
-	}
-	else
-	{
-		beakMemory.setHFlag((beakMemory.getA() & 0x0F) < (n & 0x0F));
-		beakMemory.setA(beakMemory.getA() - n);
-		beakMemory.setCFlag(false);
-	}
+	uint8_t result = beakMemory.getA();
+	result -= n;
+
+	beakMemory.setCFlag(n > beakMemory.getA());
+	beakMemory.setHFlag((n & 0x0F) > (beakMemory.getA() & 0x0F));
+	beakMemory.setNFlag(true);
+	beakMemory.setZFlag(result == 0);
+	beakMemory.setA(result);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
 
 }
 
