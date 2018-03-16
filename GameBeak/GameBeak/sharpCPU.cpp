@@ -4203,26 +4203,18 @@ void sharpCPU::opcodeCD(short nn)
 void sharpCPU::opcodeCE(byte n)
 {
 	//Add n and Carry flag to A
-	//beakMemory.setA(beakMemory.getA() + n + beakMemory.getCFlag());
-	if ((beakMemory.getA() + n + beakMemory.getCFlag()) > 0xFF)
-	{
-		beakMemory.setA((beakMemory.getA() + n + beakMemory.getCFlag()) & 0xFF);
-		beakMemory.setHFlag(true);
-		beakMemory.setCFlag(true);
-	}
-	else
-	{
-		beakMemory.setHFlag(((beakMemory.getA() & 0x0F) + (n & 0x0F) + beakMemory.getCFlag()) > 0x0F);
-		//beakMemory.setHFlag((beakMemory.getA() <= 0x0F) && ((beakMemory.getA() + n + beakMemory.getCFlag()) > 0x0F));
-		beakMemory.setA(beakMemory.getA() + n + beakMemory.getCFlag());
-		//beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
-		beakMemory.setCFlag(false);
-	}
+
+	int carry = beakMemory.getCFlag() ? 1 : 0;
+	int result = beakMemory.getA() + n + carry;
+
+	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (n & 0x0F) + carry) & 0x10) > 0);
+	beakMemory.setCFlag(result > 0xFF);
+	beakMemory.setZFlag(result == 0);
+	beakMemory.setNFlag(false);
+	beakMemory.setA(result & 0xFF);
+
 	mClock += 2;
 	tClock += 8;
-
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
 }
 
 void sharpCPU::opcodeCF()
