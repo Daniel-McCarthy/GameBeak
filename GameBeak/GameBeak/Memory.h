@@ -314,7 +314,7 @@ class Memory
 
 	void writeRom0ToRam()
 	{
-		for (int i = 0; i < 0x3FFF; i++)
+		for (int i = 0; i <= 0x3FFF; i++)
 		{
 			beakRam[i] = beakRom[i];
 		}
@@ -322,7 +322,7 @@ class Memory
 
 	void writeFullRomToRam()
 	{
-		for (int i = 0; i < 0x7FFF; i++)
+		for (int i = 0; i <= 0x7FFF; i++)
 		{
 			beakRam[i] = beakRom[i];
 		}
