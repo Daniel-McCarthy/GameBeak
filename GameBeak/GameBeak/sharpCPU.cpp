@@ -5105,7 +5105,7 @@ void sharpCPU::opcodeCB16()
 {
 	//Rotate data at HL Left
 
-	byte oldBit = (beakMemory.readMemory(beakMemory.getHL()) & 0x8000) >> 0xF;
+	byte oldBit = (beakMemory.readMemory(beakMemory.getHL()) & 0x80) >> 7;
 	beakMemory.writeMemory(beakMemory.getHL(), (byte)((beakMemory.readMemory(beakMemory.getHL()) << 1) | (byte)beakMemory.getCFlag()));
 	beakMemory.setCFlag(oldBit > 0);
 
@@ -5235,7 +5235,7 @@ void sharpCPU::opcodeCB1E()
 	//Rotate/Shift HL Right
 
 	byte oldBit = (beakMemory.readMemory(beakMemory.getHL()) & 0x01);
-	beakMemory.writeMemory(beakMemory.getHL(), (byte)((beakMemory.readMemory(beakMemory.getHL()) >> 1) | (beakMemory.getCFlag() << 0xF)));
+	beakMemory.writeMemory(beakMemory.getHL(), (byte)((beakMemory.readMemory(beakMemory.getHL()) >> 1) | (beakMemory.getCFlag() << 7)));
 	beakMemory.setCFlag(oldBit > 0);
 
 	mClock += 3;
@@ -5356,7 +5356,7 @@ void sharpCPU::opcodeCB26()
 {
 	//Shift data at HL Left - Set Carry to old Bit 7
 
-	beakMemory.setCFlag(((beakMemory.readMemory(beakMemory.getHL()) & 0x8000) >> 0xF) > 0);
+	beakMemory.setCFlag(((beakMemory.readMemory(beakMemory.getHL()) & 0x80) >> 7) > 0);
 	beakMemory.writeMemory(beakMemory.getHL(), (byte)(beakMemory.readMemory(beakMemory.getHL()) << 1));
 
 	mClock += 3;
