@@ -1785,28 +1785,17 @@ void sharpCPU::opcode09()
 
 	unsigned short hl = beakMemory.getHL();
 	unsigned short bc = beakMemory.getBC();
-	unsigned int totalSum = hl + bc;
-	unsigned int halfCarrySum = (hl & 0x0FFF) + (bc & 0x0FFF);
+	int totalSum = hl + bc;
 
-	if (totalSum > 0xFFFF)
-	{
-		int overflow = totalSum & 0xFFFF;
-		beakMemory.setHL(0 + overflow);
-		beakMemory.setCFlag(true);
-		beakMemory.setHFlag(true);
-	}
-	else
-	{
-		beakMemory.setHFlag(halfCarrySum > 0x0FFF);
-		beakMemory.setHL(beakMemory.getHL() + beakMemory.getBC());
-		//TODO: Find out of H can be set by half overflow? Haven't found a circumstance in which it does yet
-		beakMemory.setCFlag(false);
-	}
+	beakMemory.setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
+	beakMemory.setHL(totalSum & 0xFFFF);
+	beakMemory.setCFlag(totalSum > 0xFFFF);
+	
 	mClock += 2;
 	tClock += 8;
 
-	//beakMemory.setZFlag(beakMemory.getHL() == 0); //From testing, this opcode leaves Z as it was
 	beakMemory.setNFlag(false);
+
 }
 
 
