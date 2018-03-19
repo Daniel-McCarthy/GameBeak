@@ -2197,27 +2197,15 @@ void sharpCPU::opcode29()
 	//Add HL to HL
 
 	unsigned short hl = beakMemory.getHL();
-	unsigned int totalSum = hl + hl;
-	unsigned int halfCarrySum = (hl & 0x0FFF) * 2;
+	int totalSum = hl + hl;
 
-	if (totalSum > 0xFFFF)
-	{
-		short overflow = (totalSum & 0xFFFF);
-		beakMemory.setHL(0 + overflow);
-		beakMemory.setCFlag(true);
-		beakMemory.setHFlag(true);
-	}
-	else
-	{
-		beakMemory.setHFlag(halfCarrySum > 0x0FFF);
-		beakMemory.setHL(beakMemory.getHL() + beakMemory.getHL());
-		//Todo: Find out if half carry occurs
-		beakMemory.setCFlag(false);
-	}
+	beakMemory.setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
+	beakMemory.setHL(totalSum & 0xFFFF);
+	beakMemory.setCFlag(totalSum > 0xFFFF);
+
 	mClock += 2;
 	tClock += 8;
 
-	//beakMemory.setZFlag(beakMemory.getHL() == 0);
 	beakMemory.setNFlag(false);
 }
 
