@@ -2033,7 +2033,7 @@ void sharpCPU::opcode1F()
 	//RRA - Rotate A Right - Store old bit 0 in Carry Flag - Current Carry flag becomes new bit 7
 	//Rotate A Right - Set left most bit to current carry flag
 	byte cFlag = (beakMemory.getCFlag() == true) ? 0x80 : 0x00;
-	beakMemory.setCFlag((((beakMemory.getA() & 0x80) >> 7) == 1) ? true : false);
+	beakMemory.setCFlag(((beakMemory.getA() & 0x01) == 1) ? true : false);
 	beakMemory.setA((beakMemory.getA() >> 1) | cFlag);
 	mClock += 1;
 	tClock += 4;
