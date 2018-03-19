@@ -1758,33 +1758,16 @@ void sharpCPU::opcode06(byte n)
 
 void sharpCPU::opcode07()
 {
-	/*
+	
 	//Rotate A Left - Set C flag to old bit 7
+	beakMemory.setA(rotateLeft(beakMemory.getA()));
 	beakMemory.setCFlag(((beakMemory.getA() & 0x01) == 1) ? true : false);
-	beakMemory.setA(rotateLeft(beakMemory.getA()));
-	mClock += 2;
-	tClock += 8;
-	*/
-
-	//Rotate A Left, put previous bit 7 into Carry flag
-	if (beakMemory.getA() != 0)
-	{
-		beakMemory.setCFlag(beakMemory.getA() & 0x01);
-	}
-	else
-	{
-		beakMemory.setZFlag(0);
-		beakMemory.setCFlag(0);
-	}
-
-	//beakMemory.setA(beakMemory.getA() << 1);
-	beakMemory.setA(rotateLeft(beakMemory.getA()));
-
 	mClock += 1;
 	tClock += 4;
-
-	beakMemory.setNFlag(false);
+	
+	beakMemory.setZFlag(false);
 	beakMemory.setHFlag(false);
+	beakMemory.setNFlag(false);
 
 }
 
