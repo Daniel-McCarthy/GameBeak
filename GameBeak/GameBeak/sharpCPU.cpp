@@ -2373,21 +2373,17 @@ void sharpCPU::opcode38(byte n)
 void sharpCPU::opcode39()
 {
 	//Add SP to HL
-	if ((beakMemory.getHL() + stackPointer) > 0xFFFF)
-	{
-		beakMemory.setHL((beakMemory.getHL() + stackPointer) & 0xFFFF);
-		beakMemory.setHFlag(true);
-		beakMemory.setCFlag(true);
-	}
-	else
-	{
-		beakMemory.setHL(beakMemory.getHL() + stackPointer);
-		//Todo: Check if half carry can occur?
-	}
+	unsigned short hl = beakMemory.getHL();
+	unsigned short sp = stackPointer;
+	int totalSum = hl + sp;
+
+	beakMemory.setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
+	beakMemory.setHL(totalSum & 0xFFFF);
+	beakMemory.setCFlag(totalSum > 0xFFFF);
+
 	mClock += 2;
 	tClock += 8;
 
-	//No Z flag from what I've found
 	beakMemory.setNFlag(false);
 }
 
