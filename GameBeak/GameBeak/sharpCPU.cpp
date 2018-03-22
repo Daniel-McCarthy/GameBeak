@@ -3373,8 +3373,8 @@ void sharpCPU::opcode98()
 	beakMemory.setCFlag((beakMemory.getB() + carry) > beakMemory.getA());
 	beakMemory.setHFlag(((beakMemory.getB() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
 	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+	beakMemory.setA(result & 0xFF);
+	beakMemory.setZFlag(beakMemory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3392,8 +3392,8 @@ void sharpCPU::opcode99()
 	beakMemory.setCFlag((beakMemory.getC() + carry) > beakMemory.getA());
 	beakMemory.setHFlag(((beakMemory.getC() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
 	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+	beakMemory.setA(result & 0xFF);
+	beakMemory.setZFlag(beakMemory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3411,8 +3411,8 @@ void sharpCPU::opcode9A()
 	beakMemory.setCFlag((beakMemory.getD() + carry) > beakMemory.getA());
 	beakMemory.setHFlag(((beakMemory.getD() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
 	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+	beakMemory.setA(result & 0xFF);
+	beakMemory.setZFlag(beakMemory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3430,8 +3430,8 @@ void sharpCPU::opcode9B()
 	beakMemory.setCFlag((beakMemory.getE() + carry) > beakMemory.getA());
 	beakMemory.setHFlag(((beakMemory.getE() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
 	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+	beakMemory.setA(result & 0xFF);
+	beakMemory.setZFlag(beakMemory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3449,8 +3449,8 @@ void sharpCPU::opcode9C()
 	beakMemory.setCFlag((beakMemory.getH() + carry) > beakMemory.getA());
 	beakMemory.setHFlag(((beakMemory.getH() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
 	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+	beakMemory.setA(result & 0xFF);
+	beakMemory.setZFlag(beakMemory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3468,8 +3468,8 @@ void sharpCPU::opcode9D()
 	beakMemory.setCFlag((beakMemory.getL() + carry) > beakMemory.getA());
 	beakMemory.setHFlag(((beakMemory.getL() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
 	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+	beakMemory.setA(result & 0xFF);
+	beakMemory.setZFlag(beakMemory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3488,8 +3488,8 @@ void sharpCPU::opcode9E()
 	beakMemory.setCFlag((data + carry) > beakMemory.getA());
 	beakMemory.setHFlag(((data & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
 	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+	beakMemory.setA(result & 0xFF);
+	beakMemory.setZFlag(beakMemory.getA() == 0);
 
 	mClock += 2;
 	tClock += 8;
@@ -3507,8 +3507,8 @@ void sharpCPU::opcode9F()
 	beakMemory.setCFlag((beakMemory.getA() + carry) > beakMemory.getA());
 	beakMemory.setHFlag(((beakMemory.getA() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
 	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+	beakMemory.setA(result & 0xFF);
+	beakMemory.setZFlag(beakMemory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
