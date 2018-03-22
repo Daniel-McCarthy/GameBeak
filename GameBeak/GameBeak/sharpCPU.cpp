@@ -4031,9 +4031,10 @@ void sharpCPU::opcodeC6(byte n)
 	int result = beakMemory.getA() + n;
 
 	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (n & 0x0F)) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
+	beakMemory.setA((uint8_t)(result & 0xFF));
 	beakMemory.setCFlag(result > 0xFF);
 	beakMemory.setZFlag(beakMemory.getA() == 0);
+	beakMemory.setNFlag(false);
 
 	mClock += 2;
 	tClock += 8;
@@ -4129,9 +4130,9 @@ void sharpCPU::opcodeCE(byte n)
 
 	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (n & 0x0F) + carry) & 0x10) > 0);
 	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setNFlag(false);
 	beakMemory.setA(result & 0xFF);
+	beakMemory.setZFlag(beakMemory.getA() == 0);
+	beakMemory.setNFlag(false);
 
 	mClock += 2;
 	tClock += 8;
@@ -4324,8 +4325,8 @@ void sharpCPU::opcodeDE(byte n)
 	beakMemory.setCFlag((n + carry) > beakMemory.getA());
 	beakMemory.setHFlag(((n & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
 	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+	beakMemory.setA(result & 0xFF);
+	beakMemory.setZFlag(beakMemory.getA() == 0);
 
 	mClock += 2;
 	tClock += 8;
