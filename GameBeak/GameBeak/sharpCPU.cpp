@@ -5469,7 +5469,7 @@ void sharpCPU::opcodeCB32()
 void sharpCPU::opcodeCB33()
 {
 	//Swap nibbles in E
-	byte e = beakMemory.getC();
+	byte e = beakMemory.getE();
 	e = ((e & 0x0F) << 4) | ((e & 0xF0) >> 4);
 	beakMemory.setE(e);
 	mClock += 2;
