@@ -3226,7 +3226,7 @@ void sharpCPU::opcode90()
 {
 	//Sub B from A
 
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getB();
 
 	beakMemory.setCFlag(beakMemory.getB() > beakMemory.getA());
@@ -3244,7 +3244,7 @@ void sharpCPU::opcode91()
 {
 	//Sub C from A
 
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getC();
 
 	beakMemory.setCFlag(beakMemory.getC() > beakMemory.getA());
@@ -3262,7 +3262,7 @@ void sharpCPU::opcode92()
 {
 	//Sub D from A
 
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getD();
 
 	beakMemory.setCFlag(beakMemory.getD() > beakMemory.getA());
@@ -3279,7 +3279,7 @@ void sharpCPU::opcode93()
 {
 	//Sub E from A
 
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getE();
 
 	beakMemory.setCFlag(beakMemory.getE() > beakMemory.getA());
@@ -3296,7 +3296,7 @@ void sharpCPU::opcode94()
 {
 	//Sub B from H
 
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getH();
 
 	beakMemory.setCFlag(beakMemory.getH() > beakMemory.getA());
@@ -3313,7 +3313,7 @@ void sharpCPU::opcode95()
 {
 	//Sub L from A
 
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getL();
 
 	beakMemory.setCFlag(beakMemory.getL() > beakMemory.getA());
@@ -3330,7 +3330,7 @@ void sharpCPU::opcode96()
 {
 	//Sub data at HL from A
 
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	uint8_t n = beakMemory.readMemory(beakMemory.getHL());
 	result -= n;
 
@@ -3348,7 +3348,7 @@ void sharpCPU::opcode97()
 {
 	//Sub A from A
 
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getA();
 
 	beakMemory.setCFlag(beakMemory.getA() > beakMemory.getA());
@@ -3366,7 +3366,7 @@ void sharpCPU::opcode98()
 	//Sub B and Carry flag from A
 
 	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getB();
 	result -= carry;
 
@@ -3385,7 +3385,7 @@ void sharpCPU::opcode99()
 	//Sub C and Carry flag from A
 
 	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getC();
 	result -= carry;
 
@@ -3404,7 +3404,7 @@ void sharpCPU::opcode9A()
 	//Sub D and Carry flag from A
 
 	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getD();
 	result -= carry;
 
@@ -3423,7 +3423,7 @@ void sharpCPU::opcode9B()
 	//Sub E and Carry flag from A
 
 	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getE();
 	result -= carry;
 
@@ -3442,7 +3442,7 @@ void sharpCPU::opcode9C()
 	//Sub H and Carry flag from A
 
 	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getH();
 	result -= carry;
 
@@ -3461,7 +3461,7 @@ void sharpCPU::opcode9D()
 	//Sub L and Carry flag from A
 
 	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getL();
 	result -= carry;
 
@@ -3481,7 +3481,7 @@ void sharpCPU::opcode9E()
 
 	uint8_t data = beakMemory.readMemory(beakMemory.getHL());
 	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= data;
 	result -= carry;
 
@@ -3500,7 +3500,7 @@ void sharpCPU::opcode9F()
 	//Sub A and Carry flag from A
 
 	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= beakMemory.getA();
 	result -= carry;
 
@@ -4222,7 +4222,7 @@ void sharpCPU::opcodeD6(byte n)
 {
 	//Subtract n from A
 
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= n;
 
 	beakMemory.setCFlag(n > beakMemory.getA());
@@ -4317,7 +4317,7 @@ void sharpCPU::opcodeDE(byte n)
 	//Sub n and Carry flag from A
 
 	uint8_t carry = beakMemory.getCFlag()? 1: 0;
-	uint8_t result = beakMemory.getA();
+	int result = beakMemory.getA();
 	result -= n;
 	result -= carry;
 
