@@ -4398,11 +4398,12 @@ void sharpCPU::opcodeE8(signed char n)
 
 	int result = stackPointer + n;
 
-	beakMemory.setStackPointer((byte)(result));
-	beakMemory.setHFlag((result & 0x10) > 0);
-	beakMemory.setCFlag((result & 0x100) > 0);
+	beakMemory.setCFlag((result & 0xFF) < (stackPointer & 0xFF));
+	beakMemory.setHFlag((result & 0x0F) < (stackPointer & 0x0F));
 	beakMemory.setZFlag(false);
 	beakMemory.setNFlag(false);
+
+	beakMemory.setStackPointer((uint16_t)(result & 0xFFFF));
 
 	mClock += 4;
 	tClock += 16;
@@ -4524,23 +4525,17 @@ void sharpCPU::opcodeF8(byte n)
 {
 	//Load SP + n into HL
 
-	if ((stackPointer + n) > 0xFF)
-	{
-		beakMemory.setCFlag(true);
-	}
+	int result = stackPointer + (int8_t)n;
 
-	if (((stackPointer & 0x0F) + (n & 0x0F)) > 0x0F)
-	{
-		beakMemory.setHFlag(true);
-	}
+	beakMemory.setCFlag((result & 0xFF) < (stackPointer & 0xFF));
+	beakMemory.setHFlag((result & 0x0F) < (stackPointer & 0x0F));
+	beakMemory.setZFlag(false);
+	beakMemory.setNFlag(false);
 
-	beakMemory.setHL((short)(stackPointer + n));
+	beakMemory.setHL((short)(result & 0xFFFF));
 
 	mClock += 3;
 	tClock += 12;
-
-	beakMemory.setZFlag(false);
-	beakMemory.setNFlag(false);
 }
 
 void sharpCPU::opcodeF9()
