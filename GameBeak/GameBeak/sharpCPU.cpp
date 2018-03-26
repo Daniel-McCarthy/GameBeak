@@ -8,14 +8,6 @@
 
 void sharpCPU::selectOpcode(byte opcode)
 {
-	if (repeat)
-	{
-		//Sets memory pointer back one.
-		//If opcode is one byte it should repeat.
-		//If opcode requires operands, the opcode itself will be the first operand
-		memoryPointer--;
-		repeat = false;
-	}
 
 	if (enableInterruptsNextCycle)
 	{
@@ -2874,7 +2866,7 @@ void sharpCPU::opcode76()
 	
 	if (checkForInterrupt() && !interruptsEnabled) //If interrupt true while IME is disabled, repeat next opcode.
 	{
-		repeat = true;
+		repeatBug = true;
 	}
 	else
 	{
@@ -7621,7 +7613,7 @@ bool sharpCPU::returnIME()
 
 bool sharpCPU::returnRepeat()
 {
-	return repeat;
+	return repeatBug;
 }
 
 void sharpCPU::setTClock(int newTClock)
@@ -7650,5 +7642,5 @@ void sharpCPU::setInterrupt(bool newInterrupt)
 }
 void sharpCPU::setRepeat(bool newRepeat)
 {
-	repeat = newRepeat;
+	repeatBug = newRepeat;
 }

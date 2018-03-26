@@ -39,6 +39,7 @@ extern bool run;
 extern bool paused;
 extern bool step;
 extern bool enableInterruptsNextCycle;
+extern bool repeatBug; //Halt bug
 extern byte paletteSetting;
 extern byte filterSetting;
 

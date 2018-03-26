@@ -20,6 +20,7 @@ int clocks = 4500;
 bool run = true;
 bool enableInterruptsNextCycle = false;
 bool interruptNextCycle = false;
+bool repeatBug = true;
 
 //Palette Values:
 const int blackAndWhite = 0;
@@ -306,6 +307,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			if (!cpu.checkForHaltOrInterrupt())
 			{
 				cpu.selectOpcode(beakMemory.readMemory(memoryPointer++));
+
+				if (repeatBug)
+				{
+					//Sets memory pointer back one.
+					//If opcode is one byte it should repeat.
+					//If opcode requires operands, the opcode itself will be the first operand
+					memoryPointer--;
+					repeatBug = false;
+				}
 			}
 			else
 			{
