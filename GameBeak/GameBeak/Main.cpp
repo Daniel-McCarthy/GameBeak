@@ -178,36 +178,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	while (run)
 	{
 		
-		if (Keyboard::isKeyPressed(Keyboard::Key::Tilde))
-		{
-			if (debugWindow == NULL)
-			{
-				debugWindow = new DebuggerWindow("DebugBeak", 400, 400);
-			}
-			else
-			{
-				debugWindow->run = !debugWindow->run;
-			}
-
-			//Reset game for debugging
-			//memoryPointer = 0x100;
-			//beakMemory.initializeGameBoyValues();
-			paused = true;
-			step = false;
-
-		}
-		
-		
-		if (Keyboard::isKeyPressed(Keyboard::Key::Num0))
-		{
-			beakMemory.saveState();
-		}
-
-		if (Keyboard::isKeyPressed(Keyboard::Key::Num1))
-		{
-			beakMemory.loadSaveState();
-		}
-		
 		Event event;
 
 		//Poll Debug Window
@@ -218,6 +188,36 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 		if(pollingSkipping == 250)
 		{
+			if (Keyboard::isKeyPressed(Keyboard::Key::Tilde))
+			{
+				if (debugWindow == NULL)
+				{
+					debugWindow = new DebuggerWindow("DebugBeak", 400, 400);
+				}
+				else
+				{
+					debugWindow->run = !debugWindow->run;
+				}
+
+				//Reset game for debugging
+				//memoryPointer = 0x100;
+				//beakMemory.initializeGameBoyValues();
+				paused = true;
+				step = false;
+
+			}
+
+
+			if (Keyboard::isKeyPressed(Keyboard::Key::Num0))
+			{
+				beakMemory.saveState();
+			}
+
+			if (Keyboard::isKeyPressed(Keyboard::Key::Num1))
+			{
+				beakMemory.loadSaveState();
+			}
+
 
 			//Poll Main SFML Window
 			while (beakWindow.window.pollEvent(event))
