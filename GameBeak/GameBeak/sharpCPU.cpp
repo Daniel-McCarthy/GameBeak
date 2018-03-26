@@ -2864,13 +2864,27 @@ void sharpCPU::opcode76()
 {
 	//Halt
 	
-	if (checkForInterrupt() && !interruptsEnabled) //If interrupt true while IME is disabled, repeat next opcode.
+	if (interruptsEnabled == true) //If IME == 1
 	{
-		repeatBug = true;
+		//Enter Halt Normally
+		haltMode = 1;
+		halt = true;
 	}
 	else
 	{
-		halt = true; //Halt should only be set if the first case is not true.
+		if (checkForInterrupt())
+		{
+			//Halt is not entered, halt bug occurs
+			haltMode = 0;
+			halt = false;
+			repeatBug = true;
+		}
+		else
+		{
+			//Halt Entered, but does not jump to interrupt vector
+			haltMode = 2;
+			halt = true;
+		}
 	}
 
 	mClock += 1;
@@ -7531,41 +7545,43 @@ bool sharpCPU::checkForHaltOrInterrupt()
 	Otherwise, it will return false and the next assembly instruction will be executed as normal.
 	*/
 
-	if (interruptsEnabled) //IME
+	bool pendingInterrupt = checkForInterrupt();
+
+	if (pendingInterrupt)
 	{
-		if (checkForInterrupt())
+		if (halt)
 		{
-			//End halt mode
-			if (halt)
+			if (haltMode == 1)
 			{
-				halt = false;
-				mClock += 1;
-				tClock += 4;
+				//Halt Mode == 1, normal halt mode execution
+				//Halt Mode 2 does not clear IF or jump
+				executeInterrupt();
 			}
 
-			executeInterrupt();
-			return true; //Temporary? This allows the opcode it is jumped to to be logged/shown in debugger instead of appearing skipped. Could cause a side effect by skipping a loop?
+			halt = false;
+			haltMode = 0;
+			mClock += 1;
+			tClock += 4;
 		}
-		else if(halt)
+		else
 		{
-			return true;
+			if (interruptsEnabled) //if IME == 1
+			{
+				//Not halting, normal interrupt execution
+				executeInterrupt();
+			}
 		}
 	}
 	else
 	{
-		
 		if (halt)
 		{
-			halt = false; 
-			mClock += 1;
-			tClock += 4;
-
-			return true; //BGB and No$GB never escape DI+Halt
+			return true;
 		}
-		
 	}
 
 	return false;
+
 
 	//write interrupt function. If flag in IE and IME are both set, push PC into stack, (disable interrupts?)
 	//then jump to interrupt starting address per interrupt type

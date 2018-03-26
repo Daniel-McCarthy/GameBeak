@@ -13,6 +13,7 @@ private:
 	bool interrupt = false; 
 	bool halt = false;
 	bool stop = false; //Button input should set this back to false
+	byte haltMode = 0;
 
 public:
 	sharpCPU() {}
