@@ -20,7 +20,7 @@ int clocks = 4500;
 bool run = true;
 bool enableInterruptsNextCycle = false;
 bool interruptNextCycle = false;
-bool repeatBug = true;
+bool repeatBug = false;
 
 //Palette Values:
 const int blackAndWhite = 0;
