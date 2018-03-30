@@ -1518,7 +1518,7 @@ class Memory
 			if (saveSize >= 0x2000)
 			{
 				unsigned short address = 0xA000;
-				for (unsigned short i = 0x0; i < 0x1FFF; i++)
+				for (unsigned short i = 0x0; i <= 0x1FFF; i++)
 				{
 					beakRam[address + i] = (uint8_t)saveFile[i];
 				}
