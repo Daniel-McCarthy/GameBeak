@@ -1861,7 +1861,7 @@ class Memory
 					int last = line.find_last_of(']') + 1;
 					line = line.substr(last, line.length() - last);
 
-					for (int i = 0x8000; i < 0xFFFF; i++)
+					for (int i = 0x8000; i <= 0xFFFF; i++)
 					{
 						int nextDelimiter = line.find_first_of(';');
 						beakRam[i] = stoi(line.substr(0, nextDelimiter), 0, 16);
