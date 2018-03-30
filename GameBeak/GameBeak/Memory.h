@@ -1569,7 +1569,7 @@ class Memory
 			file << "[GPUMode:]" << hexToASCII(beakWindow.gpuMode) << endl;
 			file << "[Memory:]";
 
-			for (int i = 0x8000; i < 0xFFFF; i++)
+			for (int i = 0x8000; i <= 0xFFFF; i++)
 			{
 				byte ram = beakRam[i];
 
