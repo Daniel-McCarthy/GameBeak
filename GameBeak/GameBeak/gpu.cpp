@@ -433,7 +433,7 @@ void gpu::drawLineFromSpriteMap(unsigned char lineY)
 
 				if (yFlip)
 				{
-					lineToDraw = ((spriteSize) ? 15 : 8) - lineToDraw;
+					lineToDraw = ((spriteSize) ? 15 : 7) - lineToDraw;
 				}
 
 				rowHalf1 = beakMemory.readMemory(tileAddress + (lineToDraw * 2));
