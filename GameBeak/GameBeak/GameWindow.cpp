@@ -190,6 +190,7 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 				if (beakGPU.getBackGroundEnabled())
 				{
 					beakGPU.drawLineFromBGMap(beakGPU.getScrollY() + ly);
+					scrollXValues[(byte)(beakGPU.getScrollY() + ly)] = beakGPU.getScrollX();
 				}
 			}
 		}
@@ -306,11 +307,11 @@ void GameWindow::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrol
 		
 		for (int i = 0; i < 160; i++)
 		{
-			x = scrollX + i;
 
 			for (int j = 0; j < 144; j++)
 			{
 				y = scrollY + j;
+				x = (byte)(scrollXValues[y] + i);
 
 				screen.setPixel(i, j, bgPixels[x + (y * 256)]);
 			}

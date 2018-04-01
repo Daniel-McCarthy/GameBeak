@@ -36,6 +36,7 @@ public:
 	Color windowPixels[256 * 256];
 	Color spritePixels[256 * 256];
 	Color tileDebugPixels[256 * 256];
+	uint8_t scrollXValues[256];
 	int gpuMode = 1; //BGB defaults this to 1, V-Blank. This should be true.
 	int getGPUMode();
 	Image screen;
