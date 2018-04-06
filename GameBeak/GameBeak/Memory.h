@@ -1538,6 +1538,19 @@ class Memory
 		return true;
 	}
 
+	vector<uint8_t> returnSaveDataFromMemory()
+	{
+		vector<uint8_t> memory;
+
+		uint16_t address = 0xA000;
+		for (int i = 0; i <= 0x1FFF; i++)
+		{
+			memory.push_back(beakRam[address + i]);
+		}
+
+		return memory;
+	}
+
 	
 	void saveState()
 	{
