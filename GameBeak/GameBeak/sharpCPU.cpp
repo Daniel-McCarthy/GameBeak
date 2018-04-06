@@ -7453,8 +7453,8 @@ void sharpCPU::updateTIMA(int curClocks, int& clocksSinceLastTIMAUpdate, int& cl
 				//Set Timer Overflow Interrupt Flag
 				beakMemory.writeMemory((short)0xFF0F, (byte)(beakMemory.readMemory(0xFF0F) | 0x4));
 
-				//Reset TIMA Value
-				beakMemory.writeMemory((short)0xFF05, (byte)0);
+				//Load TMA value into TIMA
+				beakMemory.writeMemory((short)0xFF05, beakMemory.readMemory(0xFF06));
 			}
 			else
 			{
