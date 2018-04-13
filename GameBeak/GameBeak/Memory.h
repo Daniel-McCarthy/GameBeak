@@ -1652,6 +1652,7 @@ class Memory
 						{
 							//MBC2
 							setRomBank = true;
+							break;
 						}
 						//case 0x0B:
 						//case 0x0C:
@@ -1713,6 +1714,7 @@ class Memory
 							{
 								//MBC2
 								changeMBC2RomBanks(romBank);
+								break;
 							}
 							//case 0x0B:
 							//case 0x0C:
