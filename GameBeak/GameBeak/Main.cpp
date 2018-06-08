@@ -131,18 +131,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	//beakMemory.clearRegistersAndFlags();
 	//beakMemory.loadGBBootStrapIntoMemory();
 	beakMemory.initializeGameBoyValues();
-	beakMemory.loadRom("C://Users//Dan//Desktop//GB//lazerpong.gb"); //Working? Maybe a tad glitchy?
-	//beakMemory.loadRom("C://Users//Dan//Desktop//desertboy.gb"); //None //Working
-	//beakMemory.loadRom("C://Users//Dan//Desktop//cpu_instrs.gb");
-	//beakMemory.loadRom("C://Users//Dan//Desktop//06.gb");
-	//beakMemory.loadRom("C://Users//Dan//Desktop//GBLANDER.gb"); //None 
-	//beakMemory.loadRom("C://Users//Dan//Desktop//SHIP.gb"); //None //Works perfectly?
-	//beakMemory.loadRom("C://Users//Dan//Desktop//Poke97.gb"); //None //Works? Fully?
-	//beakMemory.loadRom("C://Users//Dan//Desktop//TEST.gb"); //None //Displays properly, but gets stuck on first screen
-	//beakMemory.loadRom("C://Users//Dan//Desktop//snake.gb"); //None //Works fully
-	//beakMemory.loadRom("C://Users//Dan//Desktop//BubbleFactory.gb"); //MBC1
-	//beakMemory.loadRom("C://Users//Dan//Desktop//dummy4.gb"); //None
-	//beakMemory.loadRom("C://Users//Dan//Desktop//dummy5.gb"); //None
+	//beakMemory.loadRom("Directory/Path to .gb file");
 
 	beakMemory.readRomHeader();
 	//beakMemory.clearRegistersAndFlags();
@@ -344,8 +333,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		}
 
 	}
-
-
 
 	if (logging)
 	{
