@@ -285,7 +285,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 		if (!paused || step)
 		{
-				readInput();
+			readInput();
 
 			if (logging)
 			{
