@@ -34,7 +34,6 @@ extern short regBC;
 extern short regDE;
 extern short regHL;
 
-extern int memoryControllerMode;
 extern bool run;
 extern bool paused;
 extern bool step;
@@ -52,5 +51,7 @@ extern gpu beakGPU;
 extern Memory beakMemory;
 #include "Audio.h"
 extern Audio beakAudio;
+#include "Rom.h"
+extern Rom rom;
 
 #endif // ! MAINH

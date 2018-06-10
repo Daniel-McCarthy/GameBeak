@@ -17,6 +17,7 @@ DebuggerWindow* debugWindow;
 short memoryPointer = 0x100;
 short stackPointer = 0;
 int clocks = 4500;
+int memoryControllerMode = 0;
 bool run = true;
 bool enableInterruptsNextCycle = false;
 bool interruptNextCycle = false;
@@ -60,6 +61,7 @@ Memory beakMemory = Memory();
 gpu beakGPU = gpu();
 sharpCPU cpu = sharpCPU();
 Audio beakAudio = Audio();
+Rom rom = Rom();
 
 //Debug Values
 bool debugOnLaunch = false; //Decides if Debug Window launches on open
@@ -133,7 +135,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	beakMemory.initializeGameBoyValues();
 	//beakMemory.loadRom("Directory/Path to .gb file");
 
-	beakMemory.readRomHeader();
+	rom.readRomHeader();
 	//beakMemory.clearRegistersAndFlags();
 	//beakMemory.loadGBBootStrapIntoMemory();
 

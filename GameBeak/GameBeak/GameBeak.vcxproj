@@ -161,7 +161,9 @@
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="gpu.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Memory.cpp" />
     <ClCompile Include="PostProcessing.cpp" />
+    <ClCompile Include="Rom.cpp" />
     <ClCompile Include="sharpCPU.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +178,7 @@
     <ClInclude Include="Memory.h" />
     <ClInclude Include="PostProcessing.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Rom.h" />
     <ClInclude Include="sharpCPU.h" />
   </ItemGroup>
   <ItemGroup>
