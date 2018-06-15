@@ -62,6 +62,11 @@ gpu beakGPU = gpu();
 sharpCPU cpu = sharpCPU();
 Audio beakAudio = Audio();
 Rom rom = Rom();
+Mapper mapper = Mapper();
+MBC1 mbc1 = MBC1();
+MBC2 mbc2 = MBC2();
+MBC3 mbc3 = MBC3();
+MBC5 mbc5 = MBC5();
 
 //Debug Values
 bool debugOnLaunch = false; //Decides if Debug Window launches on open

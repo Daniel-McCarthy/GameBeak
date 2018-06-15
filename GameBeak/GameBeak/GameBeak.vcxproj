@@ -161,6 +161,11 @@
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="gpu.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Mapper.cpp" />
+    <ClCompile Include="MBC1.cpp" />
+    <ClCompile Include="MBC2.cpp" />
+    <ClCompile Include="MBC3.cpp" />
+    <ClCompile Include="MBC5.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="PostProcessing.cpp" />
     <ClCompile Include="Rom.cpp" />
@@ -175,6 +180,11 @@
     <ClInclude Include="gpu.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="Mapper.h" />
+    <ClInclude Include="MBC1.h" />
+    <ClInclude Include="MBC2.h" />
+    <ClInclude Include="MBC3.h" />
+    <ClInclude Include="MBC5.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="PostProcessing.h" />
     <ClInclude Include="resource.h" />

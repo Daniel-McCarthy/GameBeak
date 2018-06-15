@@ -21,28 +21,13 @@ class Memory
 {
 	private:
 	byte beakRam[0xFFFF+1];
-	byte beakExternalRam[0x1E000];
 	string title;
-	bool ramEnabled = false;
-	short romBankNumber = 0;
-	byte ramBankNumber = 0;
-	bool bankingMode = false; //0: Rom 1: Ram
 
 	public:
 		Memory();
 		~Memory();
 	void writeRom0ToRam();
 	void writeFullRomToRam();
-
-	void changeMBC1RomBanks(int bankNumber);
-	void changeMBC2RomBanks(int bankNumber);
-	void changeMBC3RomBanks(int bankNumber);
-	void changeMBC5RomBanks(int bankNumber);
-	void changeRamBanks(int bankNumber);
-	void writeMBC1Value(short address, byte value);
-	void writeMBC2Value(short address, byte value);
-	void writeMBC3Value(short address, byte value);
-	void writeMBC5Value(short address, byte value);
 
 	void loadDecompressedNintendoLogoToMemory()
 	{

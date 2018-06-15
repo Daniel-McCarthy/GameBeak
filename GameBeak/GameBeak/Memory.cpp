@@ -28,356 +28,6 @@ void Memory::writeFullRomToRam()
 	}
 }
 
-void Memory::changeMBC1RomBanks(int bankNumber)
-{
-	if (bankNumber == 0)
-	{
-		bankNumber++;
-	}
-
-	if ((bankNumber >= 0) && (bankNumber <= 0x1F))
-	{
-
-		int bankAddress = 0x4000 * bankNumber;
-
-		int fixedBankAddress = 0x4000;
-		for (int i = 0; i < 0x4000; i++)
-		{
-			beakRam[fixedBankAddress + i] = rom.readByte(bankAddress + i);
-		}
-
-		romBankNumber = bankNumber;
-	}
-}
-
-void Memory::changeMBC2RomBanks(int bankNumber)
-{
-	if (bankNumber == 0)
-	{
-		bankNumber++;
-	}
-
-	if ((bankNumber >= 0) && (bankNumber <= 0x0F))
-	{
-
-		int bankAddress = 0x4000 * bankNumber;
-
-		int fixedBankAddress = 0x4000;
-		for (int i = 0; i < 0x4000; i++)
-		{
-			beakRam[fixedBankAddress + i] = rom.readByte(bankAddress + i);
-		}
-
-		romBankNumber = bankNumber;
-	}
-}
-
-void Memory::changeMBC3RomBanks(int bankNumber)
-{
-	if (bankNumber == 0)
-	{
-		bankNumber++;
-	}
-
-	if ((bankNumber >= 0) && (bankNumber <= 0x7F))
-	{
-
-		int bankAddress = 0x4000 * bankNumber;
-
-		int fixedBankAddress = 0x4000;
-		for (int i = 0; i < 0x4000; i++)
-		{
-			beakRam[fixedBankAddress + i] = rom.readByte(bankAddress + i);
-		}
-
-		romBankNumber = bankNumber;
-	}
-}
-
-void Memory::changeMBC5RomBanks(int bankNumber)
-{
-	if ((bankNumber >= 0) && (bankNumber <= 0x1FF))
-	{
-
-		int bankAddress = 0x4000 * bankNumber;
-
-		int fixedBankAddress = 0x4000;
-		for (int i = 0; i < 0x4000; i++)
-		{
-			beakRam[fixedBankAddress + i] = rom.readByte(bankAddress + i);
-		}
-
-		romBankNumber = bankNumber;
-	}
-}
-
-void Memory::changeRamBanks(int bankNumber)
-{
-	short externalAddress = ramBankNumber * 0x2000;
-
-	//Save Old Beak Ram Data to External Ram Array
-	for (int i = 0; i < 0x2000; i++)
-	{
-		beakExternalRam[externalAddress + i] = beakRam[0xA000 + i];
-	}
-
-	ramBankNumber = bankNumber;
-	externalAddress = ramBankNumber * 0x2000;
-
-	//Load New External Ram data to Beak Ram
-	for (int i = 0; i < 0x2000; i++)
-	{
-		beakRam[0xA000 + i] = beakExternalRam[externalAddress + i];
-	}
-
-}
-
-void Memory::writeMBC1Value(short address, byte value)
-{
-	if (address >= 0x0000 && address <= 0x1FFF)
-	{
-		//Ram Enable/Disable
-		if ((value & 0x0F) == 0x0A)
-		{
-			//Enable Ram
-			ramEnabled = true;
-		}
-		else
-		{
-			//Disable Ram
-			ramEnabled = false;
-		}
-	}
-	else if (address >= 0x2000 && address <= 0x3FFF)
-	{
-		//Set Rom Bank Number 5 bits
-		byte newBankNumber = ((romBankNumber & 0xE0) | (value & 0x1F));
-
-		if (romBankNumber != newBankNumber)
-		{
-			changeMBC1RomBanks(newBankNumber);
-		}
-
-	}
-	else if (address >= 0x4000 && address <= 0x5FFF)
-	{
-		//Set Ram Bank Number /OR/ Set Rom Bank Number 2 bits
-		if (!bankingMode)
-		{
-			//Change Rom Bank
-			byte newBankNumber = ((romBankNumber & 0x1F) | ((value & 0x03) << 5));
-			if (romBankNumber != newBankNumber)
-			{
-				changeMBC1RomBanks(newBankNumber);
-			}
-		}
-		else
-		{
-			//Change Ram Bank
-			byte newBankNumber = value & 0x03;
-
-			if (ramBankNumber != newBankNumber)
-			{
-				changeRamBanks(newBankNumber);
-			}
-		}
-
-	}
-	else if (address >= 0x6000 && address <= 0x7FFF)
-	{
-		//Rom Banking / Ram Banking Mode
-		if (value & 0x01)
-		{
-			bankingMode = true;
-		}
-		else
-		{
-			bankingMode = false;
-		}
-	}
-
-}
-
-void Memory::writeMBC2Value(short address, byte value)
-{
-	if (address >= 0x0000 && address <= 0x1FFF)
-	{
-		//Ram Enable/Disable
-		if ((value & 0x0F) == 0x0A)
-		{
-			//Enable Ram
-			ramEnabled = true;
-		}
-		else
-		{
-			//Disable Ram
-			ramEnabled = false;
-		}
-	}
-	else if (address >= 0x2000 && address <= 0x3FFF)
-	{
-		//Set Rom Bank Number 5 bits
-		byte newBankNumber = (value & 0x0F);
-
-		if (romBankNumber != newBankNumber)
-		{
-			changeMBC2RomBanks(newBankNumber);
-		}
-
-	}
-	/*
-	Should never get called, as MBC writes only occur if it is less than 0x7FFF
-	else if (address >= 0xA000 && address <= 0xA1FF)
-	{
-	//External Ram 512x4bits
-	beakRam[(unsigned short)address] = value;
-	}
-	*/
-}
-
-void Memory::writeMBC3Value(short address, byte value)
-{
-	if (address >= 0x0000 && address <= 0x1FFF)
-	{
-		//Ram/RTC Register  Enable/Disable
-		if ((value & 0x0F) == 0x0A)
-		{
-			//Enable Ram
-			ramEnabled = true;
-		}
-		else
-		{
-			//Disable Ram
-			ramEnabled = false;
-		}
-	}
-	else if (address >= 0x2000 && address <= 0x3FFF)
-	{
-		//Set Rom Bank Number 7 bits
-		byte newBankNumber = (value & 0x7F);
-
-		if (romBankNumber != newBankNumber)
-		{
-			changeMBC3RomBanks(newBankNumber);
-		}
-
-	}
-	else if (address >= 0x4000 && address <= 0x5FFF)
-	{
-		//Set Ram Bank Number /OR/ RTC Register Select
-
-		if ((value >= 0) && (value <= 3))
-		{
-			//Change Ram Bank
-			byte newBankNumber = value & 0x03;
-
-			if (ramBankNumber != newBankNumber)
-			{
-				changeRamBanks(newBankNumber);
-			}
-		}
-
-		if ((value >= 8) && (value <= 0x0C))
-		{
-			//RTC Register Select
-
-			//Todo: Implement this
-		}
-
-	}
-	else if (address >= 0x6000 && address <= 0x7FFF)
-	{
-		//Latch Clock Write
-		//if ((previousRTCWrite == 0) && (value == 1))
-		if (value == 1)
-		{
-			//Update RTC registers
-
-			//LPSYSTEMTIME time;
-			//GetSystemTime(time);
-
-
-			/*
-			08h  RTC S   Seconds   0-59 (0-3Bh)
-			09h  RTC M	Minutes   0-59 (0-3Bh)
-			0Ah  RTC H	Hours     0-23 (0-17h)
-			0Bh  RTC DL	Lower 8 bits of Day Counter (0-FFh)
-			0Ch  RTC DH	Upper 1 bit of Day Counter, Carry Bit, Halt Flag
-			Bit 0	Most significant bit of Day Counter (Bit 8)
-			Bit 6	Halt (0=Active, 1=Stop Timer)
-			Bit 7	Day Counter Carry Bit (1=Counter Overflow)
-
-			The Halt Flag is supposed to be set before <writing> to the RTC Registers.
-			*/
-
-		}
-		//Todo: Implement this
-	}
-
-}
-
-void Memory::writeMBC5Value(short address, byte value)
-{
-	if (address >= 0x0000 && address <= 0x1FFF)
-	{
-		//Ram Enable/Disable
-		if ((value & 0x0F) == 0x0A)
-		{
-			//Enable Ram
-			ramEnabled = true;
-		}
-		else
-		{
-			//Disable Ram
-			ramEnabled = false;
-		}
-	}
-	else if (address >= 0x2000 && address <= 0x2FFF)
-	{
-		//Set Low 8 bits of Rom Bank Number
-		byte newBankNumber = ((romBankNumber & 0x100) | (value)); //Keeps the 9th bit of current rom bank number, joins entire value.
-
-		if (romBankNumber != newBankNumber)
-		{
-			changeMBC5RomBanks(newBankNumber);
-		}
-
-	}
-	else if (address >= 0x3000 && address <= 0x3FFF)
-	{
-		//Set the 9th bit of Rom Bank Number
-		if (value > 0) //Ensure we are only setting 1 bit to newBankNumber
-		{
-			value = 1;
-		}
-
-		byte newBankNumber = ((romBankNumber & 0xFF) | (value << 8));
-
-		if (romBankNumber != newBankNumber)
-		{
-			changeMBC5RomBanks(newBankNumber);
-		}
-
-	}
-	else if (address >= 0x4000 && address <= 0x5FFF)
-	{
-		//Set Ram Bank Number
-		if (bankingMode)
-		{
-			//Change Ram Bank
-			byte newBankNumber = value & 0x0F;
-
-			if (ramBankNumber != newBankNumber)
-			{
-				changeRamBanks(newBankNumber);
-			}
-		}
-
-	}
-
-
-}
-
 vector<uint8_t> Memory::readMemory(int address, int bytes)
 {
 	vector<uint8_t> returnMemory;
@@ -425,11 +75,11 @@ bool Memory::writeMemory(unsigned short address, uint8_t value)
 	{
 		if (rom.mapperSetting <= 3)
 		{
-			writeMBC1Value(address, value);
+			mbc1.writeMBC1Value(address, value);
 		}
 		else if (rom.mapperSetting <= 6)
 		{
-			writeMBC2Value(address, value);
+			mbc2.writeMBC2Value(address, value);
 		}
 		else if (rom.mapperSetting <= 9)
 		{
@@ -451,11 +101,11 @@ bool Memory::writeMemory(unsigned short address, uint8_t value)
 			//13: MBC3+Ram+Battery
 
 			//Add this later: MBC3 is not currently ready (RTC)
-			writeMBC3Value(address, value);
+			mbc3.writeMBC3Value(address, value);
 		}
 		else if (rom.mapperSetting <= 0x1E)
 		{
-			writeMBC5Value(address, value);
+			mbc5.writeMBC5Value(address, value);
 		}
 		//TODO: Add more MBC controllers
 
@@ -1260,8 +910,8 @@ void Memory::saveState()
 	{
 		file << "[Title:]" << title << endl;
 		file << "[MBC:]" << hexToASCII(rom.mapperSetting) << endl;
-		file << "[Rom Bank:]" << hexToASCIIU(romBankNumber) << endl;
-		file << "[Ram Bank:]" << hexToASCII(ramBankNumber) << endl;
+		file << "[Rom Bank:]" << hexToASCIIU(mapper.romBankNumber) << endl;
+		file << "[Ram Bank:]" << hexToASCII(mapper.ramBankNumber) << endl;
 		file << "[AF:]" << hexToASCIIU(regAF) << endl;
 		file << "[BC:]" << hexToASCIIU(regBC) << endl;
 		file << "[DE:]" << hexToASCIIU(regDE) << endl;
@@ -1401,14 +1051,14 @@ void Memory::loadSaveState()
 					case 3:
 					{
 						//MBC1
-						changeMBC1RomBanks(romBank);
+						mbc1.changeMBC1RomBanks(romBank);
 						break;
 					}
 					case 5:
 					case 6:
 					{
 						//MBC2
-						changeMBC2RomBanks(romBank);
+						mbc2.changeMBC2RomBanks(romBank);
 						break;
 					}
 					//case 0x0B:
@@ -1419,7 +1069,7 @@ void Memory::loadSaveState()
 					case 0x13:
 					{
 						//MBC3
-						changeMBC3RomBanks(romBank);
+						mbc3.changeMBC3RomBanks(romBank);
 						break;
 					}
 					case 0x19:
@@ -1430,7 +1080,7 @@ void Memory::loadSaveState()
 					case 0x1E:
 					{
 						//MBC5
-						changeMBC5RomBanks(romBank);
+						mbc5.changeMBC5RomBanks(romBank);
 						break;
 					}
 					}
@@ -1446,7 +1096,7 @@ void Memory::loadSaveState()
 					unsigned int ramBank = stoi(line, 0, 16);
 
 
-					changeRamBanks(ramBank);
+					mapper.changeRamBanks(ramBank);
 				}
 			}
 			else if (line.find("[AF:]") != string::npos)

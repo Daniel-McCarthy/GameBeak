@@ -53,5 +53,15 @@ extern Memory beakMemory;
 extern Audio beakAudio;
 #include "Rom.h"
 extern Rom rom;
+#include "Mapper.h"
+extern Mapper mapper;
+#include "MBC1.h"
+extern MBC1 mbc1;
+#include "MBC2.h"
+extern MBC2 mbc2;
+#include "MBC3.h"
+extern MBC3 mbc3;
+#include "MBC5.h"
+extern MBC5 mbc5;
 
 #endif // ! MAINH
