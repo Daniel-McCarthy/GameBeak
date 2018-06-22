@@ -68,7 +68,7 @@ void Memory::directMemoryWrite(unsigned short address, uint8_t value)
 }
 
 
-bool Memory::writeMemory(unsigned short address, uint8_t value)
+void Memory::writeMemory(unsigned short address, uint8_t value)
 {
 
 	if (rom.mapperSetting > 0 && address <= 0x7FFF)
@@ -202,20 +202,7 @@ bool Memory::writeMemory(unsigned short address, uint8_t value)
 				unsigned int test = (unsigned int)address;
 
 				beakRam[address] = value;
-
-				if (beakRam[address] == value)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
 			}
-		}
-		else
-		{
-			return false;
 		}
 	}
 }

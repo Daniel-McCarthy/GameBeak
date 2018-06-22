@@ -202,8 +202,8 @@ class Memory
 	void transferDMA(byte address);
 	void directMemoryWrite(unsigned short address, uint8_t value);
 
-	bool writeMemory(unsigned short address, uint8_t value);
-	bool writeMemory(unsigned short address, short shortVal);
+	void writeMemory(unsigned short address, uint8_t value);
+	void writeMemory(unsigned short address, short shortVal);
 
 	void toggleZFlag();
 
