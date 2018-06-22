@@ -223,38 +223,10 @@ bool Memory::writeMemory(unsigned short address, uint8_t value)
 bool Memory::writeMemory(unsigned short address, short shortVal)
 {
 
-	if (address >= 0x0 && address <= 0xFFFF)
-	{
+	bool result1 = writeMemory((address + 1), (byte)((shortVal & 0xFF00) >> 8));
+	bool result2 = writeMemory((address), (byte)(shortVal & 0x00FF));
 
-		if (address >= 0xC000 && address <= 0xDDFF)
-		{
-			//ECHO. Anything written to here also gets written to EXXXX
-			//writeMemory(address + 0x2000, shortVal);
-			beakRam[address + 0x2000 + 1] = (shortVal & 0xFF00) >> 8;
-			beakRam[address + 0x2000] = (shortVal & 0x00FF);
-		}
-		else if (address >= 0xE000 && address <= 0xFDFF)
-		{
-			beakRam[address - 0x2000 + 1] = (shortVal & 0xFF00) >> 8;
-			beakRam[address - 0x2000] = (shortVal & 0x00FF);
-		}
-
-		beakRam[address + 1] = (shortVal & 0xFF00) >> 8;
-		beakRam[address] = (shortVal & 0x00FF);
-
-		if (((beakRam[address + 1] << 8) | beakRam[address]) == shortVal)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	else
-	{
-		return false;
-	}
+	return result1 && result2;
 }
 
 void Memory::toggleZFlag()
