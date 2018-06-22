@@ -207,13 +207,11 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 	}
 }
 
-bool Memory::writeMemory(unsigned short address, short shortVal)
+void Memory::writeMemory(unsigned short address, short shortVal)
 {
 
-	bool result1 = writeMemory((address + 1), (byte)((shortVal & 0xFF00) >> 8));
-	bool result2 = writeMemory((address), (byte)(shortVal & 0x00FF));
-
-	return result1 && result2;
+	writeMemory((address + 1), (byte)((shortVal & 0xFF00) >> 8));
+	writeMemory((address), (byte)(shortVal & 0x00FF));
 }
 
 void Memory::toggleZFlag()
