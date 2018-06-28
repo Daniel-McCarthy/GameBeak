@@ -84,6 +84,9 @@
     <ClCompile Include="MBC5.cpp">
       <Filter>Source Files\Mappers</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">

@@ -69,6 +69,7 @@ MBC1 mbc1 = MBC1();
 MBC2 mbc2 = MBC2();
 MBC3 mbc3 = MBC3();
 MBC5 mbc5 = MBC5();
+Input beakInput = Input();
 
 //Debug Values
 bool debugOnLaunch = false; //Decides if Debug Window launches on open
@@ -291,7 +292,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 		if (!paused || step)
 		{
-			readInput();
+			beakInput.readInput();
 
 			if (logging)
 			{

@@ -65,5 +65,7 @@ extern MBC2 mbc2;
 extern MBC3 mbc3;
 #include "MBC5.h"
 extern MBC5 mbc5;
+#include "Input.h"
+extern Input beakInput;
 
 #endif // ! MAINH

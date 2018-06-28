@@ -160,6 +160,7 @@
     <ClCompile Include="DebuggerWindow.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="gpu.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mapper.cpp" />
     <ClCompile Include="MBC1.cpp" />
