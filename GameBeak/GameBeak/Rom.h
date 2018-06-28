@@ -18,6 +18,7 @@ private:
 	bool programRamBattery = false;
 	bool usesProgramRam = false;
 	bool hasGBCFunctionality = false;
+	bool hasSGBFunctionality = false;
 
 public:
 	byte beakRom[0x500000];

@@ -59,6 +59,7 @@ void Rom::readRomHeader()
 	byte cartridgeType = beakRom[0x147];
 	byte romSize = beakRom[0x148];
 	hasGBCFunctionality = beakRom[0x143] != 0;
+	hasSGBFunctionality = beakRom[0x146] == 3;
 	mapperSetting = cartridgeType;
 	if (mapperSetting == 0)
 	{
