@@ -18,6 +18,7 @@ using namespace sf;
 //Mapped to standard keyboard keys:
 //[Up][Left][Right][Down][Z][X][Enter][RShift]
 
+bool keyRight = false, keyLeft = false, keyUp = false, keyDown = false, keyStart = false, keySelect = false, keyA = false, keyB = false;
 
 byte getKeyInput()
 {
@@ -30,8 +31,6 @@ void readInput()
 {
 	byte keyInput = getKeyInput();
 	bool interrupt = false;
-
-	bool right = false, left = false, up = false, down = false;
 
 	if (((keyInput & 0x10) >> 4) == 1)
 	{
@@ -79,16 +78,16 @@ void readInput()
 		beakWindow.window.setKeyRepeatEnabled(true);
 
 		if (Keyboard::isKeyPressed(Keyboard::Right)) { //Right arrow //Right
-			right = true;
+			keyRight = true;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Left)) { //Left arrow //Left
-			left = true;
+			keyLeft = true;
 		}
 
-		if (!(right && left)) //Detect if both inputs are NOT enabled at once
+		if (!(right && keyLeft)) //Detect if both inputs are NOT enabled at once
 		{
-			if (right)
+			if (keyRight)
 			{
 				keyInput &= 0xFE;
 				interrupt = true;
@@ -98,7 +97,7 @@ void readInput()
 				keyInput |= 0x01;
 			}
 
-			if (left)
+			if (keyLeft)
 			{
 				keyInput &= 0xFD;
 				interrupt = true;
@@ -115,16 +114,16 @@ void readInput()
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Up)) { //Up arrow //Up
-			up = true;
+			keyUp = true;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Down)) { //Down arrow //Down
-			down = true;
+			keyDown = true;
 		}
 
-		if (!(up && down)) //Detect if both inputs are NOT enabled at once
+		if (!(keyUp && keyDown)) //Detect if both inputs are NOT enabled at once
 		{
-			if (up)
+			if (keyUp)
 			{
 				keyInput &= 0xFB;
 				interrupt = true;
@@ -134,7 +133,7 @@ void readInput()
 				keyInput |= 0x04;
 			}
 
-			if (down)
+			if (keyDown)
 			{
 				keyInput &= 0xF7;
 				interrupt = true;
