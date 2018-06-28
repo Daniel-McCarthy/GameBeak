@@ -77,6 +77,17 @@ uint8_t Memory::readMemory(unsigned short address)
 	{
 		return (beakRam[address] | 0x80);
 	}
+	else if (address == 0xFF4D && GBCMode)
+	{
+		// Get Speed Mode
+
+		byte returnValue = 0;
+		returnValue |= (byte)(cpu.preparingSpeedChange ? 1 : 0);
+		returnValue |= (byte)(cpu.doubleSpeedMode ? 0x80 : 0);
+
+		return returnValue;
+
+	}
 	else
 	{
 		return beakRam[address];
