@@ -1,5 +1,5 @@
 # GameBeak
-GameBeak is a new emulator which supports the original DMG Gameboy. It is being developed with C++ and the SFML framework.
+GameBeak is a new emulator which supports the original DMG and GBC Gameboys. It is being developed with C++ and the SFML framework.
 It is planned to support Gameboy Color and Gameboy Advance games later on in development. It is the C++ sister project to [GameBeak-Sharp.](https://github.com/Daniel-McCarthy/GameBeak-Sharp)
 
 ![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-1.png)
@@ -12,6 +12,8 @@ It is planned to support Gameboy Color and Gameboy Advance games later on in dev
 ![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-10.png)
 ![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-5.png)
 ![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-6.png)
+![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-13.png)
+![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-14.png)
 
 ---
 This is a personal learning project and not ready for use as a primary emulator.
