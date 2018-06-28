@@ -23,6 +23,9 @@ public:
 	int tClock = 0;
 	int mClock = 0;
 
+	bool doubleSpeedMode = false;
+	bool preparingSpeedChange = false;
+
 
 	int returnTClock();
 	int returnMClock();
