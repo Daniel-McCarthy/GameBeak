@@ -22,8 +22,11 @@ class Memory
 	private:
 	byte beakRam[0xFFFF+1];
 	byte externalVRAMBank[0x2000]; //CGB Only
+	byte internalRam[0x8000]; //CGB Only
 	string title;
 
+	//GBC Only Registers
+	byte internalRamBank = 1; //CGB Only
 	byte vramBank = 0; //CGB Only
 
 	public:
