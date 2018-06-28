@@ -436,7 +436,8 @@ void gpu::drawLineFromSpriteMap(unsigned char lineY)
 	bool priority = false;
 	bool yFlip = false;
 	bool xFlip = false;
-	bool palette = false;
+	bool dmgPaletteSetting = false;
+	byte gbcPaletteSetting = 0;
 
 	byte scrollX = getScrollX();
 	byte scrollY = getScrollY();
@@ -468,7 +469,8 @@ void gpu::drawLineFromSpriteMap(unsigned char lineY)
 				priority = ((tileFlags & 0x80) >> 7) > 0; //If 1, displays in front of window. Otherwise is below window and above BG
 				yFlip = ((tileFlags & 0x40) >> 6) > 0; //Vertically flipped if 1, else 0.
 				xFlip = ((tileFlags & 0x20) >> 5) > 0; //Horizontally flipped if 1, else 0;
-				palette = ((tileFlags & 0x10) >> 4) > 0; //Palette is OBJ0PAL if 0, else OBJ1PAL
+				dmgPaletteSetting = ((tileFlags & 0x10) >> 4) > 0; //Palette is OBJ0PAL if 0, else OBJ1PAL
+				gbcPaletteSetting = (byte)(tileFlags & 0b111);
 
 				tileOffset = tileNumber * 16;
 				tileAddress = baseAddress + tileOffset;
@@ -478,8 +480,8 @@ void gpu::drawLineFromSpriteMap(unsigned char lineY)
 					lineToDraw = ((spriteSize) ? 15 : 7) - lineToDraw;
 				}
 
-				rowHalf1 = beakMemory.readMemory(tileAddress + (lineToDraw * 2));
-				rowHalf2 = beakMemory.readMemory(tileAddress + (lineToDraw * 2) + 1);
+				rowHalf1 = beakMemory.readVRAMBankRam(tileAddress + (lineToDraw * 2), 0);
+				rowHalf2 = beakMemory.readVRAMBankRam(tileAddress + (lineToDraw * 2) + 1, 0);
 
 				if (xFlip)
 				{
@@ -495,7 +497,18 @@ void gpu::drawLineFromSpriteMap(unsigned char lineY)
 					{
 						if (!priority || (priority && (beakWindow.getBGPixel(scrollX + x + j, lineY + scrollY) == bgColor)))
 						{
-							beakWindow.setSpritePixel(x + j, lineY, returnColor(colorNumber, palette + 1)); //Plus 1 because 0 is BG palette, so value must be 1 or 2 to access OBJ1 or OBj2.
+							Color pixelColor;
+
+							if (!GBCMode)
+							{
+								pixelColor = returnColor(colorNumber, dmgPaletteSetting + 1); //Plus 1 because 0 is BG palette, so value must be 1 or 2 to access OBJ1 or OBj2.
+							}
+							else
+							{
+								pixelColor = returnGBCSpriteColor(colorNumber, gbcPaletteSetting);
+							}
+
+							beakWindow.setSpritePixel((byte)(x + j), (byte)lineY, pixelColor);
 						}
 					}
 
