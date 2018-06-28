@@ -233,6 +233,23 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 				// Swap VRAM Bank
 				swapVRAMBank(value);
 			}
+			else if (address == 0xFF55 && GBCMode)
+			{
+				// Initiate GBC HDMA Transfer.
+				unsigned short sourceAddress = (unsigned short)((beakRam[0xFF51] << 8) | beakRam[0xFF52]);
+				unsigned short targetAddress = (unsigned short)((beakRam[0xFF53] << 8) | beakRam[0xFF54]);
+
+				// Mask off low 4 bits from addresses.
+				sourceAddress &= 0xFFF0;
+				targetAddress &= 0x1FF0;
+
+				int byteTransferAmount = value * 16;
+
+				for (int i = 0; i < byteTransferAmount; i++)
+				{
+					beakRam[0x8000 + targetAddress + i] = beakRam[sourceAddress + i];
+				}
+			}
 			else if (address == 0xFF68 && GBCMode)
 			{
 				// Set GBC Background Palette Index
