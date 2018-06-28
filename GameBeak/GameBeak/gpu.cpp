@@ -252,7 +252,7 @@ void gpu::drawLineFromBGMap(unsigned char  lineY)
 		tileIndex = tileX + (32 * tileY);
 		tileIDAddress = mapAddress + tileIndex;
 
-		tileID = beakMemory.readMemory(tileIDAddress);
+		tileID = beakMemory.readVRAMBankRam(tileIDAddress, 0);
 
 		if (baseAddress == 0x8800)
 		{
@@ -268,14 +268,37 @@ void gpu::drawLineFromBGMap(unsigned char  lineY)
 
 		tileOffset = tileID * 16;
 		tileAddress = baseAddress + tileOffset;
+		byte vramBankSelection = 0; //DMG only has bank 0.
+		byte gbcBGPalette = 0;
 
+		if (GBCMode)
+		{
+			byte tileFlags = beakMemory.readVRAMBankRam((unsigned short)(tileIndex + 0x1800), 1);
+			gbcBGPalette = (byte)(tileFlags & 0b0111);
+			vramBankSelection = (byte)((tileFlags & 0b1000) >> 3);
+			bool horizontalFlip = (tileFlags & 0b0010 - 0000) > 0;
+			bool verticalFlip = (tileFlags & 0b0100 - 0000) > 0;
+			bool hasPriority = (tileFlags & 0b1000 - 0000) > 0;
 
-		rowHalf1 = beakMemory.readMemory(tileAddress + (lineToDraw * 2));
-		rowHalf2 = beakMemory.readMemory(tileAddress + (lineToDraw * 2) + 1);
+		}
+
+		rowHalf1 = beakMemory.readVRAMBankRam(tileAddress + (lineToDraw * 2), 0);
+		rowHalf2 = beakMemory.readVRAMBankRam(tileAddress + (lineToDraw * 2) + 1, 0);
 
 		for (int j = 0; j < 8; j++)
 		{
-			beakWindow.setBGPixel((i * 8) + j, lineY, returnColor(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6), 0));
+			Color pixelColor;
+
+			if (!GBCMode)
+			{
+				pixelColor = returnColor(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6), 0);
+			}
+			else
+			{
+				pixelColor = returnGBCBackgroundColor((byte)(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6)), gbcBGPalette);
+			}
+
+			beakWindow.setBGPixel((byte)((i * 8) + j), (byte)lineY, pixelColor);
 			rowHalf1 <<= 1;
 			rowHalf2 <<= 1;
 
