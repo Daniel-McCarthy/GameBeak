@@ -28,6 +28,11 @@ void Memory::writeFullRomToRam()
 	}
 }
 
+byte Memory::readSpritePaletteRam(byte address)
+{
+	return spritePaletteRam[address];
+}
+
 vector<uint8_t> Memory::readMemory(int address, int bytes)
 {
 	vector<uint8_t> returnMemory;
