@@ -357,7 +357,7 @@ void GameWindow::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrol
 			{
 				for (int j = 0; (j + y + yShift) < 144; j++)
 				{
-					screen.setPixel((x + xShift + i - 1), (y + yShift + j), windowPixels[(xShift + i) + ((yShift + j) * 256)]);
+					screen.setPixel((x + xShift + i), (y + yShift + j), windowPixels[(xShift + i) + ((yShift + j) * 256)]);
 				}
 
 			}
