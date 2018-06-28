@@ -22,6 +22,7 @@ void Input::readInput()
 {
 	byte keyInput = getKeyInput();
 	bool interrupt = false;
+	cpu.setStop(false);
 
 	if (((keyInput & 0x10) >> 4) == 1)
 	{
