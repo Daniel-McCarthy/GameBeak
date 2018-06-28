@@ -17,6 +17,7 @@ private:
 	byte romByteSize = 0;
 	bool programRamBattery = false;
 	bool usesProgramRam = false;
+	bool hasGBCFunctionality = false;
 
 public:
 	byte beakRom[0x500000];
