@@ -7615,6 +7615,11 @@ bool sharpCPU::returnHalt()
 	return halt;
 }
 
+bool sharpCPU::returnStop()
+{
+	return stop;
+}
+
 bool sharpCPU::returnInterrupt()
 {
 	return interrupt;

@@ -30,6 +30,7 @@ public:
 	int returnTClock();
 	int returnMClock();
 	bool returnHalt();
+	bool returnStop();
 	bool returnInterrupt();
 	bool returnRepeat();
 	bool returnIME();
