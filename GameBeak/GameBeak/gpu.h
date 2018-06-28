@@ -56,6 +56,7 @@ public:
 	void drawAllTiles();
 	Color returnColor(int colorNumber);
 	Color returnColor(int colorNumber, int palette);
+	Color returnGBCSpriteColor(byte colorNumber, byte palette);
 	byte returnPalette(byte palette);
 	void loadPalettesFromXML(ifstream file);
 	ifstream openCreatePalettesXML();

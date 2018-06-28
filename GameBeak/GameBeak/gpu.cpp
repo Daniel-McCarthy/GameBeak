@@ -540,6 +540,29 @@ Color gpu::returnColor(int colorNumber, int palette)
 	//return gameBeakPalette[ returnHalfNibble( returnPalette(palette), colorNumber) ];
 }
 
+Color gpu::returnGBCSpriteColor(byte colorNumber, byte palette)
+{
+	// There are 4 colors per palette and 8 Sprite palettes.
+	// Each color is defined by 2 bytes. Therefore 8 bytes per palette.
+	byte paletteAddress = (byte)(palette * 8);
+	byte colorIndex = (byte)(colorNumber * 2);
+
+	byte paletteData1 = beakMemory.readSpritePaletteRam((byte)(paletteAddress + colorIndex + 1));
+	byte paletteData2 = beakMemory.readSpritePaletteRam((byte)(paletteAddress + colorIndex + 0));
+
+	// GBC Colors are 5 bit. 0-31 data range. Shifting them left by 3 allows them to be used as 8 bit colors.
+	unsigned short rgbData = (unsigned short)(paletteData1 << 8 | paletteData2);
+	byte r = (byte)(rgbData & (0x1F));
+	byte g = (byte)((rgbData & (0x1F << 5)) >> 5);
+	byte b = (byte)((rgbData & (0x1F << 10)) >> 10);
+
+	r <<= 3;
+	g <<= 3;
+	b <<= 3;
+
+	return Color(r, g, b);
+}
+
 byte gpu::returnPalette(byte palette)
 {
 	//Palette: 0 = BGP
