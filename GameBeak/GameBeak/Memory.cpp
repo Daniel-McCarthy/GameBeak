@@ -88,6 +88,11 @@ uint8_t Memory::readMemory(unsigned short address)
 		return returnValue;
 
 	}
+	else if (address == 0xFF4F && GBCMode)
+	{
+		// Read VRAM Bank Number
+		return (byte)(0b11111110 | (vramBank & 0b00000001));
+	}
 	else
 	{
 		return beakRam[address];
