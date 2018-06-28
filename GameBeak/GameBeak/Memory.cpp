@@ -285,8 +285,6 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 					beakRam[address - 0x2000] = value;
 				}
 
-				unsigned int test = (unsigned int)address;
-
 				beakRam[address] = value;
 			}
 		}
