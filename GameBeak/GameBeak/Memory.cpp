@@ -104,6 +104,17 @@ uint8_t Memory::readMemory(unsigned short address)
 
 		return backgroundPaletteRam[index];
 	}
+	else if (address == 0xFF6B && GBCMode)
+	{
+		// Read Sprite Palette Ram Data.
+
+		// Sprite Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
+		byte spriteIndexData = beakRam[0xFF6A];
+		// Retrieve index data for palette ram read.
+		byte index = (byte)(spriteIndexData & 0b00111111);
+
+		return spritePaletteRam[index];
+	}
 	else
 	{
 		return beakRam[address];
