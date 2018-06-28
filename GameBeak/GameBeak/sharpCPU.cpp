@@ -7652,7 +7652,7 @@ void sharpCPU::setHalt(bool newHalt)
 
 void sharpCPU::setStop(bool newStop)
 {
-	stop = stop
+	stop = newStop;
 }
 
 void sharpCPU::setIME(bool ime)
