@@ -200,6 +200,8 @@ class Memory
 	void writeMemory(unsigned short address, uint8_t value);
 	void writeMemory(unsigned short address, short shortVal);
 
+	void swapVRAMBank(byte newBank);
+
 	void toggleZFlag();
 
 	void setZFlag(bool setting);

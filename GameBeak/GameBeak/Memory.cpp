@@ -269,6 +269,26 @@ void Memory::writeMemory(unsigned short address, short shortVal)
 	writeMemory((address), (byte)(shortVal & 0x00FF));
 }
 
+void Memory::swapVRAMBank(byte newBank)
+{
+	// Mask away unused data.
+	newBank &= 0b00000001;
+
+	if (vramBank != newBank)
+	{
+		// Swap bank in GB vram with bank in external VRAM.
+		for (int i = 0; i < 0x2000; i++)
+		{
+			byte temporarySwapByte = externalVRAMBank[i];   // Hold new data from external bank.
+			externalVRAMBank[i] = beakRam[0x8000 + i];       // Write previous bank data to external bank.
+			beakRam[0x8000 + i] = temporarySwapByte;         // Write new bank data to GB VRAM region.
+		}
+
+		// Set new bank number to the vram bank value.
+		vramBank = newBank;
+	}
+}
+
 void Memory::toggleZFlag()
 {
 	byte flag = getF();
