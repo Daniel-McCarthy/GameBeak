@@ -217,6 +217,17 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 				//Set LCDC Status
 				beakRam[address] = ((beakRam[address] & 0x87) | (value & 0x78) | 0x80); //Bit 7 is always 1, Bit 0, 1, and 2 are read Only //&0x87clears bits 3, 4, 5, 6 from Stat. &0xF8 clears all but bit bit 0, 1, 2, and 7 from value being written.
 			}
+			else if (address == 0xFF4D && GBCMode)
+			{
+				// Set Speed Mode
+
+				bool newSpeedSetting = (value & 0b0000 - 0001) == 1;
+
+				if (cpu.doubleSpeedMode != newSpeedSetting)
+				{
+					cpu.preparingSpeedChange = true;
+				}
+			}
 			else if (address == 0xFF68 && GBCMode)
 			{
 				// Set GBC Background Palette Index
