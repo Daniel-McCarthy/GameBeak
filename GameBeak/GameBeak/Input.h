@@ -25,7 +25,10 @@ byte getKeyInput()
 	return beakMemory.readMemory(0xFF00);
 }
 
-
+bool isAnyKeyPressed()
+{
+	return keyUp || keyDown || keyLeft || keyRight || keyStart || keySelect || keyA || keyB;
+}
 
 void readInput()
 {
