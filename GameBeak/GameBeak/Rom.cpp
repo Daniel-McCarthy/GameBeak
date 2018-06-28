@@ -162,3 +162,9 @@ void Rom::operator=(const Rom & newRom)
 	romFilePath = newRom.romFilePath;
 	title = newRom.title;
 }
+
+bool Rom::isGBCRom()
+{
+	return hasGBCFunctionality;
+}
+
