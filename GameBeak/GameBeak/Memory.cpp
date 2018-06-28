@@ -228,6 +228,11 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 					cpu.preparingSpeedChange = true;
 				}
 			}
+			else if (address == 0xFF4F && GBCMode)
+			{
+				// Swap VRAM Bank
+				swapVRAMBank(value);
+			}
 			else if (address == 0xFF68 && GBCMode)
 			{
 				// Set GBC Background Palette Index
