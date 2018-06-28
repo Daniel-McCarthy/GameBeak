@@ -7645,6 +7645,11 @@ void sharpCPU::setHalt(bool newHalt)
 	halt = newHalt;
 }
 
+void sharpCPU::setStop(bool newStop)
+{
+	stop = stop
+}
+
 void sharpCPU::setIME(bool ime)
 {
 	interruptsEnabled = ime;

@@ -36,6 +36,7 @@ public:
 	void setTClock(int tClock);
 	void setmClock(int mClock);
 	void setHalt(bool halt);
+	void setStop(bool stop);
 	void setInterrupt(bool interrupt);
 	void setIME(bool ime);
 	void setRepeat(bool repeat);
