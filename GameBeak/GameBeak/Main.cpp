@@ -311,7 +311,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 				}
 			}
 
-			if (!cpu.checkForHaltOrInterrupt())
+			if (!cpu.returnStop() && !cpu.checkForHaltOrInterrupt())
 			{
 				cpu.selectOpcode(beakMemory.readMemory(memoryPointer++));
 
@@ -326,6 +326,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			}
 			else
 			{
+				if (cpu.returnStop())
+				{
+					cpu.executeStop();
+				}
+
 				cpu.selectOpcode(0); //Gets stuck at a halt without this, because no cycles are occuring (no opcode is running) the vblank interrupt never occurs
 			}
 
