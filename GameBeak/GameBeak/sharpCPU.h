@@ -57,6 +57,7 @@ public:
 	void opcode0D();
 	void opcode0E(byte n);
 	void opcode0F();
+	void opcode10();
 	void opcode11(short nn);
 	void opcode12();
 	void opcode13();

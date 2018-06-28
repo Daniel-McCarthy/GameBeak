@@ -111,7 +111,7 @@ void sharpCPU::selectOpcode(byte opcode)
 			{
 				case 0:
 				{
-					//10 not implemented
+					opcode10();
 					break;
 				}
 				case 1:
@@ -1861,7 +1861,14 @@ void sharpCPU::opcode0F()
 
 }
 
-//Need to implement 10 STOP 
+void sharpCPU::opcode10()
+{
+	// Stop
+	stop = true;
+
+	// Skip operand byte.
+	memoryPointer++;
+}
 
 void sharpCPU::opcode11(short nn)
 {
