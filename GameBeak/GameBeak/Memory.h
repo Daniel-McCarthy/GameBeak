@@ -190,24 +190,7 @@ class Memory
 	byte readBackgroundPaletteRam(byte address);
 	byte readVRAMBankRam(unsigned short address, byte bank);
 
-	uint8_t readMemory(unsigned short address)
-	{
-		/*
-		if (accessBreakpoint && memoryPointer == accessBreakpointAddress)
-		{
-			paused = true;
-		}
-		*/
-		if (address == 0xFF41)
-		{
-			return (beakRam[address] | 0x80);
-		}
-		else
-		{
-			return beakRam[address];
-		}
-	}
-
+	uint8_t readMemory(unsigned short address);
 	vector<uint8_t> readMemory(int address, int bytes);
 
 	//DMA Transfer

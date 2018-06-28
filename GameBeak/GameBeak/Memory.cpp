@@ -65,6 +65,24 @@ byte Memory::readVRAMBankRam(unsigned short address, byte bank)
 	}
 }
 
+uint8_t Memory::readMemory(unsigned short address)
+{
+	/*
+	if (accessBreakpoint && memoryPointer == accessBreakpointAddress)
+	{
+	paused = true;
+	}
+	*/
+	if (address == 0xFF41)
+	{
+		return (beakRam[address] | 0x80);
+	}
+	else
+	{
+		return beakRam[address];
+	}
+}
+
 vector<uint8_t> Memory::readMemory(int address, int bytes)
 {
 	vector<uint8_t> returnMemory;
