@@ -289,6 +289,34 @@ void Memory::swapVRAMBank(byte newBank)
 	}
 }
 
+void Memory::swapInternalRamBank(byte newBank)
+{
+	if (internalRamBank != newBank)
+	{
+		if (newBank < 8)
+		{
+			unsigned short oldBankAddress = (unsigned short)(internalRamBank * 0x1000);
+			unsigned short bankAddress = (unsigned short)(newBank * 0x1000);
+			unsigned short ramAddress = 0xD000; //0xC000-CFFF is bank 0; //0xD000-DFFF is swappable
+
+										//Write current GB ram data to internal ram bank
+			for (int i = 0; i < 0x1000; i++)
+			{
+				internalRam[oldBankAddress + i] = beakRam[ramAddress + i];
+			}
+
+			//Write new internal ram bank data to GB ram
+			for (int i = 0; i < 0x1000; i++)
+			{
+				beakRam[ramAddress + i] = internalRam[bankAddress + i];
+			}
+
+			// Set new bank number to the internal ram bank value.
+			internalRamBank = newBank;
+		}
+	}
+}
+
 void Memory::toggleZFlag()
 {
 	byte flag = getF();

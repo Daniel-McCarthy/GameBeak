@@ -201,6 +201,7 @@ class Memory
 	void writeMemory(unsigned short address, short shortVal);
 
 	void swapVRAMBank(byte newBank);
+	void swapInternalRamBank(byte newBank);
 
 	void toggleZFlag();
 
