@@ -139,10 +139,18 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	//beakMemory.clearRegistersAndFlags();
 	//beakMemory.loadGBBootStrapIntoMemory();
-	beakMemory.initializeGameBoyValues();
 	//beakMemory.loadRom("Directory/Path to .gb file");
 
 	rom.readRomHeader();
+
+	if (GBCMode)
+	{
+		beakMemory.initializeGameBoyColorValues();
+	}
+	else
+	{
+		beakMemory.initializeGameBoyValues();
+	}
 	//beakMemory.clearRegistersAndFlags();
 	//beakMemory.loadGBBootStrapIntoMemory();
 
