@@ -26,6 +26,8 @@ class Memory
 	string title;
 
 	//GBC Only Registers
+	byte backgroundPaletteRam[0x40];
+	byte spritePaletteRam[0x40];
 	byte internalRamBank = 1; //CGB Only
 	byte vramBank = 0; //CGB Only
 
