@@ -93,6 +93,17 @@ uint8_t Memory::readMemory(unsigned short address)
 		// Read VRAM Bank Number
 		return (byte)(0b11111110 | (vramBank & 0b00000001));
 	}
+	else if (address == 0xFF69 && GBCMode)
+	{
+		// Read Background Palette Ram Data.
+
+		// BG Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
+		byte bgIndexData = beakRam[0xFF68];
+		// Retrieve index data for palette ram read.
+		byte index = (byte)(bgIndexData & 0b00111111);
+
+		return backgroundPaletteRam[index];
+	}
 	else
 	{
 		return beakRam[address];
