@@ -40,6 +40,8 @@ const int heboWIN = 12;
 const int fpgaBoy = 13;
 
 //Settings values
+bool GBCMode = (rom.isGBCRom() && !ForceDMGMode);		//This controls whether Gameboy Color emulation is currently activated.
+bool ForceDMGMode = false;								//This allows forcing games to run in DMG emulation.
 byte paletteSetting = gamebeakPinkAlt;
 bool soundEnabled = false;
 bool tileDrawMode = false;
