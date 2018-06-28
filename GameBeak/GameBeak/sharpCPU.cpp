@@ -7599,6 +7599,33 @@ bool sharpCPU::checkForHaltOrInterrupt()
 	//0060 High to Low P10-P13 Interrupt Start Address
 }
 
+void sharpCPU::executeStop()
+{
+	if (beakInput.isAnyKeyPressed())
+	{
+		stop = false;
+	}
+	else
+	{
+		if (interruptsEnabled)
+		{
+			byte IE = beakMemory.readMemory(0xFFFF);
+			byte IF = beakMemory.readMemory(0xFF0F);
+
+			if (((((IF & 0x10) >> 4) == 1) && ((IE & 0x10) >> 4 == 1)))
+			{
+				stop = false;
+			}
+		}
+	}
+
+	if (preparingSpeedChange)
+	{
+		doubleSpeedMode = !doubleSpeedMode;
+		preparingSpeedChange = false;
+	}
+}
+
 
 int sharpCPU::returnTClock()
 {

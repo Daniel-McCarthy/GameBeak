@@ -45,6 +45,7 @@ public:
 	bool checkForHaltOrInterrupt();
 	bool checkForInterrupt();
 	void executeInterrupt();
+	void executeStop();
 	void updateTIMA(int curClocks, int& lastClockUpdate, int& lastDIVUpdate);
 	void opcode00();
 	void opcode01(short nn);
