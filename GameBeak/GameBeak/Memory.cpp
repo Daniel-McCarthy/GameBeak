@@ -251,30 +251,26 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 				beakRam[address] = (byte)(0x40 | (value));
 				// Bit 7: Increment on Write setting //Bit 6: Unused //Bit 0,1,2,3,4,5 Index (0-3F)
 			}
-			else if (address == (unsigned short)0xFF6B)
+			else if (address == 0xFF6B && GBCMode)
 			{
-				//Write GBC Sprite Palette Index
+				// Write to Sprite Palette Ram.
 
-				byte spritePaletteIndexRegister = readMemory(0xFF6A);
-				byte index = spritePaletteIndexRegister & 0x3F;
+				// Sprite Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
+				byte spriteIndexData = beakRam[0xFF6A];
+				bool spriteIndexAutoIncrement = (spriteIndexData & 0x80) != 0;
 
-				beakGPU.gameboyColorSpritePalette[index] = value;
+				// Retrieve index data for palette ram write.
+				byte index = (byte)(spriteIndexData & 0b00111111);
 
-				//If Auto-Increment enabled, increment index by 1
-				if ((spritePaletteIndexRegister & 0x80) > 0)
+				// Write data to palette ram at index.
+				spritePaletteRam[index] = value;
+
+				// Increment index data if auto-increment is enabled.
+				if (spriteIndexAutoIncrement)
 				{
-			}
-
-					if (index >= 0x3F)
-					{
-						index = 0;
-					}
-					else
-					{
-						index++;
-					}
-
-					writeMemory((unsigned short)0xFF6A, (byte)(index | (spritePaletteIndexRegister & 0x80)));
+					byte newIndexData = (byte)(index + 1);
+					newIndexData |= 0b11000000; // Set unused and auto-increment bits to enabled.
+					beakRam[0xFF6A] = newIndexData;
 				}
 			}
 			else
