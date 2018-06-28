@@ -306,6 +306,16 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 					beakRam[0xFF6A] = newIndexData;
 				}
 			}
+			else if (address == 0xFF70 && GBCMode)
+			{
+				// Swap WRAM Bank at 0xD000
+				byte bankValue = (byte)(value & 0b111);
+
+				if (bankValue == 0)
+					bankValue = 1;
+
+				swapInternalRamBank(bankValue);
+			}
 			else
 			{
 				if (address >= 0xC000 && address <= 0xDDFF)
