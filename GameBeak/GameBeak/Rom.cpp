@@ -169,3 +169,8 @@ bool Rom::isGBCRom()
 	return hasGBCFunctionality;
 }
 
+bool Rom::isSGBRom()
+{
+	return hasSGBFunctionality;
+}
+

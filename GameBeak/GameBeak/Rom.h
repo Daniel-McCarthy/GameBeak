@@ -37,6 +37,7 @@ public:
 	void readRomHeader();
 	unsigned char readByte(unsigned int address);
 	bool isGBCRom();
+	bool isSGBRom();
 
 	void operator=(const Rom & newRom);
 
