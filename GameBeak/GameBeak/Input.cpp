@@ -69,15 +69,12 @@ void Input::readInput()
 	{
 		beakWindow.window.setKeyRepeatEnabled(true);
 
-		if (Keyboard::isKeyPressed(Keyboard::Right)) { //Right arrow //Right
-			keyRight = true;
-		}
+		keyRight = Keyboard::isKeyPressed(Keyboard::Right); //Right arrow //Right
 
-		if (Keyboard::isKeyPressed(Keyboard::Left)) { //Left arrow //Left
-			keyLeft = true;
-		}
 
-		if (!(right && keyLeft)) //Detect if both inputs are NOT enabled at once
+		keyLeft = Keyboard::isKeyPressed(Keyboard::Left); //Left arrow //Left
+
+		if (!(keyRight && keyLeft)) //Detect if both inputs are NOT enabled at once
 		{
 			if (keyRight)
 			{
@@ -105,13 +102,9 @@ void Input::readInput()
 			keyInput |= 0x02;
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Up)) { //Up arrow //Up
-			keyUp = true;
-		}
+		keyUp = Keyboard::isKeyPressed(Keyboard::Up); //Up arrow //Up
 
-		if (Keyboard::isKeyPressed(Keyboard::Down)) { //Down arrow //Down
-			keyDown = true;
-		}
+		keyDown = Keyboard::isKeyPressed(Keyboard::Down); //Down arrow //Down
 
 		if (!(keyUp && keyDown)) //Detect if both inputs are NOT enabled at once
 		{
