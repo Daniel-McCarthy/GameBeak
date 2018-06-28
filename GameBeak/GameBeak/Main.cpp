@@ -341,10 +341,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 				beakAudio.updateSound();
 			}
 
-
-			if (checkForWriteBreakpoint(writeBreakpoint, writeBreakpointValue, breakpointValue, writeBreakpointAddress))
+			if (writeBreakpoint)
 			{
-				paused = true;
+				if (checkForWriteBreakpoint(writeBreakpoint, writeBreakpointValue, breakpointValue, writeBreakpointAddress))
+				{
+					paused = true;
+				}
 			}
 
 		}
