@@ -245,11 +245,11 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 					beakRam[0xFF68] = newIndexData;
 				}
 			}
-			else if (address == (unsigned short)0xFF6A)
+			else if (address == 0xFF6A && GBCMode)
 			{
-				//Set GBC Sprite Palette Index
-				beakRam[address] = (0x40 | (value));
-				//Bit 7: Increment on Write //Bit 6: Unused //Bit 5-0 Index (0-35)
+				// Set GBC Sprite Palette Index
+				beakRam[address] = (byte)(0x40 | (value));
+				// Bit 7: Increment on Write setting //Bit 6: Unused //Bit 0,1,2,3,4,5 Index (0-3F)
 			}
 			else if (address == (unsigned short)0xFF6B)
 			{
