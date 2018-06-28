@@ -38,6 +38,33 @@ byte Memory::readBackgroundPaletteRam(byte address)
 	return backgroundPaletteRam[address];
 }
 
+byte Memory::readVRAMBankRam(unsigned short address, byte bank)
+{
+	//In GBC mode there are two swappable banks. The current vramBank is loaded in the ramMap. The other bank is loaded in an external bank.
+	//Therefore if the selected bank isn't the current vram bank, the bank must me in the external bank.
+
+	//If not in GBC mode, then then only bank available is bank 0, which will always be loaded in the ram map in this mode.
+
+	if (GBCMode && vramBank != bank)
+	{
+		if (address >= 0x8000)
+		{
+			address -= 0x8000;
+		}
+
+		return externalVRAMBank[address];
+	}
+	else
+	{
+		if (address < 0x8000)
+		{
+			address += 0x8000;
+		}
+
+		return beakRam[address];
+	}
+}
+
 vector<uint8_t> Memory::readMemory(int address, int bytes)
 {
 	vector<uint8_t> returnMemory;

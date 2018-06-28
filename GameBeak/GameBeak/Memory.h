@@ -188,6 +188,7 @@ class Memory
 
 	byte readSpritePaletteRam(byte address);
 	byte readBackgroundPaletteRam(byte address);
+	byte readVRAMBankRam(unsigned short address, byte bank);
 
 	uint8_t readMemory(unsigned short address)
 	{
