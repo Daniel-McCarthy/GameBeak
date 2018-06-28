@@ -17,6 +17,7 @@ public:
 	byte getKeyInput();
 	bool isAnyKeyPressed();
 	void readInput();
+	void setKeyInput(int keyCode, bool enabled);
 };
 
 #endif // !INPUTH

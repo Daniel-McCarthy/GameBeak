@@ -28,7 +28,7 @@ void Input::readInput()
 	{
 		beakWindow.window.setKeyRepeatEnabled(false);
 
-		if (Keyboard::isKeyPressed(Keyboard::Z)) { //Z //A
+		if (keyA) { //Z //A
 			keyInput &= 0xFE;
 			interrupt = true;
 		}
@@ -37,7 +37,7 @@ void Input::readInput()
 			keyInput |= 0x01;
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::X)) { //X //B
+		if (keyB) { //X //B
 			keyInput &= 0xFD;
 			interrupt = true;
 		}
@@ -46,7 +46,7 @@ void Input::readInput()
 			keyInput |= 0x02;
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::RShift)) { //Control //Select
+		if (keySelect) { //Control //Select
 			keyInput &= 0xFB;
 			interrupt = true;
 		}
@@ -55,7 +55,7 @@ void Input::readInput()
 			keyInput |= 0x04;
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Return)) { //Enter //Start
+		if (keyStart) { //Enter //Start
 			keyInput &= 0xF7;
 			interrupt = true;
 		}
@@ -68,11 +68,6 @@ void Input::readInput()
 	else if (((keyInput & 0x20) >> 5) == 1)//(keyInput == 0x20)
 	{
 		beakWindow.window.setKeyRepeatEnabled(true);
-
-		keyRight = Keyboard::isKeyPressed(Keyboard::Right); //Right arrow //Right
-
-
-		keyLeft = Keyboard::isKeyPressed(Keyboard::Left); //Left arrow //Left
 
 		if (!(keyRight && keyLeft)) //Detect if both inputs are NOT enabled at once
 		{
@@ -101,10 +96,6 @@ void Input::readInput()
 			keyInput |= 0x01;
 			keyInput |= 0x02;
 		}
-
-		keyUp = Keyboard::isKeyPressed(Keyboard::Up); //Up arrow //Up
-
-		keyDown = Keyboard::isKeyPressed(Keyboard::Down); //Down arrow //Down
 
 		if (!(keyUp && keyDown)) //Detect if both inputs are NOT enabled at once
 		{
@@ -154,5 +145,54 @@ void Input::readInput()
 	}
 
 	beakMemory.writeMemory(0xFF00, keyInput);
+}
+
+void Input::setKeyInput(int keyCode, bool enabled)
+{
+	cpu.setStop(false);
+
+	switch (keyCode)
+	{
+	case 0:
+	{
+		keyUp = enabled;
+		break;
+	}
+	case 1:
+	{
+		keyDown = enabled;
+		break;
+	}
+	case 2:
+	{
+		keyLeft = enabled;
+		break;
+	}
+	case 3:
+	{
+		keyRight = enabled;
+		break;
+	}
+	case 4:
+	{
+		keyStart = enabled;
+		break;
+	}
+	case 5:
+	{
+		keySelect = enabled;
+		break;
+	}
+	case 6:
+	{
+		keyA = enabled;
+		break;
+	}
+	case 7:
+	{
+		keyB = enabled;
+		break;
+	}
+	}
 }
 

@@ -236,6 +236,86 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 				}
 				
 				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::T)
+				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Key::Z) //Press A
+				{
+					beakInput.setKeyInput(6, true);
+				}
+
+				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::Z) //Let go of A
+				{
+					beakInput.setKeyInput(6, false);
+				}
+
+				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Key::X) //Press B
+				{
+					beakInput.setKeyInput(7, true);
+				}
+
+				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::X) //Let go of B
+				{
+					beakInput.setKeyInput(7, false);
+				}
+
+				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Key::Return) //Press Start
+				{
+					beakInput.setKeyInput(4, true);
+				}
+
+				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::Return) //Let go of Start
+				{
+					beakInput.setKeyInput(4, false);
+				}
+
+				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Key::RShift) //Press Select
+				{
+					beakInput.setKeyInput(5, true);
+				}
+
+				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::RShift) //Let go of Select
+				{
+					beakInput.setKeyInput(5, false);
+				}
+
+				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Key::Up) //Press Up
+				{
+					beakInput.setKeyInput(0, true);
+				}
+
+				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::Up) //Let go of Up
+				{
+					beakInput.setKeyInput(0, false);
+				}
+
+				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Key::Down) //Press Down
+				{
+					beakInput.setKeyInput(1, true);
+				}
+
+				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::Down) //Let go of Down
+				{
+					beakInput.setKeyInput(1, false);
+				}
+
+				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Key::Left) //Press Left
+				{
+					beakInput.setKeyInput(2, true);
+				}
+
+				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::Left) //Let go of Left
+				{
+					beakInput.setKeyInput(2, false);
+				}
+
+				if (event.type == Event::KeyPressed && event.key.code == Keyboard::Key::Right) //Press Up
+				{
+					beakInput.setKeyInput(3, true);
+				}
+
+				if (event.type == Event::KeyReleased && event.key.code == Keyboard::Key::Right) //Let go of Up
+				{
+					beakInput.setKeyInput(3, false);
+				}
+
 				{
 					tileDrawMode = !tileDrawMode;
 
