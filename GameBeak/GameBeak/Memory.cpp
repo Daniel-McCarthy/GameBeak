@@ -266,6 +266,7 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 				//If Auto-Increment enabled, increment index by 1
 				if ((spritePaletteIndexRegister & 0x80) > 0)
 				{
+			}
 
 					if (index >= 0x3F)
 					{
