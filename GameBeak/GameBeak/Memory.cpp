@@ -608,6 +608,88 @@ void Memory::initializeGameBoyValues()
 
 }
 
+void Memory::initializeGameBoyColorValues()
+{
+
+	setA(0x11); //AF: 0x1180
+	setF(0x80);
+	setB(0x00); //BC: 0x0000
+	setC(0x00);
+	setD(0xFF); //DE: 0xFF56
+	setE(0x56);
+	setH(0x00); //HL: 0x000D
+	setL(0x0D);
+	setStackPointer((short)0xFFFE);
+
+	srand(time(NULL));
+	for (int i = 0xC000; i < 0xDFFF; i += 2)
+	{
+		int randNum = rand();
+
+		for (int j = 0; j < 2; j++)
+		{
+			if (i < 0xDFFF)
+			{
+				writeMemory((short)(i + j), (byte)(randNum & 0x000000FF)); //So it ECHO will be emulated
+				randNum >>= 8;
+			}
+		}
+	}
+
+	for (int i = 0xFF80; i < 0xFFFE; i += 2)
+	{
+		int randNum = rand();
+
+		for (int j = 0; j < 2; j++)
+		{
+			if (i < 0xFFFE)
+			{
+				writeMemory((short)(i + j), (byte)(randNum & 0x000000FF)); //So it ECHO will be emulated
+				randNum >>= 8;
+			}
+		}
+	}
+
+	beakRam[(unsigned short)0xFF00] = ((byte)0xCF); //Joypad
+	beakRam[(unsigned short)0xFF04] = ((byte)0xAB);
+	beakRam[(unsigned short)0xFF05] = ((byte)0x00); //TIMA
+	beakRam[(unsigned short)0xFF06] = ((byte)0x00); //TMA
+	beakRam[(unsigned short)0xFF07] = ((byte)0x00); //TAC
+	beakRam[(unsigned short)0xFF0F] = ((byte)0xE1); //IF
+	beakRam[(unsigned short)0xFF10] = ((byte)0x80); //NR10
+	beakRam[(unsigned short)0xFF11] = ((byte)0xBF); //NR11
+	beakRam[(unsigned short)0xFF12] = ((byte)0xF3); //NR12
+	beakRam[(unsigned short)0xFF14] = ((byte)0xBF); //NR14
+	beakRam[(unsigned short)0xFF16] = ((byte)0x3F); //NR21
+	beakRam[(unsigned short)0xFF17] = ((byte)0x00); //NR22
+	beakRam[(unsigned short)0xFF19] = ((byte)0xBF); //NR24
+	beakRam[(unsigned short)0xFF1A] = ((byte)0x7F); //NR30
+	beakRam[(unsigned short)0xFF1B] = ((byte)0xFF); //NR31
+	beakRam[(unsigned short)0xFF1C] = ((byte)0x9F); //NR32
+	beakRam[(unsigned short)0xFF1E] = ((byte)0xBF); //NR33
+	beakRam[(unsigned short)0xFF20] = ((byte)0xFF); //NR41
+	beakRam[(unsigned short)0xFF21] = ((byte)0x00); //NR42
+	beakRam[(unsigned short)0xFF22] = ((byte)0x00); //NR43
+	beakRam[(unsigned short)0xFF23] = ((byte)0xBF); //NR30
+	beakRam[(unsigned short)0xFF24] = ((byte)0x77); //NR50
+	beakRam[(unsigned short)0xFF25] = ((byte)0xF3); //NR51
+	beakRam[(unsigned short)0xFF26] = ((byte)0xF1); //NR52 //F1 for GB //F0 for SGB
+	beakRam[(unsigned short)0xFF40] = ((byte)0x91); //LCD Ctrl
+	beakRam[(unsigned short)0xFF41] = ((byte)0x85); //LCD Status
+	beakRam[(unsigned short)0xFF42] = ((byte)0x00); //SCY
+	beakRam[(unsigned short)0xFF43] = ((byte)0x00); //SCX
+	beakRam[(unsigned short)0xFF44] = ((byte)0x00); //LY
+	beakRam[(unsigned short)0xFF45] = ((byte)0x00); //LYC
+	beakRam[(unsigned short)0xFF47] = ((byte)0xFC); //BGP
+	beakRam[(unsigned short)0xFF48] = ((byte)0xFF); //OBP0
+	beakRam[(unsigned short)0xFF49] = ((byte)0xFF); //0BP1
+	beakRam[(unsigned short)0xFF4A] = ((byte)0x00); //WY
+	beakRam[(unsigned short)0xFF4B] = ((byte)0x00); //WX
+	beakRam[(unsigned short)0xFFFF] = ((byte)0x00); //IE
+
+
+}
+
 bool Memory::loadRom(string path)
 {
 	ifstream inputFile(path, ios::binary | ios::ate);

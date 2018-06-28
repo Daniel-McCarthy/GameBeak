@@ -292,6 +292,7 @@ class Memory
 	void clearRegistersAndFlags();
 
 	void initializeGameBoyValues();
+	void initializeGameBoyColorValues();
 
 	bool loadRom(string path);
 	bool loadRom(string path, bool findAndLoadSaveFile);
