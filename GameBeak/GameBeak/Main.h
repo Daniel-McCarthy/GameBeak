@@ -41,6 +41,7 @@ extern bool enableInterruptsNextCycle;
 extern bool repeatBug; //Halt bug
 extern bool GBCMode;
 extern bool ForceDMGMode;
+extern bool pollingEnabled;
 extern byte paletteSetting;
 extern byte filterSetting;
 

@@ -87,6 +87,7 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 						drawScreenFromMaps(beakGPU.getScrollX(), beakGPU.getScrollY());
 					}
 					refreshClocksSinceLastUpdate = clocks;
+					pollingEnabled = true;
 				}
 				//Set VBLANK Interrupt Flag
 				if (beakGPU.getLCDOn())

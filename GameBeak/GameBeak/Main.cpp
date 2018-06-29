@@ -46,6 +46,7 @@ byte paletteSetting = gamebeakPinkAlt;
 bool soundEnabled = false;
 bool tileDrawMode = false;
 bool fullMapScreenMode = false;
+bool pollingEnabled = true;
 
 //Post-Processing Settings
 const int NONE = 0;
@@ -181,8 +182,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 		file.close();
 	}
 
-	byte pollingSkipping = 0;
-
 	while (run)
 	{
 		
@@ -194,7 +193,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			debugWindow->runLoop();
 		}
 
-		if(pollingSkipping == 250)
+		if(pollingEnabled)
 		{
 			if (Keyboard::isKeyPressed(Keyboard::Key::Tilde))
 			{
@@ -356,11 +355,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 			}
 
-			pollingSkipping = 0;
-		}
-		else
-		{
-			pollingSkipping++;
+			pollingEnabled = false;
 		}
 
 		if (breakPointEnabled)
