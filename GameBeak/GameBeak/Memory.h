@@ -7,9 +7,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-//#include "Main.h"
 #include "Binary.h"
-//#include "Input.h"
 
 using namespace std;
 

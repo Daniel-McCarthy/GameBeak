@@ -1,4 +1,3 @@
-//#include "Main.h"
 #include <Windows.h>
 #include <string>
 using namespace std;
@@ -12,7 +11,6 @@ class Memory;
 class Rom
 {
 private:
-	//byte beakRom[0x500000];
 	byte romSize = 0;
 	byte romByteSize = 0;
 	bool programRamBattery = false;
