@@ -7589,9 +7589,6 @@ bool sharpCPU::checkForHaltOrInterrupt()
 
 	return false;
 
-
-	//write interrupt function. If flag in IE and IME are both set, push PC into stack, (disable interrupts?)
-	//then jump to interrupt starting address per interrupt type
 	//0040: Vertical Blankl Interrupt Start Address
 	//0048:LCDC Status Interrupt Start Address
 	//0050:Timer Overflow Interrupt Start Address
