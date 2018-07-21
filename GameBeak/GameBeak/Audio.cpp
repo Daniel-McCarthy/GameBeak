@@ -77,7 +77,6 @@ void Audio::updateSound()
 	if ((audioControl & 0x80) > 0) //Bit 7 is master enable/disable
 	{
 		//Sound 1
-		//sound.pause();
 
 		int chanOneEnvelope = beakMemory.readMemory(0xFF12);
 
