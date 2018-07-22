@@ -15,14 +15,7 @@ using namespace sf;
 DebuggerWindow::DebuggerWindow(string title, int width, int height)
 {
 	//Set Window
-	//window = new RenderWindow(VideoMode(width, height), title);
 	window.create(VideoMode(width, height), title);
-	//window = 
-	//auto sfgWindow = sfg::Window::Create();
-
-	//desktop.Add(sfgWindow);
-
-	//window->resetGLStates();
 	window.setFramerateLimit(60);
 
 	//Set Icon
@@ -97,7 +90,6 @@ void DebuggerWindow::runLoop()
 						beakMemory.initializeGameBoyValues();
 					}
 
-
 					//Button 4 //Registers Window
 					if ((x > 50) && (x < 50 + buttonSprite.getGlobalBounds().width)
 						&& ((y > 300) && (y < 300 + buttonSprite.getGlobalBounds().height)))
@@ -118,11 +110,6 @@ void DebuggerWindow::runLoop()
 					{
 						debuggerPage = 2;
 					}
-
-
-
-
-
 				}
 			}
 		}
@@ -219,10 +206,7 @@ void DebuggerWindow::runLoop()
 		drawButton(buttonPosX + 200, buttonPosY, .5, .5);
 		printText("Reset", buttonPosX + 221, buttonPosY + 13, Color::Black);
 
-		//displayMemory();
-
 		window.display();
-
 	}
 	else
 	{
