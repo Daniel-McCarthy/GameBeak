@@ -138,7 +138,6 @@ void Memory::transferDMA(byte address)
 {
 	//TODO:This should occur over time, not all at once
 
-
 	if (address <= 0xF1)
 	{
 		int baseAddress = address << 8;//*= 100;
@@ -371,7 +370,7 @@ void Memory::swapInternalRamBank(byte newBank)
 			unsigned short bankAddress = (unsigned short)(newBank * 0x1000);
 			unsigned short ramAddress = 0xD000; //0xC000-CFFF is bank 0; //0xD000-DFFF is swappable
 
-										//Write current GB ram data to internal ram bank
+			//Write current GB ram data to internal ram bank
 			for (int i = 0; i < 0x1000; i++)
 			{
 				internalRam[oldBankAddress + i] = beakRam[ramAddress + i];
@@ -879,13 +878,12 @@ bool Memory::loadRom(string path)
 		if (romData.size() <= 0x500000)
 		{
 			
-			int address = 0;// 0x100;//? //0x200;
+			int address = 0;
 			for (int i = 0x0; i < (int)romData.size(); i++)
 			{
 				//writeMemory(address + i, (uint8_t)rom.at(i));
 				rom.beakRom[address + i] = (uint8_t)romData.at(i);
 			}
-			//rom = (Rom(romData.data, fileLength));
 		}
 		else
 		{
@@ -1151,8 +1149,6 @@ void Memory::saveState()
 	}
 
 	file.close();
-
-	//paused = true;
 }
 
 
@@ -1242,8 +1238,6 @@ void Memory::loadSaveState()
 				//case 0xFD:
 				//case 0xFE:
 				//case 0xFF:
-
-
 				}
 
 
