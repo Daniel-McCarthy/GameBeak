@@ -10,7 +10,6 @@ using namespace sf;
 GameWindow::GameWindow(string title, int width, int height)
 {
 	//Set Window
-	//window = new RenderWindow(VideoMode(width, height), title);
 	window.create(VideoMode(width, height), title);
 	window.setFramerateLimit(60);
 	texture.create(160, 144);
@@ -111,7 +110,6 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 				}
 			}
 
-
 			lineClocksSinceLastUpdate = clocks;
 		}
 
@@ -165,7 +163,6 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 			ly = 0;
 			beakMemory.setLCDLY(ly);
 		}
-
 	}
 	else if (gpuMode == 2)
 	{
@@ -195,7 +192,6 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 				}
 			}
 		}
-
 	}
 	else
 	{
@@ -225,16 +221,13 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 				{
 					beakGPU.drawLineFromWindowMap(ly);
 				}
-
 			}
 			lineClocksSinceLastUpdate = clocks;
 		}
-
 	}
 
 	if (ly != originalLY)
 	{
-
 		//LCDLY Compare Interrupt
 		if (beakGPU.getLCDOn() && (beakGPU.getLCDLY() == beakGPU.getLCDLYCompare()))
 		{
@@ -252,7 +245,6 @@ void GameWindow::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refr
 			//Disable Coincidence Flag
 			beakGPU.setLCDStatus(beakGPU.getLCDStatus() & 0xFB);
 		}
-		
 	}
 
 	//}
@@ -286,7 +278,6 @@ void GameWindow::setSpritePixel(unsigned char  x, unsigned char  y, Color color)
 
 void GameWindow::setDebugPixel(unsigned char  x, unsigned char  y, Color color)
 {
-	//tileDebugPixels[x + (y * 256)] = color;
 	debugTileScreen.setPixel(x, y, color);
 }
 
@@ -308,7 +299,6 @@ void GameWindow::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrol
 		
 		for (int i = 0; i < 160; i++)
 		{
-
 			for (int j = 0; j < 144; j++)
 			{
 				y = scrollY + j;
@@ -316,7 +306,6 @@ void GameWindow::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrol
 
 				screen.setPixel(i, j, bgPixels[x + (y * 256)]);
 			}
-
 		}
 	}
 	
@@ -360,11 +349,8 @@ void GameWindow::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrol
 				{
 					screen.setPixel((x + xShift + i), (y + yShift + j), windowPixels[(xShift + i) + ((yShift + j) * 256)]);
 				}
-
 			}
-			
 		}
-
 	}
 	
 
@@ -375,22 +361,20 @@ void GameWindow::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrol
 		int y = 0;
 		while (y < 144)
 		{
-				if (spritePixels[((x) + ((y) * 256))].a != 0)
-				{
-					screen.setPixel(x, y, spritePixels[(x) + (y * 256)]);
+			if (spritePixels[((x) + ((y) * 256))].a != 0)
+			{
+				screen.setPixel(x, y, spritePixels[(x) + (y * 256)]);
+			}
 
-				}
-
-				if (x < 159)
-				{
-					x++;
-				}
-				else
-				{
-					x = 0;
-					y++;
-				}
-
+			if (x < 159)
+			{
+				x++;
+			}
+			else
+			{
+				x = 0;
+				y++;
+			}
 		}
 	}
 
@@ -406,7 +390,6 @@ void GameWindow::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrol
 
 void GameWindow::drawFullScreenMaps()
 {
-
 	Image fullScreen = Image();
 	fullScreen.create(256, 256, Color(0, 0, 0));
 
@@ -414,12 +397,10 @@ void GameWindow::drawFullScreenMaps()
 	{
 		for (int x = 0; x < 256; x++)
 		{
-
 			for (int y = 0; y < 256; y++)
 			{
 				fullScreen.setPixel(x, y, bgPixels[x + (y * 256)]);
 			}
-
 		}
 	}
 
@@ -461,16 +442,11 @@ void GameWindow::drawFullScreenMaps()
 			{
 				for (int j = 0; (j + y + yShift) < 144; j++)
 				{
-					//fullScreen.setPixel(beakGPU.getScrollX() + (x + xShift + i) , beakGPU.getScrollY() + (y + yShift + j), windowPixels[(xShift + i) + ((yShift + j) * 256)]);
 					fullScreen.setPixel((x + xShift + i), (y + yShift + j), windowPixels[(xShift + i) + ((yShift + j) * 256)]);
 				}
-
 			}
-
 		}
-
 	}
-
 
 	//Draw Sprites
 	if (beakGPU.getSpriteEnabled())
@@ -481,7 +457,6 @@ void GameWindow::drawFullScreenMaps()
 		{
 			if (spritePixels[((x)+((y) * 256))].a != 0)
 			{
-				//fullScreen.setPixel(beakGPU.getScrollX() + x, beakGPU.getScrollY() + y, spritePixels[(x)+(y * 256)]);
 				fullScreen.setPixel(x, y, spritePixels[(x)+(y * 256)]);
 			}
 
