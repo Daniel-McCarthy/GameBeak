@@ -8,11 +8,9 @@ gpu::gpu()
 {
 }
 
-
 gpu::~gpu()
 {
 }
-
 
 byte gpu::getLCDStatus()
 {
@@ -135,78 +133,6 @@ void gpu::drawAllTiles()
 
 	}
 }
-/*
-void gpu::drawTiles()
-{
-	int scrollY = beakMemory.readMemory(0xFF42);
-	int scrollX = beakMemory.readMemory(0xFF43);
-	int windowY = beakMemory.readMemory(0xFF4A);
-	int windowX = beakMemory.readMemory(0xFF4B);
-	int mapAddress;
-	int baseAddress;
-
-	if (getBackGroundTileMapLocation())
-	{
-		mapAddress = 0x9C00;
-	}
-	else
-	{
-		mapAddress = 0x9800;
-	}
-
-	if (getBackGroundWindowTileSetLocation())
-	{
-		baseAddress = 0x8000;
-	}
-	else
-	{
-		baseAddress = 0x8800;
-	}
-
-
-
-	vector<vector<Color>> tile;
-
-	//for (int i = 0; i < 32 * 32; i++)
-	for (int i = 0; i < 32; i++)
-	{
-		//int finalLocation = (baseAddress == 0x8000) ? baseAddress + (16 * i) : baseAddress + (16 * (i + 0x80));
-
-		int tileY = i / 32;
-		int tileX = i - (32 * i);
-		int tileIndex = tileY * (32 * tileX);
-
-		int tileIDAddress = mapAddress + tileIndex;
-
-		int tileID = beakMemory.readMemory(tileIDAddress);
-		int tileOffset = tileID * 16;
-
-		int tileAddress = baseAddress + tileOffset;
-
-		for (int j = 0; j < 16; j += 2)
-		{
-			//byte rowHalf1 = beakMemory.readMemory(finalLocation + j);
-			//byte rowHalf2 = beakMemory.readMemory(finalLocation + j + 1);
-			byte rowHalf1 = beakMemory.readMemory(tileAddress + j);
-			byte rowHalf2 = beakMemory.readMemory(tileAddress + j + 1);
-
-			vector<Color> row;
-
-			for (int k = 0; k < 8; k++)
-			{
-				row.push_back(returnColor((rowHalf1 & 0x01) + (rowHalf2 & 0x01)));
-				rowHalf1 >>= 1;
-				rowHalf2 >>= 1;
-			}
-
-			tile.push_back(row);
-		}
-
-		drawTile(i, tile);
-	}
-}
-*/
-
 
 //DrawLineFromMap: Draws a single specific line of the background map
 void gpu::drawLineFromBGMap(unsigned char  lineY)
@@ -403,12 +329,8 @@ void gpu::drawLineFromWindowMap(unsigned char lineY)
 			rowHalf1 <<= 1;
 			rowHalf2 &= 0x7F;
 			rowHalf2 <<= 1;
-
 		}
-
 	}
-
-
 }
 
 #include "Binary.h"
@@ -450,13 +372,8 @@ void gpu::drawLineFromSpriteMap(unsigned char lineY)
 
 		if (y > -8)
 		{
-
 			x = beakMemory.readMemory(mapAddress + (i * 4) + 1) - 8;
-			
 			bool isSpriteOnLine = (y <= lineY) && ((y + ((spriteSize == 0) ? 8 : 16)) > lineY);
-			//(y <= lineY)  if the start of the sprite is at lineY or before it
-			//(y + (spriteSize == 0) ? 8 : 16)) > lineY) if the end of the sprite is past lineY (By way of commenting, this isn't the problem)
-
 
 			if (isSpriteOnLine)
 			{
@@ -524,9 +441,6 @@ void gpu::drawLineFromSpriteMap(unsigned char lineY)
 //DrawTile: Draws tile data as given to location of tile number given
 void gpu::drawDebugTile(int tileNumber, vector<vector<Color>> tile)
 {
-	//int y = tileNumber / 32;
-	//int x = tileNumber - (32 * y);
-
 	int y = tileNumber / 20;
 	int x = tileNumber - (20 * y);
 
@@ -539,7 +453,6 @@ void gpu::drawDebugTile(int tileNumber, vector<vector<Color>> tile)
 
 		tile.erase(tile.begin());
 	}
-
 }
 
 byte gpu::getScrollX()
