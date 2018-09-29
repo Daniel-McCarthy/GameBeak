@@ -21,143 +21,107 @@ class Memory : public QWidget
     Q_OBJECT
 
 	private:
-	byte beakRam[0xFFFF+1];
-	byte externalVRAMBank[0x2000]; //CGB Only
-	byte internalRam[0x8000]; //CGB Only
 	string title;
+        unsigned char beakRam[0xFFFF+1];
+        unsigned char externalVRAMBank[0x2000]; //CGB Only
+        unsigned char internalRam[0x8000]; //CGB Only
 
-	//GBC Only Registers
-	byte backgroundPaletteRam[0x40];
-	byte spritePaletteRam[0x40];
-	byte internalRamBank = 1; //CGB Only
-	byte vramBank = 0; //CGB Only
+        //GBC Only Registers
+        unsigned char backgroundPaletteRam[0x40];
+        unsigned char spritePaletteRam[0x40];
+        unsigned char internalRamBank = 1; //CGB Only
+        unsigned char vramBank = 0; //CGB Only
 
 	public:
-	void writeRom0ToRam();
-	void writeFullRomToRam();
-
-
-	byte readSpritePaletteRam(byte address);
-	byte readBackgroundPaletteRam(byte address);
-	byte readVRAMBankRam(unsigned short address, byte bank);
-
-	uint8_t readMemory(unsigned short address);
-	vector<uint8_t> readMemory(int address, int bytes);
-
-	//DMA Transfer
-	void transferDMA(byte address);
-	void directMemoryWrite(unsigned short address, uint8_t value);
-
-	void writeMemory(unsigned short address, uint8_t value);
-	void writeMemory(unsigned short address, short shortVal);
-
-	void swapVRAMBank(byte newBank);
-	void swapInternalRamBank(byte newBank);
-
-	void toggleZFlag();
-
-	void setZFlag(bool setting);
-
-	bool getZFlag();
-
-	void toggleNFlag();
-
-	void setNFlag(bool setting);
-
-	bool getNFlag();
-
-	void toggleHFlag();
-
-	void setHFlag(bool setting);
-
-	bool getHFlag();
-
-	void toggleCFlag();
-
-	void setCFlag(bool setting);
-
-	bool getCFlag();
-
-	byte getA();
-
-	byte getF();
-
-	short getAF();
-
-	byte getB();
-
-	byte getC();
-
-	short getBC();
-
-	byte getD();
-
-	byte getE();
-
-	short getDE();
-
-	byte getH();
-
-	byte getL();
-
-	short getHL();
-
-	void setA(byte newA);
-
-	void setF(byte newF);
          explicit Memory(QWidget *parent = nullptr);
         ~Memory();
 
-	void setAF(short newAF);
+        unsigned char readSpritePaletteRam(unsigned char address);
+        unsigned char readBackgroundPaletteRam(unsigned char address);
+        unsigned char readVRAMBankRam(unsigned short address, unsigned char bank);
 
-	void setB(byte newB);
+        unsigned char readMemory(unsigned short address);
+        QList<unsigned char> readMemory(int address, int bytes);
 
-	void setC(byte newC);
+        //DMA Transfer
+        void transferDMA(unsigned char address);
+        void directMemoryWrite(unsigned short address, unsigned char value);
 
-	void setBC(short newBC);
+        void writeMemory(unsigned short address, unsigned char value);
+        void writeMemory(unsigned short address, short shortVal);
 
-	void setD(byte newD);
+        void swapVRAMBank(unsigned char newBank);
+        void swapInternalRamBank(unsigned char newBank);
 
-	void setE(byte newE);
+        void toggleZFlag();
+        void setZFlag(bool setting);
+        bool getZFlag();
 
-	void setDE(short newDE);
+        void toggleNFlag();
+        void setNFlag(bool setting);
+        bool getNFlag();
 
-	void setH(byte newH);
+        void toggleHFlag();
+        void setHFlag(bool setting);
+        bool getHFlag();
 
-	void setL(byte newL);
+        void toggleCFlag();
+        void setCFlag(bool setting);
+        bool getCFlag();
 
-	void setHL(short newHL);
+        unsigned char getA();
+        unsigned char getF();
+        short getAF();
 
-	byte getLCDControl();
+        unsigned char getB();
+        unsigned char getC();
+        short getBC();
 
-	bool getLCDEnabled();
+        unsigned char getD();
+        unsigned char getE();
+        short getDE();
 
-	byte getLCDLY();
+        unsigned char getH();
+        unsigned char getL();
+        short getHL();
 
-	void setLCDLY(byte newLY);
+        void setA(unsigned char newA);
+        void setF(unsigned char newF);
+        void setAF(short newAF);
+        void setB(unsigned char newB);
+        void setC(unsigned char newC);
+        void setBC(short newBC);
+        void setD(unsigned char newD);
+        void setE(unsigned char newE);
+        void setDE(short newDE);
+        void setH(unsigned char newH);
+        void setL(unsigned char newL);
+        void setHL(short newHL);
 
-	void setStackPointer(short nn);
+        unsigned char getLCDControl();
+        bool getLCDEnabled();
 
-	void clearRegistersFlagsAndMemory();
+        unsigned char getLCDLY();
+        void setLCDLY(unsigned char newLY);
 
-	void clearRegistersAndFlags();
+        void setStackPointer(short nn);
 
-	void initializeGameBoyValues();
-	void initializeGameBoyColorValues();
+        void clearRegistersFlagsAndMemory();
+        void clearRegistersAndFlags();
 
-	bool loadRom(string path);
-	bool loadRom(string path, bool findAndLoadSaveFile);
-	bool loadRom(byte* rom, int romSize);
-	bool loadRom(byte* rom, int romSize, byte* save, int saveSize);
+        void initializeGameBoyValues();
+        void initializeGameBoyColorValues();
 
-	bool loadSaveFile(string filepath);
+        bool loadRom(QString path);
+        bool loadRom(QString path, bool findAndLoadSaveFile);
+        bool loadRom(unsigned char* rom, int romSize);
+        bool loadRom(unsigned char* rom, int romSize, unsigned char* save, int saveSize);
 
 	/*
 	Load Save File From Array
 	*/
-	bool loadSaveFile(byte* saveFile, int saveSize);
 
-	vector<uint8_t> returnSaveDataFromMemory();
+        bool loadSaveFile(unsigned char* saveFile, int saveSize);
 
 	
 	void saveState();
@@ -165,6 +129,7 @@ class Memory : public QWidget
 	
 	void loadSaveState();
 	
+        QList<unsigned char> returnSaveDataFromMemory();
 
 
 };

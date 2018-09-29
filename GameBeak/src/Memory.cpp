@@ -28,17 +28,17 @@ void Memory::writeFullRomToRam()
 	}
 }
 
-byte Memory::readSpritePaletteRam(byte address)
+unsigned char Memory::readSpritePaletteRam(unsigned char address)
 {
 	return spritePaletteRam[address];
 }
 
-byte Memory::readBackgroundPaletteRam(byte address)
+unsigned char Memory::readBackgroundPaletteRam(unsigned char address)
 {
 	return backgroundPaletteRam[address];
 }
 
-byte Memory::readVRAMBankRam(unsigned short address, byte bank)
+unsigned char Memory::readVRAMBankRam(unsigned short address, unsigned char bank)
 {
 	//In GBC mode there are two swappable banks. The current vramBank is loaded in the ramMap. The other bank is loaded in an external bank.
 	//Therefore if the selected bank isn't the current vram bank, the bank must me in the external bank.
@@ -65,7 +65,7 @@ byte Memory::readVRAMBankRam(unsigned short address, byte bank)
 	}
 }
 
-uint8_t Memory::readMemory(unsigned short address)
+unsigned char Memory::readMemory(unsigned short address)
 {
 	/*
 	if (accessBreakpoint && memoryPointer == accessBreakpointAddress)
@@ -81,9 +81,9 @@ uint8_t Memory::readMemory(unsigned short address)
 	{
 		// Get Speed Mode
 
-		byte returnValue = 0;
-		returnValue |= (byte)(cpu.preparingSpeedChange ? 1 : 0);
-		returnValue |= (byte)(cpu.doubleSpeedMode ? 0x80 : 0);
+        unsigned char returnValue = 0;
+        returnValue |= (unsigned char)(cpu.preparingSpeedChange ? 1 : 0);
+        returnValue |= (unsigned char)(cpu.doubleSpeedMode ? 0x80 : 0);
 
 		return returnValue;
 
@@ -91,16 +91,16 @@ uint8_t Memory::readMemory(unsigned short address)
 	else if (address == 0xFF4F && GBCMode)
 	{
 		// Read VRAM Bank Number
-		return (byte)(0b11111110 | (vramBank & 0b00000001));
+        return (unsigned char)(0b11111110 | (vramBank & 0b00000001));
 	}
 	else if (address == 0xFF69 && GBCMode)
 	{
 		// Read Background Palette Ram Data.
 
 		// BG Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
-		byte bgIndexData = beakRam[0xFF68];
+        unsigned char bgIndexData = beakRam[0xFF68];
 		// Retrieve index data for palette ram read.
-		byte index = (byte)(bgIndexData & 0b00111111);
+        unsigned char index = (unsigned char)(bgIndexData & 0b00111111);
 
 		return backgroundPaletteRam[index];
 	}
@@ -109,9 +109,9 @@ uint8_t Memory::readMemory(unsigned short address)
 		// Read Sprite Palette Ram Data.
 
 		// Sprite Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
-		byte spriteIndexData = beakRam[0xFF6A];
+        unsigned char spriteIndexData = beakRam[0xFF6A];
 		// Retrieve index data for palette ram read.
-		byte index = (byte)(spriteIndexData & 0b00111111);
+        unsigned char index = (unsigned char)(spriteIndexData & 0b00111111);
 
 		return spritePaletteRam[index];
 	}
@@ -121,9 +121,9 @@ uint8_t Memory::readMemory(unsigned short address)
 	}
 }
 
-vector<uint8_t> Memory::readMemory(int address, int bytes)
+vector<unsigned char> Memory::readMemory(int address, int unsigned bytes)
 {
-	vector<uint8_t> returnMemory;
+    vector<unsigned char> returnMemory;
 
 	for (int i = 0; i < bytes; i++)
 	{
@@ -134,7 +134,7 @@ vector<uint8_t> Memory::readMemory(int address, int bytes)
 }
 
 //DMA Transfer
-void Memory::transferDMA(byte address)
+void Memory::transferDMA(unsigned char address)
 {
 	//TODO:This should occur over time, not all at once
 
@@ -149,7 +149,7 @@ void Memory::transferDMA(byte address)
 	}
 }
 
-void Memory::directMemoryWrite(unsigned short address, uint8_t value)
+void Memory::directMemoryWrite(unsigned short address, unsigned char value)
 {
 	/*
 	Write to Ram without ordinary restrictions. Only to be used by hardware emulating functions and not game instructions.
@@ -160,7 +160,7 @@ void Memory::directMemoryWrite(unsigned short address, uint8_t value)
 }
 
 
-void Memory::writeMemory(unsigned short address, uint8_t value)
+void Memory::writeMemory(unsigned short address, unsigned char value)
 {
 
 	if (rom.mapperSetting > 0 && address <= 0x7FFF)
@@ -252,7 +252,7 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 			else if (address == 0xFF68 && GBCMode)
 			{
 				// Set GBC Background Palette Index
-				beakRam[address] = (byte)(0x40 | (value));
+                beakRam[address] = (unsigned char)(0x40 | (value));
 				// Bit 7: Increment on Write setting //Bit 6: Unused //Bit 0,1,2,3,4,5 Index (0-3F)
 			}
 			else if (address == 0xFF69 && GBCMode)
@@ -260,11 +260,11 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 				// Write to Background Palette Ram.
 
 				// BG Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
-				byte bgIndexData = beakRam[0xFF68];
+                unsigned char bgIndexData = beakRam[0xFF68];
 				bool bgIndexAutoIncrement = (bgIndexData & 0x80) != 0;
 
 				// Retrieve index data for palette ram write.
-				byte index = (byte)(bgIndexData & 0b00111111);
+                unsigned char index = (unsigned char)(bgIndexData & 0b00111111);
 
 				// Write data to palette ram at index.
 				backgroundPaletteRam[index] = value;
@@ -272,7 +272,7 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 				// Increment index data if auto-increment is enabled.
 				if (bgIndexAutoIncrement)
 				{
-					byte newIndexData = (byte)(index + 1);
+                    unsigned char newIndexData = (unsigned char)(index + 1);
 					newIndexData |= 0b11000000; // Set unused and auto-increment bits to enabled.
 					beakRam[0xFF68] = newIndexData;
 				}
@@ -280,7 +280,7 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 			else if (address == 0xFF6A && GBCMode)
 			{
 				// Set GBC Sprite Palette Index
-				beakRam[address] = (byte)(0x40 | (value));
+                beakRam[address] = (unsigned char)(0x40 | (value));
 				// Bit 7: Increment on Write setting //Bit 6: Unused //Bit 0,1,2,3,4,5 Index (0-3F)
 			}
 			else if (address == 0xFF6B && GBCMode)
@@ -288,11 +288,11 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 				// Write to Sprite Palette Ram.
 
 				// Sprite Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
-				byte spriteIndexData = beakRam[0xFF6A];
+                unsigned char spriteIndexData = beakRam[0xFF6A];
 				bool spriteIndexAutoIncrement = (spriteIndexData & 0x80) != 0;
 
 				// Retrieve index data for palette ram write.
-				byte index = (byte)(spriteIndexData & 0b00111111);
+                unsigned char index = (unsigned char)(spriteIndexData & 0b00111111);
 
 				// Write data to palette ram at index.
 				spritePaletteRam[index] = value;
@@ -300,7 +300,7 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 				// Increment index data if auto-increment is enabled.
 				if (spriteIndexAutoIncrement)
 				{
-					byte newIndexData = (byte)(index + 1);
+                    unsigned char newIndexData = (unsigned char)(index + 1);
 					newIndexData |= 0b11000000; // Set unused and auto-increment bits to enabled.
 					beakRam[0xFF6A] = newIndexData;
 				}
@@ -308,7 +308,7 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 			else if (address == 0xFF70 && GBCMode)
 			{
 				// Swap WRAM Bank at 0xD000
-				byte bankValue = (byte)(value & 0b111);
+                unsigned char bankValue = (unsigned char)(value & 0b111);
 
 				if (bankValue == 0)
 					bankValue = 1;
@@ -336,11 +336,11 @@ void Memory::writeMemory(unsigned short address, uint8_t value)
 void Memory::writeMemory(unsigned short address, short shortVal)
 {
 
-	writeMemory((address + 1), (byte)((shortVal & 0xFF00) >> 8));
-	writeMemory((address), (byte)(shortVal & 0x00FF));
+    writeMemory((address + 1), (unsigned char)((shortVal & 0xFF00) >> 8));
+    writeMemory((address), (unsigned char)(shortVal & 0x00FF));
 }
 
-void Memory::swapVRAMBank(byte newBank)
+void Memory::swapVRAMBank(unsigned char newBank)
 {
 	// Mask away unused data.
 	newBank &= 0b00000001;
@@ -350,7 +350,7 @@ void Memory::swapVRAMBank(byte newBank)
 		// Swap bank in GB vram with bank in external VRAM.
 		for (int i = 0; i < 0x2000; i++)
 		{
-			byte temporarySwapByte = externalVRAMBank[i];   // Hold new data from external bank.
+            unsigned char temporarySwapByte = externalVRAMBank[i];   // Hold new data from external bank.
 			externalVRAMBank[i] = beakRam[0x8000 + i];       // Write previous bank data to external bank.
 			beakRam[0x8000 + i] = temporarySwapByte;         // Write new bank data to GB VRAM region.
 		}
@@ -360,7 +360,7 @@ void Memory::swapVRAMBank(byte newBank)
 	}
 }
 
-void Memory::swapInternalRamBank(byte newBank)
+void Memory::swapInternalRamBank(unsigned char newBank)
 {
 	if (internalRamBank != newBank)
 	{
@@ -390,7 +390,7 @@ void Memory::swapInternalRamBank(byte newBank)
 
 void Memory::toggleZFlag()
 {
-	byte flag = getF();
+    unsigned char flag = getF();
 	flag ^= 0x80; //Toggles left most bit
 	setF(flag);
 }
@@ -399,13 +399,13 @@ void Memory::setZFlag(bool setting)
 {
 	if (setting)
 	{
-		byte flag = getF();
+        unsigned char flag = getF();
 		flag |= 0x80; //Sets left most bit to 1
 		setF(flag);
 	}
 	else
 	{
-		byte flag = getF();
+        unsigned char flag = getF();
 		flag &= 0x7F; //Sets left most bit to 0
 		setF(flag);
 	}
@@ -413,7 +413,7 @@ void Memory::setZFlag(bool setting)
 
 bool Memory::getZFlag()
 {
-	byte flag = getF();
+    unsigned char flag = getF();
 	if (((flag & 0x80) >> 7) == 1)
 	{
 		return true;
@@ -426,7 +426,7 @@ bool Memory::getZFlag()
 
 void Memory::toggleNFlag()
 {
-	byte flag = getF();
+    unsigned char flag = getF();
 	flag ^= 0x40; //Toggles second to left most bit
 	setF(flag);
 }
@@ -435,13 +435,13 @@ void Memory::setNFlag(bool setting)
 {
 	if (setting)
 	{
-		byte flag = getF();
+        unsigned char flag = getF();
 		flag |= 0x40; //Sets second to left most bit to 1
 		setF(flag);
 	}
 	else
 	{
-		byte flag = getF();
+        unsigned char flag = getF();
 		flag &= 0xBF; //Sets second to left most bit to 0
 		setF(flag);
 	}
@@ -449,7 +449,7 @@ void Memory::setNFlag(bool setting)
 
 bool Memory::getNFlag()
 {
-	byte flag = getF();
+    unsigned char flag = getF();
 	if (((flag & 0x40) >> 6) == 1)
 	{
 		return true;
@@ -462,7 +462,7 @@ bool Memory::getNFlag()
 
 void Memory::toggleHFlag()
 {
-	byte flag = getF();
+    unsigned char flag = getF();
 	flag ^= 0x20; //Toggles third to left most bit
 	setF(flag);
 }
@@ -471,13 +471,13 @@ void Memory::setHFlag(bool setting)
 {
 	if (setting)
 	{
-		byte flag = getF();
+        unsigned char flag = getF();
 		flag |= 0x20; //Sets third to left most bit to 1
 		setF(flag);
 	}
 	else
 	{
-		byte flag = getF();
+        unsigned char flag = getF();
 		flag &= 0xDF; //Sets third to left most bit to 0
 		setF(flag);
 	}
@@ -485,7 +485,7 @@ void Memory::setHFlag(bool setting)
 
 bool Memory::getHFlag()
 {
-	byte flag = getF();
+    unsigned char flag = getF();
 	if (((flag & 0x20) >> 5) == 1)
 	{
 		return true;
@@ -498,7 +498,7 @@ bool Memory::getHFlag()
 
 void Memory::toggleCFlag()
 {
-	byte flag = getF();
+    unsigned char flag = getF();
 	flag ^= 0x10; //Toggles fourth to left most bit
 	setF(flag);
 }
@@ -507,13 +507,13 @@ void Memory::setCFlag(bool setting)
 {
 	if (setting)
 	{
-		byte flag = getF();
+        unsigned char flag = getF();
 		flag |= 0x10; //Sets fourth to left most bit to 1
 		setF(flag);
 	}
 	else
 	{
-		byte flag = getF();
+        unsigned char flag = getF();
 		flag &= 0xEF; //Sets fourth to left most bit to 0
 		setF(flag);
 	}
@@ -521,7 +521,7 @@ void Memory::setCFlag(bool setting)
 
 bool Memory::getCFlag()
 {
-	byte flag = getF();
+    unsigned char flag = getF();
 	if (((flag & 0x10) >> 4) == 1)
 	{
 		return true;
@@ -532,12 +532,12 @@ bool Memory::getCFlag()
 	}
 }
 
-byte Memory::getA()
+unsigned char Memory::getA()
 {
 	return (regAF & 0xFF00) >> 8;
 }
 
-byte Memory::getF()
+unsigned char Memory::getF()
 {
 	return (regAF & 0x00FF);
 }
@@ -547,12 +547,12 @@ short Memory::getAF()
 	return regAF;
 }
 
-byte Memory::getB()
+unsigned char Memory::getB()
 {
 	return (regBC & 0xFF00) >> 8;
 }
 
-byte Memory::getC()
+unsigned char Memory::getC()
 {
 	return (regBC & 0x00FF);
 }
@@ -562,12 +562,12 @@ short Memory::getBC()
 	return regBC;
 }
 
-byte Memory::getD()
+unsigned char Memory::getD()
 {
 	return (regDE & 0xFF00) >> 8;
 }
 
-byte Memory::getE()
+unsigned char Memory::getE()
 {
 	return (regDE & 0x00FF);
 }
@@ -577,12 +577,12 @@ short Memory::getDE()
 	return regDE;
 }
 
-byte Memory::getH()
+unsigned char Memory::getH()
 {
 	return (regHL & 0xFF00) >> 8;
 }
 
-byte Memory::getL()
+unsigned char Memory::getL()
 {
 	return (regHL & 0x00FF);
 }
@@ -592,13 +592,13 @@ short Memory::getHL()
 	return regHL;
 }
 
-void Memory::setA(byte newA)
+void Memory::setA(unsigned char newA)
 {
 	regAF = regAF & 0x00FF;
 	regAF |= newA << 8;
 }
 
-void Memory::setF(byte newF)
+void Memory::setF(unsigned char newF)
 {
 	regAF = regAF & 0xFF00;
 	regAF |= newF;
@@ -609,13 +609,13 @@ void Memory::setAF(short newAF)
 	regAF = newAF & 0xFFF0;
 }
 
-void Memory::setB(byte newB)
+void Memory::setB(unsigned char newB)
 {
 	regBC = regBC & 0x00FF;
 	regBC |= newB << 8;
 }
 
-void Memory::setC(byte newC)
+void Memory::setC(unsigned char newC)
 {
 	regBC = regBC & 0xFF00;
 	regBC |= newC;
@@ -626,13 +626,13 @@ void Memory::setBC(short newBC)
 	regBC = newBC;
 }
 
-void Memory::setD(byte newD)
+void Memory::setD(unsigned char newD)
 {
 	regDE = regDE & 0x00FF;
 	regDE |= newD << 8;
 }
 
-void Memory::setE(byte newE)
+void Memory::setE(unsigned char newE)
 {
 	regDE = regDE & 0xFF00;
 	regDE |= newE;
@@ -643,13 +643,13 @@ void Memory::setDE(short newDE)
 	regDE = newDE;
 }
 
-void Memory::setH(byte newH)
+void Memory::setH(unsigned char newH)
 {
 	regHL = regHL & 0x00FF;
 	regHL |= newH << 8;
 }
 
-void Memory::setL(byte newL)
+void Memory::setL(unsigned char newL)
 {
 	regHL = regHL & 0xFF00;
 	regHL |= newL;
@@ -660,7 +660,7 @@ void Memory::setHL(short newHL)
 	regHL = newHL;
 }
 
-byte Memory::getLCDControl()
+unsigned char Memory::getLCDControl()
 {
 	return readMemory(0xFF40);
 }
@@ -670,12 +670,12 @@ bool Memory::getLCDEnabled()
 	return (((getLCDControl() & 0x80) >> 7) > 0); //Bit 7
 }
 
-byte Memory::getLCDLY()
+unsigned char Memory::getLCDLY()
 {
 	return readMemory((short)0xFF44);
 }
 
-void Memory::setLCDLY(byte newLY)
+void Memory::setLCDLY(unsigned char newLY)
 {
 	writeMemory((short)0xFF44, newLY);
 }
@@ -722,7 +722,7 @@ void Memory::initializeGameBoyValues()
 		{
 			if (i < 0xDFFF)
 			{
-				writeMemory((short)(i + j), (byte)(randNum & 0x000000FF)); //So it ECHO will be emulated
+                writeMemory((short)(i + j), (unsigned char)(randNum & 0x000000FF)); //So it ECHO will be emulated
 				randNum >>= 8;
 			}
 		}
@@ -736,48 +736,48 @@ void Memory::initializeGameBoyValues()
 		{
 			if (i < 0xFFFE)
 			{
-				writeMemory((short)(i + j), (byte)(randNum & 0x000000FF)); //So it ECHO will be emulated
+                writeMemory((short)(i + j), (unsigned char)(randNum & 0x000000FF)); //So it ECHO will be emulated
 				randNum >>= 8;
 			}
 		}
 	}
 
-	beakRam[(unsigned short)0xFF00] = ((byte)0xCF); //Joypad
-	beakRam[(unsigned short)0xFF04] = ((byte)0xAB);
-	beakRam[(unsigned short)0xFF05] = ((byte)0x00); //TIMA
-	beakRam[(unsigned short)0xFF06] = ((byte)0x00); //TMA
-	beakRam[(unsigned short)0xFF07] = ((byte)0x00); //TAC
-	beakRam[(unsigned short)0xFF0F] = ((byte)0xE1); //IF
-	beakRam[(unsigned short)0xFF10] = ((byte)0x80); //NR10
-	beakRam[(unsigned short)0xFF11] = ((byte)0xBF); //NR11
-	beakRam[(unsigned short)0xFF12] = ((byte)0xF3); //NR12
-	beakRam[(unsigned short)0xFF14] = ((byte)0xBF); //NR14
-	beakRam[(unsigned short)0xFF16] = ((byte)0x3F); //NR21
-	beakRam[(unsigned short)0xFF17] = ((byte)0x00); //NR22
-	beakRam[(unsigned short)0xFF19] = ((byte)0xBF); //NR24
-	beakRam[(unsigned short)0xFF1A] = ((byte)0x7F); //NR30
-	beakRam[(unsigned short)0xFF1B] = ((byte)0xFF); //NR31
-	beakRam[(unsigned short)0xFF1C] = ((byte)0x9F); //NR32
-	beakRam[(unsigned short)0xFF1E] = ((byte)0xBF); //NR33
-	beakRam[(unsigned short)0xFF20] = ((byte)0xFF); //NR41
-	beakRam[(unsigned short)0xFF21] = ((byte)0x00); //NR42
-	beakRam[(unsigned short)0xFF22] = ((byte)0x00); //NR43
-	beakRam[(unsigned short)0xFF23] = ((byte)0xBF); //NR30
-	beakRam[(unsigned short)0xFF24] = ((byte)0x77); //NR50
-	beakRam[(unsigned short)0xFF25] = ((byte)0xF3); //NR51
-	beakRam[(unsigned short)0xFF26] = ((byte)0xF1); //NR52 //F1 for GB //F0 for SGB
-	beakRam[(unsigned short)0xFF40] = ((byte)0x91); //LCD Ctrl
-	beakRam[(unsigned short)0xFF41] = ((byte)0x85); //LCD Status
-	beakRam[(unsigned short)0xFF42] = ((byte)0x00); //SCY
-	beakRam[(unsigned short)0xFF43] = ((byte)0x00); //SCX
-	beakRam[(unsigned short)0xFF44] = ((byte)0x00); //LY
-	beakRam[(unsigned short)0xFF45] = ((byte)0x00); //LYC
-	beakRam[(unsigned short)0xFF47] = ((byte)0xFC); //BGP
-	beakRam[(unsigned short)0xFF48] = ((byte)0xFF); //OBP0
-	beakRam[(unsigned short)0xFF49] = ((byte)0xFF); //0BP1
-	beakRam[(unsigned short)0xFF4A] = ((byte)0x00); //WY
-	beakRam[(unsigned short)0xFF4B] = ((byte)0x00); //WX
-	beakRam[(unsigned short)0xFFFF] = ((byte)0x00); //IE
+    beakRam[(unsigned short)0xFF00] = ((unsigned char)0xCF); //Joypad
+    beakRam[(unsigned short)0xFF04] = ((unsigned char)0xAB);
+    beakRam[(unsigned short)0xFF05] = ((unsigned char)0x00); //TIMA
+    beakRam[(unsigned short)0xFF06] = ((unsigned char)0x00); //TMA
+    beakRam[(unsigned short)0xFF07] = ((unsigned char)0x00); //TAC
+    beakRam[(unsigned short)0xFF0F] = ((unsigned char)0xE1); //IF
+    beakRam[(unsigned short)0xFF10] = ((unsigned char)0x80); //NR10
+    beakRam[(unsigned short)0xFF11] = ((unsigned char)0xBF); //NR11
+    beakRam[(unsigned short)0xFF12] = ((unsigned char)0xF3); //NR12
+    beakRam[(unsigned short)0xFF14] = ((unsigned char)0xBF); //NR14
+    beakRam[(unsigned short)0xFF16] = ((unsigned char)0x3F); //NR21
+    beakRam[(unsigned short)0xFF17] = ((unsigned char)0x00); //NR22
+    beakRam[(unsigned short)0xFF19] = ((unsigned char)0xBF); //NR24
+    beakRam[(unsigned short)0xFF1A] = ((unsigned char)0x7F); //NR30
+    beakRam[(unsigned short)0xFF1B] = ((unsigned char)0xFF); //NR31
+    beakRam[(unsigned short)0xFF1C] = ((unsigned char)0x9F); //NR32
+    beakRam[(unsigned short)0xFF1E] = ((unsigned char)0xBF); //NR33
+    beakRam[(unsigned short)0xFF20] = ((unsigned char)0xFF); //NR41
+    beakRam[(unsigned short)0xFF21] = ((unsigned char)0x00); //NR42
+    beakRam[(unsigned short)0xFF22] = ((unsigned char)0x00); //NR43
+    beakRam[(unsigned short)0xFF23] = ((unsigned char)0xBF); //NR30
+    beakRam[(unsigned short)0xFF24] = ((unsigned char)0x77); //NR50
+    beakRam[(unsigned short)0xFF25] = ((unsigned char)0xF3); //NR51
+    beakRam[(unsigned short)0xFF26] = ((unsigned char)0xF1); //NR52 //F1 for GB //F0 for SGB
+    beakRam[(unsigned short)0xFF40] = ((unsigned char)0x91); //LCD Ctrl
+    beakRam[(unsigned short)0xFF41] = ((unsigned char)0x85); //LCD Status
+    beakRam[(unsigned short)0xFF42] = ((unsigned char)0x00); //SCY
+    beakRam[(unsigned short)0xFF43] = ((unsigned char)0x00); //SCX
+    beakRam[(unsigned short)0xFF44] = ((unsigned char)0x00); //LY
+    beakRam[(unsigned short)0xFF45] = ((unsigned char)0x00); //LYC
+    beakRam[(unsigned short)0xFF47] = ((unsigned char)0xFC); //BGP
+    beakRam[(unsigned short)0xFF48] = ((unsigned char)0xFF); //OBP0
+    beakRam[(unsigned short)0xFF49] = ((unsigned char)0xFF); //0BP1
+    beakRam[(unsigned short)0xFF4A] = ((unsigned char)0x00); //WY
+    beakRam[(unsigned short)0xFF4B] = ((unsigned char)0x00); //WX
+    beakRam[(unsigned short)0xFFFF] = ((unsigned char)0x00); //IE
 
 
 }
@@ -804,7 +804,7 @@ void Memory::initializeGameBoyColorValues()
 		{
 			if (i < 0xDFFF)
 			{
-				writeMemory((short)(i + j), (byte)(randNum & 0x000000FF)); //So it ECHO will be emulated
+                writeMemory((short)(i + j), (unsigned char)(randNum & 0x000000FF)); //So it ECHO will be emulated
 				randNum >>= 8;
 			}
 		}
@@ -818,48 +818,48 @@ void Memory::initializeGameBoyColorValues()
 		{
 			if (i < 0xFFFE)
 			{
-				writeMemory((short)(i + j), (byte)(randNum & 0x000000FF)); //So it ECHO will be emulated
+                writeMemory((short)(i + j), (unsigned char)(randNum & 0x000000FF)); //So it ECHO will be emulated
 				randNum >>= 8;
 			}
 		}
 	}
 
-	beakRam[(unsigned short)0xFF00] = ((byte)0xCF); //Joypad
-	beakRam[(unsigned short)0xFF04] = ((byte)0xAB);
-	beakRam[(unsigned short)0xFF05] = ((byte)0x00); //TIMA
-	beakRam[(unsigned short)0xFF06] = ((byte)0x00); //TMA
-	beakRam[(unsigned short)0xFF07] = ((byte)0x00); //TAC
-	beakRam[(unsigned short)0xFF0F] = ((byte)0xE1); //IF
-	beakRam[(unsigned short)0xFF10] = ((byte)0x80); //NR10
-	beakRam[(unsigned short)0xFF11] = ((byte)0xBF); //NR11
-	beakRam[(unsigned short)0xFF12] = ((byte)0xF3); //NR12
-	beakRam[(unsigned short)0xFF14] = ((byte)0xBF); //NR14
-	beakRam[(unsigned short)0xFF16] = ((byte)0x3F); //NR21
-	beakRam[(unsigned short)0xFF17] = ((byte)0x00); //NR22
-	beakRam[(unsigned short)0xFF19] = ((byte)0xBF); //NR24
-	beakRam[(unsigned short)0xFF1A] = ((byte)0x7F); //NR30
-	beakRam[(unsigned short)0xFF1B] = ((byte)0xFF); //NR31
-	beakRam[(unsigned short)0xFF1C] = ((byte)0x9F); //NR32
-	beakRam[(unsigned short)0xFF1E] = ((byte)0xBF); //NR33
-	beakRam[(unsigned short)0xFF20] = ((byte)0xFF); //NR41
-	beakRam[(unsigned short)0xFF21] = ((byte)0x00); //NR42
-	beakRam[(unsigned short)0xFF22] = ((byte)0x00); //NR43
-	beakRam[(unsigned short)0xFF23] = ((byte)0xBF); //NR30
-	beakRam[(unsigned short)0xFF24] = ((byte)0x77); //NR50
-	beakRam[(unsigned short)0xFF25] = ((byte)0xF3); //NR51
-	beakRam[(unsigned short)0xFF26] = ((byte)0xF1); //NR52 //F1 for GB //F0 for SGB
-	beakRam[(unsigned short)0xFF40] = ((byte)0x91); //LCD Ctrl
-	beakRam[(unsigned short)0xFF41] = ((byte)0x85); //LCD Status
-	beakRam[(unsigned short)0xFF42] = ((byte)0x00); //SCY
-	beakRam[(unsigned short)0xFF43] = ((byte)0x00); //SCX
-	beakRam[(unsigned short)0xFF44] = ((byte)0x00); //LY
-	beakRam[(unsigned short)0xFF45] = ((byte)0x00); //LYC
-	beakRam[(unsigned short)0xFF47] = ((byte)0xFC); //BGP
-	beakRam[(unsigned short)0xFF48] = ((byte)0xFF); //OBP0
-	beakRam[(unsigned short)0xFF49] = ((byte)0xFF); //0BP1
-	beakRam[(unsigned short)0xFF4A] = ((byte)0x00); //WY
-	beakRam[(unsigned short)0xFF4B] = ((byte)0x00); //WX
-	beakRam[(unsigned short)0xFFFF] = ((byte)0x00); //IE
+    beakRam[(unsigned short)0xFF00] = ((unsigned char)0xCF); //Joypad
+    beakRam[(unsigned short)0xFF04] = ((unsigned char)0xAB);
+    beakRam[(unsigned short)0xFF05] = ((unsigned char)0x00); //TIMA
+    beakRam[(unsigned short)0xFF06] = ((unsigned char)0x00); //TMA
+    beakRam[(unsigned short)0xFF07] = ((unsigned char)0x00); //TAC
+    beakRam[(unsigned short)0xFF0F] = ((unsigned char)0xE1); //IF
+    beakRam[(unsigned short)0xFF10] = ((unsigned char)0x80); //NR10
+    beakRam[(unsigned short)0xFF11] = ((unsigned char)0xBF); //NR11
+    beakRam[(unsigned short)0xFF12] = ((unsigned char)0xF3); //NR12
+    beakRam[(unsigned short)0xFF14] = ((unsigned char)0xBF); //NR14
+    beakRam[(unsigned short)0xFF16] = ((unsigned char)0x3F); //NR21
+    beakRam[(unsigned short)0xFF17] = ((unsigned char)0x00); //NR22
+    beakRam[(unsigned short)0xFF19] = ((unsigned char)0xBF); //NR24
+    beakRam[(unsigned short)0xFF1A] = ((unsigned char)0x7F); //NR30
+    beakRam[(unsigned short)0xFF1B] = ((unsigned char)0xFF); //NR31
+    beakRam[(unsigned short)0xFF1C] = ((unsigned char)0x9F); //NR32
+    beakRam[(unsigned short)0xFF1E] = ((unsigned char)0xBF); //NR33
+    beakRam[(unsigned short)0xFF20] = ((unsigned char)0xFF); //NR41
+    beakRam[(unsigned short)0xFF21] = ((unsigned char)0x00); //NR42
+    beakRam[(unsigned short)0xFF22] = ((unsigned char)0x00); //NR43
+    beakRam[(unsigned short)0xFF23] = ((unsigned char)0xBF); //NR30
+    beakRam[(unsigned short)0xFF24] = ((unsigned char)0x77); //NR50
+    beakRam[(unsigned short)0xFF25] = ((unsigned char)0xF3); //NR51
+    beakRam[(unsigned short)0xFF26] = ((unsigned char)0xF1); //NR52 //F1 for GB //F0 for SGB
+    beakRam[(unsigned short)0xFF40] = ((unsigned char)0x91); //LCD Ctrl
+    beakRam[(unsigned short)0xFF41] = ((unsigned char)0x85); //LCD Status
+    beakRam[(unsigned short)0xFF42] = ((unsigned char)0x00); //SCY
+    beakRam[(unsigned short)0xFF43] = ((unsigned char)0x00); //SCX
+    beakRam[(unsigned short)0xFF44] = ((unsigned char)0x00); //LY
+    beakRam[(unsigned short)0xFF45] = ((unsigned char)0x00); //LYC
+    beakRam[(unsigned short)0xFF47] = ((unsigned char)0xFC); //BGP
+    beakRam[(unsigned short)0xFF48] = ((unsigned char)0xFF); //OBP0
+    beakRam[(unsigned short)0xFF49] = ((unsigned char)0xFF); //0BP1
+    beakRam[(unsigned short)0xFF4A] = ((unsigned char)0x00); //WY
+    beakRam[(unsigned short)0xFF4B] = ((unsigned char)0x00); //WX
+    beakRam[(unsigned short)0xFFFF] = ((unsigned char)0x00); //IE
 
 
 }
@@ -882,7 +882,7 @@ bool Memory::loadRom(string path)
 			for (int i = 0x0; i < (int)romData.size(); i++)
 			{
 				//writeMemory(address + i, (uint8_t)rom.at(i));
-				rom.beakRom[address + i] = (uint8_t)romData.at(i);
+                rom.beakRom[address + i] = (unsigned char)romData.at(i);
 			}
 		}
 		else
@@ -922,7 +922,7 @@ bool Memory::loadRom(string path, bool findAndLoadSaveFile)
 			for (int i = 0x0; i < (int)romData.size(); i++)
 			{
 				//writeMemory(address + i, (uint8_t)rom.at(i));
-				rom.beakRom[address + i] = (uint8_t)romData.at(i);
+                rom.beakRom[address + i] = (unsigned char)romData.at(i);
 			}
 		}
 		else
@@ -962,7 +962,7 @@ bool Memory::loadRom(string path, bool findAndLoadSaveFile)
 /*
 Load Rom From Array
 */
-bool Memory::loadRom(byte* romData, int romSize)
+bool Memory::loadRom(unsigned char* romData, int romSize)
 {
 
 	if (romSize > 0)
@@ -972,7 +972,7 @@ bool Memory::loadRom(byte* romData, int romSize)
 		{
 			for (int i = 0x0; i < romSize; i++)
 			{
-				rom.beakRom[i] = (uint8_t)romData[i];
+                rom.beakRom[i] = (unsigned char)romData[i];
 			}
 		}
 		else
@@ -993,7 +993,7 @@ bool Memory::loadRom(byte* romData, int romSize)
 /*
 Load Rom And Save File From Array
 */
-bool Memory::loadRom(byte* romData, int romSize, byte* save, int saveSize)
+bool Memory::loadRom(unsigned char* romData, int romSize, unsigned char* save, int saveSize)
 {
 
 	if (romSize > 0)
@@ -1003,7 +1003,7 @@ bool Memory::loadRom(byte* romData, int romSize, byte* save, int saveSize)
 		{
 			for (int i = 0x0; i < romSize; i++)
 			{
-				rom.beakRom[i] = (uint8_t)romData[i];
+                rom.beakRom[i] = (unsigned char)romData[i];
 			}
 		}
 		else
@@ -1044,7 +1044,7 @@ bool Memory::loadSaveFile(string filepath)
 			unsigned short address = 0xA000;
 			for (unsigned short i = 0x0; i <= 0x1FFF; i++)
 			{
-				beakRam[address + i] = (uint8_t)savefile.at(i);
+                beakRam[address + i] = (unsigned char)savefile.at(i);
 			}
 		}
 		else
@@ -1066,7 +1066,7 @@ bool Memory::loadSaveFile(string filepath)
 /*
 Load Save File From Array
 */
-bool Memory::loadSaveFile(byte* saveFile, int saveSize)
+bool Memory::loadSaveFile(unsigned char* saveFile, int saveSize)
 {
 
 	if (saveSize > 0)
@@ -1077,7 +1077,7 @@ bool Memory::loadSaveFile(byte* saveFile, int saveSize)
 			unsigned short address = 0xA000;
 			for (unsigned short i = 0x0; i <= 0x1FFF; i++)
 			{
-				beakRam[address + i] = (uint8_t)saveFile[i];
+                beakRam[address + i] = (unsigned char)saveFile[i];
 			}
 		}
 		else
@@ -1095,9 +1095,9 @@ bool Memory::loadSaveFile(byte* saveFile, int saveSize)
 	return true;
 }
 
-vector<uint8_t> Memory::returnSaveDataFromMemory()
+vector<unsigned char> Memory::returnSaveDataFromMemory()
 {
-	vector<uint8_t> memory;
+    vector<unsigned char> memory;
 
 	uint16_t address = 0xA000;
 	for (int i = 0; i <= 0x1FFF; i++)
@@ -1141,7 +1141,7 @@ void Memory::saveState()
 
 		for (int i = 0x8000; i <= 0xFFFF; i++)
 		{
-			byte ram = beakRam[i];
+            unsigned char ram = beakRam[i];
 
 			file << hexToASCII(beakRam[i]) << ';';
 		}
@@ -1164,7 +1164,7 @@ void Memory::loadSaveState()
 	if (!savestateFile.fail())
 	{
 		string line;
-		list<byte> colorValues;
+        list<unsigned char> colorValues;
 
 		bool quit = false;
 		bool setRomBank = false;
