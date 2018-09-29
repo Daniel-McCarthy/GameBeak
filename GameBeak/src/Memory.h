@@ -16,7 +16,10 @@ using namespace std;
 
 class Rom;
 class Memory
+class Memory : public QWidget
 {
+    Q_OBJECT
+
 	private:
 	byte beakRam[0xFFFF+1];
 	byte externalVRAMBank[0x2000]; //CGB Only
@@ -30,8 +33,6 @@ class Memory
 	byte vramBank = 0; //CGB Only
 
 	public:
-		Memory();
-		~Memory();
 	void writeRom0ToRam();
 	void writeFullRomToRam();
 
@@ -104,6 +105,8 @@ class Memory
 	void setA(byte newA);
 
 	void setF(byte newF);
+         explicit Memory(QWidget *parent = nullptr);
+        ~Memory();
 
 	void setAF(short newAF);
 

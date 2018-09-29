@@ -3,7 +3,7 @@
 #include "Main.h"
 
 
-Memory::Memory()
+Memory::Memory(QWidget *parent) : QWidget(parent)
 {
 }
 
