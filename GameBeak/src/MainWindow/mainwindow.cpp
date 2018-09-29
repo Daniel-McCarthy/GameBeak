@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,4 +12,13 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_actionOpen_triggered()
+{
+    QString filePath = QFileDialog::getOpenFileName(this, ("Open GB File"),
+                                                      "/home",
+                                                      ("GameBoy Files (*.gb *.gbc)"));
+
+    emit onGameFileOpened(filePath);
 }
