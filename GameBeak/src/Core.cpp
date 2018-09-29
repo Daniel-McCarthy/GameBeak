@@ -9,3 +9,7 @@ Memory* Core::getMemoryPointer() {
     return memory;
 }
 
+Rom* Core::getRomPointer() {
+    return rom;
+}
+

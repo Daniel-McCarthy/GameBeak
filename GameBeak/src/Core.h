@@ -13,6 +13,7 @@ class Core : public QWidget
 public:
     explicit Core(QWidget *parent = nullptr);
     Memory* getMemoryPointer();
+    Rom* getRomPointer();
 
 private:
     Memory* memory = new Memory();
