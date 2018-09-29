@@ -1095,13 +1095,11 @@ bool Memory::loadSaveFile(unsigned char* saveFile, int saveSize)
 	return true;
 }
 
-vector<unsigned char> Memory::returnSaveDataFromMemory()
+QList<unsigned char> Memory::returnSaveDataFromMemory()
 {
-    vector<unsigned char> memory;
-
-	uint16_t address = 0xA000;
-	for (int i = 0; i <= 0x1FFF; i++)
-	{
+    QList<unsigned char> memory;
+    unsigned short address = 0xA000;
+    for (int i = 0; i <= 0x1FFF; i++) {
 		memory.push_back(beakRam[address + i]);
 	}
 

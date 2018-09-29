@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QString>
+#include <QList>
 #include <QWidget>
 
 #ifndef MEMORYH
