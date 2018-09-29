@@ -43,5 +43,14 @@ public:
 
 	void operator=(const Rom & newRom);
 
+    signals:
+        void fullRomWrite();
+        void rom0Write();
+
+        void setMBC1RomBank(unsigned int bankNumber);
+        void setMBC2RomBank(unsigned int bankNumber);
+        void setMBC3RomBank(unsigned int bankNumber);
+        void setMBC5RomBank(unsigned int bankNumber);
+
 };
 #endif

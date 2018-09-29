@@ -54,26 +54,26 @@ void Rom::readRomHeader()
 	if (mapperSetting == 0)
 	{
 		//None
-		beakMemory.writeFullRomToRam();
+        emit fullRomWrite();
 	}
 	else if (mapperSetting <= 3)
 	{
 		//MBC1
-		beakMemory.writeRom0ToRam();
-		mbc1.changeMBC1RomBanks(1);
+        emit rom0Write();
+        emit setMBC1RomBank(1);
 	}
 	else if (mapperSetting <= 6)
 	{
 		//MBC2
-		beakMemory.writeRom0ToRam();
-		mbc2.changeMBC2RomBanks(1);
+        emit rom0Write();
+        emit setMBC2RomBank(1);
 	}
 	else if (mapperSetting <= 9)
 	{
 		//8: Rom+Ram
 		//9: Rom+Ram+Battery
 
-		beakMemory.writeFullRomToRam();
+        emit fullRomWrite();
 	}
 	else if (mapperSetting <= 0x0D)
 	{
@@ -81,7 +81,7 @@ void Rom::readRomHeader()
 		//0C: MMM01+Ram
 		//0D: MMM01+Ram+Battery
 
-		beakMemory.writeRom0ToRam();
+        emit rom0Write();
 	}
 	else if (mapperSetting <= 0x10)
 	{
@@ -91,17 +91,17 @@ void Rom::readRomHeader()
 		//12: MBC3+Ram
 		//13: MBC3+Ram+Battery
 
-		beakMemory.writeRom0ToRam();
-		mbc3.changeMBC3RomBanks(1);
+        emit rom0Write();
+        emit setMBC3RomBank(1);
 	}
 	else if (mapperSetting <= 0x1E)
 	{
-		beakMemory.writeRom0ToRam();
-		mbc5.changeMBC5RomBanks(1);
+        emit rom0Write();
+        emit setMBC5RomBank(1);
 	}
 	else
 	{
-		beakMemory.writeFullRomToRam();
+        emit fullRomWrite();
 		//writeRom0ToRam();
 	}
 
