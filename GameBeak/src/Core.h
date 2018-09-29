@@ -17,9 +17,11 @@ private:
     Memory* memory = new Memory();
     Rom* rom = new Rom();
     Cpu* cpu = new Cpu();
+    bool GBCMode;
 
 signals:
 
 public slots:
 };
 
+#endif // CORE_H
