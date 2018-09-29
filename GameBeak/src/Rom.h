@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include <string>
 using namespace std;
+#include <QString>
 #include <QWidget>
 
 #ifndef ROMH
@@ -30,8 +31,8 @@ public:
 	unsigned short romBankNumber = 0;
 	unsigned short ramBankNumber = 0;
 
-	string romFilePath = "";
-	string title = "";
+    QString romFilePath = "";
+    QString title = "";
     Rom(QWidget *parent = nullptr);
     Rom(unsigned char* romData, unsigned int length);
 	~Rom();
