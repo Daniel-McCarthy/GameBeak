@@ -3,6 +3,7 @@
 
 #include "src/Memory.h"
 #include "src/Rom.h"
+#include "src/Cpu.h"
 
 #include <QWidget>
 
@@ -15,6 +16,7 @@ public:
 private:
     Memory* memory = new Memory();
     Rom* rom = new Rom();
+    Cpu* cpu = new Cpu();
 
 signals:
 
