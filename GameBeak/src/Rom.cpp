@@ -2,15 +2,8 @@
 #include "Rom.h"
 #include "Main.h"
 
-
-Rom::Rom()
-{
-}
-
-
-Rom::~Rom()
-{
-}
+Rom::Rom(QWidget *parent) : QWidget(parent) {}
+Rom::~Rom() {}
 
 Rom::Rom(byte* romData, unsigned int length)
 {

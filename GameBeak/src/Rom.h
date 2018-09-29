@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include <string>
 using namespace std;
+#include <QWidget>
 
 #ifndef ROMH
 #define ROMH
@@ -8,8 +9,10 @@ using namespace std;
 
 #pragma once
 class Memory;
-class Rom
+class Rom : public QWidget
 {
+    Q_OBJECT
+
 private:
 	byte romSize = 0;
 	byte romByteSize = 0;
@@ -29,8 +32,8 @@ public:
 
 	string romFilePath = "";
 	string title = "";
-	Rom();
 	Rom(byte* romData, unsigned int length);
+    Rom(QWidget *parent = nullptr);
 	~Rom();
 	void readRomHeader();
 	unsigned char readByte(unsigned int address);
