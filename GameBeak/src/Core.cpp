@@ -13,3 +13,7 @@ Rom* Core::getRomPointer() {
     return rom;
 }
 
+Cpu* Core::getCPUPointer() {
+    return cpu;
+}
+

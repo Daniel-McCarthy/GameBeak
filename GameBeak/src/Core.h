@@ -14,6 +14,8 @@ public:
     explicit Core(QWidget *parent = nullptr);
     Memory* getMemoryPointer();
     Rom* getRomPointer();
+    Cpu* getCPUPointer();
+
 
 private:
     Memory* memory = new Memory();
