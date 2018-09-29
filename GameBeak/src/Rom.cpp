@@ -15,14 +15,11 @@ Rom::Rom(unsigned char* romData, unsigned int length)
 
 void Rom::readRomHeader()
 {
-	//if(checkNintendoLogoInRom()) {
 
 	for (int i = 0; i < 16; i++)
 	{
 		title += (char)beakRom[0x134 + i];
 	}
-
-	//beakWindow.window->setTitle("GameBeak -" + title);
 
 	//ASCII title should be upper case and 16 bytes for GB roms.
 	//Very early GBC roms should be 15, but all GBC roms after should be 11, with the extra bytes being
