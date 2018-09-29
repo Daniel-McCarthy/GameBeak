@@ -1,6 +1,5 @@
-#include "Memory.h"
-#include "Rom.h"
-#include "Main.h"
+#include "src/Rom.h"
+#include "src/Memory.h"
 
 Rom::Rom(QWidget *parent) : QWidget(parent) {}
 Rom::~Rom() {}
