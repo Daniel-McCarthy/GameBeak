@@ -109,8 +109,8 @@ class Memory : public QWidget
 
         bool loadRom(QString path);
         bool loadRom(QString path, bool findAndLoadSaveFile);
-        bool loadRom(unsigned char* rom, int romSize);
         bool loadRom(unsigned char* rom, int romSize, unsigned char* save, int saveSize);
+        bool loadRom(QByteArray rom);
 
         bool loadSaveFile(QString filepath);
 
