@@ -121,9 +121,9 @@ unsigned char Memory::readMemory(unsigned short address)
 	}
 }
 
-vector<unsigned char> Memory::readMemory(int address, int unsigned bytes)
+QList<unsigned char> Memory::readMemory(int address, int bytes)
 {
-    vector<unsigned char> returnMemory;
+    QList<unsigned char> returnMemory;
 
 	for (int i = 0; i < bytes; i++)
 	{
