@@ -548,6 +548,9 @@ public:
 	void opcodeCBFD();
 	void opcodeCBFE();
 	void opcodeCBFF();
+
+public slots:
+    void setDoubleSpeedModeSignal(bool newSpeedSetting);
 };
 
 #endif // !CPUH

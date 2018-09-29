@@ -7692,3 +7692,10 @@ void Cpu::setRepeat(bool newRepeat)
 {
 	repeatBug = newRepeat;
 }
+
+void Cpu::setDoubleSpeedModeSignal(bool newSpeedSetting) {
+    if (doubleSpeedMode != newSpeedSetting)
+    {
+        preparingSpeedChange = true;
+    }
+}
