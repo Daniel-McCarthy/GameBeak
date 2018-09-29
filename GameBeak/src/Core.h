@@ -22,7 +22,7 @@ private:
     Memory* memory = new Memory();
     Rom* rom = new Rom();
     Cpu* cpu = new Cpu();
-    bool GBCMode;
+    bool* GBCMode;
 
 signals:
 
