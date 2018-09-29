@@ -174,11 +174,11 @@ void Memory::writeMemory(unsigned short address, unsigned char value)
 	{
         if (rom->mapperSetting <= 3)
 		{
-			mbc1.writeMBC1Value(address, value);
+            emit writeMBC1Value(address, value);
 		}
         else if (rom->mapperSetting <= 6)
 		{
-			mbc2.writeMBC2Value(address, value);
+            emit writeMBC2Value(address, value);
 		}
         else if (rom->mapperSetting <= 9)
 		{
@@ -200,11 +200,11 @@ void Memory::writeMemory(unsigned short address, unsigned char value)
 			//13: MBC3+Ram+Battery
 
 			//Add this later: MBC3 is not currently ready (RTC)
-			mbc3.writeMBC3Value(address, value);
+            emit writeMBC3Value(address, value);
 		}
         else if (rom->mapperSetting <= 0x1E)
 		{
-			mbc5.writeMBC5Value(address, value);
+            emit writeMBC5Value(address, value);
 		}
 		//TODO: Add more MBC controllers
 

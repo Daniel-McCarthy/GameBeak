@@ -142,6 +142,10 @@ class Memory : public QWidget
 
        signals:
             void cpu_SetDoubleSpeedMode(bool speedSetting);
+            void writeMBC1Value(unsigned short address, unsigned char value);
+            void writeMBC2Value(unsigned short address, unsigned char value);
+            void writeMBC3Value(unsigned short address, unsigned char value);
+            void writeMBC5Value(unsigned short address, unsigned char value);
 };
 
 
