@@ -951,36 +951,13 @@ bool Memory::loadRom(QByteArray romData)
 /*
 Load Rom And Save File From Array
 */
-bool Memory::loadRom(unsigned char* romData, int romSize, unsigned char* save, int saveSize)
+bool Memory::loadRom(QByteArray romData, QByteArray save)
 {
-
-	if (romSize > 0)
-	{
-
-		if (romSize <= 0x500000)
-		{
-			for (int i = 0x0; i < romSize; i++)
-			{
-                rom->beakRom[i] = (unsigned char)romData[i];
-			}
-		}
-		else
-		{
-			cout << "Error: Rom too large. It does not fit in GameBoy's memory." << endl;
-			return false;
-		}
-	}
-	else
-	{
-		cout << "Error: Rom is empty." << endl;
-		return false;
-	}
+    bool romLoaded = loadRom(romData);
+    bool saveLoaded = loadSaveFile(save);
 
 
-	beakMemory.loadSaveFile(save, saveSize);
-
-
-	return true;
+    return romLoaded && saveLoaded;
 }
 
 
