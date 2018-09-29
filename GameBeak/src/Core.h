@@ -12,6 +12,7 @@ class Core : public QWidget
     Q_OBJECT
 public:
     explicit Core(QWidget *parent = nullptr);
+    Memory* getMemoryPointer();
 
 private:
     Memory* memory = new Memory();
