@@ -6,12 +6,14 @@
 #ifndef MEMORYH
 #define MEMORYH
 
+class Cpu;
 class Rom;
 class Memory : public QWidget
 {
     Q_OBJECT
 
 	private:
+        Cpu* cpu;
         unsigned char beakRam[0xFFFF+1];
         unsigned char externalVRAMBank[0x2000]; //CGB Only
         unsigned char internalRam[0x8000]; //CGB Only
