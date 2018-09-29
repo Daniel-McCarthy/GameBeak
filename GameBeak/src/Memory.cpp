@@ -864,41 +864,36 @@ void Memory::initializeGameBoyColorValues()
 
 }
 
-bool Memory::loadRom(string path)
+bool Memory::loadRom(QString path)
 {
-	ifstream inputFile(path, ios::binary | ios::ate);
+    QFile selectedFile(path);
 
-	if (inputFile.is_open())
-	{
-		int fileLength = (int)inputFile.tellg();
-		inputFile.seekg(0, ios::beg);
-		vector<char> romData(fileLength);
-		inputFile.read(romData.data(), fileLength);
+    if (selectedFile.open(QIODevice::ReadOnly)) {
 
-		if (romData.size() <= 0x500000)
+        QByteArray binaryFileData = selectedFile.readAll();
+        int fileLength = binaryFileData.length();
+
+        if (fileLength <= 0x500000)
 		{
-			
 			int address = 0;
-			for (int i = 0x0; i < (int)romData.size(); i++)
+            for (int i = 0x0; i < fileLength; i++)
 			{
-                //writeMemory(address + i, (uint8_t)rom->at(i));
-                rom->beakRom[address + i] = (unsigned char)romData.at(i);
+                rom->beakRom[address + i] = static_cast<unsigned char>(binaryFileData.at(i));
 			}
 		}
 		else
 		{
-			cout << "Error: Rom too large. It does not fit in GameBoy's memory." << endl;
+            //cout << "Error: Rom too large. It does not fit in GameBoy's memory." << endl;
 			return false;
 		}
 	}
 	else
 	{
-		cout << "Error: Rom does not exist." << endl;
+        //cout << "Error: Rom does not exist." << endl;
 		return false;
 	}
 
-	inputFile.close();
-
+    selectedFile.close();
 	return true;
 }
 
