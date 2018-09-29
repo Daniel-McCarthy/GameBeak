@@ -5,7 +5,6 @@
 #ifndef CPUH
 #define CPUH
 
-class Cpu
 class Cpu : public QWidget
 {
     Q_OBJECT
