@@ -136,6 +136,10 @@ class Memory : public QWidget
         void saveState();
         void loadSaveState();
 
+        public slots:
+            void writeFullRomToRam();
+            void writeRom0ToRam();
+
 };
 
 
