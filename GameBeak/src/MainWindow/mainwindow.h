@@ -21,6 +21,8 @@ private:
 private slots:
     void on_actionOpen_triggered();
 
+signals:
+    void onGameFileOpened(QString filePath);
 };
 
 #endif // MAINWINDOW_H
