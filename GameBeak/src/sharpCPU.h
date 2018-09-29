@@ -3,10 +3,6 @@
 #ifndef CPUH
 #define CPUH
 
-#include <Windows.h>
-
-using namespace std;
-
 class sharpCPU
 {
 private:
