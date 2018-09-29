@@ -1,6 +1,3 @@
-#include <Windows.h>
-#include <string>
-using namespace std;
 #include <QString>
 #include <QWidget>
 
