@@ -117,20 +117,17 @@ class Memory : public QWidget
         bool loadRom(unsigned char* rom, int romSize);
         bool loadRom(unsigned char* rom, int romSize, unsigned char* save, int saveSize);
 
-	/*
-	Load Save File From Array
-	*/
+        bool loadSaveFile(QString filepath);
 
+        /*
+        Load Save File From Array
+        */
         bool loadSaveFile(unsigned char* saveFile, int saveSize);
 
-	
-	void saveState();
-	
-	
-	void loadSaveState();
-	
         QList<unsigned char> returnSaveDataFromMemory();
 
+        void saveState();
+        void loadSaveState();
 
 };
 
