@@ -3,7 +3,7 @@
 #ifndef CPUH
 #define CPUH
 
-class sharpCPU
+class Cpu
 {
 private:
 	bool interrupt = false; 
@@ -12,8 +12,8 @@ private:
     unsigned char haltMode = 0;
 
 public:
-	sharpCPU() {}
-	~sharpCPU() {}
+    Cpu() {}
+    ~Cpu() {}
 
 	bool interruptsEnabled = true;
 	int tClock = 0;
