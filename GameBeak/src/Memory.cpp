@@ -1066,33 +1066,25 @@ bool Memory::loadSaveFile(string filepath)
 /*
 Load Save File From Array
 */
-bool Memory::loadSaveFile(unsigned char* saveFile, int saveSize)
+bool Memory::loadSaveFile(QByteArray saveFile)
 {
+    int fileLength = saveFile.length();
+    bool fileNotEmpty = fileLength > 0;
+    bool fileNotTooLarge = fileLength <= 0x2000;
 
-	if (saveSize > 0)
-	{
-
-		if (saveSize >= 0x2000)
-		{
-			unsigned short address = 0xA000;
-			for (unsigned short i = 0x0; i <= 0x1FFF; i++)
-			{
-                beakRam[address + i] = (unsigned char)saveFile[i];
-			}
-		}
-		else
-		{
-			cout << "Error: Save file is too large." << endl;
-			return false;
-		}
-	}
-	else
-	{
-		cout << "Error: Save file has no data." << endl;
-		return false;
-	}
-
-	return true;
+    if (fileNotEmpty && fileNotTooLarge) {
+        unsigned short address = 0xA000;
+        for (unsigned short i = 0x0; i <= 0x1FFF; i++) {
+            beakRam[address + i] = (unsigned char)saveFile[i];
+        }
+        return true;
+    } else if(fileNotEmpty == false) {
+        //cout << "Error: Save file has no data." << endl;
+        return false;
+    } else {
+        //cout << "Error: Save file is too large." << endl;
+        return false;
+    }
 }
 
 QList<unsigned char> Memory::returnSaveDataFromMemory()

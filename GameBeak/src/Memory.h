@@ -117,7 +117,7 @@ class Memory : public QWidget
         /*
         Load Save File From Array
         */
-        bool loadSaveFile(unsigned char* saveFile, int saveSize);
+        bool loadSaveFile(QByteArray saveFile);
 
         QList<unsigned char> returnSaveDataFromMemory();
 
