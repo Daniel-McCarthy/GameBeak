@@ -16,7 +16,7 @@ void Memory::writeRom0ToRam()
 {
 	for (int i = 0; i <= 0x3FFF; i++)
 	{
-		beakRam[i] = rom.readByte(i);
+        beakRam[i] = rom->readByte(i);
 	}
 }
 
@@ -24,7 +24,7 @@ void Memory::writeFullRomToRam()
 {
 	for (int i = 0; i <= 0x7FFF; i++)
 	{
-		beakRam[i] = rom.readByte(i);
+        beakRam[i] = rom->readByte(i);
 	}
 }
 
@@ -163,28 +163,28 @@ void Memory::directMemoryWrite(unsigned short address, unsigned char value)
 void Memory::writeMemory(unsigned short address, unsigned char value)
 {
 
-	if (rom.mapperSetting > 0 && address <= 0x7FFF)
+    if (rom->mapperSetting > 0 && address <= 0x7FFF)
 	{
-		if (rom.mapperSetting <= 3)
+        if (rom->mapperSetting <= 3)
 		{
 			mbc1.writeMBC1Value(address, value);
 		}
-		else if (rom.mapperSetting <= 6)
+        else if (rom->mapperSetting <= 6)
 		{
 			mbc2.writeMBC2Value(address, value);
 		}
-		else if (rom.mapperSetting <= 9)
+        else if (rom->mapperSetting <= 9)
 		{
 			//8: Rom+Ram
 			//9: Rom+Ram+Battery
 		}
-		else if (rom.mapperSetting <= 0x0D)
+        else if (rom->mapperSetting <= 0x0D)
 		{
 			//0B: MMM01
 			//0C: MMM01+Ram
 			//0D: MMM01+Ram+Battery
 		}
-		else if (rom.mapperSetting <= 0x10)
+        else if (rom->mapperSetting <= 0x10)
 		{
 			//0F: MBC3+Timer+Battery
 			//10: MBC3+Timer+Ram+Battery
@@ -195,7 +195,7 @@ void Memory::writeMemory(unsigned short address, unsigned char value)
 			//Add this later: MBC3 is not currently ready (RTC)
 			mbc3.writeMBC3Value(address, value);
 		}
-		else if (rom.mapperSetting <= 0x1E)
+        else if (rom->mapperSetting <= 0x1E)
 		{
 			mbc5.writeMBC5Value(address, value);
 		}
@@ -881,8 +881,8 @@ bool Memory::loadRom(string path)
 			int address = 0;
 			for (int i = 0x0; i < (int)romData.size(); i++)
 			{
-				//writeMemory(address + i, (uint8_t)rom.at(i));
-                rom.beakRom[address + i] = (unsigned char)romData.at(i);
+                //writeMemory(address + i, (uint8_t)rom->at(i));
+                rom->beakRom[address + i] = (unsigned char)romData.at(i);
 			}
 		}
 		else
@@ -921,8 +921,8 @@ bool Memory::loadRom(string path, bool findAndLoadSaveFile)
 			int address = 0;// 0x100;//? //0x200;
 			for (int i = 0x0; i < (int)romData.size(); i++)
 			{
-				//writeMemory(address + i, (uint8_t)rom.at(i));
-                rom.beakRom[address + i] = (unsigned char)romData.at(i);
+                //writeMemory(address + i, (uint8_t)rom->at(i));
+                rom->beakRom[address + i] = (unsigned char)romData.at(i);
 			}
 		}
 		else
@@ -972,7 +972,7 @@ bool Memory::loadRom(unsigned char* romData, int romSize)
 		{
 			for (int i = 0x0; i < romSize; i++)
 			{
-                rom.beakRom[i] = (unsigned char)romData[i];
+                rom->beakRom[i] = (unsigned char)romData[i];
 			}
 		}
 		else
@@ -1003,7 +1003,7 @@ bool Memory::loadRom(unsigned char* romData, int romSize, unsigned char* save, i
 		{
 			for (int i = 0x0; i < romSize; i++)
 			{
-                rom.beakRom[i] = (unsigned char)romData[i];
+                rom->beakRom[i] = (unsigned char)romData[i];
 			}
 		}
 		else
@@ -1121,7 +1121,7 @@ void Memory::saveState()
 	if (file.is_open())
 	{
 		file << "[Title:]" << title << endl;
-		file << "[MBC:]" << hexToASCII(rom.mapperSetting) << endl;
+        file << "[MBC:]" << hexToASCII(rom->mapperSetting) << endl;
 		file << "[Rom Bank:]" << hexToASCIIU(mapper.romBankNumber) << endl;
 		file << "[Ram Bank:]" << hexToASCII(mapper.ramBankNumber) << endl;
 		file << "[AF:]" << hexToASCIIU(regAF) << endl;
@@ -1252,7 +1252,7 @@ void Memory::loadSaveState()
 					unsigned int romBank = stoi(line, 0, 16);
 
 					//Change Rom Bank based on which memory controller it is
-					switch (rom.mapperSetting)
+                    switch (rom->mapperSetting)
 					{
 					case 1:
 					case 2:
