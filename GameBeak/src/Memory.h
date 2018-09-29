@@ -23,6 +23,15 @@ class Memory : public QWidget
         unsigned char internalRam[0x8000]; //CGB Only
         QString title;
 
+        //Registers
+        short regAF;
+        short regBC;
+        short regDE;
+        short regHL;
+
+        short memoryPointer;
+        short stackPointer;
+
         //GBC Only Registers
         unsigned char backgroundPaletteRam[0x40];
         unsigned char spritePaletteRam[0x40];
