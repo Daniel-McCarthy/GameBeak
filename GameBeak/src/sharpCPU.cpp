@@ -6,7 +6,7 @@
 #include <tuple>
 #include "Debugger.h"
 
-void sharpCPU::selectOpcode(byte opcode)
+void sharpCPU::selectOpcode(unsigned char opcode)
 {
 
 	if (enableInterruptsNextCycle)
@@ -1740,7 +1740,7 @@ void sharpCPU::opcode05()
 	beakMemory.setHFlag((((beakMemory.getB()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
-void sharpCPU::opcode06(byte n)
+void sharpCPU::opcode06(unsigned char n)
 {
 	//Load byte into B
 	beakMemory.setB(n);
@@ -1837,7 +1837,7 @@ void sharpCPU::opcode0D()
 	beakMemory.setHFlag((((beakMemory.getC()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
-void sharpCPU::opcode0E(byte n)
+void sharpCPU::opcode0E(unsigned char n)
 {
 	//Load byte into C
 	beakMemory.setC(n);
@@ -1924,7 +1924,7 @@ void sharpCPU::opcode15()
 	beakMemory.setHFlag((((beakMemory.getD()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
-void sharpCPU::opcode16(byte n)
+void sharpCPU::opcode16(unsigned char n)
 {
 	//Load byte into D
 	beakMemory.setD(n);
@@ -1935,7 +1935,7 @@ void sharpCPU::opcode16(byte n)
 void sharpCPU::opcode17()
 {
 	//RLCA Rotate A Left - Set right most bit to current carry flag
-	byte cFlag = (beakMemory.getCFlag() == true) ? 0x01 : 0x00;
+    unsigned char cFlag = (beakMemory.getCFlag() == true) ? 0x01 : 0x00;
 	beakMemory.setCFlag( ((beakMemory.getA() & 0x80) >> 7) > 0);
 	beakMemory.setA((beakMemory.getA() << 1) | cFlag);
 
@@ -2019,7 +2019,7 @@ void sharpCPU::opcode1D()
 	beakMemory.setHFlag((((beakMemory.getE()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
-void sharpCPU::opcode1E(byte n)
+void sharpCPU::opcode1E(unsigned char n)
 {
 	//Load byte into E
 	beakMemory.setE(n);
@@ -2031,7 +2031,7 @@ void sharpCPU::opcode1F()
 {
 	//RRA - Rotate A Right - Store old bit 0 in Carry Flag - Current Carry flag becomes new bit 7
 	//Rotate A Right - Set left most bit to current carry flag
-	byte cFlag = (beakMemory.getCFlag() == true) ? 0x80 : 0x00;
+    unsigned char cFlag = (beakMemory.getCFlag() == true) ? 0x80 : 0x00;
 	beakMemory.setCFlag(((beakMemory.getA() & 0x01) == 1) ? true : false);
 	beakMemory.setA((beakMemory.getA() >> 1) | cFlag);
 	mClock += 1;
@@ -2042,7 +2042,7 @@ void sharpCPU::opcode1F()
 	beakMemory.setNFlag(false);
 }
 
-void sharpCPU::opcode20(byte n)
+void sharpCPU::opcode20(unsigned char n)
 {
 	//Jump Relative to n if Not Zero
 	if (!beakMemory.getZFlag())
@@ -2114,7 +2114,7 @@ void sharpCPU::opcode25()
 	beakMemory.setHFlag((((beakMemory.getH()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
-void sharpCPU::opcode26(byte n)
+void sharpCPU::opcode26(unsigned char n)
 {
 	//Load byte into H
 	beakMemory.setH(n);
@@ -2163,7 +2163,7 @@ void sharpCPU::opcode27()
 	tClock += 4;
 }
 
-void sharpCPU::opcode28(byte n)
+void sharpCPU::opcode28(unsigned char n)
 {
 	//Jump to memoryPointer + n if Zero
 	if (beakMemory.getZFlag())
@@ -2239,7 +2239,7 @@ void sharpCPU::opcode2D()
 	beakMemory.setHFlag((((beakMemory.getL()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
-void sharpCPU::opcode2E(byte n)
+void sharpCPU::opcode2E(unsigned char n)
 {
 	//Load a byte into L
 	beakMemory.setL(n);
@@ -2258,7 +2258,7 @@ void sharpCPU::opcode2F()
 	beakMemory.setHFlag(true);
 }
 
-void sharpCPU::opcode30(byte n)
+void sharpCPU::opcode30(unsigned char n)
 {
 	//Jump Relative to n if Not Carry
 	if (!beakMemory.getCFlag())
@@ -2302,7 +2302,7 @@ void sharpCPU::opcode33()
 void sharpCPU::opcode34()
 {
 	//Inc data at HL
-	beakMemory.writeMemory(beakMemory.getHL(), (byte)(beakMemory.readMemory(beakMemory.getHL()) + 1));
+    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)(beakMemory.readMemory(beakMemory.getHL()) + 1));
 	mClock += 3;
 	tClock += 12;
 
@@ -2314,7 +2314,7 @@ void sharpCPU::opcode34()
 void sharpCPU::opcode35()
 {
 	//Dec data at HL
-	beakMemory.writeMemory(beakMemory.getHL(), (byte)(beakMemory.readMemory(beakMemory.getHL()) - 1));
+    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)(beakMemory.readMemory(beakMemory.getHL()) - 1));
 	mClock += 3;
 	tClock += 12;
 
@@ -2323,7 +2323,7 @@ void sharpCPU::opcode35()
 	beakMemory.setHFlag((((beakMemory.readMemory(beakMemory.getHL())) & 0x0F) == 0xF) ? 1 : 0);
 }
 
-void sharpCPU::opcode36(byte n)
+void sharpCPU::opcode36(unsigned char n)
 {
 	//Load byte into data at HL
 	beakMemory.writeMemory(beakMemory.getHL(), n);
@@ -2342,7 +2342,7 @@ void sharpCPU::opcode37()
 	beakMemory.setHFlag(false);
 }
 
-void sharpCPU::opcode38(byte n)
+void sharpCPU::opcode38(unsigned char n)
 {
 	//Jump Relative to n if Carry
 	if (beakMemory.getCFlag())
@@ -2416,7 +2416,7 @@ void sharpCPU::opcode3D()
 	beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
-void sharpCPU::opcode3E(byte n)
+void sharpCPU::opcode3E(unsigned char n)
 {
 	//Load byte into A
 	beakMemory.setA(n);
@@ -3922,7 +3922,7 @@ void sharpCPU::opcodeBE()
 {
 	//Compare data at HL with A
 
-	byte n = beakMemory.readMemory(beakMemory.getHL());
+    unsigned char n = beakMemory.readMemory(beakMemory.getHL());
 	int test = beakMemory.getA() - n;
 
 	beakMemory.setZFlag(test == 0);
@@ -4027,7 +4027,7 @@ void sharpCPU::opcodeC5()
 	tClock += 16;
 }
 
-void sharpCPU::opcodeC6(byte n)
+void sharpCPU::opcodeC6(unsigned char n)
 {
 	//Add byte to A
 	int result = beakMemory.getA() + n;
@@ -4123,7 +4123,7 @@ void sharpCPU::opcodeCD(short nn)
 	tClock += 24;
 }
 
-void sharpCPU::opcodeCE(byte n)
+void sharpCPU::opcodeCE(unsigned char n)
 {
 	//Add n and Carry flag to A
 
@@ -4221,7 +4221,7 @@ void sharpCPU::opcodeD5()
 	tClock += 16;
 }
 
-void sharpCPU::opcodeD6(byte n)
+void sharpCPU::opcodeD6(unsigned char n)
 {
 	//Subtract n from A
 
@@ -4315,7 +4315,7 @@ void sharpCPU::opcodeDC(short nn)
 
 //Opcode DD does not exist?
 
-void sharpCPU::opcodeDE(byte n)
+void sharpCPU::opcodeDE(unsigned char n)
 {
 	//Sub n and Carry flag from A
 
@@ -4344,7 +4344,7 @@ void sharpCPU::opcodeDF()
 	tClock += 16;
 }
 
-void sharpCPU::opcodeE0(byte n)
+void sharpCPU::opcodeE0(unsigned char n)
 {
 	//Load A into address at (FF00 + n)
 	beakMemory.writeMemory(0xFF00 + n, beakMemory.getA());
@@ -4382,7 +4382,7 @@ void sharpCPU::opcodeE5()
 	tClock += 16;
 }
 
-void sharpCPU::opcodeE6(byte n)
+void sharpCPU::opcodeE6(unsigned char n)
 {
 	//And n from A
 	beakMemory.setA(beakMemory.getA() & n);
@@ -4444,7 +4444,7 @@ void sharpCPU::opcodeEA(short nn)
 
 //Opcode ED doesn't exist?
 
-void sharpCPU::opcodeEE(byte n)
+void sharpCPU::opcodeEE(unsigned char n)
 {
 	//XOR byte with A
 	beakMemory.setA(beakMemory.getA() ^ n);
@@ -4467,7 +4467,7 @@ void sharpCPU::opcodeEF()
 	tClock += 16;
 }
 
-void sharpCPU::opcodeF0(byte n)
+void sharpCPU::opcodeF0(unsigned char n)
 {
 	//Load data at (FF00 + n) into A
 	beakMemory.setA(beakMemory.readMemory(0xFF00 + n));
@@ -4511,7 +4511,7 @@ void sharpCPU::opcodeF5()
 	tClock += 16;
 }
 
-void sharpCPU::opcodeF6(byte n)
+void sharpCPU::opcodeF6(unsigned char n)
 {
 	//OR byte with A
 	beakMemory.setA(beakMemory.getA() | n);
@@ -4534,7 +4534,7 @@ void sharpCPU::opcodeF7()
 	tClock += 16;
 }
 
-void sharpCPU::opcodeF8(byte n)
+void sharpCPU::opcodeF8(unsigned char n)
 {
 	//Load SP + n into HL
 
@@ -4579,7 +4579,7 @@ void sharpCPU::opcodeFB()
 
 //Opcode FD doesn't exist?
 
-void sharpCPU::opcodeFE(byte n)
+void sharpCPU::opcodeFE(unsigned char n)
 {
 	//Compare n with A
 	//byte test = beakMemory.getA() - n;
@@ -4877,7 +4877,7 @@ void sharpCPU::opcodeCB0E()
 {
 	//Rotate data at HL Right, put previous bit 0 into Carry flag
 
-	beakMemory.writeMemory(beakMemory.getHL(), (byte)(rotateRight(beakMemory.readMemory(beakMemory.getHL()))));
+    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)(rotateRight(beakMemory.readMemory(beakMemory.getHL()))));
 
 	beakMemory.setB(rotateRight(beakMemory.getB()));
 	beakMemory.setCFlag(((beakMemory.readMemory(beakMemory.getHL()) & 0x80) >> 7) > 0);
@@ -4917,8 +4917,8 @@ void sharpCPU::opcodeCB10()
 	//Rotate B Left
 	//beakMemory.setB(rotateLeft(beakMemory.getB()));
 
-	byte oldBit = (beakMemory.getB() & 0x80) >> 7;
-	beakMemory.setB((beakMemory.getB() << 1) | (byte)beakMemory.getCFlag());
+    unsigned char oldBit = (beakMemory.getB() & 0x80) >> 7;
+    beakMemory.setB((beakMemory.getB() << 1) | (unsigned char)beakMemory.getCFlag());
 	beakMemory.setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -4934,8 +4934,8 @@ void sharpCPU::opcodeCB11()
 	//Rotate C Left
 	//beakMemory.setC(rotateLeft(beakMemory.getC()));
 
-	byte oldBit = (beakMemory.getC() & 0x80) >> 7;
-	beakMemory.setC((beakMemory.getC() << 1) | (byte)beakMemory.getCFlag());
+    unsigned char oldBit = (beakMemory.getC() & 0x80) >> 7;
+    beakMemory.setC((beakMemory.getC() << 1) | (unsigned char)beakMemory.getCFlag());
 	beakMemory.setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -4950,8 +4950,8 @@ void sharpCPU::opcodeCB12()
 {
 	//Rotate D Left
 
-	byte oldBit = (beakMemory.getD() & 0x80) >> 7;
-	beakMemory.setD((beakMemory.getD() << 1) | (byte)beakMemory.getCFlag());
+    unsigned char oldBit = (beakMemory.getD() & 0x80) >> 7;
+    beakMemory.setD((beakMemory.getD() << 1) | (unsigned char)beakMemory.getCFlag());
 	beakMemory.setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -4966,8 +4966,8 @@ void sharpCPU::opcodeCB13()
 {
 	//Rotate E Left
 
-	byte oldBit = (beakMemory.getE() & 0x80) >> 7;
-	beakMemory.setE((beakMemory.getE() << 1) | (byte)beakMemory.getCFlag());
+    unsigned char oldBit = (beakMemory.getE() & 0x80) >> 7;
+    beakMemory.setE((beakMemory.getE() << 1) | (unsigned char)beakMemory.getCFlag());
 	beakMemory.setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -4982,8 +4982,8 @@ void sharpCPU::opcodeCB14()
 {
 	//Rotate H Left
 
-	byte oldBit = (beakMemory.getH() & 0x80) >> 7;
-	beakMemory.setH((beakMemory.getH() << 1) | (byte)beakMemory.getCFlag());
+    unsigned char oldBit = (beakMemory.getH() & 0x80) >> 7;
+    beakMemory.setH((beakMemory.getH() << 1) | (unsigned char)beakMemory.getCFlag());
 	beakMemory.setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -4998,8 +4998,8 @@ void sharpCPU::opcodeCB15()
 {
 	//Rotate L Left
 
-	byte oldBit = (beakMemory.getL() & 0x80) >> 7;
-	beakMemory.setL((beakMemory.getL() << 1) | (byte)beakMemory.getCFlag());
+    unsigned char oldBit = (beakMemory.getL() & 0x80) >> 7;
+    beakMemory.setL((beakMemory.getL() << 1) | (unsigned char)beakMemory.getCFlag());
 	beakMemory.setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5014,8 +5014,8 @@ void sharpCPU::opcodeCB16()
 {
 	//Rotate data at HL Left
 
-	byte oldBit = (beakMemory.readMemory(beakMemory.getHL()) & 0x80) >> 7;
-	beakMemory.writeMemory(beakMemory.getHL(), (byte)((beakMemory.readMemory(beakMemory.getHL()) << 1) | (byte)beakMemory.getCFlag()));
+    unsigned char oldBit = (beakMemory.readMemory(beakMemory.getHL()) & 0x80) >> 7;
+    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)((beakMemory.readMemory(beakMemory.getHL()) << 1) | (unsigned char)beakMemory.getCFlag()));
 	beakMemory.setCFlag(oldBit > 0);
 
 	mClock += 3;
@@ -5030,8 +5030,8 @@ void sharpCPU::opcodeCB17()
 {
 	//Rotate A Left
 
-	byte oldBit = (beakMemory.getA() & 0x80) >> 7;
-	beakMemory.setA((beakMemory.getA() << 1) | (byte)beakMemory.getCFlag());
+    unsigned char oldBit = (beakMemory.getA() & 0x80) >> 7;
+    beakMemory.setA((beakMemory.getA() << 1) | (unsigned char)beakMemory.getCFlag());
 	beakMemory.setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5046,7 +5046,7 @@ void sharpCPU::opcodeCB18()
 {
 	//Rotate B Right
 
-	byte oldBit = (beakMemory.getB() & 0x01);
+    unsigned char oldBit = (beakMemory.getB() & 0x01);
 	beakMemory.setB((beakMemory.getB() >> 1) | (beakMemory.getCFlag() << 7));
 	beakMemory.setCFlag(oldBit > 0);
 
@@ -5063,7 +5063,7 @@ void sharpCPU::opcodeCB19()
 {
 	//Rotate C Right
 
-	byte oldBit = (beakMemory.getC() & 0x01);
+    unsigned char oldBit = (beakMemory.getC() & 0x01);
 	beakMemory.setC((beakMemory.getC() >> 1) | (beakMemory.getCFlag() << 7));
 	beakMemory.setCFlag(oldBit > 0);
 
@@ -5079,7 +5079,7 @@ void sharpCPU::opcodeCB1A()
 {
 	//Rotate D Right
 
-	byte oldBit = (beakMemory.getD() & 0x01);
+    unsigned char oldBit = (beakMemory.getD() & 0x01);
 	beakMemory.setD((beakMemory.getD() >> 1) | (beakMemory.getCFlag() << 7));
 	beakMemory.setCFlag(oldBit > 0);
 
@@ -5095,7 +5095,7 @@ void sharpCPU::opcodeCB1B()
 {
 	//Rotate E Right
 
-	byte oldBit = (beakMemory.getE() & 0x01);
+    unsigned char oldBit = (beakMemory.getE() & 0x01);
 	beakMemory.setE((beakMemory.getE() >> 1) | (beakMemory.getCFlag() << 7));
 	beakMemory.setCFlag(oldBit > 0);
 
@@ -5111,7 +5111,7 @@ void sharpCPU::opcodeCB1C()
 {
 	//Rotate H Right
 
-	byte oldBit = (beakMemory.getH() & 0x01);
+    unsigned char oldBit = (beakMemory.getH() & 0x01);
 	beakMemory.setH((beakMemory.getH() >> 1) | (beakMemory.getCFlag() << 7));
 	beakMemory.setCFlag(oldBit > 0);
 
@@ -5127,7 +5127,7 @@ void sharpCPU::opcodeCB1D()
 {
 	//Rotate L Right
 
-	byte oldBit = (beakMemory.getL() & 0x01);
+    unsigned char oldBit = (beakMemory.getL() & 0x01);
 	beakMemory.setL((beakMemory.getL() >> 1) | (beakMemory.getCFlag() << 7));
 	beakMemory.setCFlag(oldBit > 0);
 
@@ -5143,8 +5143,8 @@ void sharpCPU::opcodeCB1E()
 {
 	//Rotate/Shift HL Right
 
-	byte oldBit = (beakMemory.readMemory(beakMemory.getHL()) & 0x01);
-	beakMemory.writeMemory(beakMemory.getHL(), (byte)((beakMemory.readMemory(beakMemory.getHL()) >> 1) | (beakMemory.getCFlag() << 7)));
+    unsigned char oldBit = (beakMemory.readMemory(beakMemory.getHL()) & 0x01);
+    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)((beakMemory.readMemory(beakMemory.getHL()) >> 1) | (beakMemory.getCFlag() << 7)));
 	beakMemory.setCFlag(oldBit > 0);
 
 	mClock += 3;
@@ -5159,7 +5159,7 @@ void sharpCPU::opcodeCB1F()
 {
 	//Rotate A Right
 
-	byte oldBit = (beakMemory.getA() & 0x01);
+    unsigned char oldBit = (beakMemory.getA() & 0x01);
 	beakMemory.setA((beakMemory.getA() >> 1) | (beakMemory.getCFlag() << 7));
 	beakMemory.setCFlag(oldBit > 0);
 
@@ -5266,7 +5266,7 @@ void sharpCPU::opcodeCB26()
 	//Shift data at HL Left - Set Carry to old Bit 7
 
 	beakMemory.setCFlag(((beakMemory.readMemory(beakMemory.getHL()) & 0x80) >> 7) > 0);
-	beakMemory.writeMemory(beakMemory.getHL(), (byte)(beakMemory.readMemory(beakMemory.getHL()) << 1));
+    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)(beakMemory.readMemory(beakMemory.getHL()) << 1));
 
 	mClock += 3;
 	tClock += 12;
@@ -5295,9 +5295,9 @@ void sharpCPU::opcodeCB28()
 {
 	//Shift B Right - Set Carry to old Bit 0
 
-	byte oldValue = beakMemory.getB();
+    unsigned char oldValue = beakMemory.getB();
 	beakMemory.setCFlag((oldValue & 0x01) > 0);
-	beakMemory.setB((byte)((oldValue & 0x80) | (oldValue >> 1)));
+    beakMemory.setB((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
@@ -5311,9 +5311,9 @@ void sharpCPU::opcodeCB29()
 {
 	//Shift C Right - Set Carry to old Bit 0
 
-	byte oldValue = beakMemory.getC();
+    unsigned char oldValue = beakMemory.getC();
 	beakMemory.setCFlag((oldValue & 0x01) > 0);
-	beakMemory.setC((byte)((oldValue & 0x80) | (oldValue >> 1)));
+    beakMemory.setC((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
@@ -5327,9 +5327,9 @@ void sharpCPU::opcodeCB2A()
 {
 	//Shift D Right - Set Carry to old Bit 0
 
-	byte oldValue = beakMemory.getD();
+    unsigned char oldValue = beakMemory.getD();
 	beakMemory.setCFlag((oldValue & 0x01) > 0);
-	beakMemory.setD((byte)((oldValue & 0x80) | (oldValue >> 1)));
+    beakMemory.setD((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
@@ -5343,9 +5343,9 @@ void sharpCPU::opcodeCB2B()
 {
 	//Shift E Right - Set Carry to old Bit 0
 
-	byte oldValue = beakMemory.getE();
+    unsigned char oldValue = beakMemory.getE();
 	beakMemory.setCFlag((oldValue & 0x01) > 0);
-	beakMemory.setE((byte)((oldValue & 0x80) | (oldValue >> 1)));
+    beakMemory.setE((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
@@ -5359,9 +5359,9 @@ void sharpCPU::opcodeCB2C()
 {
 	//Shift H Right - Set Carry to old Bit 0
 
-	byte oldValue = beakMemory.getH();
+    unsigned char oldValue = beakMemory.getH();
 	beakMemory.setCFlag((oldValue & 0x01) > 0);
-	beakMemory.setH((byte)((oldValue & 0x80) | (oldValue >> 1)));
+    beakMemory.setH((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
@@ -5375,9 +5375,9 @@ void sharpCPU::opcodeCB2D()
 {
 	//Shift L Right - Set Carry to old Bit 0
 
-	byte oldValue = beakMemory.getL();
+    unsigned char oldValue = beakMemory.getL();
 	beakMemory.setCFlag((oldValue & 0x01) > 0);
-	beakMemory.setL((byte)((oldValue & 0x80) | (oldValue >> 1)));
+    beakMemory.setL((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
@@ -5391,9 +5391,9 @@ void sharpCPU::opcodeCB2E()
 {
 	//Shift data at HL Right - Set Carry to old Bit 0
 
-	byte oldValue = beakMemory.readMemory(beakMemory.getHL());
+    unsigned char oldValue = beakMemory.readMemory(beakMemory.getHL());
 	beakMemory.setCFlag((oldValue & 0x01) > 0);
-	beakMemory.writeMemory(beakMemory.getHL(), ((byte)((oldValue & 0x80) | (oldValue >> 1))));
+    beakMemory.writeMemory(beakMemory.getHL(), ((unsigned char)((oldValue & 0x80) | (oldValue >> 1))));
 
 	mClock += 3;
 	tClock += 12;
@@ -5407,9 +5407,9 @@ void sharpCPU::opcodeCB2F()
 {
 	//Shift A Right - Set Carry to old Bit 0
 
-	byte oldValue = beakMemory.getA();
+    unsigned char oldValue = beakMemory.getA();
 	beakMemory.setCFlag((oldValue & 0x01) > 0);
-	beakMemory.setA((byte)((oldValue & 0x80) | (oldValue >> 1)));
+    beakMemory.setA((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
@@ -5422,7 +5422,7 @@ void sharpCPU::opcodeCB2F()
 void sharpCPU::opcodeCB30()
 {
 	//Swap nibbles in B
-	byte b = beakMemory.getB();
+    unsigned char b = beakMemory.getB();
 	b = ((b & 0x0F) << 4) | ((b & 0xF0) >> 4);
 	beakMemory.setB(b);
 	mClock += 2;
@@ -5437,7 +5437,7 @@ void sharpCPU::opcodeCB30()
 void sharpCPU::opcodeCB31()
 {
 	//Swap nibbles in C
-	byte c = beakMemory.getC();
+    unsigned char c = beakMemory.getC();
 	c = ((c & 0x0F) << 4) | ((c & 0xF0) >> 4);
 	beakMemory.setC(c);
 	mClock += 2;
@@ -5452,7 +5452,7 @@ void sharpCPU::opcodeCB31()
 void sharpCPU::opcodeCB32()
 {
 	//Swap nibbles in D
-	byte d = beakMemory.getD();
+    unsigned char d = beakMemory.getD();
 	d = ((d & 0x0F) << 4) | ((d & 0xF0) >> 4);
 	beakMemory.setD(d);
 	mClock += 2;
@@ -5467,7 +5467,7 @@ void sharpCPU::opcodeCB32()
 void sharpCPU::opcodeCB33()
 {
 	//Swap nibbles in E
-	byte e = beakMemory.getE();
+    unsigned char e = beakMemory.getE();
 	e = ((e & 0x0F) << 4) | ((e & 0xF0) >> 4);
 	beakMemory.setE(e);
 	mClock += 2;
@@ -5482,7 +5482,7 @@ void sharpCPU::opcodeCB33()
 void sharpCPU::opcodeCB34()
 {
 	//Swap nibbles in H
-	byte h = beakMemory.getH();
+    unsigned char h = beakMemory.getH();
 	h = ((h & 0x0F) << 4) | ((h & 0xF0) >> 4);
 	beakMemory.setH(h);
 	mClock += 2;
@@ -5497,7 +5497,7 @@ void sharpCPU::opcodeCB34()
 void sharpCPU::opcodeCB35()
 {
 	//Swap nibbles in L
-	byte l = beakMemory.getL();
+    unsigned char l = beakMemory.getL();
 	l = ((l & 0x0F) << 4) | ((l & 0xF0) >> 4);
 	beakMemory.setL(l);
 	mClock += 2;
@@ -5514,7 +5514,7 @@ void sharpCPU::opcodeCB36()
 {
 	//Swap nibbles in memory at HL
 	short hl = beakMemory.getHL();
-	byte hlData = beakMemory.readMemory(hl);
+    unsigned char hlData = beakMemory.readMemory(hl);
 	hlData = ((hlData & 0x0F) << 4) | ((hlData & 0xF0) >> 4);
 	beakMemory.writeMemory(hl, hlData);
 	mClock += 3;
@@ -5529,7 +5529,7 @@ void sharpCPU::opcodeCB36()
 void sharpCPU::opcodeCB37()
 {
 	//Swap nibbles in A
-	byte a = beakMemory.getA();
+    unsigned char a = beakMemory.getA();
 	a = ((a & 0x0F) << 4) | ((a & 0xF0) >> 4);
 	beakMemory.setA(a);
 	mClock += 2;
@@ -5629,7 +5629,7 @@ void sharpCPU::opcodeCB3E()
 {
 	//Shift data at HL Right
 	beakMemory.setCFlag(beakMemory.readMemory(beakMemory.getHL()) & 0x01);
-	beakMemory.writeMemory(beakMemory.getHL(), (byte)(beakMemory.readMemory(beakMemory.getHL()) >> 1));
+    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)(beakMemory.readMemory(beakMemory.getHL()) >> 1));
 
 	mClock += 3;
 	tClock += 12;
@@ -6417,7 +6417,7 @@ void sharpCPU::opcodeCB86()
 {
 	//Reset bit 0 in HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) & 0xFE)); //Masks off left most bit
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xFE)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6483,7 +6483,7 @@ void sharpCPU::opcodeCB8E()
 {
 	//Reset bit 1 in HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) & 0xFD)); //Masks off left most bit
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xFD)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6548,7 +6548,7 @@ void sharpCPU::opcodeCB96()
 {
 	//Reset bit 2 in HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) & 0xFB)); //Masks off left most bit
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xFB)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6613,7 +6613,7 @@ void sharpCPU::opcodeCB9E()
 {
 	//Reset bit 3 in HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) & 0xF7)); //Masks off left most bit
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xF7)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6678,7 +6678,7 @@ void sharpCPU::opcodeCBA6()
 {
 	//Reset bit 4 in HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) & 0xEF)); //Masks off left most bit
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xEF)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6743,7 +6743,7 @@ void sharpCPU::opcodeCBAE()
 {
 	//Reset bit 5 in HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) & 0xDF)); //Masks off left most bit
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xDF)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6808,7 +6808,7 @@ void sharpCPU::opcodeCBB6()
 {
 	//Reset bit 6 in HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) & 0xBF)); //Masks off left most bit
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xBF)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6872,7 +6872,7 @@ void sharpCPU::opcodeCBBE()
 {
 	//Reset bit 7 in HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) & 0x7F)); //Masks off left most bit
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0x7F)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6936,7 +6936,7 @@ void sharpCPU::opcodeCBC5()
 void sharpCPU::opcodeCBC6()
 {
 	//Set Bit 0 of data at HL
-	beakMemory.writeMemory(beakMemory.getHL(), (byte)(beakMemory.readMemory(beakMemory.getHL()) | 0x01));
+    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)(beakMemory.readMemory(beakMemory.getHL()) | 0x01));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7001,7 +7001,7 @@ void sharpCPU::opcodeCBCE()
 {
 	//Set Bit 1 of data at HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) | 0x02));
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x02));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7066,7 +7066,7 @@ void sharpCPU::opcodeCBD6()
 {
 	//Set Bit 2 of data at HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) | 0x04));
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x04));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7131,7 +7131,7 @@ void sharpCPU::opcodeCBDE()
 {
 	//Set Bit 3 of data at HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) | 0x08));
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x08));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7196,7 +7196,7 @@ void sharpCPU::opcodeCBE6()
 {
 	//Set Bit 4 of data at HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) | 0x10));
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x10));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7261,7 +7261,7 @@ void sharpCPU::opcodeCBEE()
 {
 	//Set Bit 5 of data at HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) | 0x20));
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x20));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7326,7 +7326,7 @@ void sharpCPU::opcodeCBF6()
 {
 	//Set Bit 6 of data at HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) | 0x40));
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x40));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7391,7 +7391,7 @@ void sharpCPU::opcodeCBFE()
 {
 	//Set Bit 7 of data at HL
 	short hl = beakMemory.getHL();
-	beakMemory.writeMemory(hl, (byte)(beakMemory.readMemory(hl) | 0x80));
+    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x80));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7416,7 +7416,7 @@ void sharpCPU::updateTIMA(int curClocks, int& clocksSinceLastTIMAUpdate, int& cl
 	if (timerEnabled)
 	{
 
-		byte timerFrequency = beakMemory.readMemory(0xFF07) & 0x03;
+        unsigned char timerFrequency = beakMemory.readMemory(0xFF07) & 0x03;
 		int timerNumClocksToUpdate;
 
 		switch (timerFrequency)
@@ -7454,25 +7454,25 @@ void sharpCPU::updateTIMA(int curClocks, int& clocksSinceLastTIMAUpdate, int& cl
 
 
 			//Increment TIMA
-			byte tima = beakMemory.readMemory(0xFF05);
+            unsigned char tima = beakMemory.readMemory(0xFF05);
 			if (tima == 0xFF)
 			{
 				//Set Timer Overflow Interrupt Flag
-				beakMemory.writeMemory((short)0xFF0F, (byte)(beakMemory.readMemory(0xFF0F) | 0x4));
+                beakMemory.writeMemory((short)0xFF0F, (unsigned char)(beakMemory.readMemory(0xFF0F) | 0x4));
 
 				//Load TMA value into TIMA
 				beakMemory.writeMemory((short)0xFF05, beakMemory.readMemory(0xFF06));
 			}
 			else
 			{
-				beakMemory.writeMemory((short)0xFF05, (byte)(tima + 1));
+                beakMemory.writeMemory((short)0xFF05, (unsigned char)(tima + 1));
 			}
 		}
 	}
 
 	if ((curClocks - clocksSinceLastDIVUpdate) >= 256) //16386 hz
 	{
-		beakMemory.writeMemory((short)0xFF04, (byte)(beakMemory.readMemory(0xFF04) + 1));
+        beakMemory.writeMemory((short)0xFF04, (unsigned char)(beakMemory.readMemory(0xFF04) + 1));
 		clocksSinceLastDIVUpdate = curClocks;
 	}
 }
@@ -7484,8 +7484,8 @@ bool sharpCPU::checkForInterrupt()
 	minimal effort and not having any functionality related to servicing the interrupt itself.
 	*/
 
-	byte IE = beakMemory.readMemory(0xFFFF);
-	byte IF = beakMemory.readMemory(0xFF0F);
+    unsigned char IE = beakMemory.readMemory(0xFFFF);
+    unsigned char IF = beakMemory.readMemory(0xFF0F);
 
 	//The interrupt bits are within 0x1 an 0x1F
 	//If a bit is enabled in both IE and IF, (IE & IF) will keep them
@@ -7501,8 +7501,8 @@ void sharpCPU::executeInterrupt()
 	is stored before jumping to the interrupt vector that corresponds to those enabled bits.
 	*/
 
-	byte IE = beakMemory.readMemory(0xFFFF);
-	byte IF = beakMemory.readMemory(0xFF0F);
+    unsigned char IE = beakMemory.readMemory(0xFFFF);
+    unsigned char IF = beakMemory.readMemory(0xFF0F);
 
 	stackPointer -= 2;
 	beakMemory.writeMemory(stackPointer, memoryPointer);
@@ -7514,31 +7514,31 @@ void sharpCPU::executeInterrupt()
 	{
 		//VBLANK
 		memoryPointer = 0x0040;
-		beakMemory.writeMemory(0xFF0F, (byte)(IF & 0xFE)); //Clear bit in IF
+        beakMemory.writeMemory(0xFF0F, (unsigned char)(IF & 0xFE)); //Clear bit in IF
 	}
 	else if (((((IF & 0x02) >> 1) == 1) && ((IE & 0x02) >> 1 == 1)))
 	{
 		//LCD
 		memoryPointer = 0x0048;
-		beakMemory.writeMemory(0xFF0F, (byte)(IF & 0xFD)); //Clear bit in IF
+        beakMemory.writeMemory(0xFF0F, (unsigned char)(IF & 0xFD)); //Clear bit in IF
 	}
 	else if (((((IF & 0x04) >> 2) == 1) && ((IE & 0x04) >> 2 == 1)))
 	{
 		//Timer Overflow
 		memoryPointer = 0x0050;
-		beakMemory.writeMemory(0xFF0F, (byte)(IF & 0xFB)); //Clear bit in IF
+        beakMemory.writeMemory(0xFF0F, (unsigned char)(IF & 0xFB)); //Clear bit in IF
 	}
 	else if (((((IF & 0x08) >> 3) == 1) && ((IE & 0x08) >> 3 == 1)))
 	{
 		//Serial
 		memoryPointer = 0x0058;
-		beakMemory.writeMemory(0xFF0F, (byte)(IF & 0xF7)); //Clear bit in IF
+        beakMemory.writeMemory(0xFF0F, (unsigned char)(IF & 0xF7)); //Clear bit in IF
 	}
 	else if (((((IF & 0x10) >> 4) == 1) && ((IE & 0x10) >> 4 == 1)))
 	{
 		//Joypad
 		memoryPointer = 0x0060;
-		beakMemory.writeMemory(0xFF0F, (byte)(IF & 0xEF)); //Clear bit in IF
+        beakMemory.writeMemory(0xFF0F, (unsigned char)(IF & 0xEF)); //Clear bit in IF
 	}
 
 	mClock += 5;
@@ -7606,8 +7606,8 @@ void sharpCPU::executeStop()
 	{
 		if (interruptsEnabled)
 		{
-			byte IE = beakMemory.readMemory(0xFFFF);
-			byte IF = beakMemory.readMemory(0xFF0F);
+            unsigned char IE = beakMemory.readMemory(0xFFFF);
+            unsigned char IF = beakMemory.readMemory(0xFF0F);
 
 			if (((((IF & 0x10) >> 4) == 1) && ((IE & 0x10) >> 4 == 1)))
 			{
