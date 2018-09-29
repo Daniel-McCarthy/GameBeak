@@ -16,6 +16,7 @@ public:
     Rom* getRomPointer();
     Cpu* getCPUPointer();
 
+    bool* getGBCModePointer();
 
 private:
     Memory* memory = new Memory();

@@ -17,3 +17,6 @@ Cpu* Core::getCPUPointer() {
     return cpu;
 }
 
+bool* Core::getGBCModePointer() {
+    return GBCMode;
+}
