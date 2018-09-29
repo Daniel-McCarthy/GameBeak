@@ -1,10 +1,15 @@
 #pragma once
 
+#include <QWidget>
+
 #ifndef CPUH
 #define CPUH
 
 class Cpu
+class Cpu : public QWidget
 {
+    Q_OBJECT
+
 private:
 	bool interrupt = false; 
 	bool halt = false;
@@ -12,7 +17,7 @@ private:
     unsigned char haltMode = 0;
 
 public:
-    Cpu() {}
+    Cpu(QWidget *parent = nullptr);
     ~Cpu() {}
 
 	bool interruptsEnabled = true;
