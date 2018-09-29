@@ -1,15 +1,5 @@
 #pragma once
-#include <Windows.h>
-#include <vector>
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <stdlib.h>
-#include <time.h>
 
-#include "Binary.h"
-
-using namespace std;
 #include <QString>
 #include <QWidget>
 
@@ -17,7 +7,6 @@ using namespace std;
 #define MEMORYH
 
 class Rom;
-class Memory
 class Memory : public QWidget
 {
     Q_OBJECT
