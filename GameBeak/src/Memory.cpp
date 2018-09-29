@@ -1,8 +1,6 @@
 #include "Core.h"
 #include "Rom.h"
 #include "Memory.h"
-#include "Main.h"
-
 
 Memory::Memory(QWidget *parent) : QWidget(parent)
 {
