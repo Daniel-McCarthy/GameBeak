@@ -28,14 +28,16 @@ SOURCES += \
     src/Rom.cpp \
     src/Memory.cpp \
     src/Core.cpp \
-    src/Cpu.cpp
+    src/Cpu.cpp \
+    src/Binary.cpp
 
 HEADERS += \
     src/MainWindow/mainwindow.h \
     src/Rom.h \
     src/Memory.h \
     src/Core.h \
-    src/Cpu.h
+    src/Cpu.h \
+    src/Binary.h
 
 FORMS += \
     src/MainWindow/mainwindow.ui
