@@ -8,6 +8,7 @@
 #define MEMORYH
 
 class Cpu;
+class Core;
 class Rom;
 class Memory : public QWidget
 {
@@ -29,7 +30,8 @@ class Memory : public QWidget
         unsigned char vramBank = 0; //CGB Only
 
 	public:
-         explicit Memory(QWidget *parent = nullptr);
+        explicit Memory(QWidget *parent = nullptr);
+        explicit Memory(Core* core);
         ~Memory();
 
         unsigned char readSpritePaletteRam(unsigned char address);

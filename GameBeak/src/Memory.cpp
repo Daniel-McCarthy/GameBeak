@@ -1,3 +1,4 @@
+#include "Core.h"
 #include "Rom.h"
 #include "Memory.h"
 #include "Main.h"
@@ -7,6 +8,12 @@ Memory::Memory(QWidget *parent) : QWidget(parent)
 {
 }
 
+Memory::Memory(Core* core)
+{
+    this->rom = core->getRomPointer();
+    this->cpu = core->getCPUPointer();
+    this->GBCMode = core->getGBCModePointer();
+}
 
 Memory::~Memory()
 {
