@@ -5,7 +5,7 @@
 Rom::Rom(QWidget *parent) : QWidget(parent) {}
 Rom::~Rom() {}
 
-Rom::Rom(byte* romData, unsigned int length)
+Rom::Rom(unsigned char* romData, unsigned int length)
 {
 	for (unsigned int i = 0; i < length; i++)
 	{
@@ -49,8 +49,8 @@ void Rom::readRomHeader()
 	08 8mb (512 rom banks) | 52 1.1mb (72 rom banks) | 53 1.2mb (80 rom banks) | 54 1.5mb
 	*/
 
-	byte cartridgeType = beakRom[0x147];
-	byte romSize = beakRom[0x148];
+    unsigned char cartridgeType = beakRom[0x147];
+    unsigned char romSize = beakRom[0x148];
 	hasGBCFunctionality = beakRom[0x143] != 0;
 	hasSGBFunctionality = beakRom[0x146] == 3;
 	mapperSetting = cartridgeType;
