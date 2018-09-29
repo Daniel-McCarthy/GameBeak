@@ -1019,40 +1019,23 @@ bool Memory::loadRom(unsigned char* romData, int romSize, unsigned char* save, i
 
 
 
-bool Memory::loadSaveFile(string filepath)
+bool Memory::loadSaveFile(QString path)
 {
+    //Attempt to open file, if it was successful close it and call the full loadSave function
+    QString savePath = path.left(path.indexOf('.')) + ".sav";
+    QFile saveFile(savePath);
 
-	ifstream inputFile(filepath, ios::binary | ios::ate);
+    bool fileOpen = saveFile.open(QIODevice::ReadOnly);
 
-	if (inputFile.is_open())
-	{
-		int fileLength = (int)inputFile.tellg();
-		inputFile.seekg(0, ios::beg);
-		vector<char> savefile(fileLength);
-		inputFile.read(savefile.data(), fileLength);
+    bool saveFileLoaded = false;
 
-		if (fileLength >= 0x2000)
-		{
-			unsigned short address = 0xA000;
-			for (unsigned short i = 0x0; i <= 0x1FFF; i++)
-			{
-                beakRam[address + i] = (unsigned char)savefile.at(i);
-			}
-		}
-		else
-		{
-			return false;
-		}
-	}
-	else
-	{
-		cout << "Error: Save file does not exist." << endl;
-		return false;
-	}
-
-	inputFile.close();
-
-	return true;
+    if (fileOpen)
+    {
+        QByteArray binaryFileData = saveFile.readAll();
+        saveFileLoaded = loadSaveFile(binaryFileData);
+    }
+    saveFile.close();
+    return saveFileLoaded;
 }
 
 /*
