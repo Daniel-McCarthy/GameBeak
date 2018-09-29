@@ -24,10 +24,18 @@ CONFIG += c++11
 
 SOURCES += \
     src/main.cpp \
-    src/MainWindow/mainwindow.cpp
+    src/MainWindow/mainwindow.cpp \
+    src/Rom.cpp \
+    src/Memory.cpp \
+    src/Core.cpp \
+    src/Cpu.cpp
 
 HEADERS += \
-    src/MainWindow/mainwindow.h
+    src/MainWindow/mainwindow.h \
+    src/Rom.h \
+    src/Memory.h \
+    src/Core.h \
+    src/Cpu.h
 
 FORMS += \
     src/MainWindow/mainwindow.ui
