@@ -10,6 +10,8 @@
 #include "Binary.h"
 
 using namespace std;
+#include <QString>
+#include <QWidget>
 
 #ifndef MEMORYH
 #define MEMORYH
@@ -21,10 +23,10 @@ class Memory : public QWidget
     Q_OBJECT
 
 	private:
-	string title;
         unsigned char beakRam[0xFFFF+1];
         unsigned char externalVRAMBank[0x2000]; //CGB Only
         unsigned char internalRam[0x8000]; //CGB Only
+        QString title;
 
         //GBC Only Registers
         unsigned char backgroundPaletteRam[0x40];
