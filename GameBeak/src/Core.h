@@ -1,6 +1,7 @@
 #ifndef CORE_H
 #define CORE_H
 
+#include "src/Memory.h"
 
 #include <QWidget>
 
@@ -11,6 +12,7 @@ public:
     explicit Core(QWidget *parent = nullptr);
 
 private:
+    Memory* memory = new Memory();
 
 signals:
 
