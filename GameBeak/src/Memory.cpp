@@ -228,11 +228,7 @@ void Memory::writeMemory(unsigned short address, unsigned char value)
 				// Set Speed Mode
 
 				bool newSpeedSetting = (value & 0b0000 - 0001) == 1;
-
-				if (cpu.doubleSpeedMode != newSpeedSetting)
-				{
-					cpu.preparingSpeedChange = true;
-				}
+                emit cpu_SetDoubleSpeedMode(newSpeedSetting);
 			}
 			else if (address == 0xFF4F && GBCMode)
 			{
