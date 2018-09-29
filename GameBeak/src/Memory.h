@@ -140,6 +140,8 @@ class Memory : public QWidget
             void writeFullRomToRam();
             void writeRom0ToRam();
 
+       signals:
+            void cpu_SetDoubleSpeedMode(bool speedSetting);
 };
 
 
