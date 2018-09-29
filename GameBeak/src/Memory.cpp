@@ -900,57 +900,28 @@ bool Memory::loadRom(QString path)
 /*
 Load Rom and Attempt to Load Save if selected
 */
-bool Memory::loadRom(string path, bool findAndLoadSaveFile)
+bool Memory::loadRom(QString path, bool findAndLoadSaveFile)
 {
-	ifstream inputFile(path, ios::binary | ios::ate);
+    bool fileLoaded = loadRom(path);
 
-	if (inputFile.is_open())
-	{
-		int fileLength = (int)inputFile.tellg();
-		inputFile.seekg(0, ios::beg);
-		vector<char> romData(fileLength);
-		inputFile.read(romData.data(), fileLength);
-
-		if (romData.size() <= 0x500000)
-		{
-			int address = 0;// 0x100;//? //0x200;
-			for (int i = 0x0; i < (int)romData.size(); i++)
-			{
-                //writeMemory(address + i, (uint8_t)rom->at(i));
-                rom->beakRom[address + i] = (unsigned char)romData.at(i);
-			}
-		}
-		else
-		{
-			cout << "Error: Rom too large. It does not fit in GameBoy's memory." << endl;
-			return false;
-		}
-	}
-	else
-	{
-		cout << "Error: Rom does not exist." << endl;
-		return false;
-	}
-
-	inputFile.close();
-
-	if (findAndLoadSaveFile)
+    if (fileLoaded && findAndLoadSaveFile)
 	{
 		//Attempt to open file, if it was successful close it and call the full loadSave function
-		string savePath = path.substr(0, path.find_first_of('.')) + ".sav";
+        QString savePath = path.left(path.indexOf('.')) + ".sav";
+        QFile saveFile(savePath);
 
-		ifstream saveFile(savePath, ios::binary | ios::ate);
+        bool fileExists = saveFile.open(QIODevice::ReadOnly);
 
-		bool fileExists = saveFile.is_open();
-		saveFile.close();
-
-		if (fileExists)
-		{
-			beakMemory.loadSaveFile(savePath);
+        if (fileExists)
+        {
+            QByteArray binaryFileData = saveFile.readAll();
+            loadSaveFile(savePath);
 		}
-	}
-
-	return true;
+        saveFile.close();
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
