@@ -13,6 +13,7 @@ class Memory : public QWidget
     Q_OBJECT
 
 	private:
+        Rom* rom;
         Cpu* cpu;
         unsigned char beakRam[0xFFFF+1];
         unsigned char externalVRAMBank[0x2000]; //CGB Only
