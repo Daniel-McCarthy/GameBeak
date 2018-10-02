@@ -18,6 +18,9 @@ public:
 
     bool* getGBCModePointer();
 
+    bool run;
+    bool paused;
+    bool step;
 private:
     Memory* memory = new Memory();
     Rom* rom = new Rom();
