@@ -17,6 +17,7 @@ private:
 	bool stop = false; //Button input should set this back to false
     unsigned char haltMode = 0;
     Memory* memory;
+    Core* core;
 
 public:
     Cpu(QWidget *parent = nullptr);

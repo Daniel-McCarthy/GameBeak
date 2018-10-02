@@ -5,6 +5,7 @@
 
 Cpu::Cpu(Core* core) {
     memory = core->getMemoryPointer();
+    this->core = core;
 }
 
 void Cpu::selectOpcode(unsigned char opcode)
