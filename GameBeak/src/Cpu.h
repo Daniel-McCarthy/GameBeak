@@ -72,7 +72,7 @@ public:
 	void opcode13();
 	void opcode14();
 	void opcode15();
-    void opcode16(unsigned charn);
+    void opcode16(unsigned char n);
 	void opcode17();
 	void opcode18(char n);
 	void opcode19();
