@@ -30,7 +30,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 1:
 				{
-                    opcode01((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcode01((memory->readMemory(memory->memory->memoryPointer++)) | (memory->readMemory(memory->memory->memoryPointer++) << 8));
 					break;
 				}
 				case 2:
@@ -55,7 +55,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcode06(memory->readMemory(memoryPointer++));
+                    opcode06(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 7:
@@ -65,7 +65,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcode08((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcode08((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 9:
@@ -95,7 +95,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcode0E(memory->readMemory(memoryPointer++));
+                    opcode0E(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 0xF:
@@ -117,7 +117,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 1:
 				{
-                    opcode11((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcode11((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 2:
@@ -142,7 +142,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcode16(memory->readMemory(memoryPointer++));
+                    opcode16(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 7:
@@ -152,7 +152,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcode18((char)memory->readMemory(memoryPointer++));
+                    opcode18((char)memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 9:
@@ -182,7 +182,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcode1E(memory->readMemory(memoryPointer++));
+                    opcode1E(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 0xF:
@@ -199,12 +199,12 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-                    opcode20(memory->readMemory(memoryPointer++));
+                    opcode20(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 1:
 				{
-                    opcode21((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcode21((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 2:
@@ -229,7 +229,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcode26(memory->readMemory(memoryPointer++));
+                    opcode26(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 7:
@@ -239,7 +239,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcode28(memory->readMemory(memoryPointer++));
+                    opcode28(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 9:
@@ -269,7 +269,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcode2E(memory->readMemory(memoryPointer++));
+                    opcode2E(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 0xF:
@@ -286,12 +286,12 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-                    opcode30(memory->readMemory(memoryPointer++));
+                    opcode30(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 1:
 				{
-                    opcode31((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcode31((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 2:
@@ -316,7 +316,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcode36(memory->readMemory(memoryPointer++));
+                    opcode36(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 7:
@@ -326,7 +326,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcode38(memory->readMemory(memoryPointer++));
+                    opcode38(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 9:
@@ -356,7 +356,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcode3E(memory->readMemory(memoryPointer++));
+                    opcode3E(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 0xF:
@@ -1080,17 +1080,17 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x02:
 				{
-                    opcodeC2((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcodeC2((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 0x03:
 				{
-                    opcodeC3((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcodeC3((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 0x04:
 				{
-                    opcodeC4((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcodeC4((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 0x05:
@@ -1100,7 +1100,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x06:
 				{
-                    opcodeC6(memory->readMemory(memoryPointer++));
+                    opcodeC6(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 0x07:
@@ -1120,12 +1120,12 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x0A:
 				{
-                    opcodeCA((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcodeCA((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 0x0B:
 				{
-                    switch (memory->readMemory(memoryPointer++))
+                    switch (memory->readMemory(memory->memoryPointer++))
 					{
 
 					case 0x00: { opcodeCB00(); break; }
@@ -1390,17 +1390,17 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x0C:
 				{
-                    opcodeCC((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcodeCC((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 0x0D:
 				{
-                    opcodeCD((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcodeCD((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 0x0E:
 				{
-                    opcodeCE(memory->readMemory(memoryPointer++));
+                    opcodeCE(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 0x0F:
@@ -1428,7 +1428,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 2:
 				{
-                    opcodeD2((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcodeD2((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 3:
@@ -1438,7 +1438,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 4:
 				{
-                    opcodeD4((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcodeD4((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 5:
@@ -1448,7 +1448,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcodeD6(memory->readMemory(memoryPointer++));
+                    opcodeD6(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 7:
@@ -1468,7 +1468,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xA:
 				{
-                    opcodeDA((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcodeDA((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 0xB:
@@ -1478,7 +1478,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xC:
 				{
-                    opcodeDC((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcodeDC((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 0xD:
@@ -1488,7 +1488,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcodeDE(memory->readMemory(memoryPointer++));
+                    opcodeDE(memory->readMemory(memory->memoryPointer++));
 					break;
 
 				}
@@ -1505,7 +1505,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-                    opcodeE0(memory->readMemory(memoryPointer++));
+                    opcodeE0(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 1:
@@ -1535,7 +1535,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcodeE6(memory->readMemory(memoryPointer++));
+                    opcodeE6(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 7:
@@ -1545,7 +1545,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcodeE8(memory->readMemory(memoryPointer++));
+                    opcodeE8(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 9:
@@ -1555,7 +1555,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xA:
 				{
-                    opcodeEA((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcodeEA((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 0xB:
@@ -1575,7 +1575,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcodeEE(memory->readMemory(memoryPointer++));
+                    opcodeEE(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 0xF:
@@ -1592,7 +1592,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-                    opcodeF0(memory->readMemory(memoryPointer++));
+                    opcodeF0(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 1:
@@ -1623,7 +1623,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcodeF6(memory->readMemory(memoryPointer++));
+                    opcodeF6(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 7:
@@ -1633,7 +1633,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcodeF8(memory->readMemory(memoryPointer++));
+                    opcodeF8(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 9:
@@ -1643,7 +1643,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xA:
 				{
-                    opcodeFA((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
+                    opcodeFA((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 0xB:
@@ -1664,7 +1664,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcodeFE(memory->readMemory(memoryPointer++));
+                    opcodeFE(memory->readMemory(memory->memoryPointer++));
 					break;
 				}
 				case 0xF:
@@ -1868,7 +1868,7 @@ void Cpu::opcode10()
 	stop = true;
 
 	// Skip operand byte.
-	memoryPointer++;
+    memory->memoryPointer++;
 }
 
 void Cpu::opcode11(short nn)
@@ -1951,7 +1951,7 @@ void Cpu::opcode17()
 void Cpu::opcode18(char n) //signed byte
 {
 	//Jump Relative to n
-	memoryPointer += (signed char)n;
+    memory->memoryPointer += (signed char)n;
 	mClock += 3;
 	tClock += 12;
 }
@@ -2048,7 +2048,7 @@ void Cpu::opcode20(unsigned char n)
 	//Jump Relative to n if Not Zero
     if (!memory->getZFlag())
 	{
-		memoryPointer += (signed char)n;
+        memory->memoryPointer += (signed char)n;
 		mClock += 3;
 		tClock += 12;
 
@@ -2166,11 +2166,11 @@ void Cpu::opcode27()
 
 void Cpu::opcode28(unsigned char n)
 {
-	//Jump to memoryPointer + n if Zero
+    //Jump to memory->memoryPointer + n if Zero
     if (memory->getZFlag())
 	{
-		//memoryPointer += (signed char)n;
-		memoryPointer += (signed char)n;
+        //memory->memoryPointer += (signed char)n;
+        memory->memoryPointer += (signed char)n;
 		mClock += 3;
 		tClock += 12;
 	}
@@ -2264,7 +2264,7 @@ void Cpu::opcode30(unsigned char n)
 	//Jump Relative to n if Not Carry
     if (!memory->getCFlag())
 	{
-		memoryPointer += (signed char)n;
+        memory->memoryPointer += (signed char)n;
 		mClock += 3;
 		tClock += 12;
 	}
@@ -2348,7 +2348,7 @@ void Cpu::opcode38(unsigned char n)
 	//Jump Relative to n if Carry
     if (memory->getCFlag())
 	{
-		memoryPointer += (signed char)n;
+        memory->memoryPointer += (signed char)n;
 		mClock += 3;
 		tClock += 12;
 	}
@@ -3956,7 +3956,7 @@ void Cpu::opcodeC0()
 	//RET if Not Zero
     if (!memory->getZFlag())
 	{
-        memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
+        memory->memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
 		stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
@@ -3982,7 +3982,7 @@ void Cpu::opcodeC2(short nn)
 	//Jump if Not Zero
     if (!memory->getZFlag())
 	{
-		memoryPointer = nn;
+        memory->memoryPointer = nn;
 		mClock += 4;
 		tClock += 16;
 	}
@@ -3996,7 +3996,7 @@ void Cpu::opcodeC2(short nn)
 void Cpu::opcodeC3(short nn)
 {
 	//Jump to NNNN
-	memoryPointer = nn;
+    memory->memoryPointer = nn;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4007,8 +4007,8 @@ void Cpu::opcodeC4(short nn)
     if (!memory->getZFlag())
 	{
 		stackPointer -= 2;
-        memory->writeMemory(stackPointer, memoryPointer);
-		memoryPointer = nn;
+        memory->writeMemory(stackPointer, memory->memoryPointer);
+        memory->memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
 	}
@@ -4047,8 +4047,8 @@ void Cpu::opcodeC7()
 {
 	//Reset to 00
 	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memoryPointer);
-	memoryPointer = 0x00;
+    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->memoryPointer = 0x00;
 	mClock += 4;
 	tClock += 16;
 
@@ -4059,7 +4059,7 @@ void Cpu::opcodeC8()
 	//Ret if Zero
     if (memory->getZFlag())
 	{
-        memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
+        memory->memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
 		stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
@@ -4074,7 +4074,7 @@ void Cpu::opcodeC8()
 void Cpu::opcodeC9()
 {
 	//Ret
-    memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
+    memory->memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
 	stackPointer += 2;
 	mClock += 4;
 	tClock += 16;
@@ -4085,7 +4085,7 @@ void Cpu::opcodeCA(short nn)
 	//Jump to nn if Zero
     if (memory->getZFlag())
 	{
-		memoryPointer = nn;
+        memory->memoryPointer = nn;
 		mClock += 4;
 		tClock += 16;
 	}
@@ -4102,8 +4102,8 @@ void Cpu::opcodeCC(short nn)
     if (memory->getZFlag())
 	{
 		stackPointer -= 2;
-        memory->writeMemory(stackPointer, memoryPointer);
-		memoryPointer = nn;
+        memory->writeMemory(stackPointer, memory->memoryPointer);
+        memory->memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
 	}
@@ -4118,8 +4118,8 @@ void Cpu::opcodeCD(short nn)
 {
 	//Call nn
 	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memoryPointer);
-	memoryPointer = nn;
+    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->memoryPointer = nn;
 	mClock += 6;
 	tClock += 24;
 }
@@ -4145,8 +4145,8 @@ void Cpu::opcodeCF()
 {
 	//Reset to 08
 	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memoryPointer);
-	memoryPointer = 0x08;
+    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->memoryPointer = 0x08;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4156,7 +4156,7 @@ void Cpu::opcodeD0()
 	//Ret if not Carry
     if (!memory->getCFlag())
 	{
-        memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
+        memory->memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
 		stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
@@ -4182,7 +4182,7 @@ void Cpu::opcodeD2(short nn)
 	//Jump to nn if not Carry
     if (!memory->getCFlag())
 	{
-		memoryPointer = nn;
+        memory->memoryPointer = nn;
 		mClock += 4;
 		tClock += 16;
 	}
@@ -4201,8 +4201,8 @@ void Cpu::opcodeD4(short nn)
     if (!memory->getCFlag())
 	{
 		stackPointer -= 2;
-        memory->writeMemory(stackPointer, memoryPointer);
-		memoryPointer = nn;
+        memory->writeMemory(stackPointer, memory->memoryPointer);
+        memory->memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
 	}
@@ -4245,8 +4245,8 @@ void Cpu::opcodeD7()
 {
 	//Reset to 10
 	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memoryPointer);
-	memoryPointer = 0x10;
+    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->memoryPointer = 0x10;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4256,7 +4256,7 @@ void Cpu::opcodeD8()
 	//Ret if Carry
     if (memory->getCFlag())
 	{
-        memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
+        memory->memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
 		stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
@@ -4271,7 +4271,7 @@ void Cpu::opcodeD8()
 void Cpu::opcodeD9()
 {
 	//Return and enable Interrupts
-    memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
+    memory->memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
 	stackPointer += 2;
 	interruptsEnabled = true;
 	mClock += 4;
@@ -4283,7 +4283,7 @@ void Cpu::opcodeDA(short nn)
 	//Jump to nn if Carry
     if (memory->getCFlag())
 	{
-		memoryPointer = nn;
+        memory->memoryPointer = nn;
 		mClock += 4;
 		tClock += 16;
 	}
@@ -4302,8 +4302,8 @@ void Cpu::opcodeDC(short nn)
     if (memory->getCFlag())
 	{
 		stackPointer -= 2;
-        memory->writeMemory(stackPointer, memoryPointer);
-		memoryPointer = nn;
+        memory->writeMemory(stackPointer, memory->memoryPointer);
+        memory->memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
 	}
@@ -4339,8 +4339,8 @@ void Cpu::opcodeDF()
 {
 	//Reset to 18
 	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memoryPointer);
-	memoryPointer = 0x18;
+    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->memoryPointer = 0x18;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4400,8 +4400,8 @@ void Cpu::opcodeE7()
 {
 	//Reset to 20
 	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memoryPointer);
-	memoryPointer = 0x20;
+    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->memoryPointer = 0x20;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4426,7 +4426,7 @@ void Cpu::opcodeE8(signed char n)
 void Cpu::opcodeE9()
 {
 	//Jump to HL
-    memoryPointer = memory->getHL();
+    memory->memoryPointer = memory->getHL();
 	mClock += 1;
 	tClock += 4;
 }
@@ -4462,8 +4462,8 @@ void Cpu::opcodeEF()
 {
 	//Reset to 28
 	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memoryPointer);
-	memoryPointer = 0x28;
+    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->memoryPointer = 0x28;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4529,8 +4529,8 @@ void Cpu::opcodeF7()
 {
 	//Reset to 30
 	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memoryPointer);
-	memoryPointer = 0x30;
+    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->memoryPointer = 0x30;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4601,11 +4601,11 @@ void Cpu::opcodeFE(unsigned char n)
 void Cpu::opcodeFF()
 {
 	//Reset to 38
-	//beakStack[--stackPointer] = memoryPointer;
-    //memory->writeMemory(--stackPointer, memoryPointer);
+    //beakStack[--stackPointer] = memory->memoryPointer;
+    //memory->writeMemory(--stackPointer, memory->memoryPointer);
 	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memoryPointer);
-	memoryPointer = 0x38;
+    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->memoryPointer = 0x38;
 	mClock += 4;
 	tClock += 16;
 }
@@ -7506,7 +7506,7 @@ void Cpu::executeInterrupt()
     unsigned char IF = memory->readMemory(0xFF0F);
 
 	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memoryPointer);
+    memory->writeMemory(stackPointer, memory->memoryPointer);
 
 	interruptsEnabled = false;
 
@@ -7514,31 +7514,31 @@ void Cpu::executeInterrupt()
 	if (((IF & 0x01) == 1) && ((IE & 0x01) == 1))
 	{
 		//VBLANK
-		memoryPointer = 0x0040;
+        memory->memoryPointer = 0x0040;
         memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xFE)); //Clear bit in IF
 	}
 	else if (((((IF & 0x02) >> 1) == 1) && ((IE & 0x02) >> 1 == 1)))
 	{
 		//LCD
-		memoryPointer = 0x0048;
+        memory->memoryPointer = 0x0048;
         memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xFD)); //Clear bit in IF
 	}
 	else if (((((IF & 0x04) >> 2) == 1) && ((IE & 0x04) >> 2 == 1)))
 	{
 		//Timer Overflow
-		memoryPointer = 0x0050;
+        memory->memoryPointer = 0x0050;
         memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xFB)); //Clear bit in IF
 	}
 	else if (((((IF & 0x08) >> 3) == 1) && ((IE & 0x08) >> 3 == 1)))
 	{
 		//Serial
-		memoryPointer = 0x0058;
+        memory->memoryPointer = 0x0058;
         memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xF7)); //Clear bit in IF
 	}
 	else if (((((IF & 0x10) >> 4) == 1) && ((IE & 0x10) >> 4 == 1)))
 	{
 		//Joypad
-		memoryPointer = 0x0060;
+        memory->memoryPointer = 0x0060;
         memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xEF)); //Clear bit in IF
 	}
 
