@@ -22,6 +22,7 @@ public:
     bool paused;
     bool step;
     bool enableInterruptsNextCycle;
+    bool repeatBug; //Halt bug
 private:
     Memory* memory = new Memory();
     Rom* rom = new Rom();
