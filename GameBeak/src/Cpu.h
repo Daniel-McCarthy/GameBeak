@@ -5,6 +5,7 @@
 #ifndef CPUH
 #define CPUH
 
+class Memory;
 class Cpu : public QWidget
 {
     Q_OBJECT
@@ -14,6 +15,7 @@ private:
 	bool halt = false;
 	bool stop = false; //Button input should set this back to false
     unsigned char haltMode = 0;
+    Memory* memory;
 
 public:
     Cpu(QWidget *parent = nullptr);
