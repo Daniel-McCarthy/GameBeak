@@ -1,6 +1,11 @@
+#include "Core.h"
 #include "Cpu.h"
 #include "Binary.h"
 #include "Debugger.h"
+
+Cpu::Cpu(Core* core) {
+    memory = core->getMemoryPointer();
+}
 
 void Cpu::selectOpcode(unsigned char opcode)
 {

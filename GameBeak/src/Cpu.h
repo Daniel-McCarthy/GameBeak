@@ -6,6 +6,7 @@
 #define CPUH
 
 class Memory;
+class Core;
 class Cpu : public QWidget
 {
     Q_OBJECT
@@ -19,6 +20,7 @@ private:
 
 public:
     Cpu(QWidget *parent = nullptr);
+    Cpu(Core* core);
     ~Cpu() {}
 
 	bool interruptsEnabled = true;
