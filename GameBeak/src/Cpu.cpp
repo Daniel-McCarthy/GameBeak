@@ -2886,7 +2886,7 @@ void Cpu::opcode76()
 			//Halt is not entered, halt bug occurs
 			haltMode = 0;
 			halt = false;
-			repeatBug = true;
+            core->repeatBug = true;
 		}
 		else
 		{
@@ -7658,7 +7658,7 @@ bool Cpu::returnIME()
 
 bool Cpu::returnRepeat()
 {
-	return repeatBug;
+    return core->repeatBug;
 }
 
 void Cpu::setTClock(int newTClock)
@@ -7692,7 +7692,7 @@ void Cpu::setInterrupt(bool newInterrupt)
 }
 void Cpu::setRepeat(bool newRepeat)
 {
-	repeatBug = newRepeat;
+    core->repeatBug = newRepeat;
 }
 
 void Cpu::setDoubleSpeedModeSignal(bool newSpeedSetting) {
