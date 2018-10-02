@@ -30,7 +30,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 1:
 				{
-					opcode01((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcode01((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 2:
@@ -55,7 +55,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-					opcode06(beakMemory.readMemory(memoryPointer++));
+                    opcode06(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 7:
@@ -65,7 +65,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-					opcode08((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcode08((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 9:
@@ -95,7 +95,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-					opcode0E(beakMemory.readMemory(memoryPointer++));
+                    opcode0E(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 0xF:
@@ -117,7 +117,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 1:
 				{
-					opcode11((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcode11((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 2:
@@ -142,7 +142,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-					opcode16(beakMemory.readMemory(memoryPointer++));
+                    opcode16(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 7:
@@ -152,7 +152,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-					opcode18((char)beakMemory.readMemory(memoryPointer++));
+                    opcode18((char)memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 9:
@@ -182,7 +182,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-					opcode1E(beakMemory.readMemory(memoryPointer++));
+                    opcode1E(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 0xF:
@@ -199,12 +199,12 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-					opcode20(beakMemory.readMemory(memoryPointer++));
+                    opcode20(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 1:
 				{
-					opcode21((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcode21((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 2:
@@ -229,7 +229,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-					opcode26(beakMemory.readMemory(memoryPointer++));
+                    opcode26(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 7:
@@ -239,7 +239,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-					opcode28(beakMemory.readMemory(memoryPointer++));
+                    opcode28(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 9:
@@ -269,7 +269,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-					opcode2E(beakMemory.readMemory(memoryPointer++));
+                    opcode2E(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 0xF:
@@ -286,12 +286,12 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-					opcode30(beakMemory.readMemory(memoryPointer++));
+                    opcode30(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 1:
 				{
-					opcode31((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcode31((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 2:
@@ -316,7 +316,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-					opcode36(beakMemory.readMemory(memoryPointer++));
+                    opcode36(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 7:
@@ -326,7 +326,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-					opcode38(beakMemory.readMemory(memoryPointer++));
+                    opcode38(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 9:
@@ -356,7 +356,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-					opcode3E(beakMemory.readMemory(memoryPointer++));
+                    opcode3E(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 0xF:
@@ -1080,17 +1080,17 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x02:
 				{
-					opcodeC2((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcodeC2((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 0x03:
 				{
-					opcodeC3((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcodeC3((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 0x04:
 				{
-					opcodeC4((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcodeC4((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 0x05:
@@ -1100,7 +1100,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x06:
 				{
-					opcodeC6(beakMemory.readMemory(memoryPointer++));
+                    opcodeC6(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 0x07:
@@ -1120,12 +1120,12 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x0A:
 				{
-					opcodeCA((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcodeCA((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 0x0B:
 				{
-					switch (beakMemory.readMemory(memoryPointer++))
+                    switch (memory->readMemory(memoryPointer++))
 					{
 
 					case 0x00: { opcodeCB00(); break; }
@@ -1390,17 +1390,17 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x0C:
 				{
-					opcodeCC((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcodeCC((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 0x0D:
 				{
-					opcodeCD((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcodeCD((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 0x0E:
 				{
-					opcodeCE(beakMemory.readMemory(memoryPointer++));
+                    opcodeCE(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 0x0F:
@@ -1428,7 +1428,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 2:
 				{
-					opcodeD2((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcodeD2((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 3:
@@ -1438,7 +1438,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 4:
 				{
-					opcodeD4((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcodeD4((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 5:
@@ -1448,7 +1448,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-					opcodeD6(beakMemory.readMemory(memoryPointer++));
+                    opcodeD6(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 7:
@@ -1468,7 +1468,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xA:
 				{
-					opcodeDA((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcodeDA((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 0xB:
@@ -1478,7 +1478,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xC:
 				{
-					opcodeDC((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcodeDC((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 0xD:
@@ -1488,7 +1488,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-					opcodeDE(beakMemory.readMemory(memoryPointer++));
+                    opcodeDE(memory->readMemory(memoryPointer++));
 					break;
 
 				}
@@ -1505,7 +1505,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-					opcodeE0(beakMemory.readMemory(memoryPointer++));
+                    opcodeE0(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 1:
@@ -1535,7 +1535,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-					opcodeE6(beakMemory.readMemory(memoryPointer++));
+                    opcodeE6(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 7:
@@ -1545,7 +1545,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-					opcodeE8(beakMemory.readMemory(memoryPointer++));
+                    opcodeE8(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 9:
@@ -1555,7 +1555,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xA:
 				{
-					opcodeEA((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcodeEA((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 0xB:
@@ -1575,7 +1575,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-					opcodeEE(beakMemory.readMemory(memoryPointer++));
+                    opcodeEE(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 0xF:
@@ -1592,7 +1592,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-					opcodeF0(beakMemory.readMemory(memoryPointer++));
+                    opcodeF0(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 1:
@@ -1623,7 +1623,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-					opcodeF6(beakMemory.readMemory(memoryPointer++));
+                    opcodeF6(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 7:
@@ -1633,7 +1633,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-					opcodeF8(beakMemory.readMemory(memoryPointer++));
+                    opcodeF8(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 9:
@@ -1643,7 +1643,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xA:
 				{
-					opcodeFA((beakMemory.readMemory(memoryPointer++)) | (beakMemory.readMemory(memoryPointer++) << 8));
+                    opcodeFA((memory->readMemory(memoryPointer++)) | (memory->readMemory(memoryPointer++) << 8));
 					break;
 				}
 				case 0xB:
@@ -1664,7 +1664,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-					opcodeFE(beakMemory.readMemory(memoryPointer++));
+                    opcodeFE(memory->readMemory(memoryPointer++));
 					break;
 				}
 				case 0xF:
@@ -1690,7 +1690,7 @@ void Cpu::opcode00()
 void Cpu::opcode01(short nn)
 {
 	//Load short into BC
-	beakMemory.setBC(nn);
+    memory->setBC(nn);
 	mClock += 3;
 	tClock += 12;
 }
@@ -1698,7 +1698,7 @@ void Cpu::opcode01(short nn)
 void Cpu::opcode02()
 {
 	//Load A into data at BC
-	beakMemory.writeMemory(beakMemory.getBC(), beakMemory.getA());
+    memory->writeMemory(memory->getBC(), memory->getA());
 	mClock += 2;
 	tClock += 8;
 }
@@ -1707,7 +1707,7 @@ void Cpu::opcode03()
 {
 	//Inc BC
 
-	beakMemory.setBC(beakMemory.getBC() + 1);
+    memory->setBC(memory->getBC() + 1);
 
 	mClock += 2;
 	tClock += 8;
@@ -1717,34 +1717,34 @@ void Cpu::opcode04()
 {
 	//Inc B
 
-	beakMemory.setB(beakMemory.getB() + 1);
+    memory->setB(memory->getB() + 1);
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getB() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag((((beakMemory.getB()) & 0x0F) == 0) ? 1 : 0);
+    memory->setZFlag((memory->getB() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag((((memory->getB()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode05()
 {
 	//Dec B
 
-	beakMemory.setB(beakMemory.getB() - 1);
+    memory->setB(memory->getB() - 1);
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getB() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((((beakMemory.getB()) & 0x0F) == 0xF) ? 1 : 0);
+    memory->setZFlag((memory->getB() == 0) ? 1 : 0);
+    memory->setNFlag(true);
+    memory->setHFlag((((memory->getB()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode06(unsigned char n)
 {
 	//Load byte into B
-	beakMemory.setB(n);
+    memory->setB(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -1753,21 +1753,21 @@ void Cpu::opcode07()
 {
 	
 	//Rotate A Left - Set C flag to old bit 7
-	beakMemory.setA(rotateLeft(beakMemory.getA()));
-	beakMemory.setCFlag(((beakMemory.getA() & 0x01) == 1) ? true : false);
+    memory->setA(rotateLeft(memory->getA()));
+    memory->setCFlag(((memory->getA() & 0x01) == 1) ? true : false);
 	mClock += 1;
 	tClock += 4;
 	
-	beakMemory.setZFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setNFlag(false);
+    memory->setZFlag(false);
+    memory->setHFlag(false);
+    memory->setNFlag(false);
 
 }
 
 void Cpu::opcode08(short nn)
 {
 	//Load SP into data at NN
-	beakMemory.writeMemory(nn, stackPointer);
+    memory->writeMemory(nn, stackPointer);
 	mClock += 5;
 	tClock += 20;
 }
@@ -1776,18 +1776,18 @@ void Cpu::opcode09()
 {
 	//Add BC to HL
 
-	unsigned short hl = beakMemory.getHL();
-	unsigned short bc = beakMemory.getBC();
+    unsigned short hl = memory->getHL();
+    unsigned short bc = memory->getBC();
 	int totalSum = hl + bc;
 
-	beakMemory.setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
-	beakMemory.setHL(totalSum & 0xFFFF);
-	beakMemory.setCFlag(totalSum > 0xFFFF);
+    memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
+    memory->setHL(totalSum & 0xFFFF);
+    memory->setCFlag(totalSum > 0xFFFF);
 	
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
+    memory->setNFlag(false);
 
 }
 
@@ -1795,7 +1795,7 @@ void Cpu::opcode09()
 void Cpu::opcode0A()
 {
 	//Load data at BC into A
-	beakMemory.setA(beakMemory.readMemory(beakMemory.getBC()));
+    memory->setA(memory->readMemory(memory->getBC()));
 	mClock += 2;
 	tClock += 8;
 }
@@ -1804,7 +1804,7 @@ void Cpu::opcode0B()
 {
 	//Dec BC
 
-	beakMemory.setBC(beakMemory.getBC() - 1);
+    memory->setBC(memory->getBC() - 1);
 
 	mClock += 2;
 	tClock += 8;
@@ -1814,34 +1814,34 @@ void Cpu::opcode0C()
 {
 	//Inc C
 
-	beakMemory.setC(beakMemory.getC() + 1);
+    memory->setC(memory->getC() + 1);
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getC() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag((((beakMemory.getC()) & 0x0F) == 0) ? 1 : 0);
+    memory->setZFlag((memory->getC() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag((((memory->getC()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode0D()
 {
 	//Dec C
 
-	beakMemory.setC(beakMemory.getC() - 1);
+    memory->setC(memory->getC() - 1);
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getC() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((((beakMemory.getC()) & 0x0F) == 0xF) ? 1 : 0);
+    memory->setZFlag((memory->getC() == 0) ? 1 : 0);
+    memory->setNFlag(true);
+    memory->setHFlag((((memory->getC()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode0E(unsigned char n)
 {
 	//Load byte into C
-	beakMemory.setC(n);
+    memory->setC(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -1850,15 +1850,15 @@ void Cpu::opcode0F()
 {
 	//Rotate A Right, put previous bit 0 into Carry flag
 
-	beakMemory.setCFlag( (beakMemory.getA() & 0x01) > 0);
-	beakMemory.setA(rotateRight(beakMemory.getA()));
+    memory->setCFlag( (memory->getA() & 0x01) > 0);
+    memory->setA(rotateRight(memory->getA()));
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag(false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 
 }
 
@@ -1874,7 +1874,7 @@ void Cpu::opcode10()
 void Cpu::opcode11(short nn)
 {
 	//Load short into DE
-	beakMemory.setDE(nn);
+    memory->setDE(nn);
 	mClock += 3;
 	tClock += 12;
 }
@@ -1882,7 +1882,7 @@ void Cpu::opcode11(short nn)
 void Cpu::opcode12()
 {
 	//Load A into data at DE
-	beakMemory.writeMemory(beakMemory.getDE(), beakMemory.getA());
+    memory->writeMemory(memory->getDE(), memory->getA());
 	mClock += 2;
 	tClock += 8;
 }
@@ -1891,7 +1891,7 @@ void Cpu::opcode13()
 {
 	//Inc DE
 
-	beakMemory.setDE(beakMemory.getDE() + 1);
+    memory->setDE(memory->getDE() + 1);
 
 	mClock += 2;
 	tClock += 8;
@@ -1901,34 +1901,34 @@ void Cpu::opcode14()
 {
 	//Inc D
 
-	beakMemory.setD(beakMemory.getD() + 1);
+    memory->setD(memory->getD() + 1);
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getD() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag((((beakMemory.getD()) & 0x0F) == 0) ? 1 : 0);
+    memory->setZFlag((memory->getD() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag((((memory->getD()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode15()
 {
 	//Dec D
 
-	beakMemory.setD(beakMemory.getD() - 1);
+    memory->setD(memory->getD() - 1);
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getD() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((((beakMemory.getD()) & 0x0F) == 0xF) ? 1 : 0);
+    memory->setZFlag((memory->getD() == 0) ? 1 : 0);
+    memory->setNFlag(true);
+    memory->setHFlag((((memory->getD()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode16(unsigned char n)
 {
 	//Load byte into D
-	beakMemory.setD(n);
+    memory->setD(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -1936,13 +1936,13 @@ void Cpu::opcode16(unsigned char n)
 void Cpu::opcode17()
 {
 	//RLCA Rotate A Left - Set right most bit to current carry flag
-    unsigned char cFlag = (beakMemory.getCFlag() == true) ? 0x01 : 0x00;
-	beakMemory.setCFlag( ((beakMemory.getA() & 0x80) >> 7) > 0);
-	beakMemory.setA((beakMemory.getA() << 1) | cFlag);
+    unsigned char cFlag = (memory->getCFlag() == true) ? 0x01 : 0x00;
+    memory->setCFlag( ((memory->getA() & 0x80) >> 7) > 0);
+    memory->setA((memory->getA() << 1) | cFlag);
 
-	beakMemory.setZFlag(false); 
-	beakMemory.setHFlag(false);
-	beakMemory.setNFlag(false);
+    memory->setZFlag(false);
+    memory->setHFlag(false);
+    memory->setNFlag(false);
 	mClock += 1;
 	tClock += 4;
 
@@ -1960,24 +1960,24 @@ void Cpu::opcode19()
 {
 	//Add DE to HL
 
-	unsigned short hl = beakMemory.getHL();
-	unsigned short de = beakMemory.getDE();
+    unsigned short hl = memory->getHL();
+    unsigned short de = memory->getDE();
 	int totalSum = hl + de;
 
-	beakMemory.setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
-	beakMemory.setHL(totalSum & 0xFFFF);
-	beakMemory.setCFlag(totalSum > 0xFFFF);
+    memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
+    memory->setHL(totalSum & 0xFFFF);
+    memory->setCFlag(totalSum > 0xFFFF);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
+    memory->setNFlag(false);
 }
 
 void Cpu::opcode1A()
 {
 	//Load data at DE into A
-	beakMemory.setA(beakMemory.readMemory(beakMemory.getDE()));
+    memory->setA(memory->readMemory(memory->getDE()));
 	mClock += 2;
 	tClock += 8;
 }
@@ -1986,7 +1986,7 @@ void Cpu::opcode1B()
 {
 	//Dec DE
 
-	beakMemory.setDE(beakMemory.getDE() - 1);
+    memory->setDE(memory->getDE() - 1);
 
 	mClock += 2;
 	tClock += 8;
@@ -1996,34 +1996,34 @@ void Cpu::opcode1C()
 {
 	//Inc E
 
-	beakMemory.setE(beakMemory.getE() + 1);
+    memory->setE(memory->getE() + 1);
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getE() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag((((beakMemory.getE()) & 0x0F) == 0) ? 1 : 0);
+    memory->setZFlag((memory->getE() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag((((memory->getE()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode1D()
 {
 	//Dec E
 
-	beakMemory.setE(beakMemory.getE() - 1);
+    memory->setE(memory->getE() - 1);
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getE() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((((beakMemory.getE()) & 0x0F) == 0xF) ? 1 : 0);
+    memory->setZFlag((memory->getE() == 0) ? 1 : 0);
+    memory->setNFlag(true);
+    memory->setHFlag((((memory->getE()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode1E(unsigned char n)
 {
 	//Load byte into E
-	beakMemory.setE(n);
+    memory->setE(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2032,21 +2032,21 @@ void Cpu::opcode1F()
 {
 	//RRA - Rotate A Right - Store old bit 0 in Carry Flag - Current Carry flag becomes new bit 7
 	//Rotate A Right - Set left most bit to current carry flag
-    unsigned char cFlag = (beakMemory.getCFlag() == true) ? 0x80 : 0x00;
-	beakMemory.setCFlag(((beakMemory.getA() & 0x01) == 1) ? true : false);
-	beakMemory.setA((beakMemory.getA() >> 1) | cFlag);
+    unsigned char cFlag = (memory->getCFlag() == true) ? 0x80 : 0x00;
+    memory->setCFlag(((memory->getA() & 0x01) == 1) ? true : false);
+    memory->setA((memory->getA() >> 1) | cFlag);
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setNFlag(false);
+    memory->setZFlag(false);
+    memory->setHFlag(false);
+    memory->setNFlag(false);
 }
 
 void Cpu::opcode20(unsigned char n)
 {
 	//Jump Relative to n if Not Zero
-	if (!beakMemory.getZFlag())
+    if (!memory->getZFlag())
 	{
 		memoryPointer += (signed char)n;
 		mClock += 3;
@@ -2063,7 +2063,7 @@ void Cpu::opcode20(unsigned char n)
 void Cpu::opcode21(short nn)
 {
 	//Load short into HL
-	beakMemory.setHL(nn);
+    memory->setHL(nn);
 	mClock += 3;
 	tClock += 12;
 }
@@ -2071,8 +2071,8 @@ void Cpu::opcode21(short nn)
 void Cpu::opcode22()
 {
 	//Load A into data at HL and increment HL
-	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getA());
-	beakMemory.setHL(beakMemory.getHL() + 1);
+    memory->writeMemory(memory->getHL(), memory->getA());
+    memory->setHL(memory->getHL() + 1);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2081,7 +2081,7 @@ void Cpu::opcode23()
 {
 	//Inc HL
 
-	beakMemory.setHL(beakMemory.getHL() + 1);
+    memory->setHL(memory->getHL() + 1);
 
 	mClock += 2;
 	tClock += 8;
@@ -2091,34 +2091,34 @@ void Cpu::opcode24()
 {
 	//Inc H
 
-	beakMemory.setH(beakMemory.getH() + 1);
+    memory->setH(memory->getH() + 1);
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getH() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag((((beakMemory.getH()) & 0x0F) == 0) ? 1 : 0);
+    memory->setZFlag((memory->getH() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag((((memory->getH()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode25()
 {
 	//Dec H
 
-	beakMemory.setH(beakMemory.getH() - 1);
+    memory->setH(memory->getH() - 1);
 
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getH() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((((beakMemory.getH()) & 0x0F) == 0xF) ? 1 : 0);
+    memory->setZFlag((memory->getH() == 0) ? 1 : 0);
+    memory->setNFlag(true);
+    memory->setHFlag((((memory->getH()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode26(unsigned char n)
 {
 	//Load byte into H
-	beakMemory.setH(n);
+    memory->setH(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2127,17 +2127,17 @@ void Cpu::opcode27()
 {
 	//DAA Load decimal representation of A into A
 
-	uint8_t aValue = beakMemory.getA();
+    uint8_t aValue = memory->getA();
 
-	if (!beakMemory.getNFlag())
+    if (!memory->getNFlag())
 	{
-		if (beakMemory.getCFlag() || (aValue > 0x99))
+        if (memory->getCFlag() || (aValue > 0x99))
 		{
 			aValue += 0x60;
-			beakMemory.setCFlag(true);
+            memory->setCFlag(true);
 		}
 
-		if(beakMemory.getHFlag() || ((aValue & 0x0F) > 0x09))
+        if(memory->getHFlag() || ((aValue & 0x0F) > 0x09))
 		{
 			aValue += 0x06;
 		}
@@ -2145,20 +2145,20 @@ void Cpu::opcode27()
 	}
 	else
 	{
-		if (beakMemory.getHFlag())
+        if (memory->getHFlag())
 		{
 			aValue -= 0x6;
 		}
 
-		if (beakMemory.getCFlag())
+        if (memory->getCFlag())
 		{
 			aValue -= 0x60;
 		}
 	}
 
-	beakMemory.setA(aValue);
-	beakMemory.setZFlag(aValue == 0);
-	beakMemory.setHFlag(false);
+    memory->setA(aValue);
+    memory->setZFlag(aValue == 0);
+    memory->setHFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -2167,7 +2167,7 @@ void Cpu::opcode27()
 void Cpu::opcode28(unsigned char n)
 {
 	//Jump to memoryPointer + n if Zero
-	if (beakMemory.getZFlag())
+    if (memory->getZFlag())
 	{
 		//memoryPointer += (signed char)n;
 		memoryPointer += (signed char)n;
@@ -2185,24 +2185,24 @@ void Cpu::opcode29()
 {
 	//Add HL to HL
 
-	unsigned short hl = beakMemory.getHL();
+    unsigned short hl = memory->getHL();
 	int totalSum = hl + hl;
 
-	beakMemory.setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
-	beakMemory.setHL(totalSum & 0xFFFF);
-	beakMemory.setCFlag(totalSum > 0xFFFF);
+    memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
+    memory->setHL(totalSum & 0xFFFF);
+    memory->setCFlag(totalSum > 0xFFFF);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
+    memory->setNFlag(false);
 }
 
 void Cpu::opcode2A()
 {
 	//Load data at HL to A and inc HL
-	beakMemory.setA(beakMemory.readMemory(beakMemory.getHL()));
-	beakMemory.setHL(beakMemory.getHL() + 1);
+    memory->setA(memory->readMemory(memory->getHL()));
+    memory->setHL(memory->getHL() + 1);
 	mClock += 2;
 	tClock += 8;
 
@@ -2211,7 +2211,7 @@ void Cpu::opcode2A()
 void Cpu::opcode2B()
 {
 	//Dec HL
-	beakMemory.setHL(beakMemory.getHL() - 1);
+    memory->setHL(memory->getHL() - 1);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2219,31 +2219,31 @@ void Cpu::opcode2B()
 void Cpu::opcode2C()
 {
 	//Inc L
-	beakMemory.setL(beakMemory.getL() + 1);
+    memory->setL(memory->getL() + 1);
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getL() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag((((beakMemory.getL()) & 0x0F) == 0) ? 1 : 0);
+    memory->setZFlag((memory->getL() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag((((memory->getL()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode2D()
 {
 	//Dec L
-	beakMemory.setL(beakMemory.getL() - 1);
+    memory->setL(memory->getL() - 1);
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getL() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((((beakMemory.getL()) & 0x0F) == 0xF) ? 1 : 0);
+    memory->setZFlag((memory->getL() == 0) ? 1 : 0);
+    memory->setNFlag(true);
+    memory->setHFlag((((memory->getL()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode2E(unsigned char n)
 {
 	//Load a byte into L
-	beakMemory.setL(n);
+    memory->setL(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2251,18 +2251,18 @@ void Cpu::opcode2E(unsigned char n)
 void Cpu::opcode2F()
 {
 	//CPL - Flip all bits in A
-	beakMemory.setA(~beakMemory.getA());
+    memory->setA(~memory->getA());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag(true);
+    memory->setNFlag(true);
+    memory->setHFlag(true);
 }
 
 void Cpu::opcode30(unsigned char n)
 {
 	//Jump Relative to n if Not Carry
-	if (!beakMemory.getCFlag())
+    if (!memory->getCFlag())
 	{
 		memoryPointer += (signed char)n;
 		mClock += 3;
@@ -2286,8 +2286,8 @@ void Cpu::opcode31(short nn)
 void Cpu::opcode32()
 {
 	//Load A into data at HL and dec HL
-	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getA());
-	beakMemory.setHL(beakMemory.getHL() - 1);
+    memory->writeMemory(memory->getHL(), memory->getA());
+    memory->setHL(memory->getHL() - 1);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2303,31 +2303,31 @@ void Cpu::opcode33()
 void Cpu::opcode34()
 {
 	//Inc data at HL
-    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)(beakMemory.readMemory(beakMemory.getHL()) + 1));
+    memory->writeMemory(memory->getHL(), (unsigned char)(memory->readMemory(memory->getHL()) + 1));
 	mClock += 3;
 	tClock += 12;
 
-	beakMemory.setZFlag((beakMemory.readMemory(beakMemory.getHL()) == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag((((beakMemory.readMemory(beakMemory.getHL())) & 0x0F) == 0) ? 1 : 0);
+    memory->setZFlag((memory->readMemory(memory->getHL()) == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag((((memory->readMemory(memory->getHL())) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode35()
 {
 	//Dec data at HL
-    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)(beakMemory.readMemory(beakMemory.getHL()) - 1));
+    memory->writeMemory(memory->getHL(), (unsigned char)(memory->readMemory(memory->getHL()) - 1));
 	mClock += 3;
 	tClock += 12;
 
-	beakMemory.setZFlag((beakMemory.readMemory(beakMemory.getHL()) == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((((beakMemory.readMemory(beakMemory.getHL())) & 0x0F) == 0xF) ? 1 : 0);
+    memory->setZFlag((memory->readMemory(memory->getHL()) == 0) ? 1 : 0);
+    memory->setNFlag(true);
+    memory->setHFlag((((memory->readMemory(memory->getHL())) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode36(unsigned char n)
 {
 	//Load byte into data at HL
-	beakMemory.writeMemory(beakMemory.getHL(), n);
+    memory->writeMemory(memory->getHL(), n);
 	mClock += 3;
 	tClock += 12;
 }
@@ -2335,18 +2335,18 @@ void Cpu::opcode36(unsigned char n)
 void Cpu::opcode37()
 {
 	//SCF Set Carry Flag
-	beakMemory.setCFlag(true);
+    memory->setCFlag(true);
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcode38(unsigned char n)
 {
 	//Jump Relative to n if Carry
-	if (beakMemory.getCFlag())
+    if (memory->getCFlag())
 	{
 		memoryPointer += (signed char)n;
 		mClock += 3;
@@ -2362,25 +2362,25 @@ void Cpu::opcode38(unsigned char n)
 void Cpu::opcode39()
 {
 	//Add SP to HL
-	unsigned short hl = beakMemory.getHL();
+    unsigned short hl = memory->getHL();
 	unsigned short sp = stackPointer;
 	int totalSum = hl + sp;
 
-	beakMemory.setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
-	beakMemory.setHL(totalSum & 0xFFFF);
-	beakMemory.setCFlag(totalSum > 0xFFFF);
+    memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
+    memory->setHL(totalSum & 0xFFFF);
+    memory->setCFlag(totalSum > 0xFFFF);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
+    memory->setNFlag(false);
 }
 
 void Cpu::opcode3A()
 {
 	//Load data in HL into A and decrement HL
-	beakMemory.setA(beakMemory.readMemory(beakMemory.getHL()));
-	beakMemory.setHL(beakMemory.getHL() - 1);
+    memory->setA(memory->readMemory(memory->getHL()));
+    memory->setHL(memory->getHL() - 1);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2396,31 +2396,31 @@ void Cpu::opcode3B()
 void Cpu::opcode3C()
 {
 	//Inc A
-	beakMemory.setA(beakMemory.getA() + 1);
+    memory->setA(memory->getA() + 1);
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0) ? 1 : 0);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag((((memory->getA()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode3D()
 {
 	//Dec A
-	beakMemory.setA(beakMemory.getA() - 1);
+    memory->setA(memory->getA() - 1);
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((((beakMemory.getA()) & 0x0F) == 0xF) ? 1 : 0);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(true);
+    memory->setHFlag((((memory->getA()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode3E(unsigned char n)
 {
 	//Load byte into A
-	beakMemory.setA(n);
+    memory->setA(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2428,18 +2428,18 @@ void Cpu::opcode3E(unsigned char n)
 void Cpu::opcode3F()
 {
 	//Complement Carry Flag (Toggle C Flag)
-	beakMemory.setCFlag((beakMemory.getCFlag() == 1) ? 0 : 1);
+    memory->setCFlag((memory->getCFlag() == 1) ? 0 : 1);
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcode40()
 {
 	//Load B into B
-	beakMemory.setB(beakMemory.getB());
+    memory->setB(memory->getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2447,7 +2447,7 @@ void Cpu::opcode40()
 void Cpu::opcode41()
 {
 	//Load C into B
-	beakMemory.setB(beakMemory.getC());
+    memory->setB(memory->getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2455,7 +2455,7 @@ void Cpu::opcode41()
 void Cpu::opcode42()
 {
 	//Load D into B
-	beakMemory.setB(beakMemory.getD());
+    memory->setB(memory->getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2463,7 +2463,7 @@ void Cpu::opcode42()
 void Cpu::opcode43()
 {
 	//Load E into B
-	beakMemory.setB(beakMemory.getE());
+    memory->setB(memory->getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2471,7 +2471,7 @@ void Cpu::opcode43()
 void Cpu::opcode44()
 {
 	//Load H into B
-	beakMemory.setB(beakMemory.getH());
+    memory->setB(memory->getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2479,7 +2479,7 @@ void Cpu::opcode44()
 void Cpu::opcode45()
 {
 	//Load L into B
-	beakMemory.setB(beakMemory.getL());
+    memory->setB(memory->getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2487,7 +2487,7 @@ void Cpu::opcode45()
 void Cpu::opcode46()
 {
 	//Load data at HL into B
-	beakMemory.setB(beakMemory.readMemory(beakMemory.getHL()));
+    memory->setB(memory->readMemory(memory->getHL()));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2495,7 +2495,7 @@ void Cpu::opcode46()
 void Cpu::opcode47()
 {
 	//Load A into B
-	beakMemory.setB(beakMemory.getA());
+    memory->setB(memory->getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2503,7 +2503,7 @@ void Cpu::opcode47()
 void Cpu::opcode48()
 {
 	//Load B into C
-	beakMemory.setC(beakMemory.getB());
+    memory->setC(memory->getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2511,7 +2511,7 @@ void Cpu::opcode48()
 void Cpu::opcode49()
 {
 	//Load C into C
-	beakMemory.setC(beakMemory.getC());
+    memory->setC(memory->getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2519,7 +2519,7 @@ void Cpu::opcode49()
 void Cpu::opcode4A()
 {
 	//Load D into C
-	beakMemory.setC(beakMemory.getD());
+    memory->setC(memory->getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2527,7 +2527,7 @@ void Cpu::opcode4A()
 void Cpu::opcode4B()
 {
 	//Load E into C
-	beakMemory.setC(beakMemory.getE());
+    memory->setC(memory->getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2535,7 +2535,7 @@ void Cpu::opcode4B()
 void Cpu::opcode4C()
 {
 	//Load H into C
-	beakMemory.setC(beakMemory.getH());
+    memory->setC(memory->getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2543,7 +2543,7 @@ void Cpu::opcode4C()
 void Cpu::opcode4D()
 {
 	//Load L into C
-	beakMemory.setC(beakMemory.getL());
+    memory->setC(memory->getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2551,7 +2551,7 @@ void Cpu::opcode4D()
 void Cpu::opcode4E()
 {
 	//Load data at HL into C
-	beakMemory.setC(beakMemory.readMemory(beakMemory.getHL()));
+    memory->setC(memory->readMemory(memory->getHL()));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2559,7 +2559,7 @@ void Cpu::opcode4E()
 void Cpu::opcode4F()
 {
 	//Load A into C
-	beakMemory.setC(beakMemory.getA());
+    memory->setC(memory->getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2567,7 +2567,7 @@ void Cpu::opcode4F()
 void Cpu::opcode50()
 {
 	//Load B into D
-	beakMemory.setD(beakMemory.getB());
+    memory->setD(memory->getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2575,7 +2575,7 @@ void Cpu::opcode50()
 void Cpu::opcode51()
 {
 	//Load C into D
-	beakMemory.setD(beakMemory.getC());
+    memory->setD(memory->getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2583,7 +2583,7 @@ void Cpu::opcode51()
 void Cpu::opcode52()
 {
 	//Load D into D
-	beakMemory.setD(beakMemory.getD());
+    memory->setD(memory->getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2591,7 +2591,7 @@ void Cpu::opcode52()
 void Cpu::opcode53()
 {
 	//Load E into D
-	beakMemory.setD(beakMemory.getE());
+    memory->setD(memory->getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2599,7 +2599,7 @@ void Cpu::opcode53()
 void Cpu::opcode54()
 {
 	//Load H into D
-	beakMemory.setD(beakMemory.getH());
+    memory->setD(memory->getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2607,7 +2607,7 @@ void Cpu::opcode54()
 void Cpu::opcode55()
 {
 	//Load L into D
-	beakMemory.setD(beakMemory.getL());
+    memory->setD(memory->getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2615,7 +2615,7 @@ void Cpu::opcode55()
 void Cpu::opcode56()
 {
 	//Load data at HL into D
-	beakMemory.setD(beakMemory.readMemory(beakMemory.getHL()));
+    memory->setD(memory->readMemory(memory->getHL()));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2623,7 +2623,7 @@ void Cpu::opcode56()
 void Cpu::opcode57()
 {
 	//Load A into D
-	beakMemory.setD(beakMemory.getA());
+    memory->setD(memory->getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2631,7 +2631,7 @@ void Cpu::opcode57()
 void Cpu::opcode58()
 {
 	//Load B into E
-	beakMemory.setE(beakMemory.getB());
+    memory->setE(memory->getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2639,7 +2639,7 @@ void Cpu::opcode58()
 void Cpu::opcode59()
 {
 	//Load C into E
-	beakMemory.setE(beakMemory.getC());
+    memory->setE(memory->getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2647,7 +2647,7 @@ void Cpu::opcode59()
 void Cpu::opcode5A()
 {
 	//Load D into E
-	beakMemory.setE(beakMemory.getD());
+    memory->setE(memory->getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2655,7 +2655,7 @@ void Cpu::opcode5A()
 void Cpu::opcode5B()
 {
 	//Load E into E
-	beakMemory.setE(beakMemory.getE());
+    memory->setE(memory->getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2663,7 +2663,7 @@ void Cpu::opcode5B()
 void Cpu::opcode5C()
 {
 	//Load H into E
-	beakMemory.setE(beakMemory.getH());
+    memory->setE(memory->getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2671,7 +2671,7 @@ void Cpu::opcode5C()
 void Cpu::opcode5D()
 {
 	//Load L into D
-	beakMemory.setE(beakMemory.getL());
+    memory->setE(memory->getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2679,7 +2679,7 @@ void Cpu::opcode5D()
 void Cpu::opcode5E()
 {
 	//Load data at HL into E
-	beakMemory.setE(beakMemory.readMemory(beakMemory.getHL()));
+    memory->setE(memory->readMemory(memory->getHL()));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2687,7 +2687,7 @@ void Cpu::opcode5E()
 void Cpu::opcode5F()
 {
 	//Load A into E
-	beakMemory.setE(beakMemory.getA());
+    memory->setE(memory->getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2695,7 +2695,7 @@ void Cpu::opcode5F()
 void Cpu::opcode60()
 {
 	//Load B into H
-	beakMemory.setH(beakMemory.getB());
+    memory->setH(memory->getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2703,7 +2703,7 @@ void Cpu::opcode60()
 void Cpu::opcode61()
 {
 	//Load C into H
-	beakMemory.setH(beakMemory.getC());
+    memory->setH(memory->getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2711,7 +2711,7 @@ void Cpu::opcode61()
 void Cpu::opcode62()
 {
 	//Load D into H
-	beakMemory.setH(beakMemory.getD());
+    memory->setH(memory->getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2719,7 +2719,7 @@ void Cpu::opcode62()
 void Cpu::opcode63()
 {
 	//Load E into H
-	beakMemory.setH(beakMemory.getE());
+    memory->setH(memory->getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2727,7 +2727,7 @@ void Cpu::opcode63()
 void Cpu::opcode64()
 {
 	//Load H into H
-	beakMemory.setH(beakMemory.getH());
+    memory->setH(memory->getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2735,7 +2735,7 @@ void Cpu::opcode64()
 void Cpu::opcode65()
 {
 	//Load L into H
-	beakMemory.setH(beakMemory.getL());
+    memory->setH(memory->getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2743,7 +2743,7 @@ void Cpu::opcode65()
 void Cpu::opcode66()
 {
 	//Load data at HL into H
-	beakMemory.setH(beakMemory.readMemory(beakMemory.getHL()));
+    memory->setH(memory->readMemory(memory->getHL()));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2751,7 +2751,7 @@ void Cpu::opcode66()
 void Cpu::opcode67()
 {
 	//Load A into H
-	beakMemory.setH(beakMemory.getA());
+    memory->setH(memory->getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2759,7 +2759,7 @@ void Cpu::opcode67()
 void Cpu::opcode68()
 {
 	//Load B into L
-	beakMemory.setL(beakMemory.getB());
+    memory->setL(memory->getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2767,7 +2767,7 @@ void Cpu::opcode68()
 void Cpu::opcode69()
 {
 	//Load C into L
-	beakMemory.setL(beakMemory.getC());
+    memory->setL(memory->getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2775,7 +2775,7 @@ void Cpu::opcode69()
 void Cpu::opcode6A()
 {
 	//Load D into L
-	beakMemory.setL(beakMemory.getD());
+    memory->setL(memory->getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2783,7 +2783,7 @@ void Cpu::opcode6A()
 void Cpu::opcode6B()
 {
 	//Load E into L
-	beakMemory.setL(beakMemory.getE());
+    memory->setL(memory->getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2791,7 +2791,7 @@ void Cpu::opcode6B()
 void Cpu::opcode6C()
 {
 	//Load H into L
-	beakMemory.setL(beakMemory.getH());
+    memory->setL(memory->getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2799,7 +2799,7 @@ void Cpu::opcode6C()
 void Cpu::opcode6D()
 {
 	//Load L into L
-	beakMemory.setL(beakMemory.getL());
+    memory->setL(memory->getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2807,7 +2807,7 @@ void Cpu::opcode6D()
 void Cpu::opcode6E()
 {
 	//Load data at HL into L
-	beakMemory.setL(beakMemory.readMemory(beakMemory.getHL()));
+    memory->setL(memory->readMemory(memory->getHL()));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2815,7 +2815,7 @@ void Cpu::opcode6E()
 void Cpu::opcode6F()
 {
 	//Load A into L
-	beakMemory.setL(beakMemory.getA());
+    memory->setL(memory->getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2823,7 +2823,7 @@ void Cpu::opcode6F()
 void Cpu::opcode70()
 {
 	//Load B into data at HL
-	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getB());
+    memory->writeMemory(memory->getHL(), memory->getB());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2831,7 +2831,7 @@ void Cpu::opcode70()
 void Cpu::opcode71()
 {
 	//Load C into data at HL
-	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getC());
+    memory->writeMemory(memory->getHL(), memory->getC());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2839,7 +2839,7 @@ void Cpu::opcode71()
 void Cpu::opcode72()
 {
 	//Load D into data at HL
-	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getD());
+    memory->writeMemory(memory->getHL(), memory->getD());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2847,7 +2847,7 @@ void Cpu::opcode72()
 void Cpu::opcode73()
 {
 	//Load E into data at HL
-	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getE());
+    memory->writeMemory(memory->getHL(), memory->getE());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2855,7 +2855,7 @@ void Cpu::opcode73()
 void Cpu::opcode74()
 {
 	//Load H into data at HL
-	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getH());
+    memory->writeMemory(memory->getHL(), memory->getH());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2863,7 +2863,7 @@ void Cpu::opcode74()
 void Cpu::opcode75()
 {
 	//Load L into data at HL
-	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getL());
+    memory->writeMemory(memory->getHL(), memory->getL());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2902,7 +2902,7 @@ void Cpu::opcode76()
 void Cpu::opcode77()
 {
 	//Load A into data at HL
-	beakMemory.writeMemory(beakMemory.getHL(), beakMemory.getA());
+    memory->writeMemory(memory->getHL(), memory->getA());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2910,7 +2910,7 @@ void Cpu::opcode77()
 void Cpu::opcode78()
 {
 	//Load B into A
-	beakMemory.setA(beakMemory.getB());
+    memory->setA(memory->getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2918,7 +2918,7 @@ void Cpu::opcode78()
 void Cpu::opcode79()
 {
 	//Load C into A
-	beakMemory.setA(beakMemory.getC());
+    memory->setA(memory->getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2926,7 +2926,7 @@ void Cpu::opcode79()
 void Cpu::opcode7A()
 {
 	//Load D into A
-	beakMemory.setA(beakMemory.getD());
+    memory->setA(memory->getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2934,7 +2934,7 @@ void Cpu::opcode7A()
 void Cpu::opcode7B()
 {
 	//Load E into A
-	beakMemory.setA(beakMemory.getE());
+    memory->setA(memory->getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2942,7 +2942,7 @@ void Cpu::opcode7B()
 void Cpu::opcode7C()
 {
 	//Load H into A
-	beakMemory.setA(beakMemory.getH());
+    memory->setA(memory->getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2950,7 +2950,7 @@ void Cpu::opcode7C()
 void Cpu::opcode7D()
 {
 	//Load L into A
-	beakMemory.setA(beakMemory.getL());
+    memory->setA(memory->getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2958,7 +2958,7 @@ void Cpu::opcode7D()
 void Cpu::opcode7E()
 {
 	//Load data at HL into A
-	beakMemory.setA(beakMemory.readMemory(beakMemory.getHL()));
+    memory->setA(memory->readMemory(memory->getHL()));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2966,7 +2966,7 @@ void Cpu::opcode7E()
 void Cpu::opcode7F()
 {
 	//Load A into A
-	beakMemory.setA(beakMemory.getA());
+    memory->setA(memory->getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2974,13 +2974,13 @@ void Cpu::opcode7F()
 void Cpu::opcode80()
 {
 	//Add B to A
-	int result = beakMemory.getA() + beakMemory.getB();
+    int result = memory->getA() + memory->getB();
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getB() & 0x0F)) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getB() & 0x0F)) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -2990,13 +2990,13 @@ void Cpu::opcode80()
 void Cpu::opcode81()
 {
 	//Add C to A
-	int result = beakMemory.getA() + beakMemory.getC();
+    int result = memory->getA() + memory->getC();
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getC() & 0x0F)) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getC() & 0x0F)) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3005,13 +3005,13 @@ void Cpu::opcode81()
 void Cpu::opcode82()
 {
 	//Add D to A
-	int result = beakMemory.getA() + beakMemory.getD();
+    int result = memory->getA() + memory->getD();
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getD() & 0x0F)) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getD() & 0x0F)) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3020,13 +3020,13 @@ void Cpu::opcode82()
 void Cpu::opcode83()
 {
 	//Add E to A
-	int result = beakMemory.getA() + beakMemory.getE();
+    int result = memory->getA() + memory->getE();
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getE() & 0x0F)) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getE() & 0x0F)) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3035,13 +3035,13 @@ void Cpu::opcode83()
 void Cpu::opcode84()
 {
 	//Add H to A
-	int result = beakMemory.getA() + beakMemory.getH();
+    int result = memory->getA() + memory->getH();
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getH() & 0x0F)) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getH() & 0x0F)) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3050,13 +3050,13 @@ void Cpu::opcode84()
 void Cpu::opcode85()
 {
 	//Add L to A
-	int result = beakMemory.getA() + beakMemory.getL();
+    int result = memory->getA() + memory->getL();
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getL() & 0x0F)) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getL() & 0x0F)) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3065,17 +3065,17 @@ void Cpu::opcode85()
 void Cpu::opcode86()
 {
 	//Add data at HL to A
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
 
-	uint8_t data = beakMemory.readMemory(beakMemory.getHL());
-	int result = beakMemory.getA() + data;
+    uint8_t data = memory->readMemory(memory->getHL());
+    int result = memory->getA() + data;
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (data & 0x0F)) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (data & 0x0F)) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 2;
 	tClock += 8;
@@ -3084,13 +3084,13 @@ void Cpu::opcode86()
 void Cpu::opcode87()
 {
 	//Add A to A
-	int result = beakMemory.getA() + beakMemory.getA();
+    int result = memory->getA() + memory->getA();
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getA() & 0x0F)) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getA() & 0x0F)) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3099,14 +3099,14 @@ void Cpu::opcode87()
 void Cpu::opcode88()
 {
 	//Add B and Carry flag to A
-	int carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA() + beakMemory.getB() + carry;
+    int carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA() + memory->getB() + carry;
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getB() & 0x0F) + carry) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getB() & 0x0F) + carry) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3115,14 +3115,14 @@ void Cpu::opcode88()
 void Cpu::opcode89()
 {
 	//Add C and Carry flag to A
-	int carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA() + beakMemory.getC() + carry;
+    int carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA() + memory->getC() + carry;
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getC() & 0x0F) + carry) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getC() & 0x0F) + carry) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3131,14 +3131,14 @@ void Cpu::opcode89()
 void Cpu::opcode8A()
 {
 	//Add D and Carry flag to A
-	int carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA() + beakMemory.getD() + carry;
+    int carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA() + memory->getD() + carry;
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getD() & 0x0F) + carry) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getD() & 0x0F) + carry) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3147,14 +3147,14 @@ void Cpu::opcode8A()
 void Cpu::opcode8B()
 {
 	//Add E and Carry flag to A
-	int carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA() + beakMemory.getE() + carry;
+    int carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA() + memory->getE() + carry;
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getE() & 0x0F) + carry) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getE() & 0x0F) + carry) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3163,14 +3163,14 @@ void Cpu::opcode8B()
 void Cpu::opcode8C()
 {
 	//Add H and Carry flag to A
-	int carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA() + beakMemory.getH() + carry;
+    int carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA() + memory->getH() + carry;
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getH() & 0x0F) + carry) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getH() & 0x0F) + carry) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3179,14 +3179,14 @@ void Cpu::opcode8C()
 void Cpu::opcode8D()
 {
 	//Add L and Carry flag to A
-	int carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA() + beakMemory.getL() + carry;
+    int carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA() + memory->getL() + carry;
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getL() & 0x0F) + carry) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getL() & 0x0F) + carry) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3195,15 +3195,15 @@ void Cpu::opcode8D()
 void Cpu::opcode8E()
 {
 	//Add data at HL and Carry flag to A
-	int data = beakMemory.readMemory(beakMemory.getHL());
-	int carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA() + data + carry;
+    int data = memory->readMemory(memory->getHL());
+    int carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA() + data + carry;
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (data & 0x0F) + carry) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (data & 0x0F) + carry) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 2;
 	tClock += 8;
@@ -3212,14 +3212,14 @@ void Cpu::opcode8E()
 void Cpu::opcode8F()
 {
 	//Add A and Carry flag to A
-	int carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA() + beakMemory.getA() + carry;
+    int carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA() + memory->getA() + carry;
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (beakMemory.getA() & 0x0F) + carry) & 0x10) > 0);
-	beakMemory.setA((uint8_t)result & 0xFF);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getA() & 0x0F) + carry) & 0x10) > 0);
+    memory->setA((uint8_t)result & 0xFF);
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3229,14 +3229,14 @@ void Cpu::opcode90()
 {
 	//Sub B from A
 
-	int result = beakMemory.getA();
-	result -= beakMemory.getB();
+    int result = memory->getA();
+    result -= memory->getB();
 
-	beakMemory.setCFlag(beakMemory.getB() > beakMemory.getA());
-	beakMemory.setHFlag((beakMemory.getB() & 0x0F) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+    memory->setCFlag(memory->getB() > memory->getA());
+    memory->setHFlag((memory->getB() & 0x0F) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setZFlag(result == 0);
+    memory->setA(result);
 
 	mClock += 1;
 	tClock += 4;
@@ -3247,14 +3247,14 @@ void Cpu::opcode91()
 {
 	//Sub C from A
 
-	int result = beakMemory.getA();
-	result -= beakMemory.getC();
+    int result = memory->getA();
+    result -= memory->getC();
 
-	beakMemory.setCFlag(beakMemory.getC() > beakMemory.getA());
-	beakMemory.setHFlag((beakMemory.getC() & 0x0F) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+    memory->setCFlag(memory->getC() > memory->getA());
+    memory->setHFlag((memory->getC() & 0x0F) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setZFlag(result == 0);
+    memory->setA(result);
 
 	mClock += 1;
 	tClock += 4;
@@ -3265,14 +3265,14 @@ void Cpu::opcode92()
 {
 	//Sub D from A
 
-	int result = beakMemory.getA();
-	result -= beakMemory.getD();
+    int result = memory->getA();
+    result -= memory->getD();
 
-	beakMemory.setCFlag(beakMemory.getD() > beakMemory.getA());
-	beakMemory.setHFlag((beakMemory.getD() & 0x0F) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+    memory->setCFlag(memory->getD() > memory->getA());
+    memory->setHFlag((memory->getD() & 0x0F) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setZFlag(result == 0);
+    memory->setA(result);
 
 	mClock += 1;
 	tClock += 4;
@@ -3282,14 +3282,14 @@ void Cpu::opcode93()
 {
 	//Sub E from A
 
-	int result = beakMemory.getA();
-	result -= beakMemory.getE();
+    int result = memory->getA();
+    result -= memory->getE();
 
-	beakMemory.setCFlag(beakMemory.getE() > beakMemory.getA());
-	beakMemory.setHFlag((beakMemory.getE() & 0x0F) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+    memory->setCFlag(memory->getE() > memory->getA());
+    memory->setHFlag((memory->getE() & 0x0F) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setZFlag(result == 0);
+    memory->setA(result);
 
 	mClock += 1;
 	tClock += 4;
@@ -3299,14 +3299,14 @@ void Cpu::opcode94()
 {
 	//Sub B from H
 
-	int result = beakMemory.getA();
-	result -= beakMemory.getH();
+    int result = memory->getA();
+    result -= memory->getH();
 
-	beakMemory.setCFlag(beakMemory.getH() > beakMemory.getA());
-	beakMemory.setHFlag((beakMemory.getH() & 0x0F) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+    memory->setCFlag(memory->getH() > memory->getA());
+    memory->setHFlag((memory->getH() & 0x0F) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setZFlag(result == 0);
+    memory->setA(result);
 
 	mClock += 1;
 	tClock += 4;
@@ -3316,14 +3316,14 @@ void Cpu::opcode95()
 {
 	//Sub L from A
 
-	int result = beakMemory.getA();
-	result -= beakMemory.getL();
+    int result = memory->getA();
+    result -= memory->getL();
 
-	beakMemory.setCFlag(beakMemory.getL() > beakMemory.getA());
-	beakMemory.setHFlag((beakMemory.getL() & 0x0F) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+    memory->setCFlag(memory->getL() > memory->getA());
+    memory->setHFlag((memory->getL() & 0x0F) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setZFlag(result == 0);
+    memory->setA(result);
 
 	mClock += 1;
 	tClock += 4;
@@ -3333,15 +3333,15 @@ void Cpu::opcode96()
 {
 	//Sub data at HL from A
 
-	int result = beakMemory.getA();
-	uint8_t n = beakMemory.readMemory(beakMemory.getHL());
+    int result = memory->getA();
+    uint8_t n = memory->readMemory(memory->getHL());
 	result -= n;
 
-	beakMemory.setCFlag(n > beakMemory.getA());
-	beakMemory.setHFlag((n & 0x0F) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+    memory->setCFlag(n > memory->getA());
+    memory->setHFlag((n & 0x0F) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setZFlag(result == 0);
+    memory->setA(result);
 
 	mClock += 1;
 	tClock += 4;
@@ -3351,14 +3351,14 @@ void Cpu::opcode97()
 {
 	//Sub A from A
 
-	int result = beakMemory.getA();
-	result -= beakMemory.getA();
+    int result = memory->getA();
+    result -= memory->getA();
 
-	beakMemory.setCFlag(beakMemory.getA() > beakMemory.getA());
-	beakMemory.setHFlag((beakMemory.getA() & 0x0F) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+    memory->setCFlag(memory->getA() > memory->getA());
+    memory->setHFlag((memory->getA() & 0x0F) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setZFlag(result == 0);
+    memory->setA(result);
 
 	mClock += 1;
 	tClock += 4;
@@ -3368,16 +3368,16 @@ void Cpu::opcode98()
 {
 	//Sub B and Carry flag from A
 
-	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA();
-	result -= beakMemory.getB();
+    uint8_t carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA();
+    result -= memory->getB();
 	result -= carry;
 
-	beakMemory.setCFlag((beakMemory.getB() + carry) > beakMemory.getA());
-	beakMemory.setHFlag(((beakMemory.getB() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setA(result & 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
+    memory->setCFlag((memory->getB() + carry) > memory->getA());
+    memory->setHFlag(((memory->getB() & 0x0F) + carry) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setA(result & 0xFF);
+    memory->setZFlag(memory->getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3387,16 +3387,16 @@ void Cpu::opcode99()
 {
 	//Sub C and Carry flag from A
 
-	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA();
-	result -= beakMemory.getC();
+    uint8_t carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA();
+    result -= memory->getC();
 	result -= carry;
 
-	beakMemory.setCFlag((beakMemory.getC() + carry) > beakMemory.getA());
-	beakMemory.setHFlag(((beakMemory.getC() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setA(result & 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
+    memory->setCFlag((memory->getC() + carry) > memory->getA());
+    memory->setHFlag(((memory->getC() & 0x0F) + carry) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setA(result & 0xFF);
+    memory->setZFlag(memory->getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3406,16 +3406,16 @@ void Cpu::opcode9A()
 {
 	//Sub D and Carry flag from A
 
-	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA();
-	result -= beakMemory.getD();
+    uint8_t carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA();
+    result -= memory->getD();
 	result -= carry;
 
-	beakMemory.setCFlag((beakMemory.getD() + carry) > beakMemory.getA());
-	beakMemory.setHFlag(((beakMemory.getD() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setA(result & 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
+    memory->setCFlag((memory->getD() + carry) > memory->getA());
+    memory->setHFlag(((memory->getD() & 0x0F) + carry) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setA(result & 0xFF);
+    memory->setZFlag(memory->getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3425,16 +3425,16 @@ void Cpu::opcode9B()
 {
 	//Sub E and Carry flag from A
 
-	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA();
-	result -= beakMemory.getE();
+    uint8_t carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA();
+    result -= memory->getE();
 	result -= carry;
 
-	beakMemory.setCFlag((beakMemory.getE() + carry) > beakMemory.getA());
-	beakMemory.setHFlag(((beakMemory.getE() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setA(result & 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
+    memory->setCFlag((memory->getE() + carry) > memory->getA());
+    memory->setHFlag(((memory->getE() & 0x0F) + carry) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setA(result & 0xFF);
+    memory->setZFlag(memory->getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3444,16 +3444,16 @@ void Cpu::opcode9C()
 {
 	//Sub H and Carry flag from A
 
-	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA();
-	result -= beakMemory.getH();
+    uint8_t carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA();
+    result -= memory->getH();
 	result -= carry;
 
-	beakMemory.setCFlag((beakMemory.getH() + carry) > beakMemory.getA());
-	beakMemory.setHFlag(((beakMemory.getH() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setA(result & 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
+    memory->setCFlag((memory->getH() + carry) > memory->getA());
+    memory->setHFlag(((memory->getH() & 0x0F) + carry) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setA(result & 0xFF);
+    memory->setZFlag(memory->getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3463,16 +3463,16 @@ void Cpu::opcode9D()
 {
 	//Sub L and Carry flag from A
 
-	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA();
-	result -= beakMemory.getL();
+    uint8_t carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA();
+    result -= memory->getL();
 	result -= carry;
 
-	beakMemory.setCFlag((beakMemory.getL() + carry) > beakMemory.getA());
-	beakMemory.setHFlag(((beakMemory.getL() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setA(result & 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
+    memory->setCFlag((memory->getL() + carry) > memory->getA());
+    memory->setHFlag(((memory->getL() & 0x0F) + carry) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setA(result & 0xFF);
+    memory->setZFlag(memory->getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3482,17 +3482,17 @@ void Cpu::opcode9E()
 {
 	//Sub data at HL and Carry flag from A
 
-	uint8_t data = beakMemory.readMemory(beakMemory.getHL());
-	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA();
+    uint8_t data = memory->readMemory(memory->getHL());
+    uint8_t carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA();
 	result -= data;
 	result -= carry;
 
-	beakMemory.setCFlag((data + carry) > beakMemory.getA());
-	beakMemory.setHFlag(((data & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setA(result & 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
+    memory->setCFlag((data + carry) > memory->getA());
+    memory->setHFlag(((data & 0x0F) + carry) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setA(result & 0xFF);
+    memory->setZFlag(memory->getA() == 0);
 
 	mClock += 2;
 	tClock += 8;
@@ -3502,16 +3502,16 @@ void Cpu::opcode9F()
 {
 	//Sub A and Carry flag from A
 
-	uint8_t carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA();
-	result -= beakMemory.getA();
+    uint8_t carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA();
+    result -= memory->getA();
 	result -= carry;
 
-	beakMemory.setCFlag((beakMemory.getA() + carry) > beakMemory.getA());
-	beakMemory.setHFlag(((beakMemory.getA() & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setA(result & 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
+    memory->setCFlag((memory->getA() + carry) > memory->getA());
+    memory->setHFlag(((memory->getA() & 0x0F) + carry) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setA(result & 0xFF);
+    memory->setZFlag(memory->getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3520,325 +3520,325 @@ void Cpu::opcode9F()
 void Cpu::opcodeA0()
 {
 	//And B from A
-	beakMemory.setA(beakMemory.getA() & beakMemory.getB());
+    memory->setA(memory->getA() & memory->getB());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeA1()
 {
 	//And C from A
-	beakMemory.setA(beakMemory.getA() & beakMemory.getC());
+    memory->setA(memory->getA() & memory->getC());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeA2()
 {
 	//And D from A
-	beakMemory.setA(beakMemory.getA() & beakMemory.getD());
+    memory->setA(memory->getA() & memory->getD());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeA3()
 {
 	//And E from A
-	beakMemory.setA(beakMemory.getA() & beakMemory.getE());
+    memory->setA(memory->getA() & memory->getE());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeA4()
 {
 	//And H from A
-	beakMemory.setA(beakMemory.getA() & beakMemory.getH());
+    memory->setA(memory->getA() & memory->getH());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeA5()
 {
 	//And L from A
-	beakMemory.setA(beakMemory.getA() & beakMemory.getL());
+    memory->setA(memory->getA() & memory->getL());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeA6()
 {
 	//And (HL) from A
-	beakMemory.setA(beakMemory.getA() & beakMemory.readMemory(beakMemory.getHL()));
+    memory->setA(memory->getA() & memory->readMemory(memory->getHL()));
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeA7()
 {
 	//And A from A
-	beakMemory.setA(beakMemory.getA() & beakMemory.getA());
+    memory->setA(memory->getA() & memory->getA());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeA8()
 {
 	//XOR B from A
-	beakMemory.setA(beakMemory.getA() ^ beakMemory.getB());
+    memory->setA(memory->getA() ^ memory->getB());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeA9()
 {
 	//XOR C from A
-	beakMemory.setA(beakMemory.getA() ^ beakMemory.getC());
+    memory->setA(memory->getA() ^ memory->getC());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeAA()
 {
 	//XOR D from A
-	beakMemory.setA(beakMemory.getA() ^ beakMemory.getD());
+    memory->setA(memory->getA() ^ memory->getD());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeAB()
 {
 	//XOR E from A
-	beakMemory.setA(beakMemory.getA() ^ beakMemory.getE());
+    memory->setA(memory->getA() ^ memory->getE());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeAC()
 {
 	//XOR H from A
-	beakMemory.setA(beakMemory.getA() ^ beakMemory.getH());
+    memory->setA(memory->getA() ^ memory->getH());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeAD()
 {
 	//XOR L from A
-	beakMemory.setA(beakMemory.getA() ^ beakMemory.getL());
+    memory->setA(memory->getA() ^ memory->getL());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeAE()
 {
 	//XOR data at HL from A
-	beakMemory.setA(beakMemory.getA() ^ beakMemory.readMemory(beakMemory.getHL()));
+    memory->setA(memory->getA() ^ memory->readMemory(memory->getHL()));
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeAF()
 {
 	//XOR A from A
-	beakMemory.setA(beakMemory.getA() ^ beakMemory.getA());
+    memory->setA(memory->getA() ^ memory->getA());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeB0()
 {
 	//OR B from A
-	beakMemory.setA(beakMemory.getA() | beakMemory.getB());
+    memory->setA(memory->getA() | memory->getB());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeB1()
 {
 	//OR C from A
-	beakMemory.setA(beakMemory.getA() | beakMemory.getC());
+    memory->setA(memory->getA() | memory->getC());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeB2()
 {
 	//OR D from A
-	beakMemory.setA(beakMemory.getA() | beakMemory.getD());
+    memory->setA(memory->getA() | memory->getD());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeB3()
 {
 	//OR E from A
-	beakMemory.setA(beakMemory.getA() | beakMemory.getE());
+    memory->setA(memory->getA() | memory->getE());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeB4()
 {
 	//OR H from A
-	beakMemory.setA(beakMemory.getA() | beakMemory.getH());
+    memory->setA(memory->getA() | memory->getH());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeB5()
 {
 	//OR L from A
-	beakMemory.setA(beakMemory.getA() | beakMemory.getL());
+    memory->setA(memory->getA() | memory->getL());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeB6()
 {
 	//OR (HL) from A
-	beakMemory.setA(beakMemory.getA() | beakMemory.readMemory(beakMemory.getHL()));
+    memory->setA(memory->getA() | memory->readMemory(memory->getHL()));
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeB7()
 {
 	//OR A from A
-	beakMemory.setA(beakMemory.getA() | beakMemory.getA());
+    memory->setA(memory->getA() | memory->getA());
 	mClock += 1;
 	tClock += 4;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeB8()
 {
 	//Compare B with A
 
-	int test = beakMemory.getA() - beakMemory.getB();
+    int test = memory->getA() - memory->getB();
 
-	beakMemory.setZFlag(test == 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((test & 0xF) > (beakMemory.getA() & 0xF));
-	beakMemory.setCFlag(test < 0);
+    memory->setZFlag(test == 0);
+    memory->setNFlag(true);
+    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
+    memory->setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3848,12 +3848,12 @@ void Cpu::opcodeB9()
 {
 	//Compare C with A
 
-	int test = beakMemory.getA() - beakMemory.getC();
+    int test = memory->getA() - memory->getC();
 
-	beakMemory.setZFlag(test == 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((test & 0xF) > (beakMemory.getA() & 0xF));
-	beakMemory.setCFlag(test < 0);
+    memory->setZFlag(test == 0);
+    memory->setNFlag(true);
+    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
+    memory->setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3863,12 +3863,12 @@ void Cpu::opcodeBA()
 {
 	//Compare D with A
 	
-	int test = beakMemory.getA() - beakMemory.getD();
+    int test = memory->getA() - memory->getD();
 
-	beakMemory.setZFlag(test == 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((test & 0xF) > (beakMemory.getA() & 0xF));
-	beakMemory.setCFlag(test < 0);
+    memory->setZFlag(test == 0);
+    memory->setNFlag(true);
+    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
+    memory->setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3878,12 +3878,12 @@ void Cpu::opcodeBB()
 {
 	//Compare E with A
 	
-	int test = beakMemory.getA() - beakMemory.getE();
+    int test = memory->getA() - memory->getE();
 
-	beakMemory.setZFlag(test == 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((test & 0xF) > (beakMemory.getA() & 0xF));
-	beakMemory.setCFlag(test < 0);
+    memory->setZFlag(test == 0);
+    memory->setNFlag(true);
+    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
+    memory->setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3893,12 +3893,12 @@ void Cpu::opcodeBC()
 {
 	//Compare H with A
 	
-	int test = beakMemory.getA() - beakMemory.getH();
+    int test = memory->getA() - memory->getH();
 
-	beakMemory.setZFlag(test == 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((test & 0xF) > (beakMemory.getA() & 0xF));
-	beakMemory.setCFlag(test < 0);
+    memory->setZFlag(test == 0);
+    memory->setNFlag(true);
+    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
+    memory->setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3908,12 +3908,12 @@ void Cpu::opcodeBD()
 {
 	//Compare L with A
 	
-	int test = beakMemory.getA() - beakMemory.getL();
+    int test = memory->getA() - memory->getL();
 
-	beakMemory.setZFlag(test == 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((test & 0xF) > (beakMemory.getA() & 0xF));
-	beakMemory.setCFlag(test < 0);
+    memory->setZFlag(test == 0);
+    memory->setNFlag(true);
+    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
+    memory->setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3923,13 +3923,13 @@ void Cpu::opcodeBE()
 {
 	//Compare data at HL with A
 
-    unsigned char n = beakMemory.readMemory(beakMemory.getHL());
-	int test = beakMemory.getA() - n;
+    unsigned char n = memory->readMemory(memory->getHL());
+    int test = memory->getA() - n;
 
-	beakMemory.setZFlag(test == 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((test & 0xF) > (beakMemory.getA() & 0xF));
-	beakMemory.setCFlag(test < 0);
+    memory->setZFlag(test == 0);
+    memory->setNFlag(true);
+    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
+    memory->setCFlag(test < 0);
 
 	mClock += 2;
 	tClock += 8;
@@ -3940,12 +3940,12 @@ void Cpu::opcodeBF()
 {
 	//Compare A with A
 	
-	int test = beakMemory.getA() - beakMemory.getA();
+    int test = memory->getA() - memory->getA();
 
-	beakMemory.setZFlag(test == 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag((test & 0xF) > (beakMemory.getA() & 0xF));
-	beakMemory.setCFlag(test < 0);
+    memory->setZFlag(test == 0);
+    memory->setNFlag(true);
+    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
+    memory->setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3954,9 +3954,9 @@ void Cpu::opcodeBF()
 void Cpu::opcodeC0()
 {
 	//RET if Not Zero
-	if (!beakMemory.getZFlag())
+    if (!memory->getZFlag())
 	{
-		memoryPointer = (beakMemory.readMemory(stackPointer + 1) << 8) | (beakMemory.readMemory(stackPointer));
+        memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
 		stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
@@ -3971,7 +3971,7 @@ void Cpu::opcodeC0()
 void Cpu::opcodeC1()
 {
 	//POP into BC
-	beakMemory.setBC((beakMemory.readMemory(stackPointer + 1) << 8) | (beakMemory.readMemory(stackPointer)));
+    memory->setBC((memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer)));
 	stackPointer += 2;
 	mClock += 3;
 	tClock += 12;
@@ -3980,7 +3980,7 @@ void Cpu::opcodeC1()
 void Cpu::opcodeC2(short nn)
 {
 	//Jump if Not Zero
-	if (!beakMemory.getZFlag())
+    if (!memory->getZFlag())
 	{
 		memoryPointer = nn;
 		mClock += 4;
@@ -4004,10 +4004,10 @@ void Cpu::opcodeC3(short nn)
 void Cpu::opcodeC4(short nn)
 {
 	//Call nn if Not Zero
-	if (!beakMemory.getZFlag())
+    if (!memory->getZFlag())
 	{
 		stackPointer -= 2;
-		beakMemory.writeMemory(stackPointer, memoryPointer);
+        memory->writeMemory(stackPointer, memoryPointer);
 		memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
@@ -4023,7 +4023,7 @@ void Cpu::opcodeC5()
 {
 	//Push BC
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, beakMemory.getBC());
+    memory->writeMemory(stackPointer, memory->getBC());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4031,13 +4031,13 @@ void Cpu::opcodeC5()
 void Cpu::opcodeC6(unsigned char n)
 {
 	//Add byte to A
-	int result = beakMemory.getA() + n;
+    int result = memory->getA() + n;
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (n & 0x0F)) & 0x10) > 0);
-	beakMemory.setA((uint8_t)(result & 0xFF));
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (n & 0x0F)) & 0x10) > 0);
+    memory->setA((uint8_t)(result & 0xFF));
+    memory->setCFlag(result > 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 2;
 	tClock += 8;
@@ -4047,7 +4047,7 @@ void Cpu::opcodeC7()
 {
 	//Reset to 00
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, memoryPointer);
+    memory->writeMemory(stackPointer, memoryPointer);
 	memoryPointer = 0x00;
 	mClock += 4;
 	tClock += 16;
@@ -4057,9 +4057,9 @@ void Cpu::opcodeC7()
 void Cpu::opcodeC8()
 {
 	//Ret if Zero
-	if (beakMemory.getZFlag())
+    if (memory->getZFlag())
 	{
-		memoryPointer = (beakMemory.readMemory(stackPointer + 1) << 8) | (beakMemory.readMemory(stackPointer));
+        memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
 		stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
@@ -4074,7 +4074,7 @@ void Cpu::opcodeC8()
 void Cpu::opcodeC9()
 {
 	//Ret
-	memoryPointer = (beakMemory.readMemory(stackPointer + 1) << 8) | (beakMemory.readMemory(stackPointer));
+    memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
 	stackPointer += 2;
 	mClock += 4;
 	tClock += 16;
@@ -4083,7 +4083,7 @@ void Cpu::opcodeC9()
 void Cpu::opcodeCA(short nn)
 {
 	//Jump to nn if Zero
-	if (beakMemory.getZFlag())
+    if (memory->getZFlag())
 	{
 		memoryPointer = nn;
 		mClock += 4;
@@ -4099,10 +4099,10 @@ void Cpu::opcodeCA(short nn)
 void Cpu::opcodeCC(short nn)
 {
 	//Call nn if Zero
-	if (beakMemory.getZFlag())
+    if (memory->getZFlag())
 	{
 		stackPointer -= 2;
-		beakMemory.writeMemory(stackPointer, memoryPointer);
+        memory->writeMemory(stackPointer, memoryPointer);
 		memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
@@ -4118,7 +4118,7 @@ void Cpu::opcodeCD(short nn)
 {
 	//Call nn
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, memoryPointer);
+    memory->writeMemory(stackPointer, memoryPointer);
 	memoryPointer = nn;
 	mClock += 6;
 	tClock += 24;
@@ -4128,14 +4128,14 @@ void Cpu::opcodeCE(unsigned char n)
 {
 	//Add n and Carry flag to A
 
-	int carry = beakMemory.getCFlag() ? 1 : 0;
-	int result = beakMemory.getA() + n + carry;
+    int carry = memory->getCFlag() ? 1 : 0;
+    int result = memory->getA() + n + carry;
 
-	beakMemory.setHFlag((((beakMemory.getA() & 0x0F) + (n & 0x0F) + carry) & 0x10) > 0);
-	beakMemory.setCFlag(result > 0xFF);
-	beakMemory.setA(result & 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
+    memory->setHFlag((((memory->getA() & 0x0F) + (n & 0x0F) + carry) & 0x10) > 0);
+    memory->setCFlag(result > 0xFF);
+    memory->setA(result & 0xFF);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
 
 	mClock += 2;
 	tClock += 8;
@@ -4145,7 +4145,7 @@ void Cpu::opcodeCF()
 {
 	//Reset to 08
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, memoryPointer);
+    memory->writeMemory(stackPointer, memoryPointer);
 	memoryPointer = 0x08;
 	mClock += 4;
 	tClock += 16;
@@ -4154,9 +4154,9 @@ void Cpu::opcodeCF()
 void Cpu::opcodeD0()
 {
 	//Ret if not Carry
-	if (!beakMemory.getCFlag())
+    if (!memory->getCFlag())
 	{
-		memoryPointer = (beakMemory.readMemory(stackPointer + 1) << 8) | (beakMemory.readMemory(stackPointer));
+        memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
 		stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
@@ -4171,7 +4171,7 @@ void Cpu::opcodeD0()
 void Cpu::opcodeD1()
 {
 	//POP DE
-	beakMemory.setDE((beakMemory.readMemory(stackPointer + 1) << 8) | (beakMemory.readMemory(stackPointer)));
+    memory->setDE((memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer)));
 	stackPointer += 2;
 	mClock += 3;
 	tClock += 12;
@@ -4180,7 +4180,7 @@ void Cpu::opcodeD1()
 void Cpu::opcodeD2(short nn)
 {
 	//Jump to nn if not Carry
-	if (!beakMemory.getCFlag())
+    if (!memory->getCFlag())
 	{
 		memoryPointer = nn;
 		mClock += 4;
@@ -4198,10 +4198,10 @@ void Cpu::opcodeD2(short nn)
 void Cpu::opcodeD4(short nn)
 {
 	//Call nn if Not Carry
-	if (!beakMemory.getCFlag())
+    if (!memory->getCFlag())
 	{
 		stackPointer -= 2;
-		beakMemory.writeMemory(stackPointer, memoryPointer);
+        memory->writeMemory(stackPointer, memoryPointer);
 		memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
@@ -4217,7 +4217,7 @@ void Cpu::opcodeD5()
 {
 	//Push DE
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, beakMemory.getDE());
+    memory->writeMemory(stackPointer, memory->getDE());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4226,14 +4226,14 @@ void Cpu::opcodeD6(unsigned char n)
 {
 	//Subtract n from A
 
-	int result = beakMemory.getA();
+    int result = memory->getA();
 	result -= n;
 
-	beakMemory.setCFlag(n > beakMemory.getA());
-	beakMemory.setHFlag((n & 0x0F) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setZFlag(result == 0);
-	beakMemory.setA(result);
+    memory->setCFlag(n > memory->getA());
+    memory->setHFlag((n & 0x0F) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setZFlag(result == 0);
+    memory->setA(result);
 
 	mClock += 2;
 	tClock += 8;
@@ -4245,7 +4245,7 @@ void Cpu::opcodeD7()
 {
 	//Reset to 10
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, memoryPointer);
+    memory->writeMemory(stackPointer, memoryPointer);
 	memoryPointer = 0x10;
 	mClock += 4;
 	tClock += 16;
@@ -4254,9 +4254,9 @@ void Cpu::opcodeD7()
 void Cpu::opcodeD8()
 {
 	//Ret if Carry
-	if (beakMemory.getCFlag())
+    if (memory->getCFlag())
 	{
-		memoryPointer = (beakMemory.readMemory(stackPointer + 1) << 8) | (beakMemory.readMemory(stackPointer));
+        memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
 		stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
@@ -4271,7 +4271,7 @@ void Cpu::opcodeD8()
 void Cpu::opcodeD9()
 {
 	//Return and enable Interrupts
-	memoryPointer = (beakMemory.readMemory(stackPointer + 1) << 8) | (beakMemory.readMemory(stackPointer));
+    memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
 	stackPointer += 2;
 	interruptsEnabled = true;
 	mClock += 4;
@@ -4281,7 +4281,7 @@ void Cpu::opcodeD9()
 void Cpu::opcodeDA(short nn)
 {
 	//Jump to nn if Carry
-	if (beakMemory.getCFlag())
+    if (memory->getCFlag())
 	{
 		memoryPointer = nn;
 		mClock += 4;
@@ -4299,10 +4299,10 @@ void Cpu::opcodeDA(short nn)
 void Cpu::opcodeDC(short nn)
 {
 	//Call nn if Carry
-	if (beakMemory.getCFlag())
+    if (memory->getCFlag())
 	{
 		stackPointer -= 2;
-		beakMemory.writeMemory(stackPointer, memoryPointer);
+        memory->writeMemory(stackPointer, memoryPointer);
 		memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
@@ -4320,16 +4320,16 @@ void Cpu::opcodeDE(unsigned char n)
 {
 	//Sub n and Carry flag from A
 
-	uint8_t carry = beakMemory.getCFlag()? 1: 0;
-	int result = beakMemory.getA();
+    uint8_t carry = memory->getCFlag()? 1: 0;
+    int result = memory->getA();
 	result -= n;
 	result -= carry;
 
-	beakMemory.setCFlag((n + carry) > beakMemory.getA());
-	beakMemory.setHFlag(((n & 0x0F) + carry) > (beakMemory.getA() & 0x0F));
-	beakMemory.setNFlag(true);
-	beakMemory.setA(result & 0xFF);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
+    memory->setCFlag((n + carry) > memory->getA());
+    memory->setHFlag(((n & 0x0F) + carry) > (memory->getA() & 0x0F));
+    memory->setNFlag(true);
+    memory->setA(result & 0xFF);
+    memory->setZFlag(memory->getA() == 0);
 
 	mClock += 2;
 	tClock += 8;
@@ -4339,7 +4339,7 @@ void Cpu::opcodeDF()
 {
 	//Reset to 18
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, memoryPointer);
+    memory->writeMemory(stackPointer, memoryPointer);
 	memoryPointer = 0x18;
 	mClock += 4;
 	tClock += 16;
@@ -4348,7 +4348,7 @@ void Cpu::opcodeDF()
 void Cpu::opcodeE0(unsigned char n)
 {
 	//Load A into address at (FF00 + n)
-	beakMemory.writeMemory(0xFF00 + n, beakMemory.getA());
+    memory->writeMemory(0xFF00 + n, memory->getA());
 	mClock += 3;
 	tClock += 12;
 }
@@ -4356,7 +4356,7 @@ void Cpu::opcodeE0(unsigned char n)
 void Cpu::opcodeE1()
 {
 	//Pop HL
-	beakMemory.setHL((beakMemory.readMemory(stackPointer + 1) << 8) | (beakMemory.readMemory(stackPointer)));
+    memory->setHL((memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer)));
 	stackPointer += 2;
 	mClock += 3;
 	tClock += 12;
@@ -4365,7 +4365,7 @@ void Cpu::opcodeE1()
 void Cpu::opcodeE2()
 {
 	//Load A into address at (FF00 + C)
-	beakMemory.writeMemory(0xFF00 + beakMemory.getC(), beakMemory.getA());
+    memory->writeMemory(0xFF00 + memory->getC(), memory->getA());
 	mClock += 2;
 	tClock += 8;
 }
@@ -4378,7 +4378,7 @@ void Cpu::opcodeE5()
 {
 	//Push HL
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, beakMemory.getHL());
+    memory->writeMemory(stackPointer, memory->getHL());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4386,21 +4386,21 @@ void Cpu::opcodeE5()
 void Cpu::opcodeE6(unsigned char n)
 {
 	//And n from A
-	beakMemory.setA(beakMemory.getA() & n);
+    memory->setA(memory->getA() & n);
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeE7()
 {
 	//Reset to 20
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, memoryPointer);
+    memory->writeMemory(stackPointer, memoryPointer);
 	memoryPointer = 0x20;
 	mClock += 4;
 	tClock += 16;
@@ -4412,12 +4412,12 @@ void Cpu::opcodeE8(signed char n)
 
 	int result = stackPointer + n;
 
-	beakMemory.setCFlag((result & 0xFF) < (stackPointer & 0xFF));
-	beakMemory.setHFlag((result & 0x0F) < (stackPointer & 0x0F));
-	beakMemory.setZFlag(false);
-	beakMemory.setNFlag(false);
+    memory->setCFlag((result & 0xFF) < (stackPointer & 0xFF));
+    memory->setHFlag((result & 0x0F) < (stackPointer & 0x0F));
+    memory->setZFlag(false);
+    memory->setNFlag(false);
 
-	beakMemory.setStackPointer((uint16_t)(result & 0xFFFF));
+    memory->setStackPointer((uint16_t)(result & 0xFFFF));
 
 	mClock += 4;
 	tClock += 16;
@@ -4426,7 +4426,7 @@ void Cpu::opcodeE8(signed char n)
 void Cpu::opcodeE9()
 {
 	//Jump to HL
-	memoryPointer = beakMemory.getHL();
+    memoryPointer = memory->getHL();
 	mClock += 1;
 	tClock += 4;
 }
@@ -4434,7 +4434,7 @@ void Cpu::opcodeE9()
 void Cpu::opcodeEA(short nn)
 {
 	//Store A at short
-	beakMemory.writeMemory(nn, beakMemory.getA());
+    memory->writeMemory(nn, memory->getA());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4448,21 +4448,21 @@ void Cpu::opcodeEA(short nn)
 void Cpu::opcodeEE(unsigned char n)
 {
 	//XOR byte with A
-	beakMemory.setA(beakMemory.getA() ^ n);
+    memory->setA(memory->getA() ^ n);
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeEF()
 {
 	//Reset to 28
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, memoryPointer);
+    memory->writeMemory(stackPointer, memoryPointer);
 	memoryPointer = 0x28;
 	mClock += 4;
 	tClock += 16;
@@ -4471,7 +4471,7 @@ void Cpu::opcodeEF()
 void Cpu::opcodeF0(unsigned char n)
 {
 	//Load data at (FF00 + n) into A
-	beakMemory.setA(beakMemory.readMemory(0xFF00 + n));
+    memory->setA(memory->readMemory(0xFF00 + n));
 	mClock += 3;
 	tClock += 12;
 }
@@ -4479,7 +4479,7 @@ void Cpu::opcodeF0(unsigned char n)
 void Cpu::opcodeF1()
 {
 	//Pop AF
-	beakMemory.setAF((beakMemory.readMemory(stackPointer + 1) << 8) | (beakMemory.readMemory(stackPointer)));
+    memory->setAF((memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer)));
 	stackPointer += 2;
 	mClock += 3;
 	tClock += 12;
@@ -4488,7 +4488,7 @@ void Cpu::opcodeF1()
 void Cpu::opcodeF2()
 {
 	//Load data at (FF00 + C) into A
-	beakMemory.setA(beakMemory.readMemory(0xFF00 + beakMemory.getC()));
+    memory->setA(memory->readMemory(0xFF00 + memory->getC()));
 	mClock += 2;
 	tClock += 8;
 }
@@ -4507,7 +4507,7 @@ void Cpu::opcodeF5()
 {
 	//Push AF
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, beakMemory.getAF());
+    memory->writeMemory(stackPointer, memory->getAF());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4515,21 +4515,21 @@ void Cpu::opcodeF5()
 void Cpu::opcodeF6(unsigned char n)
 {
 	//OR byte with A
-	beakMemory.setA(beakMemory.getA() | n);
+    memory->setA(memory->getA() | n);
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeF7()
 {
 	//Reset to 30
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, memoryPointer);
+    memory->writeMemory(stackPointer, memoryPointer);
 	memoryPointer = 0x30;
 	mClock += 4;
 	tClock += 16;
@@ -4541,12 +4541,12 @@ void Cpu::opcodeF8(unsigned char n)
 
 	int result = stackPointer + (int8_t)n;
 
-	beakMemory.setCFlag((result & 0xFF) < (stackPointer & 0xFF));
-	beakMemory.setHFlag((result & 0x0F) < (stackPointer & 0x0F));
-	beakMemory.setZFlag(false);
-	beakMemory.setNFlag(false);
+    memory->setCFlag((result & 0xFF) < (stackPointer & 0xFF));
+    memory->setHFlag((result & 0x0F) < (stackPointer & 0x0F));
+    memory->setZFlag(false);
+    memory->setNFlag(false);
 
-	beakMemory.setHL((short)(result & 0xFFFF));
+    memory->setHL((short)(result & 0xFFFF));
 
 	mClock += 3;
 	tClock += 12;
@@ -4555,7 +4555,7 @@ void Cpu::opcodeF8(unsigned char n)
 void Cpu::opcodeF9()
 {
 	//Load SP into HL
-	stackPointer = beakMemory.getHL();
+    stackPointer = memory->getHL();
 	mClock += 2;
 	tClock += 8;
 }
@@ -4563,7 +4563,7 @@ void Cpu::opcodeF9()
 void Cpu::opcodeFA(short nn)
 {
 	//Load data at short into A
-	beakMemory.setA(beakMemory.readMemory(nn));
+    memory->setA(memory->readMemory(nn));
 	mClock += 4;
 	tClock += 16;
 }
@@ -4583,28 +4583,28 @@ void Cpu::opcodeFB()
 void Cpu::opcodeFE(unsigned char n)
 {
 	//Compare n with A
-	//byte test = beakMemory.getA() - n;
+    //byte test = memory->getA() - n;
 	mClock += 2;
 	tClock += 8;
 
-	//beakMemory.setZFlag((test == 0) ? 1 : 0);
-	//beakMemory.setNFlag(true);
-	//beakMemory.setHFlag((test > beakMemory.getA()));
-	//beakMemory.setCFlag((test < 0) ? 1 : 0);
+    //memory->setZFlag((test == 0) ? 1 : 0);
+    //memory->setNFlag(true);
+    //memory->setHFlag((test > memory->getA()));
+    //memory->setCFlag((test < 0) ? 1 : 0);
 
-	beakMemory.setZFlag((beakMemory.getA() == n) ? 1 : 0);
-	beakMemory.setNFlag(true);
-	beakMemory.setHFlag(((beakMemory.getA() & 0x0F) < (n & 0x0F)) ? 1 : 0);
-	beakMemory.setCFlag((beakMemory.getA() < n) ? 1 : 0);
+    memory->setZFlag((memory->getA() == n) ? 1 : 0);
+    memory->setNFlag(true);
+    memory->setHFlag(((memory->getA() & 0x0F) < (n & 0x0F)) ? 1 : 0);
+    memory->setCFlag((memory->getA() < n) ? 1 : 0);
 }
 
 void Cpu::opcodeFF()
 {
 	//Reset to 38
 	//beakStack[--stackPointer] = memoryPointer;
-	//beakMemory.writeMemory(--stackPointer, memoryPointer);
+    //memory->writeMemory(--stackPointer, memoryPointer);
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, memoryPointer);
+    memory->writeMemory(stackPointer, memoryPointer);
 	memoryPointer = 0x38;
 	mClock += 4;
 	tClock += 16;
@@ -4614,449 +4614,449 @@ void Cpu::opcodeCB00()
 {
 	//Rotate B Left, put previous bit 7 into Carry flag
 
-	beakMemory.setB(rotateLeft(beakMemory.getB()));
+    memory->setB(rotateLeft(memory->getB()));
 
-	beakMemory.setCFlag(beakMemory.getB() & 0x01);
-	beakMemory.setZFlag(beakMemory.getB() == 0);
+    memory->setCFlag(memory->getB() & 0x01);
+    memory->setZFlag(memory->getB() == 0);
 
 
-	//beakMemory.setB (beakMemory.getB() << 1);
+    //memory->setB (memory->getB() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB01()
 {
 	//Rotate C Left, put previous bit 7 into Carry flag
 
-	beakMemory.setC(rotateLeft(beakMemory.getC()));
+    memory->setC(rotateLeft(memory->getC()));
 
-	beakMemory.setCFlag(beakMemory.getC() & 0x01);
-	beakMemory.setZFlag(beakMemory.getC() == 0);
+    memory->setCFlag(memory->getC() & 0x01);
+    memory->setZFlag(memory->getC() == 0);
 
 
-	//beakMemory.setC(beakMemory.getC() << 1);
+    //memory->setC(memory->getC() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB02()
 {
 	//Rotate D Left, put previous bit 7 into Carry flag
 
-	beakMemory.setD(rotateLeft(beakMemory.getD()));
+    memory->setD(rotateLeft(memory->getD()));
 
-	beakMemory.setCFlag(beakMemory.getD() & 0x01);
-	beakMemory.setZFlag(beakMemory.getD() == 0);
+    memory->setCFlag(memory->getD() & 0x01);
+    memory->setZFlag(memory->getD() == 0);
 
 
-	//beakMemory.setD(beakMemory.getD() << 1);
+    //memory->setD(memory->getD() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB03()
 {
 	//Rotate E Left, put previous bit 7 into Carry flag
 
-	beakMemory.setE(rotateLeft(beakMemory.getE()));
+    memory->setE(rotateLeft(memory->getE()));
 
-	beakMemory.setCFlag(beakMemory.getE() & 0x01);
-	beakMemory.setZFlag(beakMemory.getE() == 0);
+    memory->setCFlag(memory->getE() & 0x01);
+    memory->setZFlag(memory->getE() == 0);
 
 
-	//beakMemory.setE(beakMemory.getE() << 1);
+    //memory->setE(memory->getE() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB04()
 {
 	//Rotate H Left, put previous bit 7 into Carry flag
 
-	beakMemory.setH(rotateLeft(beakMemory.getH()));
+    memory->setH(rotateLeft(memory->getH()));
 
-	beakMemory.setCFlag(beakMemory.getH() & 0x01);
-	beakMemory.setZFlag(beakMemory.getH() == 0);
+    memory->setCFlag(memory->getH() & 0x01);
+    memory->setZFlag(memory->getH() == 0);
 
 
-	//beakMemory.setH(beakMemory.getH() << 1);
+    //memory->setH(memory->getH() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB05()
 {
 	//Rotate L Left, put previous bit 7 into Carry flag
 
-	beakMemory.setL(rotateLeft(beakMemory.getL()));
+    memory->setL(rotateLeft(memory->getL()));
 
-	beakMemory.setCFlag(beakMemory.getL() & 0x01);
-	beakMemory.setZFlag(beakMemory.getL() == 0);
+    memory->setCFlag(memory->getL() & 0x01);
+    memory->setZFlag(memory->getL() == 0);
 
 
-	//beakMemory.setL(beakMemory.getL() << 1);
+    //memory->setL(memory->getL() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB06()
 {
 	//Rotate data in HL Left, put previous bit 7 into Carry flag
 
-	beakMemory.writeMemory(beakMemory.getHL(), rotateLeft(beakMemory.readMemory(beakMemory.getHL())));
+    memory->writeMemory(memory->getHL(), rotateLeft(memory->readMemory(memory->getHL())));
 
-	beakMemory.setCFlag(beakMemory.readMemory(beakMemory.getHL()) & 0x01);
-	beakMemory.setZFlag(beakMemory.readMemory(beakMemory.getHL()) == 0);
+    memory->setCFlag(memory->readMemory(memory->getHL()) & 0x01);
+    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
 
 
-	//beakMemory.writeMemory(beakMemory.getHL(), (byte)(beakMemory.readMemory(beakMemory.getHL()) << 1));
+    //memory->writeMemory(memory->getHL(), (byte)(memory->readMemory(memory->getHL()) << 1));
 
 	mClock += 3;
 	tClock += 12;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB07()
 {
 	//Rotate A Left, put previous bit 7 into Carry flag
 
-	beakMemory.setA(rotateLeft(beakMemory.getA()));
+    memory->setA(rotateLeft(memory->getA()));
 
-	beakMemory.setCFlag(beakMemory.getA() & 0x01);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
+    memory->setCFlag(memory->getA() & 0x01);
+    memory->setZFlag(memory->getA() == 0);
 
 
-	//beakMemory.setA(beakMemory.getA() << 1);
+    //memory->setA(memory->getA() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB08()
 {
 	//Rotate B Right, put previous bit 0 into Carry flag
 
-	beakMemory.setB(rotateRight(beakMemory.getB()));
+    memory->setB(rotateRight(memory->getB()));
 
-	beakMemory.setCFlag(((beakMemory.getB() & 0x80) >> 7) > 0);
-	beakMemory.setZFlag(beakMemory.getB() == 0);
+    memory->setCFlag(((memory->getB() & 0x80) >> 7) > 0);
+    memory->setZFlag(memory->getB() == 0);
 
 
-	//beakMemory.setB(beakMemory.getB() >> 1);
+    //memory->setB(memory->getB() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB09()
 {
 	//Rotate C Right, put previous bit 0 into Carry flag
 
-	beakMemory.setC(rotateRight(beakMemory.getC()));
+    memory->setC(rotateRight(memory->getC()));
 
-	beakMemory.setCFlag(((beakMemory.getC() & 0x80) >> 7) > 0);
-	beakMemory.setZFlag(beakMemory.getC() == 0);
+    memory->setCFlag(((memory->getC() & 0x80) >> 7) > 0);
+    memory->setZFlag(memory->getC() == 0);
 
 
-	//beakMemory.setC(beakMemory.getC() >> 1);
+    //memory->setC(memory->getC() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB0A()
 {
 	//Rotate D Right, put previous bit 0 into Carry flag
 
-	beakMemory.setD(rotateRight(beakMemory.getD()));
+    memory->setD(rotateRight(memory->getD()));
 
-	beakMemory.setCFlag(((beakMemory.getD() & 0x80) >> 7) > 0);
-	beakMemory.setZFlag(beakMemory.getD() == 0);
+    memory->setCFlag(((memory->getD() & 0x80) >> 7) > 0);
+    memory->setZFlag(memory->getD() == 0);
 
-	//beakMemory.setD(beakMemory.getD() >> 1);
+    //memory->setD(memory->getD() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB0B()
 {
 	//Rotate E Right, put previous bit 0 into Carry flag
 
-	beakMemory.setE(rotateRight(beakMemory.getE()));
+    memory->setE(rotateRight(memory->getE()));
 
-	beakMemory.setCFlag(((beakMemory.getE() & 0x80) >> 7) > 0);
-	beakMemory.setZFlag(beakMemory.getE() == 0);
+    memory->setCFlag(((memory->getE() & 0x80) >> 7) > 0);
+    memory->setZFlag(memory->getE() == 0);
 
 
-	//beakMemory.setE(beakMemory.getE() >> 1);
+    //memory->setE(memory->getE() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB0C()
 {
 	//Rotate H Right, put previous bit 0 into Carry flag
 
-	beakMemory.setH(rotateRight(beakMemory.getH()));
+    memory->setH(rotateRight(memory->getH()));
 
-	beakMemory.setCFlag(((beakMemory.getH() & 0x80) >> 7) > 0);
-	beakMemory.setZFlag(beakMemory.getH() == 0);
+    memory->setCFlag(((memory->getH() & 0x80) >> 7) > 0);
+    memory->setZFlag(memory->getH() == 0);
 
-	//beakMemory.setH(beakMemory.getH() >> 1);
+    //memory->setH(memory->getH() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB0D()
 {
 	//Rotate L Right, put previous bit 0 into Carry flag
 
-	beakMemory.setL(rotateRight(beakMemory.getL()));
+    memory->setL(rotateRight(memory->getL()));
 
-	beakMemory.setCFlag(((beakMemory.getL() & 0x80) >> 7) > 0);
-	beakMemory.setZFlag(beakMemory.getL() == 0);
+    memory->setCFlag(((memory->getL() & 0x80) >> 7) > 0);
+    memory->setZFlag(memory->getL() == 0);
 
 
-	//beakMemory.setL(beakMemory.getL() >> 1);
+    //memory->setL(memory->getL() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB0E()
 {
 	//Rotate data at HL Right, put previous bit 0 into Carry flag
 
-    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)(rotateRight(beakMemory.readMemory(beakMemory.getHL()))));
+    memory->writeMemory(memory->getHL(), (unsigned char)(rotateRight(memory->readMemory(memory->getHL()))));
 
-	beakMemory.setB(rotateRight(beakMemory.getB()));
-	beakMemory.setCFlag(((beakMemory.readMemory(beakMemory.getHL()) & 0x80) >> 7) > 0);
-	beakMemory.setZFlag(beakMemory.readMemory(beakMemory.getHL()) == 0);
+    memory->setB(rotateRight(memory->getB()));
+    memory->setCFlag(((memory->readMemory(memory->getHL()) & 0x80) >> 7) > 0);
+    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
 
 
-	//beakMemory.writeMemory(beakMemory.getHL(), (byte)(beakMemory.readMemory(beakMemory.getHL()) >> 1));
+    //memory->writeMemory(memory->getHL(), (byte)(memory->readMemory(memory->getHL()) >> 1));
 
 	mClock += 3;
 	tClock += 12;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB0F()
 {
 	//Rotate A Right, put previous bit 0 into Carry flag (Does not Or C flag in)
 
-	beakMemory.setA(rotateRight(beakMemory.getA()));
+    memory->setA(rotateRight(memory->getA()));
 
-	beakMemory.setCFlag(((beakMemory.getA() & 0x80) >> 7) > 0);
-	beakMemory.setZFlag(beakMemory.getA() == 0);
+    memory->setCFlag(((memory->getA() & 0x80) >> 7) > 0);
+    memory->setZFlag(memory->getA() == 0);
 
 
-	//beakMemory.setA(beakMemory.getA() >> 1);
+    //memory->setA(memory->getA() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB10()
 {
 	//Rotate B Left
-	//beakMemory.setB(rotateLeft(beakMemory.getB()));
+    //memory->setB(rotateLeft(memory->getB()));
 
-    unsigned char oldBit = (beakMemory.getB() & 0x80) >> 7;
-    beakMemory.setB((beakMemory.getB() << 1) | (unsigned char)beakMemory.getCFlag());
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getB() & 0x80) >> 7;
+    memory->setB((memory->getB() << 1) | (unsigned char)memory->getCFlag());
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getB() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getB() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB11()
 {
 	//Rotate C Left
-	//beakMemory.setC(rotateLeft(beakMemory.getC()));
+    //memory->setC(rotateLeft(memory->getC()));
 
-    unsigned char oldBit = (beakMemory.getC() & 0x80) >> 7;
-    beakMemory.setC((beakMemory.getC() << 1) | (unsigned char)beakMemory.getCFlag());
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getC() & 0x80) >> 7;
+    memory->setC((memory->getC() << 1) | (unsigned char)memory->getCFlag());
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getC() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getC() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB12()
 {
 	//Rotate D Left
 
-    unsigned char oldBit = (beakMemory.getD() & 0x80) >> 7;
-    beakMemory.setD((beakMemory.getD() << 1) | (unsigned char)beakMemory.getCFlag());
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getD() & 0x80) >> 7;
+    memory->setD((memory->getD() << 1) | (unsigned char)memory->getCFlag());
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getD() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getD() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB13()
 {
 	//Rotate E Left
 
-    unsigned char oldBit = (beakMemory.getE() & 0x80) >> 7;
-    beakMemory.setE((beakMemory.getE() << 1) | (unsigned char)beakMemory.getCFlag());
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getE() & 0x80) >> 7;
+    memory->setE((memory->getE() << 1) | (unsigned char)memory->getCFlag());
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getE() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getE() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB14()
 {
 	//Rotate H Left
 
-    unsigned char oldBit = (beakMemory.getH() & 0x80) >> 7;
-    beakMemory.setH((beakMemory.getH() << 1) | (unsigned char)beakMemory.getCFlag());
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getH() & 0x80) >> 7;
+    memory->setH((memory->getH() << 1) | (unsigned char)memory->getCFlag());
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getH() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getH() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB15()
 {
 	//Rotate L Left
 
-    unsigned char oldBit = (beakMemory.getL() & 0x80) >> 7;
-    beakMemory.setL((beakMemory.getL() << 1) | (unsigned char)beakMemory.getCFlag());
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getL() & 0x80) >> 7;
+    memory->setL((memory->getL() << 1) | (unsigned char)memory->getCFlag());
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getL() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getL() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB16()
 {
 	//Rotate data at HL Left
 
-    unsigned char oldBit = (beakMemory.readMemory(beakMemory.getHL()) & 0x80) >> 7;
-    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)((beakMemory.readMemory(beakMemory.getHL()) << 1) | (unsigned char)beakMemory.getCFlag()));
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->readMemory(memory->getHL()) & 0x80) >> 7;
+    memory->writeMemory(memory->getHL(), (unsigned char)((memory->readMemory(memory->getHL()) << 1) | (unsigned char)memory->getCFlag()));
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 3;
 	tClock += 12;
 
-	beakMemory.setZFlag(beakMemory.readMemory(beakMemory.getHL()) == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB17()
 {
 	//Rotate A Left
 
-    unsigned char oldBit = (beakMemory.getA() & 0x80) >> 7;
-    beakMemory.setA((beakMemory.getA() << 1) | (unsigned char)beakMemory.getCFlag());
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getA() & 0x80) >> 7;
+    memory->setA((memory->getA() << 1) | (unsigned char)memory->getCFlag());
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB18()
 {
 	//Rotate B Right
 
-    unsigned char oldBit = (beakMemory.getB() & 0x01);
-	beakMemory.setB((beakMemory.getB() >> 1) | (beakMemory.getCFlag() << 7));
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getB() & 0x01);
+    memory->setB((memory->getB() >> 1) | (memory->getCFlag() << 7));
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getB() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getB() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 
 }
 
@@ -5064,602 +5064,602 @@ void Cpu::opcodeCB19()
 {
 	//Rotate C Right
 
-    unsigned char oldBit = (beakMemory.getC() & 0x01);
-	beakMemory.setC((beakMemory.getC() >> 1) | (beakMemory.getCFlag() << 7));
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getC() & 0x01);
+    memory->setC((memory->getC() >> 1) | (memory->getCFlag() << 7));
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getC() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getC() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB1A()
 {
 	//Rotate D Right
 
-    unsigned char oldBit = (beakMemory.getD() & 0x01);
-	beakMemory.setD((beakMemory.getD() >> 1) | (beakMemory.getCFlag() << 7));
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getD() & 0x01);
+    memory->setD((memory->getD() >> 1) | (memory->getCFlag() << 7));
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getD() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getD() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB1B()
 {
 	//Rotate E Right
 
-    unsigned char oldBit = (beakMemory.getE() & 0x01);
-	beakMemory.setE((beakMemory.getE() >> 1) | (beakMemory.getCFlag() << 7));
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getE() & 0x01);
+    memory->setE((memory->getE() >> 1) | (memory->getCFlag() << 7));
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getE() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getE() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB1C()
 {
 	//Rotate H Right
 
-    unsigned char oldBit = (beakMemory.getH() & 0x01);
-	beakMemory.setH((beakMemory.getH() >> 1) | (beakMemory.getCFlag() << 7));
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getH() & 0x01);
+    memory->setH((memory->getH() >> 1) | (memory->getCFlag() << 7));
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getH() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getH() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB1D()
 {
 	//Rotate L Right
 
-    unsigned char oldBit = (beakMemory.getL() & 0x01);
-	beakMemory.setL((beakMemory.getL() >> 1) | (beakMemory.getCFlag() << 7));
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getL() & 0x01);
+    memory->setL((memory->getL() >> 1) | (memory->getCFlag() << 7));
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getL() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getL() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB1E()
 {
 	//Rotate/Shift HL Right
 
-    unsigned char oldBit = (beakMemory.readMemory(beakMemory.getHL()) & 0x01);
-    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)((beakMemory.readMemory(beakMemory.getHL()) >> 1) | (beakMemory.getCFlag() << 7)));
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->readMemory(memory->getHL()) & 0x01);
+    memory->writeMemory(memory->getHL(), (unsigned char)((memory->readMemory(memory->getHL()) >> 1) | (memory->getCFlag() << 7)));
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 3;
 	tClock += 12;
 
-	beakMemory.setZFlag(beakMemory.readMemory(beakMemory.getHL()) == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB1F()
 {
 	//Rotate A Right
 
-    unsigned char oldBit = (beakMemory.getA() & 0x01);
-	beakMemory.setA((beakMemory.getA() >> 1) | (beakMemory.getCFlag() << 7));
-	beakMemory.setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory->getA() & 0x01);
+    memory->setA((memory->getA() >> 1) | (memory->getCFlag() << 7));
+    memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB20()
 {
 	//Shift B Left - Set Carry to old Bit 7
 
-	beakMemory.setCFlag(((beakMemory.getB() & 0x80) >> 7) > 0);
-	beakMemory.setB(beakMemory.getB() << 1);
+    memory->setCFlag(((memory->getB() & 0x80) >> 7) > 0);
+    memory->setB(memory->getB() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getB() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getB() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB21()
 {
 	//Shift C Left - Set Carry to old Bit 7
 
-	beakMemory.setCFlag(((beakMemory.getC() & 0x80) >> 7) > 0);
-	beakMemory.setC(beakMemory.getC() << 1);
+    memory->setCFlag(((memory->getC() & 0x80) >> 7) > 0);
+    memory->setC(memory->getC() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getC() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getC() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB22()
 {
 	//Shift D Left - Set Carry to old Bit 7
 
-	beakMemory.setCFlag(((beakMemory.getD() & 0x80) >> 7) > 0);
-	beakMemory.setD(beakMemory.getD() << 1);
+    memory->setCFlag(((memory->getD() & 0x80) >> 7) > 0);
+    memory->setD(memory->getD() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getD() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getD() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB23()
 {
 	//Shift E Left - Set Carry to old Bit 7
 
-	beakMemory.setCFlag(((beakMemory.getE() & 0x80) >> 7) > 0);
-	beakMemory.setE(beakMemory.getE() << 1);
+    memory->setCFlag(((memory->getE() & 0x80) >> 7) > 0);
+    memory->setE(memory->getE() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getE() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getE() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB24()
 {
 	//Shift H Left - Set Carry to old Bit 7
 
-	beakMemory.setCFlag(((beakMemory.getH() & 0x80) >> 7) > 0);
-	beakMemory.setH(beakMemory.getH() << 1);
+    memory->setCFlag(((memory->getH() & 0x80) >> 7) > 0);
+    memory->setH(memory->getH() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getH() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getH() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB25()
 {
 	//Shift L Left - Set Carry to old Bit 7
 
-	beakMemory.setCFlag(((beakMemory.getL() & 0x80) >> 7) > 0);
-	beakMemory.setL(beakMemory.getL() << 1);
+    memory->setCFlag(((memory->getL() & 0x80) >> 7) > 0);
+    memory->setL(memory->getL() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getL() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getL() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB26()
 {
 	//Shift data at HL Left - Set Carry to old Bit 7
 
-	beakMemory.setCFlag(((beakMemory.readMemory(beakMemory.getHL()) & 0x80) >> 7) > 0);
-    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)(beakMemory.readMemory(beakMemory.getHL()) << 1));
+    memory->setCFlag(((memory->readMemory(memory->getHL()) & 0x80) >> 7) > 0);
+    memory->writeMemory(memory->getHL(), (unsigned char)(memory->readMemory(memory->getHL()) << 1));
 
 	mClock += 3;
 	tClock += 12;
 
-	beakMemory.setZFlag(beakMemory.readMemory(beakMemory.getHL()) == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB27()
 {
 	//Shift A Left - Set Carry to old Bit 7
 
-	beakMemory.setCFlag(((beakMemory.getA() & 0x80) >> 7) > 0);
-	beakMemory.setA(beakMemory.getA() << 1);
+    memory->setCFlag(((memory->getA() & 0x80) >> 7) > 0);
+    memory->setA(memory->getA() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB28()
 {
 	//Shift B Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = beakMemory.getB();
-	beakMemory.setCFlag((oldValue & 0x01) > 0);
-    beakMemory.setB((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    unsigned char oldValue = memory->getB();
+    memory->setCFlag((oldValue & 0x01) > 0);
+    memory->setB((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getB() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getB() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB29()
 {
 	//Shift C Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = beakMemory.getC();
-	beakMemory.setCFlag((oldValue & 0x01) > 0);
-    beakMemory.setC((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    unsigned char oldValue = memory->getC();
+    memory->setCFlag((oldValue & 0x01) > 0);
+    memory->setC((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getC() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getC() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB2A()
 {
 	//Shift D Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = beakMemory.getD();
-	beakMemory.setCFlag((oldValue & 0x01) > 0);
-    beakMemory.setD((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    unsigned char oldValue = memory->getD();
+    memory->setCFlag((oldValue & 0x01) > 0);
+    memory->setD((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getD() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getD() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB2B()
 {
 	//Shift E Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = beakMemory.getE();
-	beakMemory.setCFlag((oldValue & 0x01) > 0);
-    beakMemory.setE((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    unsigned char oldValue = memory->getE();
+    memory->setCFlag((oldValue & 0x01) > 0);
+    memory->setE((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getE() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getE() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB2C()
 {
 	//Shift H Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = beakMemory.getH();
-	beakMemory.setCFlag((oldValue & 0x01) > 0);
-    beakMemory.setH((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    unsigned char oldValue = memory->getH();
+    memory->setCFlag((oldValue & 0x01) > 0);
+    memory->setH((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getH() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getH() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB2D()
 {
 	//Shift L Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = beakMemory.getL();
-	beakMemory.setCFlag((oldValue & 0x01) > 0);
-    beakMemory.setL((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    unsigned char oldValue = memory->getL();
+    memory->setCFlag((oldValue & 0x01) > 0);
+    memory->setL((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getL() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getL() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB2E()
 {
 	//Shift data at HL Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = beakMemory.readMemory(beakMemory.getHL());
-	beakMemory.setCFlag((oldValue & 0x01) > 0);
-    beakMemory.writeMemory(beakMemory.getHL(), ((unsigned char)((oldValue & 0x80) | (oldValue >> 1))));
+    unsigned char oldValue = memory->readMemory(memory->getHL());
+    memory->setCFlag((oldValue & 0x01) > 0);
+    memory->writeMemory(memory->getHL(), ((unsigned char)((oldValue & 0x80) | (oldValue >> 1))));
 
 	mClock += 3;
 	tClock += 12;
 
-	beakMemory.setZFlag(beakMemory.readMemory(beakMemory.getHL()) == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB2F()
 {
 	//Shift A Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = beakMemory.getA();
-	beakMemory.setCFlag((oldValue & 0x01) > 0);
-    beakMemory.setA((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    unsigned char oldValue = memory->getA();
+    memory->setCFlag((oldValue & 0x01) > 0);
+    memory->setA((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB30()
 {
 	//Swap nibbles in B
-    unsigned char b = beakMemory.getB();
+    unsigned char b = memory->getB();
 	b = ((b & 0x0F) << 4) | ((b & 0xF0) >> 4);
-	beakMemory.setB(b);
+    memory->setB(b);
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getB() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getB() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeCB31()
 {
 	//Swap nibbles in C
-    unsigned char c = beakMemory.getC();
+    unsigned char c = memory->getC();
 	c = ((c & 0x0F) << 4) | ((c & 0xF0) >> 4);
-	beakMemory.setC(c);
+    memory->setC(c);
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getC() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getC() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeCB32()
 {
 	//Swap nibbles in D
-    unsigned char d = beakMemory.getD();
+    unsigned char d = memory->getD();
 	d = ((d & 0x0F) << 4) | ((d & 0xF0) >> 4);
-	beakMemory.setD(d);
+    memory->setD(d);
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getD() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getD() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeCB33()
 {
 	//Swap nibbles in E
-    unsigned char e = beakMemory.getE();
+    unsigned char e = memory->getE();
 	e = ((e & 0x0F) << 4) | ((e & 0xF0) >> 4);
-	beakMemory.setE(e);
+    memory->setE(e);
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getE() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getE() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeCB34()
 {
 	//Swap nibbles in H
-    unsigned char h = beakMemory.getH();
+    unsigned char h = memory->getH();
 	h = ((h & 0x0F) << 4) | ((h & 0xF0) >> 4);
-	beakMemory.setH(h);
+    memory->setH(h);
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getH() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getH() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeCB35()
 {
 	//Swap nibbles in L
-    unsigned char l = beakMemory.getL();
+    unsigned char l = memory->getL();
 	l = ((l & 0x0F) << 4) | ((l & 0xF0) >> 4);
-	beakMemory.setL(l);
+    memory->setL(l);
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getL() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getL() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 
 void Cpu::opcodeCB36()
 {
 	//Swap nibbles in memory at HL
-	short hl = beakMemory.getHL();
-    unsigned char hlData = beakMemory.readMemory(hl);
+    short hl = memory->getHL();
+    unsigned char hlData = memory->readMemory(hl);
 	hlData = ((hlData & 0x0F) << 4) | ((hlData & 0xF0) >> 4);
-	beakMemory.writeMemory(hl, hlData);
+    memory->writeMemory(hl, hlData);
 	mClock += 3;
 	tClock += 12;
 
-	beakMemory.setZFlag((beakMemory.readMemory(hl) == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->readMemory(hl) == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeCB37()
 {
 	//Swap nibbles in A
-    unsigned char a = beakMemory.getA();
+    unsigned char a = memory->getA();
 	a = ((a & 0x0F) << 4) | ((a & 0xF0) >> 4);
-	beakMemory.setA(a);
+    memory->setA(a);
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag((beakMemory.getA() == 0) ? 1 : 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
-	beakMemory.setCFlag(false);
+    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
+    memory->setCFlag(false);
 }
 
 void Cpu::opcodeCB38()
 {
 	//Shift B Right
-	beakMemory.setCFlag(beakMemory.getB() & 0x01);
-	beakMemory.setB(beakMemory.getB() >> 1);
+    memory->setCFlag(memory->getB() & 0x01);
+    memory->setB(memory->getB() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getB() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getB() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB39()
 {
 	//Shift C Right
-	beakMemory.setCFlag(beakMemory.getC() & 0x01);
-	beakMemory.setC(beakMemory.getC() >> 1);
+    memory->setCFlag(memory->getC() & 0x01);
+    memory->setC(memory->getC() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getC() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getC() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB3A()
 {
 	//Shift D Right
-	beakMemory.setCFlag(beakMemory.getD() & 0x01);
-	beakMemory.setD(beakMemory.getD() >> 1);
+    memory->setCFlag(memory->getD() & 0x01);
+    memory->setD(memory->getD() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getD() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getD() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB3B()
 {
 	//Shift E Right
-	beakMemory.setCFlag(beakMemory.getE() & 0x01);
-	beakMemory.setE(beakMemory.getE() >> 1);
+    memory->setCFlag(memory->getE() & 0x01);
+    memory->setE(memory->getE() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getE() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getE() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB3C()
 {
 	//Shift H Right
-	beakMemory.setCFlag(beakMemory.getH() & 0x01);
-	beakMemory.setH(beakMemory.getH() >> 1);
+    memory->setCFlag(memory->getH() & 0x01);
+    memory->setH(memory->getH() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getH() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getH() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB3D()
 {
 	//Shift L Right
-	beakMemory.setCFlag(beakMemory.getL() & 0x01);
-	beakMemory.setL(beakMemory.getL() >> 1);
+    memory->setCFlag(memory->getL() & 0x01);
+    memory->setL(memory->getL() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getL() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getL() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB3E()
 {
 	//Shift data at HL Right
-	beakMemory.setCFlag(beakMemory.readMemory(beakMemory.getHL()) & 0x01);
-    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)(beakMemory.readMemory(beakMemory.getHL()) >> 1));
+    memory->setCFlag(memory->readMemory(memory->getHL()) & 0x01);
+    memory->writeMemory(memory->getHL(), (unsigned char)(memory->readMemory(memory->getHL()) >> 1));
 
 	mClock += 3;
 	tClock += 12;
 
-	beakMemory.setZFlag(beakMemory.readMemory(beakMemory.getHL()) == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB3F()
 {
 	//Shift A Right
-	beakMemory.setCFlag(beakMemory.getA() & 0x01);
-	beakMemory.setA(beakMemory.getA() >> 1);
+    memory->setCFlag(memory->getA() & 0x01);
+    memory->setA(memory->getA() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-	beakMemory.setZFlag(beakMemory.getA() == 0);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(false);
+    memory->setZFlag(memory->getA() == 0);
+    memory->setNFlag(false);
+    memory->setHFlag(false);
 }
 
 void Cpu::opcodeCB40()
 {
 	//Test bit 0 in B
-	beakMemory.setZFlag(((beakMemory.getB() & 0x01) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag(((memory->getB() & 0x01) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5668,9 +5668,9 @@ void Cpu::opcodeCB40()
 void Cpu::opcodeCB41()
 {
 	//Test bit 0 in C
-	beakMemory.setZFlag(((beakMemory.getC() & 0x01) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag(((memory->getC() & 0x01) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5679,9 +5679,9 @@ void Cpu::opcodeCB41()
 void Cpu::opcodeCB42()
 {
 	//Test bit 0 in D
-	beakMemory.setZFlag(((beakMemory.getD() & 0x01) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag(((memory->getD() & 0x01) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5690,9 +5690,9 @@ void Cpu::opcodeCB42()
 void Cpu::opcodeCB43()
 {
 	//Test bit 0 in E
-	beakMemory.setZFlag(((beakMemory.getE() & 0x01) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag(((memory->getE() & 0x01) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5701,9 +5701,9 @@ void Cpu::opcodeCB43()
 void Cpu::opcodeCB44()
 {
 	//Test bit 0 in H
-	beakMemory.setZFlag(((beakMemory.getH() & 0x01) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag(((memory->getH() & 0x01) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5712,9 +5712,9 @@ void Cpu::opcodeCB44()
 void Cpu::opcodeCB45()
 {
 	//Test bit 0 in L
-	beakMemory.setZFlag(((beakMemory.getL() & 0x01) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag(((memory->getL() & 0x01) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5723,10 +5723,10 @@ void Cpu::opcodeCB45()
 void Cpu::opcodeCB46()
 {
 	//Test bit 0 in data at HL
-	short hl = beakMemory.getHL();
-	beakMemory.setZFlag(((beakMemory.readMemory(hl) & 0x01) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    short hl = memory->getHL();
+    memory->setZFlag(((memory->readMemory(hl) & 0x01) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -5735,9 +5735,9 @@ void Cpu::opcodeCB46()
 void Cpu::opcodeCB47()
 {
 	//Test bit 0 in A
-	beakMemory.setZFlag(((beakMemory.getA() & 0x01) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag(((memory->getA() & 0x01) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5746,9 +5746,9 @@ void Cpu::opcodeCB47()
 void Cpu::opcodeCB48()
 {
 	//Test bit 1 in B
-	beakMemory.setZFlag((((beakMemory.getB() & 0x02) >> 1) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getB() & 0x02) >> 1) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5757,9 +5757,9 @@ void Cpu::opcodeCB48()
 void Cpu::opcodeCB49()
 {
 	//Test bit 1 in C
-	beakMemory.setZFlag((((beakMemory.getC() & 0x02) >> 1) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getC() & 0x02) >> 1) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5768,9 +5768,9 @@ void Cpu::opcodeCB49()
 void Cpu::opcodeCB4A()
 {
 	//Test bit 1 in D
-	beakMemory.setZFlag((((beakMemory.getD() & 0x02) >> 1) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getD() & 0x02) >> 1) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5779,9 +5779,9 @@ void Cpu::opcodeCB4A()
 void Cpu::opcodeCB4B()
 {
 	//Test bit 1 in E
-	beakMemory.setZFlag((((beakMemory.getE() & 0x02) >> 1) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getE() & 0x02) >> 1) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5790,9 +5790,9 @@ void Cpu::opcodeCB4B()
 void Cpu::opcodeCB4C()
 {
 	//Test bit 1 in H
-	beakMemory.setZFlag((((beakMemory.getH() & 0x02) >> 1) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getH() & 0x02) >> 1) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5801,9 +5801,9 @@ void Cpu::opcodeCB4C()
 void Cpu::opcodeCB4D()
 {
 	//Test bit 1 in L
-	beakMemory.setZFlag((((beakMemory.getL() & 0x02) >> 1) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getL() & 0x02) >> 1) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5812,10 +5812,10 @@ void Cpu::opcodeCB4D()
 void Cpu::opcodeCB4E()
 {
 	//Test bit 1 in data at HL
-	short hl = beakMemory.getHL();
-	beakMemory.setZFlag((((beakMemory.readMemory(hl) & 0x02) >> 1) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    short hl = memory->getHL();
+    memory->setZFlag((((memory->readMemory(hl) & 0x02) >> 1) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -5824,9 +5824,9 @@ void Cpu::opcodeCB4E()
 void Cpu::opcodeCB4F()
 {
 	//Test bit 1 in A
-	beakMemory.setZFlag((((beakMemory.getA() & 0x02) >> 1) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getA() & 0x02) >> 1) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5835,9 +5835,9 @@ void Cpu::opcodeCB4F()
 void Cpu::opcodeCB50()
 {
 	//Test bit 2 in B
-	beakMemory.setZFlag((((beakMemory.getB() & 0x04) >> 2) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getB() & 0x04) >> 2) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5846,9 +5846,9 @@ void Cpu::opcodeCB50()
 void Cpu::opcodeCB51()
 {
 	//Test bit 2 in C
-	beakMemory.setZFlag((((beakMemory.getC() & 0x04) >> 2) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getC() & 0x04) >> 2) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5857,9 +5857,9 @@ void Cpu::opcodeCB51()
 void Cpu::opcodeCB52()
 {
 	//Test bit 2 in D
-	beakMemory.setZFlag((((beakMemory.getD() & 0x04) >> 2) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getD() & 0x04) >> 2) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5868,9 +5868,9 @@ void Cpu::opcodeCB52()
 void Cpu::opcodeCB53()
 {
 	//Test bit 2 in E
-	beakMemory.setZFlag((((beakMemory.getE() & 0x04) >> 2) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getE() & 0x04) >> 2) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5879,9 +5879,9 @@ void Cpu::opcodeCB53()
 void Cpu::opcodeCB54()
 {
 	//Test bit 2 in H
-	beakMemory.setZFlag((((beakMemory.getH() & 0x04) >> 2) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getH() & 0x04) >> 2) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5890,9 +5890,9 @@ void Cpu::opcodeCB54()
 void Cpu::opcodeCB55()
 {
 	//Test bit 2 in L
-	beakMemory.setZFlag((((beakMemory.getL() & 0x04) >> 2) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getL() & 0x04) >> 2) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5901,10 +5901,10 @@ void Cpu::opcodeCB55()
 void Cpu::opcodeCB56()
 {
 	//Test bit 2 in data at HL
-	short hl = beakMemory.getHL();
-	beakMemory.setZFlag((((beakMemory.readMemory(hl) & 0x04) >> 2) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    short hl = memory->getHL();
+    memory->setZFlag((((memory->readMemory(hl) & 0x04) >> 2) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -5913,9 +5913,9 @@ void Cpu::opcodeCB56()
 void Cpu::opcodeCB57()
 {
 	//Test bit 2 in A
-	beakMemory.setZFlag((((beakMemory.getA() & 0x04) >> 2) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getA() & 0x04) >> 2) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5924,9 +5924,9 @@ void Cpu::opcodeCB57()
 void Cpu::opcodeCB58()
 {
 	//Test bit 3 in B
-	beakMemory.setZFlag((((beakMemory.getB() & 0x08) >> 3) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getB() & 0x08) >> 3) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5935,9 +5935,9 @@ void Cpu::opcodeCB58()
 void Cpu::opcodeCB59()
 {
 	//Test bit 3 in C
-	beakMemory.setZFlag((((beakMemory.getC() & 0x08) >> 3) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getC() & 0x08) >> 3) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5946,9 +5946,9 @@ void Cpu::opcodeCB59()
 void Cpu::opcodeCB5A()
 {
 	//Test bit 3 in D
-	beakMemory.setZFlag((((beakMemory.getD() & 0x08) >> 3) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getD() & 0x08) >> 3) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5957,9 +5957,9 @@ void Cpu::opcodeCB5A()
 void Cpu::opcodeCB5B()
 {
 	//Test bit 3 in E
-	beakMemory.setZFlag((((beakMemory.getE() & 0x08) >> 3) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getE() & 0x08) >> 3) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5968,9 +5968,9 @@ void Cpu::opcodeCB5B()
 void Cpu::opcodeCB5C()
 {
 	//Test bit 3 in H
-	beakMemory.setZFlag((((beakMemory.getH() & 0x08) >> 3) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getH() & 0x08) >> 3) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5979,9 +5979,9 @@ void Cpu::opcodeCB5C()
 void Cpu::opcodeCB5D()
 {
 	//Test bit 3 in L
-	beakMemory.setZFlag((((beakMemory.getL() & 0x08) >> 3) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getL() & 0x08) >> 3) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5990,10 +5990,10 @@ void Cpu::opcodeCB5D()
 void Cpu::opcodeCB5E()
 {
 	//Test bit 3 in data at HL
-	short hl = beakMemory.getHL();
-	beakMemory.setZFlag((((beakMemory.readMemory(hl) & 0x08) >> 3) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    short hl = memory->getHL();
+    memory->setZFlag((((memory->readMemory(hl) & 0x08) >> 3) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -6002,9 +6002,9 @@ void Cpu::opcodeCB5E()
 void Cpu::opcodeCB5F()
 {
 	//Test bit 3 in A
-	beakMemory.setZFlag((((beakMemory.getA() & 0x08) >> 3) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getA() & 0x08) >> 3) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6013,9 +6013,9 @@ void Cpu::opcodeCB5F()
 void Cpu::opcodeCB60()
 {
 	//Test bit 4 in B
-	beakMemory.setZFlag((((beakMemory.getB() & 0x10) >> 4) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getB() & 0x10) >> 4) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6024,9 +6024,9 @@ void Cpu::opcodeCB60()
 void Cpu::opcodeCB61()
 {
 	//Test bit 4 in C
-	beakMemory.setZFlag((((beakMemory.getC() & 0x10) >> 4) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getC() & 0x10) >> 4) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6035,9 +6035,9 @@ void Cpu::opcodeCB61()
 void Cpu::opcodeCB62()
 {
 	//Test bit 4 in D
-	beakMemory.setZFlag((((beakMemory.getD() & 0x10) >> 4) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getD() & 0x10) >> 4) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6046,9 +6046,9 @@ void Cpu::opcodeCB62()
 void Cpu::opcodeCB63()
 {
 	//Test bit 4 in E
-	beakMemory.setZFlag((((beakMemory.getE() & 0x10) >> 4) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getE() & 0x10) >> 4) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6057,9 +6057,9 @@ void Cpu::opcodeCB63()
 void Cpu::opcodeCB64()
 {
 	//Test bit 4 in H
-	beakMemory.setZFlag((((beakMemory.getH() & 0x10) >> 4) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getH() & 0x10) >> 4) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6068,9 +6068,9 @@ void Cpu::opcodeCB64()
 void Cpu::opcodeCB65()
 {
 	//Test bit 4 in L
-	beakMemory.setZFlag((((beakMemory.getL() & 0x10) >> 4) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getL() & 0x10) >> 4) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6079,10 +6079,10 @@ void Cpu::opcodeCB65()
 void Cpu::opcodeCB66()
 {
 	//Test bit 4 in data at HL
-	short hl = beakMemory.getHL();
-	beakMemory.setZFlag((((beakMemory.readMemory(hl) & 0x10) >> 4) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    short hl = memory->getHL();
+    memory->setZFlag((((memory->readMemory(hl) & 0x10) >> 4) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -6091,9 +6091,9 @@ void Cpu::opcodeCB66()
 void Cpu::opcodeCB67()
 {
 	//Test bit 4 in A
-	beakMemory.setZFlag((((beakMemory.getA() & 0x10) >> 4) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getA() & 0x10) >> 4) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6102,9 +6102,9 @@ void Cpu::opcodeCB67()
 void Cpu::opcodeCB68()
 {
 	//Test bit 5 in B
-	beakMemory.setZFlag((((beakMemory.getB() & 0x20) >> 5) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getB() & 0x20) >> 5) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6113,9 +6113,9 @@ void Cpu::opcodeCB68()
 void Cpu::opcodeCB69()
 {
 	//Test bit 5 in C
-	beakMemory.setZFlag((((beakMemory.getC() & 0x20) >> 5) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getC() & 0x20) >> 5) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6124,9 +6124,9 @@ void Cpu::opcodeCB69()
 void Cpu::opcodeCB6A()
 {
 	//Test bit 5 in D
-	beakMemory.setZFlag((((beakMemory.getD() & 0x20) >> 5) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getD() & 0x20) >> 5) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6135,9 +6135,9 @@ void Cpu::opcodeCB6A()
 void Cpu::opcodeCB6B()
 {
 	//Test bit 5 in E
-	beakMemory.setZFlag((((beakMemory.getE() & 0x20) >> 5) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getE() & 0x20) >> 5) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6146,9 +6146,9 @@ void Cpu::opcodeCB6B()
 void Cpu::opcodeCB6C()
 {
 	//Test bit 5 in H
-	beakMemory.setZFlag((((beakMemory.getH() & 0x20) >> 5) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getH() & 0x20) >> 5) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6157,9 +6157,9 @@ void Cpu::opcodeCB6C()
 void Cpu::opcodeCB6D()
 {
 	//Test bit 5 in L
-	beakMemory.setZFlag((((beakMemory.getL() & 0x20) >> 5) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getL() & 0x20) >> 5) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6168,10 +6168,10 @@ void Cpu::opcodeCB6D()
 void Cpu::opcodeCB6E()
 {
 	//Test bit 5 in data at HL
-	short hl = beakMemory.getHL();
-	beakMemory.setZFlag((((beakMemory.readMemory(hl) & 0x20) >> 5) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    short hl = memory->getHL();
+    memory->setZFlag((((memory->readMemory(hl) & 0x20) >> 5) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -6180,9 +6180,9 @@ void Cpu::opcodeCB6E()
 void Cpu::opcodeCB6F()
 {
 	//Test bit 5 in A
-	beakMemory.setZFlag((((beakMemory.getA() & 0x20) >> 5) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getA() & 0x20) >> 5) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6191,9 +6191,9 @@ void Cpu::opcodeCB6F()
 void Cpu::opcodeCB70()
 {
 	//Test bit 6 in B
-	beakMemory.setZFlag((((beakMemory.getB() & 0x40) >> 6) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getB() & 0x40) >> 6) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6202,9 +6202,9 @@ void Cpu::opcodeCB70()
 void Cpu::opcodeCB71()
 {
 	//Test bit 6 in C
-	beakMemory.setZFlag((((beakMemory.getC() & 0x40) >> 6) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getC() & 0x40) >> 6) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6213,9 +6213,9 @@ void Cpu::opcodeCB71()
 void Cpu::opcodeCB72()
 {
 	//Test bit 6 in D
-	beakMemory.setZFlag((((beakMemory.getD() & 0x40) >> 6) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getD() & 0x40) >> 6) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6224,9 +6224,9 @@ void Cpu::opcodeCB72()
 void Cpu::opcodeCB73()
 {
 	//Test bit 6 in E
-	beakMemory.setZFlag((((beakMemory.getE() & 0x40) >> 6) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getE() & 0x40) >> 6) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6235,9 +6235,9 @@ void Cpu::opcodeCB73()
 void Cpu::opcodeCB74()
 {
 	//Test bit 6 in H
-	beakMemory.setZFlag((((beakMemory.getH() & 0x40) >> 6) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getH() & 0x40) >> 6) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6246,9 +6246,9 @@ void Cpu::opcodeCB74()
 void Cpu::opcodeCB75()
 {
 	//Test bit 6 in L
-	beakMemory.setZFlag((((beakMemory.getL() & 0x40) >> 6) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getL() & 0x40) >> 6) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6257,10 +6257,10 @@ void Cpu::opcodeCB75()
 void Cpu::opcodeCB76()
 {
 	//Test bit 6 in data at HL
-	short hl = beakMemory.getHL();
-	beakMemory.setZFlag((((beakMemory.readMemory(hl) & 0x40) >> 6) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    short hl = memory->getHL();
+    memory->setZFlag((((memory->readMemory(hl) & 0x40) >> 6) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -6269,9 +6269,9 @@ void Cpu::opcodeCB76()
 void Cpu::opcodeCB77()
 {
 	//Test bit 6 in A
-	beakMemory.setZFlag((((beakMemory.getA() & 0x40) >> 6) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getA() & 0x40) >> 6) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6280,9 +6280,9 @@ void Cpu::opcodeCB77()
 void Cpu::opcodeCB78()
 {
 	//Test bit 7 in B
-	beakMemory.setZFlag((((beakMemory.getB() & 0x80) >> 7) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getB() & 0x80) >> 7) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6291,9 +6291,9 @@ void Cpu::opcodeCB78()
 void Cpu::opcodeCB79()
 {
 	//Test bit 7 in C
-	beakMemory.setZFlag((((beakMemory.getC() & 0x80) >> 7) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getC() & 0x80) >> 7) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6302,9 +6302,9 @@ void Cpu::opcodeCB79()
 void Cpu::opcodeCB7A()
 {
 	//Test bit 7 in D
-	beakMemory.setZFlag((((beakMemory.getD() & 0x80) >> 7) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getD() & 0x80) >> 7) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6313,9 +6313,9 @@ void Cpu::opcodeCB7A()
 void Cpu::opcodeCB7B()
 {
 	//Test bit 7 in E
-	beakMemory.setZFlag((((beakMemory.getE() & 0x80) >> 7) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getE() & 0x80) >> 7) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6324,9 +6324,9 @@ void Cpu::opcodeCB7B()
 void Cpu::opcodeCB7C()
 {
 	//Test bit 7 in H
-	beakMemory.setZFlag((((beakMemory.getH() & 0x80) >> 7) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getH() & 0x80) >> 7) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6335,9 +6335,9 @@ void Cpu::opcodeCB7C()
 void Cpu::opcodeCB7D()
 {
 	//Test bit 7 in L
-	beakMemory.setZFlag((((beakMemory.getL() & 0x80) >> 7) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getL() & 0x80) >> 7) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6346,10 +6346,10 @@ void Cpu::opcodeCB7D()
 void Cpu::opcodeCB7E()
 {
 	//Test bit 7 in data at HL
-	short hl = beakMemory.getHL();
-	beakMemory.setZFlag((((beakMemory.readMemory(hl) & 0x80) >> 7) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    short hl = memory->getHL();
+    memory->setZFlag((((memory->readMemory(hl) & 0x80) >> 7) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -6358,9 +6358,9 @@ void Cpu::opcodeCB7E()
 void Cpu::opcodeCB7F()
 {
 	//Test bit 7 in A
-	beakMemory.setZFlag((((beakMemory.getA() & 0x80) >> 7) == 0) ? true : false);
-	beakMemory.setNFlag(false);
-	beakMemory.setHFlag(true);
+    memory->setZFlag((((memory->getA() & 0x80) >> 7) == 0) ? true : false);
+    memory->setNFlag(false);
+    memory->setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6369,7 +6369,7 @@ void Cpu::opcodeCB7F()
 void Cpu::opcodeCB80()
 {
 	//Reset bit 0 in B
-	beakMemory.setB(beakMemory.getB() & 0xFE); //Masks off left most bit
+    memory->setB(memory->getB() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6377,7 +6377,7 @@ void Cpu::opcodeCB80()
 void Cpu::opcodeCB81()
 {
 	//Reset bit 0 in C
-	beakMemory.setC(beakMemory.getC() & 0xFE); //Masks off left most bit
+    memory->setC(memory->getC() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6385,7 +6385,7 @@ void Cpu::opcodeCB81()
 void Cpu::opcodeCB82()
 {
 	//Reset bit 0 in D
-	beakMemory.setD(beakMemory.getD() & 0xFE); //Masks off left most bit
+    memory->setD(memory->getD() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6393,7 +6393,7 @@ void Cpu::opcodeCB82()
 void Cpu::opcodeCB83()
 {
 	//Reset bit 0 in E
-	beakMemory.setE(beakMemory.getE() & 0xFE); //Masks off left most bit
+    memory->setE(memory->getE() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6401,7 +6401,7 @@ void Cpu::opcodeCB83()
 void Cpu::opcodeCB84()
 {
 	//Reset bit 0 in H
-	beakMemory.setH(beakMemory.getH() & 0xFE); //Masks off left most bit
+    memory->setH(memory->getH() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6409,7 +6409,7 @@ void Cpu::opcodeCB84()
 void Cpu::opcodeCB85()
 {
 	//Reset bit 0 of data at L
-	beakMemory.setL(beakMemory.getL() & 0xFE); //Masks off left most bit
+    memory->setL(memory->getL() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6417,8 +6417,8 @@ void Cpu::opcodeCB85()
 void Cpu::opcodeCB86()
 {
 	//Reset bit 0 in HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xFE)); //Masks off left most bit
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xFE)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6426,7 +6426,7 @@ void Cpu::opcodeCB86()
 void Cpu::opcodeCB87()
 {
 	//Reset bit 0 of data at A
-	beakMemory.setA(beakMemory.getA() & 0xFE); //Masks off left most bit
+    memory->setA(memory->getA() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6435,7 +6435,7 @@ void Cpu::opcodeCB87()
 void Cpu::opcodeCB88()
 {
 	//Reset bit 1 in B
-	beakMemory.setB(beakMemory.getB() & 0xFD); //Masks off second to left most bit
+    memory->setB(memory->getB() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6443,7 +6443,7 @@ void Cpu::opcodeCB88()
 void Cpu::opcodeCB89()
 {
 	//Reset bit 1 in C
-	beakMemory.setC(beakMemory.getC() & 0xFD); //Masks off second to left most bit
+    memory->setC(memory->getC() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6451,7 +6451,7 @@ void Cpu::opcodeCB89()
 void Cpu::opcodeCB8A()
 {
 	//Reset bit 1 in D
-	beakMemory.setD(beakMemory.getD() & 0xFD); //Masks off second to left most bit
+    memory->setD(memory->getD() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6459,7 +6459,7 @@ void Cpu::opcodeCB8A()
 void Cpu::opcodeCB8B()
 {
 	//Reset bit 1 in E
-	beakMemory.setE(beakMemory.getE() & 0xFD); //Masks off second to left most bit
+    memory->setE(memory->getE() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6467,7 +6467,7 @@ void Cpu::opcodeCB8B()
 void Cpu::opcodeCB8C()
 {
 	//Reset bit 1 in H
-	beakMemory.setH(beakMemory.getH() & 0xFD); //Masks off second to left most bit
+    memory->setH(memory->getH() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6475,7 +6475,7 @@ void Cpu::opcodeCB8C()
 void Cpu::opcodeCB8D()
 {
 	//Reset bit 1 in L
-	beakMemory.setL(beakMemory.getL() & 0xFD); //Masks off second to left most bit
+    memory->setL(memory->getL() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6483,8 +6483,8 @@ void Cpu::opcodeCB8D()
 void Cpu::opcodeCB8E()
 {
 	//Reset bit 1 in HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xFD)); //Masks off left most bit
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xFD)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6492,7 +6492,7 @@ void Cpu::opcodeCB8E()
 void Cpu::opcodeCB8F()
 {
 	//Reset bit 1 in A
-	beakMemory.setA(beakMemory.getA() & 0xFD); //Masks off second to left most bit
+    memory->setA(memory->getA() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6500,7 +6500,7 @@ void Cpu::opcodeCB8F()
 void Cpu::opcodeCB90()
 {
 	//Reset bit 2 in B
-	beakMemory.setB(beakMemory.getB() & 0xFB); //Masks off third to left most bit
+    memory->setB(memory->getB() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6508,7 +6508,7 @@ void Cpu::opcodeCB90()
 void Cpu::opcodeCB91()
 {
 	//Reset bit 2 in C
-	beakMemory.setC(beakMemory.getC() & 0xFB); //Masks off third to left most bit
+    memory->setC(memory->getC() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6516,7 +6516,7 @@ void Cpu::opcodeCB91()
 void Cpu::opcodeCB92()
 {
 	//Reset bit 2 in D
-	beakMemory.setD(beakMemory.getD() & 0xFB); //Masks off third to left most bit
+    memory->setD(memory->getD() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6524,7 +6524,7 @@ void Cpu::opcodeCB92()
 void Cpu::opcodeCB93()
 {
 	//Reset bit 2 in E
-	beakMemory.setE(beakMemory.getE() & 0xFB); //Masks off third to left most bit
+    memory->setE(memory->getE() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6532,7 +6532,7 @@ void Cpu::opcodeCB93()
 void Cpu::opcodeCB94()
 {
 	//Reset bit 2 in H
-	beakMemory.setH(beakMemory.getH() & 0xFB); //Masks off third to left most bit
+    memory->setH(memory->getH() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6540,7 +6540,7 @@ void Cpu::opcodeCB94()
 void Cpu::opcodeCB95()
 {
 	//Reset bit 2 in L
-	beakMemory.setL(beakMemory.getL() & 0xFB); //Masks off third to left most bit
+    memory->setL(memory->getL() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6548,8 +6548,8 @@ void Cpu::opcodeCB95()
 void Cpu::opcodeCB96()
 {
 	//Reset bit 2 in HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xFB)); //Masks off left most bit
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xFB)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6557,7 +6557,7 @@ void Cpu::opcodeCB96()
 void Cpu::opcodeCB97()
 {
 	//Reset bit 2 in A
-	beakMemory.setA(beakMemory.getA() & 0xFB); //Masks off third to left most bit
+    memory->setA(memory->getA() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6565,7 +6565,7 @@ void Cpu::opcodeCB97()
 void Cpu::opcodeCB98()
 {
 	//Reset bit 3 in B
-	beakMemory.setB(beakMemory.getB() & 0xF7); //Masks off fourth to left most bit
+    memory->setB(memory->getB() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6573,7 +6573,7 @@ void Cpu::opcodeCB98()
 void Cpu::opcodeCB99()
 {
 	//Reset bit 3 in C
-	beakMemory.setC(beakMemory.getC() & 0xF7); //Masks off fourth to left most bit
+    memory->setC(memory->getC() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6581,7 +6581,7 @@ void Cpu::opcodeCB99()
 void Cpu::opcodeCB9A()
 {
 	//Reset bit 3 in D
-	beakMemory.setD(beakMemory.getD() & 0xF7); //Masks off fourth to left most bit
+    memory->setD(memory->getD() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6589,7 +6589,7 @@ void Cpu::opcodeCB9A()
 void Cpu::opcodeCB9B()
 {
 	//Reset bit 3 in E
-	beakMemory.setE(beakMemory.getE() & 0xF7); //Masks off fourth to left most bit
+    memory->setE(memory->getE() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6597,7 +6597,7 @@ void Cpu::opcodeCB9B()
 void Cpu::opcodeCB9C()
 {
 	//Reset bit 3 in H
-	beakMemory.setH(beakMemory.getH() & 0xF7); //Masks off fourth to left most bit
+    memory->setH(memory->getH() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6605,7 +6605,7 @@ void Cpu::opcodeCB9C()
 void Cpu::opcodeCB9D()
 {
 	//Reset bit 3 in L
-	beakMemory.setL(beakMemory.getL() & 0xF7); //Masks off fourth to left most bit
+    memory->setL(memory->getL() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6613,8 +6613,8 @@ void Cpu::opcodeCB9D()
 void Cpu::opcodeCB9E()
 {
 	//Reset bit 3 in HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xF7)); //Masks off left most bit
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xF7)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6622,7 +6622,7 @@ void Cpu::opcodeCB9E()
 void Cpu::opcodeCB9F()
 {
 	//Reset bit 3 in A
-	beakMemory.setA(beakMemory.getA() & 0xF7); //Masks off fourth to left most bit
+    memory->setA(memory->getA() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6630,7 +6630,7 @@ void Cpu::opcodeCB9F()
 void Cpu::opcodeCBA0()
 {
 	//Reset bit 4 in B
-	beakMemory.setB(beakMemory.getB() & 0xEF); //Masks off fifth to left most bit
+    memory->setB(memory->getB() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6638,7 +6638,7 @@ void Cpu::opcodeCBA0()
 void Cpu::opcodeCBA1()
 {
 	//Reset bit 4 in C
-	beakMemory.setC(beakMemory.getC() & 0xEF); //Masks off fifth to left most bit
+    memory->setC(memory->getC() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6646,7 +6646,7 @@ void Cpu::opcodeCBA1()
 void Cpu::opcodeCBA2()
 {
 	//Reset bit 4 in D
-	beakMemory.setD(beakMemory.getD() & 0xEF); //Masks off fifth to left most bit
+    memory->setD(memory->getD() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6654,7 +6654,7 @@ void Cpu::opcodeCBA2()
 void Cpu::opcodeCBA3()
 {
 	//Reset bit 4 in E
-	beakMemory.setE(beakMemory.getE() & 0xEF); //Masks off fifth to left most bit
+    memory->setE(memory->getE() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6662,7 +6662,7 @@ void Cpu::opcodeCBA3()
 void Cpu::opcodeCBA4()
 {
 	//Reset bit 4 in H
-	beakMemory.setH(beakMemory.getH() & 0xEF); //Masks off fifth to left most bit
+    memory->setH(memory->getH() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6670,7 +6670,7 @@ void Cpu::opcodeCBA4()
 void Cpu::opcodeCBA5()
 {
 	//Reset bit 4 in L
-	beakMemory.setL(beakMemory.getL() & 0xEF); //Masks off fifth to left most bit
+    memory->setL(memory->getL() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6678,8 +6678,8 @@ void Cpu::opcodeCBA5()
 void Cpu::opcodeCBA6()
 {
 	//Reset bit 4 in HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xEF)); //Masks off left most bit
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xEF)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6687,7 +6687,7 @@ void Cpu::opcodeCBA6()
 void Cpu::opcodeCBA7()
 {
 	//Reset bit 4 in A
-	beakMemory.setA(beakMemory.getA() & 0xEF); //Masks off fifth to left most bit
+    memory->setA(memory->getA() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6695,7 +6695,7 @@ void Cpu::opcodeCBA7()
 void Cpu::opcodeCBA8()
 {
 	//Reset bit 5 in B
-	beakMemory.setB(beakMemory.getB() & 0xDF); //Masks off sixth to left most bit
+    memory->setB(memory->getB() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6703,7 +6703,7 @@ void Cpu::opcodeCBA8()
 void Cpu::opcodeCBA9()
 {
 	//Reset bit 5 in C
-	beakMemory.setC(beakMemory.getC() & 0xDF); //Masks off sixth to left most bit
+    memory->setC(memory->getC() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6711,7 +6711,7 @@ void Cpu::opcodeCBA9()
 void Cpu::opcodeCBAA()
 {
 	//Reset bit 5 in D
-	beakMemory.setD(beakMemory.getD() & 0xDF); //Masks off sixth to left most bit
+    memory->setD(memory->getD() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6719,7 +6719,7 @@ void Cpu::opcodeCBAA()
 void Cpu::opcodeCBAB()
 {
 	//Reset bit 5 in E
-	beakMemory.setE(beakMemory.getE() & 0xDF); //Masks off sixth to left most bit
+    memory->setE(memory->getE() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6727,7 +6727,7 @@ void Cpu::opcodeCBAB()
 void Cpu::opcodeCBAC()
 {
 	//Reset bit 5 in H
-	beakMemory.setH(beakMemory.getH() & 0xDF); //Masks off sixth to left most bit
+    memory->setH(memory->getH() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6735,7 +6735,7 @@ void Cpu::opcodeCBAC()
 void Cpu::opcodeCBAD()
 {
 	//Reset bit 5 in L
-	beakMemory.setL(beakMemory.getL() & 0xDF); //Masks off sixth to left most bit
+    memory->setL(memory->getL() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6743,8 +6743,8 @@ void Cpu::opcodeCBAD()
 void Cpu::opcodeCBAE()
 {
 	//Reset bit 5 in HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xDF)); //Masks off left most bit
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xDF)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6752,7 +6752,7 @@ void Cpu::opcodeCBAE()
 void Cpu::opcodeCBAF()
 {
 	//Reset bit 5 in A
-	beakMemory.setA(beakMemory.getA() & 0xDF); //Masks off sixth to left most bit
+    memory->setA(memory->getA() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6760,7 +6760,7 @@ void Cpu::opcodeCBAF()
 void Cpu::opcodeCBB0()
 {
 	//Reset bit 6 in B
-	beakMemory.setB(beakMemory.getB() & 0xBF); //Masks off seventh to left most bit
+    memory->setB(memory->getB() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6768,7 +6768,7 @@ void Cpu::opcodeCBB0()
 void Cpu::opcodeCBB1()
 {
 	//Reset bit 6 in C
-	beakMemory.setC(beakMemory.getC() & 0xBF); //Masks off seventh to left most bit
+    memory->setC(memory->getC() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6776,7 +6776,7 @@ void Cpu::opcodeCBB1()
 void Cpu::opcodeCBB2()
 {
 	//Reset bit 6 in D
-	beakMemory.setD(beakMemory.getD() & 0xBF); //Masks off seventh to left most bit
+    memory->setD(memory->getD() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6784,7 +6784,7 @@ void Cpu::opcodeCBB2()
 void Cpu::opcodeCBB3()
 {
 	//Reset bit 6 in E
-	beakMemory.setE(beakMemory.getE() & 0xBF); //Masks off seventh to left most bit
+    memory->setE(memory->getE() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6792,7 +6792,7 @@ void Cpu::opcodeCBB3()
 void Cpu::opcodeCBB4()
 {
 	//Reset bit 6 in H
-	beakMemory.setH(beakMemory.getH() & 0xBF); //Masks off seventh to left most bit
+    memory->setH(memory->getH() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6800,7 +6800,7 @@ void Cpu::opcodeCBB4()
 void Cpu::opcodeCBB5()
 {
 	//Reset bit 6 in L
-	beakMemory.setL(beakMemory.getL() & 0xBF); //Masks off seventh to left most bit
+    memory->setL(memory->getL() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6808,8 +6808,8 @@ void Cpu::opcodeCBB5()
 void Cpu::opcodeCBB6()
 {
 	//Reset bit 6 in HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0xBF)); //Masks off left most bit
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xBF)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6817,7 +6817,7 @@ void Cpu::opcodeCBB6()
 void Cpu::opcodeCBB7()
 {
 	//Reset bit 6 in A
-	beakMemory.setA(beakMemory.getA() & 0xBF); //Masks off seventh to left most bit
+    memory->setA(memory->getA() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6825,14 +6825,14 @@ void Cpu::opcodeCBB7()
 void Cpu::opcodeCBB8()
 {
 	//Reset bit 7 in B
-	beakMemory.setB(beakMemory.getB() & 0x7F); //Masks off right most bit
+    memory->setB(memory->getB() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
 void Cpu::opcodeCBB9()
 {
 	//Reset bit 7 in C
-	beakMemory.setC(beakMemory.getC() & 0x7F); //Masks off right most bit
+    memory->setC(memory->getC() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6840,7 +6840,7 @@ void Cpu::opcodeCBB9()
 void Cpu::opcodeCBBA()
 {
 	//Reset bit 7 in D
-	beakMemory.setD(beakMemory.getD() & 0x7F); //Masks off right most bit
+    memory->setD(memory->getD() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6848,7 +6848,7 @@ void Cpu::opcodeCBBA()
 void Cpu::opcodeCBBB()
 {
 	//Reset bit 7 in E
-	beakMemory.setE(beakMemory.getE() & 0x7F); //Masks off right most bit
+    memory->setE(memory->getE() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6856,7 +6856,7 @@ void Cpu::opcodeCBBB()
 void Cpu::opcodeCBBC()
 {
 	//Reset bit 7 in H
-	beakMemory.setH(beakMemory.getH() & 0x7F); //Masks off right most bit
+    memory->setH(memory->getH() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6864,7 +6864,7 @@ void Cpu::opcodeCBBC()
 void Cpu::opcodeCBBD()
 {
 	//Reset bit 7 in L
-	beakMemory.setL(beakMemory.getL() & 0x7F); //Masks off right most bit
+    memory->setL(memory->getL() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6872,8 +6872,8 @@ void Cpu::opcodeCBBD()
 void Cpu::opcodeCBBE()
 {
 	//Reset bit 7 in HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) & 0x7F)); //Masks off left most bit
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0x7F)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6881,7 +6881,7 @@ void Cpu::opcodeCBBE()
 void Cpu::opcodeCBBF()
 {
 	//Reset bit 7 in A
-	beakMemory.setA(beakMemory.getA() & 0x7F); //Masks off right most bit
+    memory->setA(memory->getA() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6889,7 +6889,7 @@ void Cpu::opcodeCBBF()
 void Cpu::opcodeCBC0()
 {
 	//Set Bit 0 of B
-	beakMemory.setB(beakMemory.getB() | 0x01);
+    memory->setB(memory->getB() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6897,7 +6897,7 @@ void Cpu::opcodeCBC0()
 void Cpu::opcodeCBC1()
 {
 	//Set Bit 0 of C
-	beakMemory.setC(beakMemory.getC() | 0x01);
+    memory->setC(memory->getC() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6905,7 +6905,7 @@ void Cpu::opcodeCBC1()
 void Cpu::opcodeCBC2()
 {
 	//Set Bit 0 of D
-	beakMemory.setD(beakMemory.getD() | 0x01);
+    memory->setD(memory->getD() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6913,7 +6913,7 @@ void Cpu::opcodeCBC2()
 void Cpu::opcodeCBC3()
 {
 	//Set Bit 0 of E
-	beakMemory.setE(beakMemory.getE() | 0x01);
+    memory->setE(memory->getE() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6921,7 +6921,7 @@ void Cpu::opcodeCBC3()
 void Cpu::opcodeCBC4()
 {
 	//Set Bit 0 of H
-	beakMemory.setH(beakMemory.getH() | 0x01);
+    memory->setH(memory->getH() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6929,7 +6929,7 @@ void Cpu::opcodeCBC4()
 void Cpu::opcodeCBC5()
 {
 	//Set Bit 0 of L
-	beakMemory.setL(beakMemory.getL() | 0x01);
+    memory->setL(memory->getL() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6937,7 +6937,7 @@ void Cpu::opcodeCBC5()
 void Cpu::opcodeCBC6()
 {
 	//Set Bit 0 of data at HL
-    beakMemory.writeMemory(beakMemory.getHL(), (unsigned char)(beakMemory.readMemory(beakMemory.getHL()) | 0x01));
+    memory->writeMemory(memory->getHL(), (unsigned char)(memory->readMemory(memory->getHL()) | 0x01));
 	mClock += 3;
 	tClock += 12;
 }
@@ -6945,7 +6945,7 @@ void Cpu::opcodeCBC6()
 void Cpu::opcodeCBC7()
 {
 	//Set Bit 0 of A
-	beakMemory.setA(beakMemory.getA() | 0x01);
+    memory->setA(memory->getA() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6953,7 +6953,7 @@ void Cpu::opcodeCBC7()
 void Cpu::opcodeCBC8()
 {
 	//Set Bit 1 of B
-	beakMemory.setB(beakMemory.getB() | 0x02);
+    memory->setB(memory->getB() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6961,7 +6961,7 @@ void Cpu::opcodeCBC8()
 void Cpu::opcodeCBC9()
 {
 	//Set Bit 1 of C
-	beakMemory.setC(beakMemory.getC() | 0x02);
+    memory->setC(memory->getC() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6969,7 +6969,7 @@ void Cpu::opcodeCBC9()
 void Cpu::opcodeCBCA()
 {
 	//Set Bit 1 of D
-	beakMemory.setD(beakMemory.getD() | 0x02);
+    memory->setD(memory->getD() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6977,7 +6977,7 @@ void Cpu::opcodeCBCA()
 void Cpu::opcodeCBCB()
 {
 	//Set Bit 1 of E
-	beakMemory.setE(beakMemory.getE() | 0x02);
+    memory->setE(memory->getE() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6985,7 +6985,7 @@ void Cpu::opcodeCBCB()
 void Cpu::opcodeCBCC()
 {
 	//Set Bit 1 of H
-	beakMemory.setH(beakMemory.getH() | 0x02);
+    memory->setH(memory->getH() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6993,7 +6993,7 @@ void Cpu::opcodeCBCC()
 void Cpu::opcodeCBCD()
 {
 	//Set Bit 1 of L
-	beakMemory.setL(beakMemory.getL() | 0x02);
+    memory->setL(memory->getL() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7001,8 +7001,8 @@ void Cpu::opcodeCBCD()
 void Cpu::opcodeCBCE()
 {
 	//Set Bit 1 of data at HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x02));
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x02));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7010,7 +7010,7 @@ void Cpu::opcodeCBCE()
 void Cpu::opcodeCBCF()
 {
 	//Set Bit 1 of A
-	beakMemory.setA(beakMemory.getA() | 0x02);
+    memory->setA(memory->getA() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7018,7 +7018,7 @@ void Cpu::opcodeCBCF()
 void Cpu::opcodeCBD0()
 {
 	//Set Bit 2 of B
-	beakMemory.setB(beakMemory.getB() | 0x04);
+    memory->setB(memory->getB() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7026,7 +7026,7 @@ void Cpu::opcodeCBD0()
 void Cpu::opcodeCBD1()
 {
 	//Set Bit 2 of C
-	beakMemory.setC(beakMemory.getC() | 0x04);
+    memory->setC(memory->getC() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7034,7 +7034,7 @@ void Cpu::opcodeCBD1()
 void Cpu::opcodeCBD2()
 {
 	//Set Bit 2 of D
-	beakMemory.setD(beakMemory.getD() | 0x04);
+    memory->setD(memory->getD() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7042,7 +7042,7 @@ void Cpu::opcodeCBD2()
 void Cpu::opcodeCBD3()
 {
 	//Set Bit 2 of E
-	beakMemory.setE(beakMemory.getE() | 0x04);
+    memory->setE(memory->getE() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7050,7 +7050,7 @@ void Cpu::opcodeCBD3()
 void Cpu::opcodeCBD4()
 {
 	//Set Bit 2 of H
-	beakMemory.setH(beakMemory.getH() | 0x04);
+    memory->setH(memory->getH() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7058,7 +7058,7 @@ void Cpu::opcodeCBD4()
 void Cpu::opcodeCBD5()
 {
 	//Set Bit 2 of L
-	beakMemory.setL(beakMemory.getL() | 0x04);
+    memory->setL(memory->getL() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7066,8 +7066,8 @@ void Cpu::opcodeCBD5()
 void Cpu::opcodeCBD6()
 {
 	//Set Bit 2 of data at HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x04));
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x04));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7075,7 +7075,7 @@ void Cpu::opcodeCBD6()
 void Cpu::opcodeCBD7()
 {
 	//Set Bit 2 of A
-	beakMemory.setA(beakMemory.getA() | 0x04); 
+    memory->setA(memory->getA() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7083,7 +7083,7 @@ void Cpu::opcodeCBD7()
 void Cpu::opcodeCBD8()
 {
 	//Set Bit 3 of B
-	beakMemory.setB(beakMemory.getB() | 0x08);
+    memory->setB(memory->getB() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7091,7 +7091,7 @@ void Cpu::opcodeCBD8()
 void Cpu::opcodeCBD9()
 {
 	//Set Bit 3 of C
-	beakMemory.setC(beakMemory.getC() | 0x08); 
+    memory->setC(memory->getC() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7099,7 +7099,7 @@ void Cpu::opcodeCBD9()
 void Cpu::opcodeCBDA()
 {
 	//Set Bit 3 of D
-	beakMemory.setD(beakMemory.getD() | 0x08);
+    memory->setD(memory->getD() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7107,7 +7107,7 @@ void Cpu::opcodeCBDA()
 void Cpu::opcodeCBDB()
 {
 	//Set Bit 3 of E
-	beakMemory.setE(beakMemory.getE() | 0x08);
+    memory->setE(memory->getE() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7115,7 +7115,7 @@ void Cpu::opcodeCBDB()
 void Cpu::opcodeCBDC()
 {
 	//Set Bit 3 of H
-	beakMemory.setH(beakMemory.getH() | 0x08); 
+    memory->setH(memory->getH() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7123,7 +7123,7 @@ void Cpu::opcodeCBDC()
 void Cpu::opcodeCBDD()
 {
 	//Set Bit 3 of L
-	beakMemory.setL(beakMemory.getL() | 0x08);
+    memory->setL(memory->getL() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7131,8 +7131,8 @@ void Cpu::opcodeCBDD()
 void Cpu::opcodeCBDE()
 {
 	//Set Bit 3 of data at HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x08));
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x08));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7140,7 +7140,7 @@ void Cpu::opcodeCBDE()
 void Cpu::opcodeCBDF()
 {
 	//Set Bit 3 of A
-	beakMemory.setA(beakMemory.getA() | 0x08); 
+    memory->setA(memory->getA() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7148,7 +7148,7 @@ void Cpu::opcodeCBDF()
 void Cpu::opcodeCBE0()
 {
 	//Set Bit 4 of B
-	beakMemory.setB(beakMemory.getB() | 0x10);
+    memory->setB(memory->getB() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7156,7 +7156,7 @@ void Cpu::opcodeCBE0()
 void Cpu::opcodeCBE1()
 {
 	//Set Bit 4 of C
-	beakMemory.setC(beakMemory.getC() | 0x10); 
+    memory->setC(memory->getC() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7164,7 +7164,7 @@ void Cpu::opcodeCBE1()
 void Cpu::opcodeCBE2()
 {
 	//Set Bit 4 of D
-	beakMemory.setD(beakMemory.getD() | 0x10);
+    memory->setD(memory->getD() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7172,7 +7172,7 @@ void Cpu::opcodeCBE2()
 void Cpu::opcodeCBE3()
 {
 	//Set Bit 4 of E
-	beakMemory.setE(beakMemory.getE() | 0x10);
+    memory->setE(memory->getE() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7180,7 +7180,7 @@ void Cpu::opcodeCBE3()
 void Cpu::opcodeCBE4()
 {
 	//Set Bit 4 of H
-	beakMemory.setH(beakMemory.getH() | 0x10);
+    memory->setH(memory->getH() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7188,7 +7188,7 @@ void Cpu::opcodeCBE4()
 void Cpu::opcodeCBE5()
 {
 	//Set Bit 4 of L
-	beakMemory.setL(beakMemory.getL() | 0x10);
+    memory->setL(memory->getL() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7196,8 +7196,8 @@ void Cpu::opcodeCBE5()
 void Cpu::opcodeCBE6()
 {
 	//Set Bit 4 of data at HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x10));
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x10));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7205,7 +7205,7 @@ void Cpu::opcodeCBE6()
 void Cpu::opcodeCBE7()
 {
 	//Set Bit 4 of A
-	beakMemory.setA(beakMemory.getA() | 0x10);
+    memory->setA(memory->getA() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7213,7 +7213,7 @@ void Cpu::opcodeCBE7()
 void Cpu::opcodeCBE8()
 {
 	//Set Bit 5 of B
-	beakMemory.setB(beakMemory.getB() | 0x20);
+    memory->setB(memory->getB() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7221,7 +7221,7 @@ void Cpu::opcodeCBE8()
 void Cpu::opcodeCBE9()
 {
 	//Set Bit 5 of C
-	beakMemory.setC(beakMemory.getC() | 0x20);
+    memory->setC(memory->getC() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7229,7 +7229,7 @@ void Cpu::opcodeCBE9()
 void Cpu::opcodeCBEA()
 {
 	//Set Bit 5 of D
-	beakMemory.setD(beakMemory.getD() | 0x20);
+    memory->setD(memory->getD() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7237,7 +7237,7 @@ void Cpu::opcodeCBEA()
 void Cpu::opcodeCBEB()
 {
 	//Set Bit 5 of E
-	beakMemory.setE(beakMemory.getE() | 0x20);
+    memory->setE(memory->getE() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7245,7 +7245,7 @@ void Cpu::opcodeCBEB()
 void Cpu::opcodeCBEC()
 {
 	//Set Bit 5 of H
-	beakMemory.setH(beakMemory.getH() | 0x20);
+    memory->setH(memory->getH() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7253,7 +7253,7 @@ void Cpu::opcodeCBEC()
 void Cpu::opcodeCBED()
 {
 	//Set Bit 5 of L
-	beakMemory.setL(beakMemory.getL() | 0x20);
+    memory->setL(memory->getL() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7261,8 +7261,8 @@ void Cpu::opcodeCBED()
 void Cpu::opcodeCBEE()
 {
 	//Set Bit 5 of data at HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x20));
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x20));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7270,7 +7270,7 @@ void Cpu::opcodeCBEE()
 void Cpu::opcodeCBEF()
 {
 	//Set Bit 5 of A
-	beakMemory.setA(beakMemory.getA() | 0x20);
+    memory->setA(memory->getA() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7278,7 +7278,7 @@ void Cpu::opcodeCBEF()
 void Cpu::opcodeCBF0()
 {
 	//Set Bit 6 of B
-	beakMemory.setB(beakMemory.getB() | 0x40);
+    memory->setB(memory->getB() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7286,7 +7286,7 @@ void Cpu::opcodeCBF0()
 void Cpu::opcodeCBF1()
 {
 	//Set Bit 6 of C
-	beakMemory.setC(beakMemory.getC() | 0x40);
+    memory->setC(memory->getC() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7294,7 +7294,7 @@ void Cpu::opcodeCBF1()
 void Cpu::opcodeCBF2()
 {
 	//Set Bit 6 of D
-	beakMemory.setD(beakMemory.getD() | 0x40);
+    memory->setD(memory->getD() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7302,7 +7302,7 @@ void Cpu::opcodeCBF2()
 void Cpu::opcodeCBF3()
 {
 	//Set Bit 6 of E
-	beakMemory.setE(beakMemory.getE() | 0x40); 
+    memory->setE(memory->getE() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7310,7 +7310,7 @@ void Cpu::opcodeCBF3()
 void Cpu::opcodeCBF4()
 {
 	//Set Bit 6 of H
-	beakMemory.setH(beakMemory.getH() | 0x40);
+    memory->setH(memory->getH() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7318,7 +7318,7 @@ void Cpu::opcodeCBF4()
 void Cpu::opcodeCBF5()
 {
 	//Set Bit 6 of L
-	beakMemory.setL(beakMemory.getL() | 0x40);
+    memory->setL(memory->getL() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7326,8 +7326,8 @@ void Cpu::opcodeCBF5()
 void Cpu::opcodeCBF6()
 {
 	//Set Bit 6 of data at HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x40));
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x40));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7335,7 +7335,7 @@ void Cpu::opcodeCBF6()
 void Cpu::opcodeCBF7()
 {
 	//Set Bit 6 of A
-	beakMemory.setA(beakMemory.getA() | 0x40);
+    memory->setA(memory->getA() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7343,7 +7343,7 @@ void Cpu::opcodeCBF7()
 void Cpu::opcodeCBF8()
 {
 	//Set Bit 7 of B
-	beakMemory.setB(beakMemory.getB() | 0x80);
+    memory->setB(memory->getB() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7351,7 +7351,7 @@ void Cpu::opcodeCBF8()
 void Cpu::opcodeCBF9()
 {
 	//Set Bit 7 of C
-	beakMemory.setC(beakMemory.getC() | 0x80);
+    memory->setC(memory->getC() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7359,7 +7359,7 @@ void Cpu::opcodeCBF9()
 void Cpu::opcodeCBFA()
 {
 	//Set Bit 7 of D
-	beakMemory.setD(beakMemory.getD() | 0x80);
+    memory->setD(memory->getD() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7367,7 +7367,7 @@ void Cpu::opcodeCBFA()
 void Cpu::opcodeCBFB()
 {
 	//Set Bit 7 of E
-	beakMemory.setE(beakMemory.getE() | 0x80);
+    memory->setE(memory->getE() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7375,7 +7375,7 @@ void Cpu::opcodeCBFB()
 void Cpu::opcodeCBFC()
 {
 	//Set Bit 7 of H
-	beakMemory.setH(beakMemory.getH() | 0x80);
+    memory->setH(memory->getH() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7383,7 +7383,7 @@ void Cpu::opcodeCBFC()
 void Cpu::opcodeCBFD()
 {
 	//Set Bit 7 of L
-	beakMemory.setL(beakMemory.getL() | 0x80);
+    memory->setL(memory->getL() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7391,8 +7391,8 @@ void Cpu::opcodeCBFD()
 void Cpu::opcodeCBFE()
 {
 	//Set Bit 7 of data at HL
-	short hl = beakMemory.getHL();
-    beakMemory.writeMemory(hl, (unsigned char)(beakMemory.readMemory(hl) | 0x80));
+    short hl = memory->getHL();
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x80));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7400,7 +7400,7 @@ void Cpu::opcodeCBFE()
 void Cpu::opcodeCBFF()
 {
 	//Set Bit 7 of A
-	beakMemory.setA(beakMemory.getA() | 0x80);
+    memory->setA(memory->getA() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7412,12 +7412,12 @@ void Cpu::updateTIMA(int curClocks, int& clocksSinceLastTIMAUpdate, int& clocksS
 	If so, it writes the incremented value to the timer register and requests an interrupt if it overflows.
 	*/
 
-	bool timerEnabled = ((beakMemory.readMemory(0xFF07) & 0x04) > 0);
+    bool timerEnabled = ((memory->readMemory(0xFF07) & 0x04) > 0);
 
 	if (timerEnabled)
 	{
 
-        unsigned char timerFrequency = beakMemory.readMemory(0xFF07) & 0x03;
+        unsigned char timerFrequency = memory->readMemory(0xFF07) & 0x03;
 		int timerNumClocksToUpdate;
 
 		switch (timerFrequency)
@@ -7455,25 +7455,25 @@ void Cpu::updateTIMA(int curClocks, int& clocksSinceLastTIMAUpdate, int& clocksS
 
 
 			//Increment TIMA
-            unsigned char tima = beakMemory.readMemory(0xFF05);
+            unsigned char tima = memory->readMemory(0xFF05);
 			if (tima == 0xFF)
 			{
 				//Set Timer Overflow Interrupt Flag
-                beakMemory.writeMemory((short)0xFF0F, (unsigned char)(beakMemory.readMemory(0xFF0F) | 0x4));
+                memory->writeMemory((short)0xFF0F, (unsigned char)(memory->readMemory(0xFF0F) | 0x4));
 
 				//Load TMA value into TIMA
-				beakMemory.writeMemory((short)0xFF05, beakMemory.readMemory(0xFF06));
+                memory->writeMemory((short)0xFF05, memory->readMemory(0xFF06));
 			}
 			else
 			{
-                beakMemory.writeMemory((short)0xFF05, (unsigned char)(tima + 1));
+                memory->writeMemory((short)0xFF05, (unsigned char)(tima + 1));
 			}
 		}
 	}
 
 	if ((curClocks - clocksSinceLastDIVUpdate) >= 256) //16386 hz
 	{
-        beakMemory.writeMemory((short)0xFF04, (unsigned char)(beakMemory.readMemory(0xFF04) + 1));
+        memory->writeMemory((short)0xFF04, (unsigned char)(memory->readMemory(0xFF04) + 1));
 		clocksSinceLastDIVUpdate = curClocks;
 	}
 }
@@ -7485,8 +7485,8 @@ bool Cpu::checkForInterrupt()
 	minimal effort and not having any functionality related to servicing the interrupt itself.
 	*/
 
-    unsigned char IE = beakMemory.readMemory(0xFFFF);
-    unsigned char IF = beakMemory.readMemory(0xFF0F);
+    unsigned char IE = memory->readMemory(0xFFFF);
+    unsigned char IF = memory->readMemory(0xFF0F);
 
 	//The interrupt bits are within 0x1 an 0x1F
 	//If a bit is enabled in both IE and IF, (IE & IF) will keep them
@@ -7502,11 +7502,11 @@ void Cpu::executeInterrupt()
 	is stored before jumping to the interrupt vector that corresponds to those enabled bits.
 	*/
 
-    unsigned char IE = beakMemory.readMemory(0xFFFF);
-    unsigned char IF = beakMemory.readMemory(0xFF0F);
+    unsigned char IE = memory->readMemory(0xFFFF);
+    unsigned char IF = memory->readMemory(0xFF0F);
 
 	stackPointer -= 2;
-	beakMemory.writeMemory(stackPointer, memoryPointer);
+    memory->writeMemory(stackPointer, memoryPointer);
 
 	interruptsEnabled = false;
 
@@ -7515,31 +7515,31 @@ void Cpu::executeInterrupt()
 	{
 		//VBLANK
 		memoryPointer = 0x0040;
-        beakMemory.writeMemory(0xFF0F, (unsigned char)(IF & 0xFE)); //Clear bit in IF
+        memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xFE)); //Clear bit in IF
 	}
 	else if (((((IF & 0x02) >> 1) == 1) && ((IE & 0x02) >> 1 == 1)))
 	{
 		//LCD
 		memoryPointer = 0x0048;
-        beakMemory.writeMemory(0xFF0F, (unsigned char)(IF & 0xFD)); //Clear bit in IF
+        memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xFD)); //Clear bit in IF
 	}
 	else if (((((IF & 0x04) >> 2) == 1) && ((IE & 0x04) >> 2 == 1)))
 	{
 		//Timer Overflow
 		memoryPointer = 0x0050;
-        beakMemory.writeMemory(0xFF0F, (unsigned char)(IF & 0xFB)); //Clear bit in IF
+        memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xFB)); //Clear bit in IF
 	}
 	else if (((((IF & 0x08) >> 3) == 1) && ((IE & 0x08) >> 3 == 1)))
 	{
 		//Serial
 		memoryPointer = 0x0058;
-        beakMemory.writeMemory(0xFF0F, (unsigned char)(IF & 0xF7)); //Clear bit in IF
+        memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xF7)); //Clear bit in IF
 	}
 	else if (((((IF & 0x10) >> 4) == 1) && ((IE & 0x10) >> 4 == 1)))
 	{
 		//Joypad
 		memoryPointer = 0x0060;
-        beakMemory.writeMemory(0xFF0F, (unsigned char)(IF & 0xEF)); //Clear bit in IF
+        memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xEF)); //Clear bit in IF
 	}
 
 	mClock += 5;
@@ -7607,8 +7607,8 @@ void Cpu::executeStop()
 	{
 		if (interruptsEnabled)
 		{
-            unsigned char IE = beakMemory.readMemory(0xFFFF);
-            unsigned char IF = beakMemory.readMemory(0xFF0F);
+            unsigned char IE = memory->readMemory(0xFFFF);
+            unsigned char IF = memory->readMemory(0xFF0F);
 
 			if (((((IF & 0x10) >> 4) == 1) && ((IE & 0x10) >> 4 == 1)))
 			{
