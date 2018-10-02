@@ -1768,7 +1768,7 @@ void Cpu::opcode07()
 void Cpu::opcode08(short nn)
 {
 	//Load SP into data at NN
-    memory->writeMemory(nn, stackPointer);
+    memory->writeMemory(nn, memory->stackPointer);
 	mClock += 5;
 	tClock += 20;
 }
@@ -2279,7 +2279,7 @@ void Cpu::opcode30(unsigned char n)
 void Cpu::opcode31(short nn)
 {
 	//Load short into SP
-	stackPointer = nn;
+    memory->stackPointer = nn;
 	mClock += 3;
 	tClock += 12;
 }
@@ -2296,7 +2296,7 @@ void Cpu::opcode32()
 void Cpu::opcode33()
 {
 	//Inc SP
-	stackPointer++;
+    memory->stackPointer++;
 	mClock += 2;
 	tClock += 8;
 }
@@ -2364,7 +2364,7 @@ void Cpu::opcode39()
 {
 	//Add SP to HL
     unsigned short hl = memory->getHL();
-	unsigned short sp = stackPointer;
+    unsigned short sp = memory->stackPointer;
 	int totalSum = hl + sp;
 
     memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
@@ -2389,7 +2389,7 @@ void Cpu::opcode3A()
 void Cpu::opcode3B()
 {
 	//Dec SP
-	stackPointer--;
+    memory->stackPointer--;
 	mClock += 2;
 	tClock += 8;
 }
@@ -3957,8 +3957,8 @@ void Cpu::opcodeC0()
 	//RET if Not Zero
     if (!memory->getZFlag())
 	{
-        memory->memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
-		stackPointer += 2;
+        memory->memoryPointer = (memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer));
+        memory->stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
 	}
@@ -3972,8 +3972,8 @@ void Cpu::opcodeC0()
 void Cpu::opcodeC1()
 {
 	//POP into BC
-    memory->setBC((memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer)));
-	stackPointer += 2;
+    memory->setBC((memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer)));
+    memory->stackPointer += 2;
 	mClock += 3;
 	tClock += 12;
 }
@@ -4007,8 +4007,8 @@ void Cpu::opcodeC4(short nn)
 	//Call nn if Not Zero
     if (!memory->getZFlag())
 	{
-		stackPointer -= 2;
-        memory->writeMemory(stackPointer, memory->memoryPointer);
+        memory->stackPointer -= 2;
+        memory->writeMemory(memory->stackPointer, memory->memoryPointer);
         memory->memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
@@ -4023,8 +4023,8 @@ void Cpu::opcodeC4(short nn)
 void Cpu::opcodeC5()
 {
 	//Push BC
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->getBC());
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->getBC());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4047,8 +4047,8 @@ void Cpu::opcodeC6(unsigned char n)
 void Cpu::opcodeC7()
 {
 	//Reset to 00
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
     memory->memoryPointer = 0x00;
 	mClock += 4;
 	tClock += 16;
@@ -4060,8 +4060,8 @@ void Cpu::opcodeC8()
 	//Ret if Zero
     if (memory->getZFlag())
 	{
-        memory->memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
-		stackPointer += 2;
+        memory->memoryPointer = (memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer));
+        memory->stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
 	}
@@ -4075,8 +4075,8 @@ void Cpu::opcodeC8()
 void Cpu::opcodeC9()
 {
 	//Ret
-    memory->memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
-	stackPointer += 2;
+    memory->memoryPointer = (memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer));
+    memory->stackPointer += 2;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4102,8 +4102,8 @@ void Cpu::opcodeCC(short nn)
 	//Call nn if Zero
     if (memory->getZFlag())
 	{
-		stackPointer -= 2;
-        memory->writeMemory(stackPointer, memory->memoryPointer);
+        memory->stackPointer -= 2;
+        memory->writeMemory(memory->stackPointer, memory->memoryPointer);
         memory->memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
@@ -4118,8 +4118,8 @@ void Cpu::opcodeCC(short nn)
 void Cpu::opcodeCD(short nn)
 {
 	//Call nn
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
     memory->memoryPointer = nn;
 	mClock += 6;
 	tClock += 24;
@@ -4145,8 +4145,8 @@ void Cpu::opcodeCE(unsigned char n)
 void Cpu::opcodeCF()
 {
 	//Reset to 08
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
     memory->memoryPointer = 0x08;
 	mClock += 4;
 	tClock += 16;
@@ -4157,8 +4157,8 @@ void Cpu::opcodeD0()
 	//Ret if not Carry
     if (!memory->getCFlag())
 	{
-        memory->memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
-		stackPointer += 2;
+        memory->memoryPointer = (memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer));
+        memory->stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
 	}
@@ -4172,8 +4172,8 @@ void Cpu::opcodeD0()
 void Cpu::opcodeD1()
 {
 	//POP DE
-    memory->setDE((memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer)));
-	stackPointer += 2;
+    memory->setDE((memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer)));
+    memory->stackPointer += 2;
 	mClock += 3;
 	tClock += 12;
 }
@@ -4201,8 +4201,8 @@ void Cpu::opcodeD4(short nn)
 	//Call nn if Not Carry
     if (!memory->getCFlag())
 	{
-		stackPointer -= 2;
-        memory->writeMemory(stackPointer, memory->memoryPointer);
+        memory->stackPointer -= 2;
+        memory->writeMemory(memory->stackPointer, memory->memoryPointer);
         memory->memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
@@ -4217,8 +4217,8 @@ void Cpu::opcodeD4(short nn)
 void Cpu::opcodeD5()
 {
 	//Push DE
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->getDE());
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->getDE());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4245,8 +4245,8 @@ void Cpu::opcodeD6(unsigned char n)
 void Cpu::opcodeD7()
 {
 	//Reset to 10
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
     memory->memoryPointer = 0x10;
 	mClock += 4;
 	tClock += 16;
@@ -4257,8 +4257,8 @@ void Cpu::opcodeD8()
 	//Ret if Carry
     if (memory->getCFlag())
 	{
-        memory->memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
-		stackPointer += 2;
+        memory->memoryPointer = (memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer));
+        memory->stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
 	}
@@ -4272,8 +4272,8 @@ void Cpu::opcodeD8()
 void Cpu::opcodeD9()
 {
 	//Return and enable Interrupts
-    memory->memoryPointer = (memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer));
-	stackPointer += 2;
+    memory->memoryPointer = (memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer));
+    memory->stackPointer += 2;
 	interruptsEnabled = true;
 	mClock += 4;
 	tClock += 16;
@@ -4302,8 +4302,8 @@ void Cpu::opcodeDC(short nn)
 	//Call nn if Carry
     if (memory->getCFlag())
 	{
-		stackPointer -= 2;
-        memory->writeMemory(stackPointer, memory->memoryPointer);
+        memory->stackPointer -= 2;
+        memory->writeMemory(memory->stackPointer, memory->memoryPointer);
         memory->memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
@@ -4339,8 +4339,8 @@ void Cpu::opcodeDE(unsigned char n)
 void Cpu::opcodeDF()
 {
 	//Reset to 18
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
     memory->memoryPointer = 0x18;
 	mClock += 4;
 	tClock += 16;
@@ -4357,8 +4357,8 @@ void Cpu::opcodeE0(unsigned char n)
 void Cpu::opcodeE1()
 {
 	//Pop HL
-    memory->setHL((memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer)));
-	stackPointer += 2;
+    memory->setHL((memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer)));
+    memory->stackPointer += 2;
 	mClock += 3;
 	tClock += 12;
 }
@@ -4378,8 +4378,8 @@ void Cpu::opcodeE2()
 void Cpu::opcodeE5()
 {
 	//Push HL
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->getHL());
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->getHL());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4400,8 +4400,8 @@ void Cpu::opcodeE6(unsigned char n)
 void Cpu::opcodeE7()
 {
 	//Reset to 20
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
     memory->memoryPointer = 0x20;
 	mClock += 4;
 	tClock += 16;
@@ -4411,14 +4411,14 @@ void Cpu::opcodeE8(signed char n)
 {
 	//Add n to Stack Pointer
 
-	int result = stackPointer + n;
+    int result = memory->stackPointer + n;
 
-    memory->setCFlag((result & 0xFF) < (stackPointer & 0xFF));
-    memory->setHFlag((result & 0x0F) < (stackPointer & 0x0F));
+    memory->setCFlag((result & 0xFF) < (memory->stackPointer & 0xFF));
+    memory->setHFlag((result & 0x0F) < (memory->stackPointer & 0x0F));
     memory->setZFlag(false);
     memory->setNFlag(false);
 
-    memory->setStackPointer((uint16_t)(result & 0xFFFF));
+    memory->setmemory->stackPointer((uint16_t)(result & 0xFFFF));
 
 	mClock += 4;
 	tClock += 16;
@@ -4462,8 +4462,8 @@ void Cpu::opcodeEE(unsigned char n)
 void Cpu::opcodeEF()
 {
 	//Reset to 28
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
     memory->memoryPointer = 0x28;
 	mClock += 4;
 	tClock += 16;
@@ -4480,8 +4480,8 @@ void Cpu::opcodeF0(unsigned char n)
 void Cpu::opcodeF1()
 {
 	//Pop AF
-    memory->setAF((memory->readMemory(stackPointer + 1) << 8) | (memory->readMemory(stackPointer)));
-	stackPointer += 2;
+    memory->setAF((memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer)));
+    memory->stackPointer += 2;
 	mClock += 3;
 	tClock += 12;
 }
@@ -4507,8 +4507,8 @@ void Cpu::opcodeF3()
 void Cpu::opcodeF5()
 {
 	//Push AF
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->getAF());
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->getAF());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4529,8 +4529,8 @@ void Cpu::opcodeF6(unsigned char n)
 void Cpu::opcodeF7()
 {
 	//Reset to 30
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
     memory->memoryPointer = 0x30;
 	mClock += 4;
 	tClock += 16;
@@ -4540,10 +4540,10 @@ void Cpu::opcodeF8(unsigned char n)
 {
 	//Load SP + n into HL
 
-	int result = stackPointer + (int8_t)n;
+    int result = memory->stackPointer + (int8_t)n;
 
-    memory->setCFlag((result & 0xFF) < (stackPointer & 0xFF));
-    memory->setHFlag((result & 0x0F) < (stackPointer & 0x0F));
+    memory->setCFlag((result & 0xFF) < (memory->stackPointer & 0xFF));
+    memory->setHFlag((result & 0x0F) < (memory->stackPointer & 0x0F));
     memory->setZFlag(false);
     memory->setNFlag(false);
 
@@ -4556,7 +4556,7 @@ void Cpu::opcodeF8(unsigned char n)
 void Cpu::opcodeF9()
 {
 	//Load SP into HL
-    stackPointer = memory->getHL();
+    memory->stackPointer = memory->getHL();
 	mClock += 2;
 	tClock += 8;
 }
@@ -4602,10 +4602,10 @@ void Cpu::opcodeFE(unsigned char n)
 void Cpu::opcodeFF()
 {
 	//Reset to 38
-    //beakStack[--stackPointer] = memory->memoryPointer;
-    //memory->writeMemory(--stackPointer, memory->memoryPointer);
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->memoryPointer);
+    //beakStack[--memory->stackPointer] = memory->memoryPointer;
+    //memory->writeMemory(--memory->stackPointer, memory->memoryPointer);
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
     memory->memoryPointer = 0x38;
 	mClock += 4;
 	tClock += 16;
@@ -7506,8 +7506,8 @@ void Cpu::executeInterrupt()
     unsigned char IE = memory->readMemory(0xFFFF);
     unsigned char IF = memory->readMemory(0xFF0F);
 
-	stackPointer -= 2;
-    memory->writeMemory(stackPointer, memory->memoryPointer);
+    memory->stackPointer -= 2;
+    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
 
 	interruptsEnabled = false;
 
