@@ -21,6 +21,7 @@ public:
     bool run;
     bool paused;
     bool step;
+    bool enableInterruptsNextCycle;
 private:
     Memory* memory = new Memory();
     Rom* rom = new Rom();
