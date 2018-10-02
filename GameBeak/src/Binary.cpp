@@ -1,6 +1,8 @@
 
 #include "Binary.h"
 
+#include <QString>
+
 unsigned char rotateLeft(unsigned char number)
 {
     unsigned char lostBit = (number & 0x80) >> 7;
@@ -58,9 +60,9 @@ unsigned char reverseBits(unsigned char number)
     return number;
 }
 
-std::string hexToASCII(int value)
+QString hexToASCII(int value)
 {
-    std::string output = "";
+    QString output = "";
 
     if (value > 0)
     {
@@ -91,9 +93,9 @@ std::string hexToASCII(int value)
     }
 }
 
-std::string hexToASCIIU(unsigned short value)
+QString hexToASCIIU(unsigned short value)
 {
-    std::string output = "";
+    QString output = "";
 
     if (value > 0)
     {
@@ -124,9 +126,9 @@ std::string hexToASCIIU(unsigned short value)
     }
 }
 
-std::string hexToASCII(unsigned char value)
+QString hexToASCII(unsigned char value)
 {
-    std::string output = "";
+    QString output = "";
 
     if (value > 0)
     {

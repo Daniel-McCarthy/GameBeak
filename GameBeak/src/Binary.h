@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include <QString>
 
 #ifndef BINARYH
 #define BINARYH
@@ -11,8 +11,8 @@ unsigned char rotateRight(unsigned char number);
 unsigned char rotateRight(unsigned char number, int shiftAmount);
 unsigned char returnHalfNibble(unsigned char data, int halfNibblePosition);
 unsigned char reverseBits(unsigned char number);
-std::string hexToASCII(int value);
-std::string hexToASCIIU(unsigned short value);
-std::string hexToASCII(unsigned char value);
+QString hexToASCII(int value);
+QString hexToASCIIU(unsigned short value);
+QString hexToASCII(unsigned char value);
 
 #endif
