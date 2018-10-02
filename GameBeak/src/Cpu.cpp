@@ -31,7 +31,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 1:
 				{
-                    opcode01((memory->readMemory(memory->memory->memoryPointer++)) | (memory->readMemory(memory->memory->memoryPointer++) << 8));
+                    opcode01((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
 					break;
 				}
 				case 2:
