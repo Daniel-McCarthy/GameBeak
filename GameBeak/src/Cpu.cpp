@@ -11,9 +11,9 @@ Cpu::Cpu(Core* core) {
 void Cpu::selectOpcode(unsigned char opcode)
 {
 
-	if (enableInterruptsNextCycle)
+    if (core->enableInterruptsNextCycle)
 	{
-		enableInterruptsNextCycle = false;
+        core->enableInterruptsNextCycle = false;
 		interruptsEnabled = true;
 	}
 
@@ -4572,7 +4572,7 @@ void Cpu::opcodeFA(short nn)
 void Cpu::opcodeFB()
 {
 	//Enable Interrupts
-	enableInterruptsNextCycle = true;
+    core->enableInterruptsNextCycle = true;
 	//interruptsEnabled = true;
 	mClock += 1;
 	tClock += 4;
