@@ -23,6 +23,8 @@ public:
     bool step;
     bool enableInterruptsNextCycle;
     bool repeatBug; //Halt bug
+    bool ForceDMGMode;
+
 private:
     Memory* memory = new Memory();
     Rom* rom = new Rom();
