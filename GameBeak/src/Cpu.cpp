@@ -4418,7 +4418,7 @@ void Cpu::opcodeE8(signed char n)
     memory->setZFlag(false);
     memory->setNFlag(false);
 
-    memory->setmemory->stackPointer((uint16_t)(result & 0xFFFF));
+    memory->setStackPointer((uint16_t)(result & 0xFFFF));
 
 	mClock += 4;
 	tClock += 16;
