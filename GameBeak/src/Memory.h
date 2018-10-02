@@ -29,9 +29,6 @@ class Memory : public QWidget
         short regDE;
         short regHL;
 
-        short memoryPointer;
-        short stackPointer;
-
         //GBC Only Registers
         unsigned char backgroundPaletteRam[0x40];
         unsigned char spritePaletteRam[0x40];
@@ -39,6 +36,9 @@ class Memory : public QWidget
         unsigned char vramBank = 0; //CGB Only
 
 	public:
+        short memoryPointer;
+        short stackPointer;
+
         explicit Memory(QWidget *parent = nullptr);
         explicit Memory(Core* core);
         ~Memory();
