@@ -87,8 +87,8 @@ unsigned char Memory::readMemory(unsigned short address)
 		// Get Speed Mode
 
         unsigned char returnValue = 0;
-        returnValue |= (unsigned char)(cpu.preparingSpeedChange ? 1 : 0);
-        returnValue |= (unsigned char)(cpu.doubleSpeedMode ? 0x80 : 0);
+        returnValue |= (unsigned char)(cpu->preparingSpeedChange ? 1 : 0);
+        returnValue |= (unsigned char)(cpu->doubleSpeedMode ? 0x80 : 0);
 
 		return returnValue;
 
