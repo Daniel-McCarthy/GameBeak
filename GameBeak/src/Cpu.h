@@ -26,7 +26,6 @@ public:
 	bool doubleSpeedMode = false;
 	bool preparingSpeedChange = false;
 
-
 	int returnTClock();
 	int returnMClock();
 	bool returnHalt();
