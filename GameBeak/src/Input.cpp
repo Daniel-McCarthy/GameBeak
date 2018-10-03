@@ -32,7 +32,6 @@ void Input::readInput()
 
 	if (((keyInput & 0x10) >> 4) == 1)
 	{
-		beakWindow.window.setKeyRepeatEnabled(false);
 
 		if (keyA) { //Z //A
 			keyInput &= 0xFE;
@@ -73,7 +72,6 @@ void Input::readInput()
 	}
 	else if (((keyInput & 0x20) >> 5) == 1)//(keyInput == 0x20)
 	{
-		beakWindow.window.setKeyRepeatEnabled(true);
 
 		if (!(keyRight && keyLeft)) //Detect if both inputs are NOT enabled at once
 		{
