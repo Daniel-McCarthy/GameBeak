@@ -29,7 +29,8 @@ SOURCES += \
     src/Memory.cpp \
     src/Core.cpp \
     src/Cpu.cpp \
-    src/Binary.cpp
+    src/Binary.cpp \
+    src/Input.cpp
 
 HEADERS += \
     src/MainWindow/mainwindow.h \
@@ -37,7 +38,8 @@ HEADERS += \
     src/Memory.h \
     src/Core.h \
     src/Cpu.h \
-    src/Binary.h
+    src/Binary.h \
+    src/Input.h
 
 FORMS += \
     src/MainWindow/mainwindow.ui
