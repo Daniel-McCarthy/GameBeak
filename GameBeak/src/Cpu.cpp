@@ -5,6 +5,7 @@
 
 Cpu::Cpu(Core* core) {
     memory = core->getMemoryPointer();
+    input = core->getInputPointer();
     this->core = core;
 }
 
@@ -7600,7 +7601,7 @@ bool Cpu::checkForHaltOrInterrupt()
 
 void Cpu::executeStop()
 {
-	if (beakInput.isAnyKeyPressed())
+    if (input->isAnyKeyPressed())
 	{
 		stop = false;
 	}

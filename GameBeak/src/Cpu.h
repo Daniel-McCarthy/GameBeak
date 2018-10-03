@@ -7,6 +7,7 @@
 
 class Memory;
 class Core;
+class Input;
 class Cpu : public QWidget
 {
     Q_OBJECT
@@ -18,6 +19,7 @@ private:
     unsigned char haltMode = 0;
     Memory* memory;
     Core* core;
+    Input* input;
 
 public:
     Cpu(QWidget *parent = nullptr);
