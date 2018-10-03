@@ -10,7 +10,7 @@ class Input
 public:
 	bool keyRight = false, keyLeft = false, keyUp = false, keyDown = false, keyStart = false, keySelect = false, keyA = false, keyB = false;
 
-	byte getKeyInput();
+    unsigned char getKeyInput();
 	bool isAnyKeyPressed();
 	void readInput();
 	void setKeyInput(int keyCode, bool enabled);
