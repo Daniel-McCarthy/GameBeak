@@ -26,7 +26,7 @@ public:
     bool ForceDMGMode;
 
 private:
-    Memory* memory = new Memory();
+    Memory* memory = new Memory(this);
     Rom* rom = new Rom();
     Cpu* cpu = new Cpu();
     bool* GBCMode;
