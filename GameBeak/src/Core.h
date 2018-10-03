@@ -16,6 +16,7 @@ public:
     Memory* getMemoryPointer();
     Rom* getRomPointer();
     Cpu* getCPUPointer();
+    Input* getInputPointer();
 
     bool* getGBCModePointer();
 

@@ -14,6 +14,10 @@ Cpu* Core::getCPUPointer() {
     return cpu;
 }
 
+Input* Core::getInputPointer() {
+    return input;
+}
+
 bool* Core::getGBCModePointer() {
     return GBCMode;
 }
