@@ -16,7 +16,7 @@ Input::Input(Core* core) {
 
 unsigned char Input::getKeyInput()
 {
-	return beakMemory.readMemory(0xFF00);
+    return memory->readMemory(0xFF00);
 }
 
 bool Input::isAnyKeyPressed()
@@ -147,10 +147,10 @@ void Input::readInput()
 
 	if (interrupt)
 	{
-        beakMemory.writeMemory(0xFF0F, (unsigned char)(beakMemory.readMemory(0xFF0F) | 0x10));
+        memory->writeMemory(0xFF0F, (unsigned char)(memory->readMemory(0xFF0F) | 0x10));
 	}
 
-	beakMemory.writeMemory(0xFF00, keyInput);
+    memory->writeMemory(0xFF00, keyInput);
 }
 
 void Input::setKeyInput(int keyCode, bool enabled)
