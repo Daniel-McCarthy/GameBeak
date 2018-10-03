@@ -28,7 +28,7 @@ void Input::readInput()
 {
     unsigned char keyInput = getKeyInput();
 	bool interrupt = false;
-	cpu.setStop(false);
+    cpu->setStop(false);
 
 	if (((keyInput & 0x10) >> 4) == 1)
 	{
@@ -155,7 +155,7 @@ void Input::readInput()
 
 void Input::setKeyInput(int keyCode, bool enabled)
 {
-	cpu.setStop(false);
+    cpu->setStop(false);
 
 	switch (keyCode)
 	{
