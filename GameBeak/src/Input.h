@@ -18,6 +18,7 @@ public:
 	bool keyRight = false, keyLeft = false, keyUp = false, keyDown = false, keyStart = false, keySelect = false, keyA = false, keyB = false;
 
     unsigned char getKeyInput();
+    Input(Core* core);
 	bool isAnyKeyPressed();
 	void readInput();
 	void setKeyInput(int keyCode, bool enabled);

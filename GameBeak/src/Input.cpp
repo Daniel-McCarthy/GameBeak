@@ -9,6 +9,10 @@
 //Mapped to standard keyboard keys:
 //[Up][Left][Right][Down][Z][X][Enter][RShift]
 
+Input::Input(Core* core) {
+    memory = core->getMemoryPointer();
+    cpu = core->getCPUPointer();
+}
 
 unsigned char Input::getKeyInput()
 {
