@@ -28,7 +28,7 @@ public:
 private:
     Memory* memory = new Memory(this);
     Rom* rom = new Rom();
-    Cpu* cpu = new Cpu();
+    Cpu* cpu = new Cpu(this);
     bool* GBCMode;
 
 signals:
