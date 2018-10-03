@@ -1,9 +1,5 @@
 #pragma once
 
-#include <Windows.h>
-
-using namespace std;
-
 #ifndef INPUTH
 #define INPUTH
 
