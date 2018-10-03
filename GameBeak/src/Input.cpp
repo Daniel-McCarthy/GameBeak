@@ -8,7 +8,7 @@
 //[Up][Left][Right][Down][Z][X][Enter][RShift]
 
 
-byte Input::getKeyInput()
+unsigned char Input::getKeyInput()
 {
 	return beakMemory.readMemory(0xFF00);
 }
@@ -20,7 +20,7 @@ bool Input::isAnyKeyPressed()
 
 void Input::readInput()
 {
-	byte keyInput = getKeyInput();
+    unsigned char keyInput = getKeyInput();
 	bool interrupt = false;
 	cpu.setStop(false);
 
@@ -141,7 +141,7 @@ void Input::readInput()
 
 	if (interrupt)
 	{
-		beakMemory.writeMemory(0xFF0F, (byte)(beakMemory.readMemory(0xFF0F) | 0x10));
+        beakMemory.writeMemory(0xFF0F, (unsigned char)(beakMemory.readMemory(0xFF0F) | 0x10));
 	}
 
 	beakMemory.writeMemory(0xFF00, keyInput);
