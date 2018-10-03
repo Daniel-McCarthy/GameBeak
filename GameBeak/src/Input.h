@@ -4,6 +4,7 @@
 #define INPUTH
 
 #pragma once
+class Core;
 class Input
 {
 

@@ -1,5 +1,5 @@
 #include "Input.h"
-#include "Main.h"
+#include "Core.h"
 
 //Gameboy keys:
 //[Up][Left][Right][Down][A][B][Start][Select]
