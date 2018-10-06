@@ -7,6 +7,7 @@ namespace Ui {
 class MainWindow;
 }
 
+class Core;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -17,6 +18,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    Core* core = nullptr;
 
 private slots:
     void on_actionOpen_triggered();
