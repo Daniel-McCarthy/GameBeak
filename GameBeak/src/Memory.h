@@ -137,6 +137,7 @@ class Memory : public QWidget
         void loadSaveState();
 
         public slots:
+            void romLoaded(QString gameFilePath);
             void writeFullRomToRam();
             void writeRom0ToRam();
 

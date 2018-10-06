@@ -865,6 +865,10 @@ void Memory::initializeGameBoyColorValues()
 
 }
 
+void Memory::romLoaded(QString gameFilePath) {
+    loadRom(gameFilePath);
+}
+
 bool Memory::loadRom(QString path)
 {
     QFile selectedFile(path);
