@@ -26,6 +26,7 @@ void MainWindow::on_actionOpen_triggered()
     QString filePath = QFileDialog::getOpenFileName(this, ("Open GB File"),
                                                       "/home",
                                                       ("GameBoy Files (*.gb *.gbc)"));
-
-    emit onGameFileOpened(filePath);
+    if (filePath != "") {
+        emit onGameFileOpened(filePath);
+    }
 }
