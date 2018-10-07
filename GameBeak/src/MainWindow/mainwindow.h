@@ -26,6 +26,7 @@ private slots:
 signals:
     void onGameFileOpened(QString filePath);
     void setEmulationPaused(bool setting);
+    void setEmulationRun(bool setting);
 };
 
 #endif // MAINWINDOW_H
