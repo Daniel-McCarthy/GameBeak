@@ -2,8 +2,9 @@
 #include "Main.h"
 #include <vector>
 
-Gpu::Gpu()
+Gpu::Gpu(Core* core)
 {
+    this->core = core;
 }
 
 Gpu::~Gpu()

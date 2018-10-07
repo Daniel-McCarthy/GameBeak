@@ -5,9 +5,12 @@
 
 using namespace std;
 
+class Core;
 class Gpu
 {
 private:
+    Core* core;
+
     const QColor darkestPink = QColor(72, 24, 59, 255); //Pink Black //48183BFF
     const QColor darkPink = QColor(255, 131, 217, 255); //Dark Pink //FF83D9FF
     const QColor lightPink = QColor(255, 214, 245, 255); //Light Pink //FFD6F5FF
@@ -21,7 +24,7 @@ public:
     unsigned char gameboyColorBackGroundPalette[64]; //2 unsigned chars per color, 4 colors per BG Palette, 8 BG Palettes
     unsigned char gameboyColorSpritePalette[64]; //2 unsigned chars per color, 4 colors per Sprite Palette, 8 Sprite Palettes
 
-    Gpu();
+    Gpu(Core* core);
     ~Gpu();
     unsigned char getLCDStatus();
     void setLCDStatus(unsigned char newStatus);
