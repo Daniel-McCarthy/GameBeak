@@ -5,6 +5,7 @@
 Gpu::Gpu(Core* core)
 {
     this->core = core;
+    this->memory = core->getMemoryPointer();
 }
 
 Gpu::~Gpu()
