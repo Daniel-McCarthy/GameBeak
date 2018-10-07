@@ -1,7 +1,7 @@
 #include "Core.h"
 #include "Cpu.h"
 #include "Binary.h"
-#include "Debugger.h"
+//#include "Debugger.h"
 
 Cpu::Cpu(Core* core) {
     memory = core->getMemoryPointer();
@@ -5725,7 +5725,7 @@ void Cpu::opcodeCB45()
 void Cpu::opcodeCB46()
 {
 	//Test bit 0 in data at HL
-    short hl = memory->getHL();
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
     memory->setZFlag(((memory->readMemory(hl) & 0x01) == 0) ? true : false);
     memory->setNFlag(false);
     memory->setHFlag(true);
@@ -5814,7 +5814,7 @@ void Cpu::opcodeCB4D()
 void Cpu::opcodeCB4E()
 {
 	//Test bit 1 in data at HL
-    short hl = memory->getHL();
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
     memory->setZFlag((((memory->readMemory(hl) & 0x02) >> 1) == 0) ? true : false);
     memory->setNFlag(false);
     memory->setHFlag(true);
@@ -5903,7 +5903,7 @@ void Cpu::opcodeCB55()
 void Cpu::opcodeCB56()
 {
 	//Test bit 2 in data at HL
-    short hl = memory->getHL();
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
     memory->setZFlag((((memory->readMemory(hl) & 0x04) >> 2) == 0) ? true : false);
     memory->setNFlag(false);
     memory->setHFlag(true);
@@ -5992,7 +5992,7 @@ void Cpu::opcodeCB5D()
 void Cpu::opcodeCB5E()
 {
 	//Test bit 3 in data at HL
-    short hl = memory->getHL();
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
     memory->setZFlag((((memory->readMemory(hl) & 0x08) >> 3) == 0) ? true : false);
     memory->setNFlag(false);
     memory->setHFlag(true);
@@ -6081,7 +6081,7 @@ void Cpu::opcodeCB65()
 void Cpu::opcodeCB66()
 {
 	//Test bit 4 in data at HL
-    short hl = memory->getHL();
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
     memory->setZFlag((((memory->readMemory(hl) & 0x10) >> 4) == 0) ? true : false);
     memory->setNFlag(false);
     memory->setHFlag(true);
@@ -6170,7 +6170,7 @@ void Cpu::opcodeCB6D()
 void Cpu::opcodeCB6E()
 {
 	//Test bit 5 in data at HL
-    short hl = memory->getHL();
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
     memory->setZFlag((((memory->readMemory(hl) & 0x20) >> 5) == 0) ? true : false);
     memory->setNFlag(false);
     memory->setHFlag(true);
@@ -6259,7 +6259,7 @@ void Cpu::opcodeCB75()
 void Cpu::opcodeCB76()
 {
 	//Test bit 6 in data at HL
-    short hl = memory->getHL();
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
     memory->setZFlag((((memory->readMemory(hl) & 0x40) >> 6) == 0) ? true : false);
     memory->setNFlag(false);
     memory->setHFlag(true);
@@ -6348,7 +6348,7 @@ void Cpu::opcodeCB7D()
 void Cpu::opcodeCB7E()
 {
 	//Test bit 7 in data at HL
-    short hl = memory->getHL();
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
     memory->setZFlag((((memory->readMemory(hl) & 0x80) >> 7) == 0) ? true : false);
     memory->setNFlag(false);
     memory->setHFlag(true);
@@ -6419,8 +6419,8 @@ void Cpu::opcodeCB85()
 void Cpu::opcodeCB86()
 {
 	//Reset bit 0 in HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xFE)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xFE)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6485,8 +6485,8 @@ void Cpu::opcodeCB8D()
 void Cpu::opcodeCB8E()
 {
 	//Reset bit 1 in HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xFD)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xFD)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6550,8 +6550,8 @@ void Cpu::opcodeCB95()
 void Cpu::opcodeCB96()
 {
 	//Reset bit 2 in HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xFB)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xFB)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6615,8 +6615,8 @@ void Cpu::opcodeCB9D()
 void Cpu::opcodeCB9E()
 {
 	//Reset bit 3 in HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xF7)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xF7)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6680,8 +6680,8 @@ void Cpu::opcodeCBA5()
 void Cpu::opcodeCBA6()
 {
 	//Reset bit 4 in HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xEF)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xEF)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6745,8 +6745,8 @@ void Cpu::opcodeCBAD()
 void Cpu::opcodeCBAE()
 {
 	//Reset bit 5 in HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xDF)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xDF)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6810,8 +6810,8 @@ void Cpu::opcodeCBB5()
 void Cpu::opcodeCBB6()
 {
 	//Reset bit 6 in HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0xBF)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xBF)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6874,8 +6874,8 @@ void Cpu::opcodeCBBD()
 void Cpu::opcodeCBBE()
 {
 	//Reset bit 7 in HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) & 0x7F)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0x7F)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6939,7 +6939,8 @@ void Cpu::opcodeCBC5()
 void Cpu::opcodeCBC6()
 {
 	//Set Bit 0 of data at HL
-    memory->writeMemory(memory->getHL(), (unsigned char)(memory->readMemory(memory->getHL()) | 0x01));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x01));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7003,8 +7004,8 @@ void Cpu::opcodeCBCD()
 void Cpu::opcodeCBCE()
 {
 	//Set Bit 1 of data at HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x02));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x02));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7068,8 +7069,8 @@ void Cpu::opcodeCBD5()
 void Cpu::opcodeCBD6()
 {
 	//Set Bit 2 of data at HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x04));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x04));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7133,8 +7134,8 @@ void Cpu::opcodeCBDD()
 void Cpu::opcodeCBDE()
 {
 	//Set Bit 3 of data at HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x08));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x08));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7198,8 +7199,8 @@ void Cpu::opcodeCBE5()
 void Cpu::opcodeCBE6()
 {
 	//Set Bit 4 of data at HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x10));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x10));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7263,8 +7264,8 @@ void Cpu::opcodeCBED()
 void Cpu::opcodeCBEE()
 {
 	//Set Bit 5 of data at HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x20));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x20));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7328,8 +7329,8 @@ void Cpu::opcodeCBF5()
 void Cpu::opcodeCBF6()
 {
 	//Set Bit 6 of data at HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x40));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x40));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7393,8 +7394,8 @@ void Cpu::opcodeCBFD()
 void Cpu::opcodeCBFE()
 {
 	//Set Bit 7 of data at HL
-    short hl = memory->getHL();
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) | 0x80));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x80));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7461,21 +7462,21 @@ void Cpu::updateTIMA(int curClocks, int& clocksSinceLastTIMAUpdate, int& clocksS
 			if (tima == 0xFF)
 			{
 				//Set Timer Overflow Interrupt Flag
-                memory->writeMemory((short)0xFF0F, (unsigned char)(memory->readMemory(0xFF0F) | 0x4));
+                memory->writeMemory(0xFF0F, static_cast<unsigned char>(memory->readMemory(0xFF0F) | 0x4));
 
 				//Load TMA value into TIMA
-                memory->writeMemory((short)0xFF05, memory->readMemory(0xFF06));
+                memory->writeMemory(0xFF05, memory->readMemory(0xFF06));
 			}
 			else
 			{
-                memory->writeMemory((short)0xFF05, (unsigned char)(tima + 1));
+                memory->writeMemory(0xFF05, static_cast<unsigned char>(tima + 1));
 			}
 		}
 	}
 
 	if ((curClocks - clocksSinceLastDIVUpdate) >= 256) //16386 hz
 	{
-        memory->writeMemory((short)0xFF04, (unsigned char)(memory->readMemory(0xFF04) + 1));
+        memory->writeMemory(0xFF04, static_cast<unsigned char>(memory->readMemory(0xFF04) + 1));
 		clocksSinceLastDIVUpdate = curClocks;
 	}
 }
@@ -7508,7 +7509,7 @@ void Cpu::executeInterrupt()
     unsigned char IF = memory->readMemory(0xFF0F);
 
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
 
 	interruptsEnabled = false;
 
@@ -7517,31 +7518,31 @@ void Cpu::executeInterrupt()
 	{
 		//VBLANK
         memory->memoryPointer = 0x0040;
-        memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xFE)); //Clear bit in IF
+        memory->writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xFE)); //Clear bit in IF
 	}
 	else if (((((IF & 0x02) >> 1) == 1) && ((IE & 0x02) >> 1 == 1)))
 	{
 		//LCD
         memory->memoryPointer = 0x0048;
-        memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xFD)); //Clear bit in IF
+        memory->writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xFD)); //Clear bit in IF
 	}
 	else if (((((IF & 0x04) >> 2) == 1) && ((IE & 0x04) >> 2 == 1)))
 	{
 		//Timer Overflow
         memory->memoryPointer = 0x0050;
-        memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xFB)); //Clear bit in IF
+        memory->writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xFB)); //Clear bit in IF
 	}
 	else if (((((IF & 0x08) >> 3) == 1) && ((IE & 0x08) >> 3 == 1)))
 	{
 		//Serial
         memory->memoryPointer = 0x0058;
-        memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xF7)); //Clear bit in IF
+        memory->writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xF7)); //Clear bit in IF
 	}
 	else if (((((IF & 0x10) >> 4) == 1) && ((IE & 0x10) >> 4 == 1)))
 	{
 		//Joypad
         memory->memoryPointer = 0x0060;
-        memory->writeMemory(0xFF0F, (unsigned char)(IF & 0xEF)); //Clear bit in IF
+        memory->writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xEF)); //Clear bit in IF
 	}
 
 	mClock += 5;
