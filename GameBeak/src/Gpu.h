@@ -21,19 +21,19 @@ public:
 									lightestPink, lightPink, darkPink, darkestPink,
 									lightestPink, lightPink, darkPink, darkestPink };
 
-	byte gameboyColorBackGroundPalette[64]; //2 bytes per color, 4 colors per BG Palette, 8 BG Palettes
-	byte gameboyColorSpritePalette[64]; //2 bytes per color, 4 colors per Sprite Palette, 8 Sprite Palettes
+    unsigned char gameboyColorBackGroundPalette[64]; //2 unsigned chars per color, 4 colors per BG Palette, 8 BG Palettes
+    unsigned char gameboyColorSpritePalette[64]; //2 unsigned chars per color, 4 colors per Sprite Palette, 8 Sprite Palettes
 
-	gpu();
-	~gpu();
-	byte getLCDStatus();
-	void setLCDStatus(byte newStatus);
-	void setLCDMode(byte status);
-	byte getLCDLYCompare();
-	byte getLCDLY();
-	byte getLCDMode();
-	byte getLCDLYCCheckEnabled();
-	byte getLCDControl();
+    Gpu();
+    ~Gpu();
+    unsigned char getLCDStatus();
+    void setLCDStatus(unsigned char newStatus);
+    void setLCDMode(unsigned char status);
+    unsigned char getLCDLYCompare();
+    unsigned char getLCDLY();
+    unsigned char getLCDMode();
+    unsigned char getLCDLYCCheckEnabled();
+    unsigned char getLCDControl();
 	bool getLCDOn();
 	bool getWindowTileMapLocation();
 	bool getWindowEnabled();
@@ -42,10 +42,10 @@ public:
 	bool getSpriteSize();
 	bool getSpriteEnabled();
 	bool getBackGroundEnabled();
-	byte getScrollX();
-	byte getScrollY();
-	byte getWindowX();
-	byte getWindowY();
+    unsigned char getScrollX();
+    unsigned char getScrollY();
+    unsigned char getWindowX();
+    unsigned char getWindowY();
 	void drawDebugTile(int tileNumber, vector<vector<Color>> tile);
 	void drawLineFromBGMap(unsigned char  lineY);
 	void drawLineFromWindowMap(unsigned char  lineY);
@@ -53,9 +53,9 @@ public:
 	void drawAllTiles();
 	Color returnColor(int colorNumber);
 	Color returnColor(int colorNumber, int palette);
-	Color returnGBCSpriteColor(byte colorNumber, byte palette);
-	Color returnGBCBackgroundColor(byte colorNumber, byte palette);
-	byte returnPalette(byte palette);
+    Color returnGBCSpriteColor(unsigned char colorNumber, unsigned char palette);
+    Color returnGBCBackgroundColor(unsigned char colorNumber, unsigned char palette);
+    unsigned char returnPalette(unsigned char palette);
 	void loadPalettesFromXML(ifstream file);
 	ifstream openCreatePalettesXML();
 

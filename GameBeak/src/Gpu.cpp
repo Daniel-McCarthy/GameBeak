@@ -12,42 +12,42 @@ Gpu::~Gpu()
 {
 }
 
-byte Gpu::getLCDStatus()
+unsigned char Gpu::getLCDStatus()
 {
 	return beakMemory.readMemory(0xFF41);
 }
 
-void Gpu::setLCDStatus(byte newStatus)
+void Gpu::setLCDStatus(unsigned char newStatus)
 {
 	beakMemory.directMemoryWrite(0xFF41, newStatus);
 }
 
-void Gpu::setLCDMode(byte status)
+void Gpu::setLCDMode(unsigned char status)
 {
-	beakMemory.directMemoryWrite(0xFF41, (byte)((getLCDStatus() & 0xFC) | status));
+    beakMemory.directMemoryWrite(0xFF41, (unsigned char)((getLCDStatus() & 0xFC) | status));
 }
 
-byte Gpu::getLCDMode()
+unsigned char Gpu::getLCDMode()
 {
 	return (getLCDStatus() & 0x03);
 }
 
-byte Gpu::getLCDLYCCheckEnabled()
+unsigned char Gpu::getLCDLYCCheckEnabled()
 {
 	return (getLCDStatus() & 0x40) >> 6;
 }
 
-byte Gpu::getLCDLYCompare()
+unsigned char Gpu::getLCDLYCompare()
 {
 	return beakMemory.readMemory(0xFF45);
 }
 
-byte Gpu::getLCDLY()
+unsigned char Gpu::getLCDLY()
 {
 	return beakMemory.readMemory(0xFF44);
 }
 
-byte Gpu::getLCDControl()
+unsigned char Gpu::getLCDControl()
 {
 	return beakMemory.readMemory(0xFF40);
 }
@@ -109,8 +109,8 @@ void Gpu::drawAllTiles()
 
 		for (int j = 0; j < 16; j += 2)
 		{
-			byte rowHalf1 = beakMemory.readMemory(tileAddress + j);
-			byte rowHalf2 = beakMemory.readMemory(tileAddress + j + 1);
+            unsigned char rowHalf1 = beakMemory.readMemory(tileAddress + j);
+            unsigned char rowHalf2 = beakMemory.readMemory(tileAddress + j + 1);
 
 			vector<Color> row;
 
@@ -168,8 +168,8 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
 	int tileID = 0;
 	int tileOffset = 0;
 	int tileAddress = 0;
-	byte rowHalf1 = 0;
-	byte rowHalf2 = 0;
+    unsigned char rowHalf1 = 0;
+    unsigned char rowHalf2 = 0;
 
 	for (int i = 0; i < 32; i++)
 	{
@@ -194,14 +194,14 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
 
 		tileOffset = tileID * 16;
 		tileAddress = baseAddress + tileOffset;
-		byte vramBankSelection = 0; //DMG only has bank 0.
-		byte gbcBGPalette = 0;
+        unsigned char vramBankSelection = 0; //DMG only has bank 0.
+        unsigned char gbcBGPalette = 0;
 
 		if (GBCMode)
 		{
-			byte tileFlags = beakMemory.readVRAMBankRam((unsigned short)(tileIndex + 0x1800), 1);
-			gbcBGPalette = (byte)(tileFlags & 0b0111);
-			vramBankSelection = (byte)((tileFlags & 0b1000) >> 3);
+            unsigned char tileFlags = beakMemory.readVRAMBankRam((unsigned short)(tileIndex + 0x1800), 1);
+            gbcBGPalette = (unsigned char)(tileFlags & 0b0111);
+            vramBankSelection = (unsigned char)((tileFlags & 0b1000) >> 3);
 			bool horizontalFlip = (tileFlags & 0b0010 - 0000) > 0;
 			bool verticalFlip = (tileFlags & 0b0100 - 0000) > 0;
 			bool hasPriority = (tileFlags & 0b1000 - 0000) > 0;
@@ -221,10 +221,10 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
 			}
 			else
 			{
-				pixelColor = returnGBCBackgroundColor((byte)(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6)), gbcBGPalette);
+                pixelColor = returnGBCBackgroundColor((unsigned char)(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6)), gbcBGPalette);
 			}
 
-			beakWindow.setBGPixel((byte)((i * 8) + j), (byte)lineY, pixelColor);
+            beakWindow.setBGPixel((unsigned char)((i * 8) + j), (unsigned char)lineY, pixelColor);
 			rowHalf1 <<= 1;
 			rowHalf2 <<= 1;
 
@@ -267,10 +267,10 @@ void Gpu::drawLineFromWindowMap(unsigned char lineY)
 	int tileID = 0;
 	int tileOffset = 0;
 	int tileAddress = 0;
-	byte rowHalf1 = 0;
-	byte rowHalf2 = 0;
-	byte vramBankSelection = 0; //DMG only has bank 0.
-	byte gbcBGPalette = 0;
+    unsigned char rowHalf1 = 0;
+    unsigned char rowHalf2 = 0;
+    unsigned char vramBankSelection = 0; //DMG only has bank 0.
+    unsigned char gbcBGPalette = 0;
 
 	for (int i = 0; i < 32; i++)
 	{
@@ -299,9 +299,9 @@ void Gpu::drawLineFromWindowMap(unsigned char lineY)
 
 		if (GBCMode)
 		{
-			byte tileFlags = beakMemory.readVRAMBankRam((unsigned short)(tileIndex + 0x1C00), 1);
-			gbcBGPalette = (byte)(tileFlags & 0b0111);
-			vramBankSelection = (byte)((tileFlags & 0b1000) >> 3);
+            unsigned char tileFlags = beakMemory.readVRAMBankRam((unsigned short)(tileIndex + 0x1C00), 1);
+            gbcBGPalette = (unsigned char)(tileFlags & 0b0111);
+            vramBankSelection = (unsigned char)((tileFlags & 0b1000) >> 3);
 			bool horizontalFlip = (tileFlags & 0b0010 - 0000) > 0;
 			bool verticalFlip = (tileFlags & 0b0100 - 0000) > 0;
 			bool hasPriority = (tileFlags & 0b1000 - 0000) > 0;
@@ -321,10 +321,10 @@ void Gpu::drawLineFromWindowMap(unsigned char lineY)
 			}
 			else
 			{
-				pixelColor = returnGBCBackgroundColor((byte)(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6)), gbcBGPalette);
+                pixelColor = returnGBCBackgroundColor((unsigned char)(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6)), gbcBGPalette);
 			}
 
-			beakWindow.setWindowPixel((byte)((i * 8) + j), (byte)lineY, pixelColor);
+            beakWindow.setWindowPixel((unsigned char)((i * 8) + j), (unsigned char)lineY, pixelColor);
 			rowHalf1 &= 0x7F;
 			rowHalf1 <<= 1;
 			rowHalf2 &= 0x7F;
@@ -346,23 +346,23 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 	bool spriteSize = getSpriteSize();
 
 	int y = 0;
-	byte x = 0;
+    unsigned char x = 0;
 	int tileOffset = 0;
 	int tileAddress = 0;
-	byte rowHalf1 = 0;
-	byte rowHalf2 = 0;
+    unsigned char rowHalf1 = 0;
+    unsigned char rowHalf2 = 0;
 	int lineToDraw = 0;
 
-	byte tileNumber = 0;
-	byte tileFlags = 0;
+    unsigned char tileNumber = 0;
+    unsigned char tileFlags = 0;
 	bool priority = false;
 	bool yFlip = false;
 	bool xFlip = false;
 	bool dmgPaletteSetting = false;
-	byte gbcPaletteSetting = 0;
+    unsigned char gbcPaletteSetting = 0;
 
-	byte scrollX = getScrollX();
-	byte scrollY = getScrollY();
+    unsigned char scrollX = getScrollX();
+    unsigned char scrollY = getScrollY();
 
 	Color bgColor = returnColor(0, 0);
 
@@ -387,7 +387,7 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 				yFlip = ((tileFlags & 0x40) >> 6) > 0; //Vertically flipped if 1, else 0.
 				xFlip = ((tileFlags & 0x20) >> 5) > 0; //Horizontally flipped if 1, else 0;
 				dmgPaletteSetting = ((tileFlags & 0x10) >> 4) > 0; //Palette is OBJ0PAL if 0, else OBJ1PAL
-				gbcPaletteSetting = (byte)(tileFlags & 0b111);
+                gbcPaletteSetting = (unsigned char)(tileFlags & 0b111);
 
 				tileOffset = tileNumber * 16;
 				tileAddress = baseAddress + tileOffset;
@@ -408,7 +408,7 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 
 				for (int j = 0; j < 8; j++)
 				{
-					byte colorNumber = ((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6);
+                    unsigned char colorNumber = ((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6);
 
 					if (colorNumber > 0)
 					{
@@ -425,7 +425,7 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 								pixelColor = returnGBCSpriteColor(colorNumber, gbcPaletteSetting);
 							}
 
-							beakWindow.setSpritePixel((byte)(x + j), (byte)lineY, pixelColor);
+                            beakWindow.setSpritePixel((unsigned char)(x + j), (unsigned char)lineY, pixelColor);
 						}
 					}
 
@@ -455,22 +455,22 @@ void Gpu::drawDebugTile(int tileNumber, vector<vector<Color>> tile)
 	}
 }
 
-byte Gpu::getScrollX()
+unsigned char Gpu::getScrollX()
 {
 	return beakMemory.readMemory(0xFF43);
 }
 
-byte Gpu::getScrollY()
+unsigned char Gpu::getScrollY()
 {
 	return beakMemory.readMemory(0xFF42);
 }
 
-byte Gpu::getWindowX()
+unsigned char Gpu::getWindowX()
 {
 	return beakMemory.readMemory(0xFF4B);
 }
 
-byte Gpu::getWindowY()
+unsigned char Gpu::getWindowY()
 {
 	return beakMemory.readMemory(0xFF4A);
 }
@@ -490,7 +490,7 @@ Color Gpu::returnColor(int colorNumber, int palette)
 	//Color number decides which color slot is selected from the palette data.
 	//The value returned from the palette data is then used to index from the emulator's palette array.
 
-	//byte paletteData = beakMemory.readMemory(0xFF47 + palette);
+    //unsigned char paletteData = beakMemory.readMemory(0xFF47 + palette);
 	//colorNumber = (paletteData & (3 << (colorNumber * 2))) >> (colorNumber * 2);//(colorNumber + 1);
 	//return gameBeakPalette[colorNumber + paletteSetting << 2)];
 
@@ -513,21 +513,21 @@ Color Gpu::returnColor(int colorNumber, int palette)
 	//return gameBeakPalette[ returnHalfNibble( returnPalette(palette), colorNumber) ];
 }
 
-Color Gpu::returnGBCSpriteColor(byte colorNumber, byte palette)
+Color Gpu::returnGBCSpriteColor(unsigned char colorNumber, unsigned char palette)
 {
 	// There are 4 colors per palette and 8 Sprite palettes.
-	// Each color is defined by 2 bytes. Therefore 8 bytes per palette.
-	byte paletteAddress = (byte)(palette * 8);
-	byte colorIndex = (byte)(colorNumber * 2);
+    // Each color is defined by 2 unsigned chars. Therefore 8 unsigned chars per palette.
+    unsigned char paletteAddress = (unsigned char)(palette * 8);
+    unsigned char colorIndex = (unsigned char)(colorNumber * 2);
 
-	byte paletteData1 = beakMemory.readSpritePaletteRam((byte)(paletteAddress + colorIndex + 1));
-	byte paletteData2 = beakMemory.readSpritePaletteRam((byte)(paletteAddress + colorIndex + 0));
+    unsigned char paletteData1 = beakMemory.readSpritePaletteRam((unsigned char)(paletteAddress + colorIndex + 1));
+    unsigned char paletteData2 = beakMemory.readSpritePaletteRam((unsigned char)(paletteAddress + colorIndex + 0));
 
 	// GBC Colors are 5 bit. 0-31 data range. Shifting them left by 3 allows them to be used as 8 bit colors.
 	unsigned short rgbData = (unsigned short)(paletteData1 << 8 | paletteData2);
-	byte r = (byte)(rgbData & (0x1F));
-	byte g = (byte)((rgbData & (0x1F << 5)) >> 5);
-	byte b = (byte)((rgbData & (0x1F << 10)) >> 10);
+    unsigned char r = (unsigned char)(rgbData & (0x1F));
+    unsigned char g = (unsigned char)((rgbData & (0x1F << 5)) >> 5);
+    unsigned char b = (unsigned char)((rgbData & (0x1F << 10)) >> 10);
 
 	r <<= 3;
 	g <<= 3;
@@ -536,21 +536,21 @@ Color Gpu::returnGBCSpriteColor(byte colorNumber, byte palette)
 	return Color(r, g, b);
 }
 
-Color Gpu::returnGBCBackgroundColor(byte colorNumber, byte palette)
+Color Gpu::returnGBCBackgroundColor(unsigned char colorNumber, unsigned char palette)
 {
 	// There are 4 colors per palette and 8 BG palettes.
-	// Each color is defined by 2 bytes. Therefore 8 bytes per palette.
-	byte paletteAddress = (byte)(palette * 8);
-	byte colorIndex = (byte)(colorNumber * 2);
+    // Each color is defined by 2 unsigned chars. Therefore 8 unsigned chars per palette.
+    unsigned char paletteAddress = (unsigned char)(palette * 8);
+    unsigned char colorIndex = (unsigned char)(colorNumber * 2);
 
-	byte paletteData1 = beakMemory.readBackgroundPaletteRam((byte)(paletteAddress + colorIndex + 1));
-	byte paletteData2 = beakMemory.readBackgroundPaletteRam((byte)(paletteAddress + colorIndex + 0));
+    unsigned char paletteData1 = beakMemory.readBackgroundPaletteRam((unsigned char)(paletteAddress + colorIndex + 1));
+    unsigned char paletteData2 = beakMemory.readBackgroundPaletteRam((unsigned char)(paletteAddress + colorIndex + 0));
 
 	// GBC Colors are 5 bit. 0-31 data range. Shifting them left by 3 allows them to be used as 8 bit colors.
 	unsigned short rgbData = (unsigned short)(paletteData1 << 8 | paletteData2);
-	byte r = (byte)(rgbData & (0x1F));
-	byte g = (byte)((rgbData & (0x1F << 5)) >> 5);
-	byte b = (byte)((rgbData & (0x1F << 10)) >> 10);
+    unsigned char r = (unsigned char)(rgbData & (0x1F));
+    unsigned char g = (unsigned char)((rgbData & (0x1F << 5)) >> 5);
+    unsigned char b = (unsigned char)((rgbData & (0x1F << 10)) >> 10);
 
 	r <<= 3;
 	g <<= 3;
@@ -559,7 +559,7 @@ Color Gpu::returnGBCBackgroundColor(byte colorNumber, byte palette)
 	return Color(r, g, b);
 }
 
-byte Gpu::returnPalette(byte palette)
+unsigned char Gpu::returnPalette(unsigned char palette)
 {
 	//Palette: 0 = BGP
 	//Palette: 1 = 0BP0
@@ -570,7 +570,7 @@ byte Gpu::returnPalette(byte palette)
 void Gpu::loadPalettesFromXML(ifstream file)
 {
 	string line;
-	list<byte> colorValues;
+    list<unsigned char> colorValues;
 
 	while (getline(file, line))
 	{
