@@ -1940,7 +1940,7 @@ void Cpu::opcode17()
 	//RLCA Rotate A Left - Set right most bit to current carry flag
     unsigned char cFlag = (memory->getCFlag() == true) ? 0x01 : 0x00;
     memory->setCFlag( ((memory->getA() & 0x80) >> 7) > 0);
-    memory->setA((memory->getA() << 1) | cFlag);
+    memory->setA(((memory->getA() << 1) | cFlag) & 0xFF);
 
     memory->setZFlag(false);
     memory->setHFlag(false);
