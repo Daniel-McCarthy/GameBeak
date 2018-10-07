@@ -5630,14 +5630,15 @@ void Cpu::opcodeCB3D()
 
 void Cpu::opcodeCB3E()
 {
-	//Shift data at HL Right
-    memory->setCFlag(memory->readMemory(memory->getHL()) & 0x01);
-    memory->writeMemory(memory->getHL(), (unsigned char)(memory->readMemory(memory->getHL()) >> 1));
+    //Shift data at HL Right
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->setCFlag(memory->readMemory(hl) & 0x01);
+    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) >> 1));
 
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
+    memory->setZFlag(memory->readMemory(hl) == 0);
     memory->setNFlag(false);
     memory->setHFlag(false);
 }
