@@ -17,7 +17,7 @@ void Rom::readRomHeader()
 
 	for (int i = 0; i < 16; i++)
 	{
-		title += (char)beakRom[0x134 + i];
+        title += static_cast<char>(beakRom[0x134 + i]);
 	}
 
 	//ASCII title should be upper case and 16 bytes for GB roms.
