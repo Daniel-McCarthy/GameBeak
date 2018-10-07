@@ -1,7 +1,5 @@
 #include "Gpu.h"
 #include "Main.h"
-#include <SFML\System.hpp>
-#include <SFML\Graphics\Color.hpp>
 #include <vector>
 
 Gpu::Gpu()
