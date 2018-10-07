@@ -57,7 +57,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcode06(memory->readMemory(memory->memoryPointer++));
+                    opcode06(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -97,7 +97,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcode0E(memory->readMemory(memory->memoryPointer++));
+                    opcode0E(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 0xF:
@@ -144,7 +144,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcode16(memory->readMemory(memory->memoryPointer++));
+                    opcode16(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -154,7 +154,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcode18((char)memory->readMemory(memory->memoryPointer++));
+                    opcode18(static_cast<char>(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++))));
 					break;
 				}
 				case 9:
@@ -184,7 +184,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcode1E(memory->readMemory(memory->memoryPointer++));
+                    opcode1E(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 0xF:
@@ -201,7 +201,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-                    opcode20(memory->readMemory(memory->memoryPointer++));
+                    opcode20(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 1:
@@ -231,7 +231,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcode26(memory->readMemory(memory->memoryPointer++));
+                    opcode26(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -241,7 +241,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcode28(memory->readMemory(memory->memoryPointer++));
+                    opcode28(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 9:
@@ -271,7 +271,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcode2E(memory->readMemory(memory->memoryPointer++));
+                    opcode2E(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 0xF:
@@ -288,7 +288,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-                    opcode30(memory->readMemory(memory->memoryPointer++));
+                    opcode30(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 1:
@@ -318,7 +318,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcode36(memory->readMemory(memory->memoryPointer++));
+                    opcode36(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -328,7 +328,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcode38(memory->readMemory(memory->memoryPointer++));
+                    opcode38(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 9:
@@ -358,7 +358,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcode3E(memory->readMemory(memory->memoryPointer++));
+                    opcode3E(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 0xF:
@@ -1102,7 +1102,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x06:
 				{
-                    opcodeC6(memory->readMemory(memory->memoryPointer++));
+                    opcodeC6(memory->readMemory(static_cast<unsigned char>(memory->memoryPointer++)));
 					break;
 				}
 				case 0x07:
@@ -1127,7 +1127,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x0B:
 				{
-                    switch (memory->readMemory(memory->memoryPointer++))
+                    switch (memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)))
 					{
 
 					case 0x00: { opcodeCB00(); break; }
@@ -1402,7 +1402,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x0E:
 				{
-                    opcodeCE(memory->readMemory(memory->memoryPointer++));
+                    opcodeCE(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 0x0F:
@@ -1450,7 +1450,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcodeD6(memory->readMemory(memory->memoryPointer++));
+                    opcodeD6(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -1490,7 +1490,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcodeDE(memory->readMemory(memory->memoryPointer++));
+                    opcodeDE(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 
 				}
@@ -1507,7 +1507,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-                    opcodeE0(memory->readMemory(memory->memoryPointer++));
+                    opcodeE0(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 1:
@@ -1537,7 +1537,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcodeE6(memory->readMemory(memory->memoryPointer++));
+                    opcodeE6(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -1547,7 +1547,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcodeE8(memory->readMemory(memory->memoryPointer++));
+                    opcodeE8(static_cast<char>(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++))));
 					break;
 				}
 				case 9:
@@ -1577,7 +1577,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcodeEE(memory->readMemory(memory->memoryPointer++));
+                    opcodeEE(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 0xF:
@@ -1594,7 +1594,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-                    opcodeF0(memory->readMemory(memory->memoryPointer++));
+                    opcodeF0(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 1:
@@ -1625,7 +1625,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcodeF6(memory->readMemory(memory->memoryPointer++));
+                    opcodeF6(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -1635,7 +1635,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcodeF8(memory->readMemory(memory->memoryPointer++));
+                    opcodeF8(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 9:
@@ -1666,7 +1666,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcodeFE(memory->readMemory(memory->memoryPointer++));
+                    opcodeFE(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
 					break;
 				}
 				case 0xF:
