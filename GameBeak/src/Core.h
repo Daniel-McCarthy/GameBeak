@@ -38,6 +38,9 @@ private:
 signals:
 
 public slots:
+    void setPaused(bool setting);
+    void setRun(bool setting);
+    void setStep(bool setting);
 };
 
 #endif // CORE_H
