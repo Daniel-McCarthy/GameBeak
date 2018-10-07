@@ -3,14 +3,8 @@
 //#ifndef WINDOWH
 //#define WINDOWH
 
-#include <SFML\Graphics.hpp>
-#include <string>
-#include <vector>
-
-#include <Windows.h>
-
-using namespace std;
-using namespace sf;
+#include <QString>
+#include <QList>
 
 class GameWindow
 {
