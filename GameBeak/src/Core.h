@@ -25,14 +25,15 @@ public:
     bool step;
     bool enableInterruptsNextCycle;
     bool repeatBug; //Halt bug
-    bool ForceDMGMode;
+
+    //Settings values
+    bool GBCMode = false;					//This controls whether Gameboy Color emulation is currently activated.
 
 private:
     Memory* memory = new Memory(this);
     Rom* rom = new Rom();
     Cpu* cpu = new Cpu(this);
     Input* input = new Input(this);
-    bool* GBCMode;
 
 signals:
 

@@ -19,5 +19,5 @@ Input* Core::getInputPointer() {
 }
 
 bool* Core::getGBCModePointer() {
-    return GBCMode;
+    return &GBCMode;
 }
