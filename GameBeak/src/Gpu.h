@@ -1,12 +1,8 @@
 #pragma once
 
-#include <Windows.h>
-#include <vector>
-#include "Windows.h"
-#include <SFML\Graphics\Color.hpp>
+#include <QList>
 
 using namespace std;
-using namespace sf;
 
 class Gpu
 {
