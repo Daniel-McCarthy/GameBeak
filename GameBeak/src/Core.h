@@ -23,7 +23,7 @@ public:
     bool run;
     bool paused;
     bool step;
-    bool enableInterruptsNextCycle;
+    bool enableInterruptsNextCycle = false;
     bool repeatBug; //Halt bug
 
     //Settings values
