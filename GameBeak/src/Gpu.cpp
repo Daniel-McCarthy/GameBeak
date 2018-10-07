@@ -97,7 +97,7 @@ void Gpu::drawAllTiles()
 {
 	int baseAddress = 0x8000;
 
-	vector<vector<Color>> tile;
+    vector<vector<QColor>> tile;
 
 	for (int i = 0; i < 360; i++)
 	{
@@ -112,14 +112,14 @@ void Gpu::drawAllTiles()
             unsigned char rowHalf1 = beakMemory.readMemory(tileAddress + j);
             unsigned char rowHalf2 = beakMemory.readMemory(tileAddress + j + 1);
 
-			vector<Color> row;
+            vector<QColor> row;
 
 			for (int k = 0; k < 8; k++)
 			{
 				int test = rowHalf1 & 0x01;
 				int test2 = rowHalf2 & 0x01;
 				int test3 = ((rowHalf1 & 0x01) << 1) | (rowHalf2 & 0x01);
-				Color test4 = returnColor(((rowHalf1 & 0x01) << 1) | (rowHalf2 & 0x01));
+                QColor test4 = returnColor(((rowHalf1 & 0x01) << 1) | (rowHalf2 & 0x01));
 
 				row.push_back(returnColor((((rowHalf1 & 0x80) >> 7)) | ((rowHalf2 & 0x80) >> 6)));
 				rowHalf1 <<= 1;
@@ -213,7 +213,7 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
 
 		for (int j = 0; j < 8; j++)
 		{
-			Color pixelColor;
+            QColor pixelColor;
 
 			if (!GBCMode)
 			{
@@ -313,7 +313,7 @@ void Gpu::drawLineFromWindowMap(unsigned char lineY)
 
 		for (int j = 0; j < 8; j++)
 		{
-			Color pixelColor;
+            QColor pixelColor;
 
 			if (!GBCMode)
 			{
@@ -364,7 +364,7 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
     unsigned char scrollX = getScrollX();
     unsigned char scrollY = getScrollY();
 
-	Color bgColor = returnColor(0, 0);
+    QColor bgColor = returnColor(0, 0);
 
 	for (int i = 0; i < 40; i++)
 	{
@@ -414,7 +414,7 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 					{
 						if (!priority || (priority && (beakWindow.getBGPixel(scrollX + x + j, lineY + scrollY) == bgColor)))
 						{
-							Color pixelColor;
+                            QColor pixelColor;
 
 							if (!GBCMode)
 							{
@@ -439,7 +439,7 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 }
 
 //DrawTile: Draws tile data as given to location of tile number given
-void Gpu::drawDebugTile(int tileNumber, vector<vector<Color>> tile)
+void Gpu::drawDebugTile(int tileNumber, vector<vector<QColor>> tile)
 {
 	int y = tileNumber / 20;
 	int x = tileNumber - (20 * y);
@@ -475,12 +475,12 @@ unsigned char Gpu::getWindowY()
 	return beakMemory.readMemory(0xFF4A);
 }
 
-Color Gpu::returnColor(int colorNumber)
+QColor Gpu::returnColor(int colorNumber)
 {
 	return gameBeakPalette[colorNumber + (paletteSetting * 12)];
 }
 
-Color Gpu::returnColor(int colorNumber, int palette)
+QColor Gpu::returnColor(int colorNumber, int palette)
 {
 	//Palette: 0 = BGP
 	//Palette: 1 = 0BP0
@@ -513,7 +513,7 @@ Color Gpu::returnColor(int colorNumber, int palette)
 	//return gameBeakPalette[ returnHalfNibble( returnPalette(palette), colorNumber) ];
 }
 
-Color Gpu::returnGBCSpriteColor(unsigned char colorNumber, unsigned char palette)
+QColor Gpu::returnGBCSpriteColor(unsigned char colorNumber, unsigned char palette)
 {
 	// There are 4 colors per palette and 8 Sprite palettes.
     // Each color is defined by 2 unsigned chars. Therefore 8 unsigned chars per palette.
@@ -536,7 +536,7 @@ Color Gpu::returnGBCSpriteColor(unsigned char colorNumber, unsigned char palette
 	return Color(r, g, b);
 }
 
-Color Gpu::returnGBCBackgroundColor(unsigned char colorNumber, unsigned char palette)
+QColor Gpu::returnGBCBackgroundColor(unsigned char colorNumber, unsigned char palette)
 {
 	// There are 4 colors per palette and 8 BG palettes.
     // Each color is defined by 2 unsigned chars. Therefore 8 unsigned chars per palette.
@@ -556,7 +556,7 @@ Color Gpu::returnGBCBackgroundColor(unsigned char colorNumber, unsigned char pal
 	g <<= 3;
 	b <<= 3;
 
-	return Color(r, g, b);
+    return QColor(r, g, b);
 }
 
 unsigned char Gpu::returnPalette(unsigned char palette)
@@ -619,7 +619,7 @@ void Gpu::loadPalettesFromXML(ifstream file)
 				int b = colorValues.front();
 				colorValues.pop_front();
 
-				Color color = Color(r, g, b, 255);
+                QColor color = QColor(r, g, b, 255);
 
 
                 beakGpu.gameBeakPalette[(paletteOffset * 4) + colorOffset] = color;
