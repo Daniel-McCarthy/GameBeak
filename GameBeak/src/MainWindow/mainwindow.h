@@ -19,6 +19,7 @@ public:
 private:
     Ui::MainWindow *ui;
     Core* core = nullptr;
+    QThread* emulationThread;
 
 private slots:
     void on_actionOpen_triggered();

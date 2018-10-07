@@ -3,6 +3,7 @@
 #include "src/Core.h"
 #include "src/Memory.h"
 #include <QFileDialog>
+#include <QThread>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
