@@ -4,96 +4,96 @@
 #include <SFML\Graphics\Color.hpp>
 #include <vector>
 
-gpu::gpu()
+Gpu::Gpu()
 {
 }
 
-gpu::~gpu()
+Gpu::~Gpu()
 {
 }
 
-byte gpu::getLCDStatus()
+byte Gpu::getLCDStatus()
 {
 	return beakMemory.readMemory(0xFF41);
 }
 
-void gpu::setLCDStatus(byte newStatus)
+void Gpu::setLCDStatus(byte newStatus)
 {
 	beakMemory.directMemoryWrite(0xFF41, newStatus);
 }
 
-void gpu::setLCDMode(byte status)
+void Gpu::setLCDMode(byte status)
 {
 	beakMemory.directMemoryWrite(0xFF41, (byte)((getLCDStatus() & 0xFC) | status));
 }
 
-byte gpu::getLCDMode()
+byte Gpu::getLCDMode()
 {
 	return (getLCDStatus() & 0x03);
 }
 
-byte gpu::getLCDLYCCheckEnabled()
+byte Gpu::getLCDLYCCheckEnabled()
 {
 	return (getLCDStatus() & 0x40) >> 6;
 }
 
-byte gpu::getLCDLYCompare()
+byte Gpu::getLCDLYCompare()
 {
 	return beakMemory.readMemory(0xFF45);
 }
 
-byte gpu::getLCDLY()
+byte Gpu::getLCDLY()
 {
 	return beakMemory.readMemory(0xFF44);
 }
 
-byte gpu::getLCDControl()
+byte Gpu::getLCDControl()
 {
 	return beakMemory.readMemory(0xFF40);
 }
 
-bool gpu::getLCDOn()
+bool Gpu::getLCDOn()
 {
 	return ((getLCDControl() & 0x80) >> 7) > 0;
 }
 
-bool gpu::getWindowTileMapLocation()
+bool Gpu::getWindowTileMapLocation()
 {
 	return ((getLCDControl() & 0x40) >> 6) > 0;
 }
 
-bool gpu::getWindowEnabled()
+bool Gpu::getWindowEnabled()
 {
 	return ((getLCDControl() & 0x20) >> 5) > 0;
 }
 
-bool gpu::getBackGroundWindowTileSetLocation()
+bool Gpu::getBackGroundWindowTileSetLocation()
 {
 	return ((getLCDControl() & 0x10) >> 4) > 0;
 }
 
-bool gpu::getBackGroundTileMapLocation()
+bool Gpu::getBackGroundTileMapLocation()
 {
 	return ((getLCDControl() & 0x08) >> 3) > 0;
 }
 
-bool gpu::getSpriteSize()
+bool Gpu::getSpriteSize()
 {
 	return ((getLCDControl() & 0x04) >> 2) > 0;
 }
 
-bool gpu::getSpriteEnabled()
+bool Gpu::getSpriteEnabled()
 {
 	return ((getLCDControl() & 0x02) >> 1) > 0;
 }
 
-bool gpu::getBackGroundEnabled()
+bool Gpu::getBackGroundEnabled()
 {
 	return (getLCDControl() & 0x01);
 }
 
 //Draw All Tiles: Draws each tile directly from vram in the order they are in Vram. Prints out each tile that is loaded into memory
-void gpu::drawAllTiles()
+void Gpu::drawAllTiles()
 {
 	int baseAddress = 0x8000;
 
@@ -135,7 +135,7 @@ void gpu::drawAllTiles()
 }
 
 //DrawLineFromMap: Draws a single specific line of the background map
-void gpu::drawLineFromBGMap(unsigned char  lineY)
+void Gpu::drawLineFromBGMap(unsigned char  lineY)
 {
 
 	int mapAddress;
@@ -234,7 +234,7 @@ void gpu::drawLineFromBGMap(unsigned char  lineY)
 
 }
 
-void gpu::drawLineFromWindowMap(unsigned char lineY)
+void Gpu::drawLineFromWindowMap(unsigned char lineY)
 {
 
 	int mapAddress;
@@ -335,7 +335,7 @@ void gpu::drawLineFromWindowMap(unsigned char lineY)
 
 #include "Binary.h"
 
-void gpu::drawLineFromSpriteMap(unsigned char lineY)
+void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 {
 	//Todo: Support priority.
 
@@ -439,7 +439,7 @@ void gpu::drawLineFromSpriteMap(unsigned char lineY)
 }
 
 //DrawTile: Draws tile data as given to location of tile number given
-void gpu::drawDebugTile(int tileNumber, vector<vector<Color>> tile)
+void Gpu::drawDebugTile(int tileNumber, vector<vector<Color>> tile)
 {
 	int y = tileNumber / 20;
 	int x = tileNumber - (20 * y);
@@ -455,32 +455,32 @@ void gpu::drawDebugTile(int tileNumber, vector<vector<Color>> tile)
 	}
 }
 
-byte gpu::getScrollX()
+byte Gpu::getScrollX()
 {
 	return beakMemory.readMemory(0xFF43);
 }
 
-byte gpu::getScrollY()
+byte Gpu::getScrollY()
 {
 	return beakMemory.readMemory(0xFF42);
 }
 
-byte gpu::getWindowX()
+byte Gpu::getWindowX()
 {
 	return beakMemory.readMemory(0xFF4B);
 }
 
-byte gpu::getWindowY()
+byte Gpu::getWindowY()
 {
 	return beakMemory.readMemory(0xFF4A);
 }
 
-Color gpu::returnColor(int colorNumber)
+Color Gpu::returnColor(int colorNumber)
 {
 	return gameBeakPalette[colorNumber + (paletteSetting * 12)];
 }
 
-Color gpu::returnColor(int colorNumber, int palette)
+Color Gpu::returnColor(int colorNumber, int palette)
 {
 	//Palette: 0 = BGP
 	//Palette: 1 = 0BP0
@@ -513,7 +513,7 @@ Color gpu::returnColor(int colorNumber, int palette)
 	//return gameBeakPalette[ returnHalfNibble( returnPalette(palette), colorNumber) ];
 }
 
-Color gpu::returnGBCSpriteColor(byte colorNumber, byte palette)
+Color Gpu::returnGBCSpriteColor(byte colorNumber, byte palette)
 {
 	// There are 4 colors per palette and 8 Sprite palettes.
 	// Each color is defined by 2 bytes. Therefore 8 bytes per palette.
@@ -536,7 +536,7 @@ Color gpu::returnGBCSpriteColor(byte colorNumber, byte palette)
 	return Color(r, g, b);
 }
 
-Color gpu::returnGBCBackgroundColor(byte colorNumber, byte palette)
+Color Gpu::returnGBCBackgroundColor(byte colorNumber, byte palette)
 {
 	// There are 4 colors per palette and 8 BG palettes.
 	// Each color is defined by 2 bytes. Therefore 8 bytes per palette.
@@ -559,7 +559,7 @@ Color gpu::returnGBCBackgroundColor(byte colorNumber, byte palette)
 	return Color(r, g, b);
 }
 
-byte gpu::returnPalette(byte palette)
+byte Gpu::returnPalette(byte palette)
 {
 	//Palette: 0 = BGP
 	//Palette: 1 = 0BP0
@@ -567,7 +567,7 @@ byte gpu::returnPalette(byte palette)
 	return beakMemory.readMemory(0xFF47 + palette);
 }
 
-void gpu::loadPalettesFromXML(ifstream file)
+void Gpu::loadPalettesFromXML(ifstream file)
 {
 	string line;
 	list<byte> colorValues;
@@ -622,7 +622,7 @@ void gpu::loadPalettesFromXML(ifstream file)
 				Color color = Color(r, g, b, 255);
 
 
-				beakGPU.gameBeakPalette[(paletteOffset * 4) + colorOffset] = color;
+                beakGpu.gameBeakPalette[(paletteOffset * 4) + colorOffset] = color;
 
 				if (colorOffset >= 3)
 				{
@@ -641,7 +641,7 @@ void gpu::loadPalettesFromXML(ifstream file)
 	file.close();
 }
 
-ifstream gpu::openCreatePalettesXML()
+ifstream Gpu::openCreatePalettesXML()
 {
 	//open XML palette file
 	char path1[MAX_PATH];

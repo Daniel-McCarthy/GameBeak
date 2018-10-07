@@ -8,7 +8,7 @@
 using namespace std;
 using namespace sf;
 
-class gpu
+class Gpu
 {
 private:
 	const Color darkestPink = Color(72, 24, 59, 255); //Pink Black //48183BFF
