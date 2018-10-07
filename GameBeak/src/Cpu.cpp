@@ -1962,12 +1962,12 @@ void Cpu::opcode19()
 {
 	//Add DE to HL
 
-    unsigned short hl = memory->getHL();
-    unsigned short de = memory->getDE();
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    unsigned short de = static_cast<unsigned short>(memory->getDE());
 	int totalSum = hl + de;
 
     memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
-    memory->setHL(totalSum & 0xFFFF);
+    memory->setHL(static_cast<short>(totalSum & 0xFFFF));
     memory->setCFlag(totalSum > 0xFFFF);
 
 	mClock += 2;
@@ -1979,7 +1979,7 @@ void Cpu::opcode19()
 void Cpu::opcode1A()
 {
 	//Load data at DE into A
-    memory->setA(memory->readMemory(memory->getDE()));
+    memory->setA(memory->readMemory(static_cast<unsigned short>(memory->getDE())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2050,7 +2050,7 @@ void Cpu::opcode20(unsigned char n)
 	//Jump Relative to n if Not Zero
     if (!memory->getZFlag())
 	{
-        memory->memoryPointer += (signed char)n;
+        memory->memoryPointer += static_cast<char>(n);
 		mClock += 3;
 		tClock += 12;
 
@@ -2073,7 +2073,7 @@ void Cpu::opcode21(short nn)
 void Cpu::opcode22()
 {
 	//Load A into data at HL and increment HL
-    memory->writeMemory(memory->getHL(), memory->getA());
+    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getA());
     memory->setHL(memory->getHL() + 1);
 	mClock += 2;
 	tClock += 8;
@@ -2172,7 +2172,7 @@ void Cpu::opcode28(unsigned char n)
     if (memory->getZFlag())
 	{
         //memory->memoryPointer += (signed char)n;
-        memory->memoryPointer += (signed char)n;
+        memory->memoryPointer += static_cast<char>(n);
 		mClock += 3;
 		tClock += 12;
 	}
@@ -2187,11 +2187,11 @@ void Cpu::opcode29()
 {
 	//Add HL to HL
 
-    unsigned short hl = memory->getHL();
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
 	int totalSum = hl + hl;
 
     memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
-    memory->setHL(totalSum & 0xFFFF);
+    memory->setHL(static_cast<short>(totalSum & 0xFFFF));
     memory->setCFlag(totalSum > 0xFFFF);
 
 	mClock += 2;
@@ -2203,8 +2203,9 @@ void Cpu::opcode29()
 void Cpu::opcode2A()
 {
 	//Load data at HL to A and inc HL
-    memory->setA(memory->readMemory(memory->getHL()));
-    memory->setHL(memory->getHL() + 1);
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->setA(memory->readMemory(hl));
+    memory->setHL(static_cast<short>(hl + 1));
 	mClock += 2;
 	tClock += 8;
 
@@ -2266,7 +2267,7 @@ void Cpu::opcode30(unsigned char n)
 	//Jump Relative to n if Not Carry
     if (!memory->getCFlag())
 	{
-        memory->memoryPointer += (signed char)n;
+        memory->memoryPointer += static_cast<signed char>(n);
 		mClock += 3;
 		tClock += 12;
 	}
@@ -2288,7 +2289,7 @@ void Cpu::opcode31(short nn)
 void Cpu::opcode32()
 {
 	//Load A into data at HL and dec HL
-    memory->writeMemory(memory->getHL(), memory->getA());
+    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getA());
     memory->setHL(memory->getHL() - 1);
 	mClock += 2;
 	tClock += 8;
@@ -2305,31 +2306,33 @@ void Cpu::opcode33()
 void Cpu::opcode34()
 {
 	//Inc data at HL
-    memory->writeMemory(memory->getHL(), (unsigned char)(memory->readMemory(memory->getHL()) + 1));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) + 1));
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag((memory->readMemory(memory->getHL()) == 0) ? 1 : 0);
+    memory->setZFlag((memory->readMemory(hl) == 0) ? 1 : 0);
     memory->setNFlag(false);
-    memory->setHFlag((((memory->readMemory(memory->getHL())) & 0x0F) == 0) ? 1 : 0);
+    memory->setHFlag((((memory->readMemory(hl)) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode35()
 {
 	//Dec data at HL
-    memory->writeMemory(memory->getHL(), (unsigned char)(memory->readMemory(memory->getHL()) - 1));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) - 1));
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag((memory->readMemory(memory->getHL()) == 0) ? 1 : 0);
+    memory->setZFlag((memory->readMemory(hl) == 0) ? 1 : 0);
     memory->setNFlag(true);
-    memory->setHFlag((((memory->readMemory(memory->getHL())) & 0x0F) == 0xF) ? 1 : 0);
+    memory->setHFlag((((memory->readMemory(hl)) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode36(unsigned char n)
 {
 	//Load byte into data at HL
-    memory->writeMemory(memory->getHL(), n);
+    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), n);
 	mClock += 3;
 	tClock += 12;
 }
@@ -2350,7 +2353,7 @@ void Cpu::opcode38(unsigned char n)
 	//Jump Relative to n if Carry
     if (memory->getCFlag())
 	{
-        memory->memoryPointer += (signed char)n;
+        memory->memoryPointer += static_cast<signed char>(n);
 		mClock += 3;
 		tClock += 12;
 	}
@@ -2364,12 +2367,12 @@ void Cpu::opcode38(unsigned char n)
 void Cpu::opcode39()
 {
 	//Add SP to HL
-    unsigned short hl = memory->getHL();
-    unsigned short sp = memory->stackPointer;
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    unsigned short sp = static_cast<unsigned short>(memory->stackPointer);
 	int totalSum = hl + sp;
 
     memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
-    memory->setHL(totalSum & 0xFFFF);
+    memory->setHL(static_cast<short>(totalSum & 0xFFFF));
     memory->setCFlag(totalSum > 0xFFFF);
 
 	mClock += 2;
@@ -2381,7 +2384,7 @@ void Cpu::opcode39()
 void Cpu::opcode3A()
 {
 	//Load data in HL into A and decrement HL
-    memory->setA(memory->readMemory(memory->getHL()));
+    memory->setA(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
     memory->setHL(memory->getHL() - 1);
 	mClock += 2;
 	tClock += 8;
@@ -2489,7 +2492,7 @@ void Cpu::opcode45()
 void Cpu::opcode46()
 {
 	//Load data at HL into B
-    memory->setB(memory->readMemory(memory->getHL()));
+    memory->setB(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2553,7 +2556,7 @@ void Cpu::opcode4D()
 void Cpu::opcode4E()
 {
 	//Load data at HL into C
-    memory->setC(memory->readMemory(memory->getHL()));
+    memory->setC(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2617,7 +2620,7 @@ void Cpu::opcode55()
 void Cpu::opcode56()
 {
 	//Load data at HL into D
-    memory->setD(memory->readMemory(memory->getHL()));
+    memory->setD(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2681,7 +2684,7 @@ void Cpu::opcode5D()
 void Cpu::opcode5E()
 {
 	//Load data at HL into E
-    memory->setE(memory->readMemory(memory->getHL()));
+    memory->setE(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2745,7 +2748,7 @@ void Cpu::opcode65()
 void Cpu::opcode66()
 {
 	//Load data at HL into H
-    memory->setH(memory->readMemory(memory->getHL()));
+    memory->setH(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2809,7 +2812,7 @@ void Cpu::opcode6D()
 void Cpu::opcode6E()
 {
 	//Load data at HL into L
-    memory->setL(memory->readMemory(memory->getHL()));
+    memory->setL(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2825,7 +2828,7 @@ void Cpu::opcode6F()
 void Cpu::opcode70()
 {
 	//Load B into data at HL
-    memory->writeMemory(memory->getHL(), memory->getB());
+    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getB());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2833,7 +2836,7 @@ void Cpu::opcode70()
 void Cpu::opcode71()
 {
 	//Load C into data at HL
-    memory->writeMemory(memory->getHL(), memory->getC());
+    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getC());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2841,7 +2844,7 @@ void Cpu::opcode71()
 void Cpu::opcode72()
 {
 	//Load D into data at HL
-    memory->writeMemory(memory->getHL(), memory->getD());
+    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getD());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2849,7 +2852,7 @@ void Cpu::opcode72()
 void Cpu::opcode73()
 {
 	//Load E into data at HL
-    memory->writeMemory(memory->getHL(), memory->getE());
+    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getE());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2857,7 +2860,7 @@ void Cpu::opcode73()
 void Cpu::opcode74()
 {
 	//Load H into data at HL
-    memory->writeMemory(memory->getHL(), memory->getH());
+    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getH());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2865,7 +2868,7 @@ void Cpu::opcode74()
 void Cpu::opcode75()
 {
 	//Load L into data at HL
-    memory->writeMemory(memory->getHL(), memory->getL());
+    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getL());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2904,7 +2907,7 @@ void Cpu::opcode76()
 void Cpu::opcode77()
 {
 	//Load A into data at HL
-    memory->writeMemory(memory->getHL(), memory->getA());
+    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getA());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2960,7 +2963,7 @@ void Cpu::opcode7D()
 void Cpu::opcode7E()
 {
 	//Load data at HL into A
-    memory->setA(memory->readMemory(memory->getHL()));
+    memory->setA(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2979,7 +2982,7 @@ void Cpu::opcode80()
     int result = memory->getA() + memory->getB();
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getB() & 0x0F)) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -2995,7 +2998,7 @@ void Cpu::opcode81()
     int result = memory->getA() + memory->getC();
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getC() & 0x0F)) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3010,7 +3013,7 @@ void Cpu::opcode82()
     int result = memory->getA() + memory->getD();
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getD() & 0x0F)) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3025,7 +3028,7 @@ void Cpu::opcode83()
     int result = memory->getA() + memory->getE();
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getE() & 0x0F)) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3040,7 +3043,7 @@ void Cpu::opcode84()
     int result = memory->getA() + memory->getH();
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getH() & 0x0F)) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3055,7 +3058,7 @@ void Cpu::opcode85()
     int result = memory->getA() + memory->getL();
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getL() & 0x0F)) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3070,11 +3073,11 @@ void Cpu::opcode86()
     memory->setZFlag((memory->getA() == 0) ? 1 : 0);
     memory->setNFlag(false);
 
-    uint8_t data = memory->readMemory(memory->getHL());
+    uint8_t data = memory->readMemory(static_cast<unsigned short>(memory->getHL()));
     int result = memory->getA() + data;
 
     memory->setHFlag((((memory->getA() & 0x0F) + (data & 0x0F)) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3089,7 +3092,7 @@ void Cpu::opcode87()
     int result = memory->getA() + memory->getA();
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getA() & 0x0F)) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3105,7 +3108,7 @@ void Cpu::opcode88()
     int result = memory->getA() + memory->getB() + carry;
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getB() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3121,7 +3124,7 @@ void Cpu::opcode89()
     int result = memory->getA() + memory->getC() + carry;
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getC() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3137,7 +3140,7 @@ void Cpu::opcode8A()
     int result = memory->getA() + memory->getD() + carry;
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getD() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3153,7 +3156,7 @@ void Cpu::opcode8B()
     int result = memory->getA() + memory->getE() + carry;
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getE() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3169,7 +3172,7 @@ void Cpu::opcode8C()
     int result = memory->getA() + memory->getH() + carry;
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getH() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3185,7 +3188,7 @@ void Cpu::opcode8D()
     int result = memory->getA() + memory->getL() + carry;
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getL() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3197,12 +3200,12 @@ void Cpu::opcode8D()
 void Cpu::opcode8E()
 {
 	//Add data at HL and Carry flag to A
-    int data = memory->readMemory(memory->getHL());
+    int data = memory->readMemory(static_cast<unsigned short>(memory->getHL()));
     int carry = memory->getCFlag() ? 1 : 0;
     int result = memory->getA() + data + carry;
 
     memory->setHFlag((((memory->getA() & 0x0F) + (data & 0x0F) + carry) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3218,7 +3221,7 @@ void Cpu::opcode8F()
     int result = memory->getA() + memory->getA() + carry;
 
     memory->setHFlag((((memory->getA() & 0x0F) + (memory->getA() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA((uint8_t)result & 0xFF);
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -3238,7 +3241,7 @@ void Cpu::opcode90()
     memory->setHFlag((memory->getB() & 0x0F) > (memory->getA() & 0x0F));
     memory->setNFlag(true);
     memory->setZFlag(result == 0);
-    memory->setA(result);
+    memory->setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3256,7 +3259,7 @@ void Cpu::opcode91()
     memory->setHFlag((memory->getC() & 0x0F) > (memory->getA() & 0x0F));
     memory->setNFlag(true);
     memory->setZFlag(result == 0);
-    memory->setA(result);
+    memory->setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3274,7 +3277,7 @@ void Cpu::opcode92()
     memory->setHFlag((memory->getD() & 0x0F) > (memory->getA() & 0x0F));
     memory->setNFlag(true);
     memory->setZFlag(result == 0);
-    memory->setA(result);
+    memory->setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3291,7 +3294,7 @@ void Cpu::opcode93()
     memory->setHFlag((memory->getE() & 0x0F) > (memory->getA() & 0x0F));
     memory->setNFlag(true);
     memory->setZFlag(result == 0);
-    memory->setA(result);
+    memory->setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3308,7 +3311,7 @@ void Cpu::opcode94()
     memory->setHFlag((memory->getH() & 0x0F) > (memory->getA() & 0x0F));
     memory->setNFlag(true);
     memory->setZFlag(result == 0);
-    memory->setA(result);
+    memory->setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3325,7 +3328,7 @@ void Cpu::opcode95()
     memory->setHFlag((memory->getL() & 0x0F) > (memory->getA() & 0x0F));
     memory->setNFlag(true);
     memory->setZFlag(result == 0);
-    memory->setA(result);
+    memory->setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3336,14 +3339,14 @@ void Cpu::opcode96()
 	//Sub data at HL from A
 
     int result = memory->getA();
-    uint8_t n = memory->readMemory(memory->getHL());
+    uint8_t n = memory->readMemory(static_cast<unsigned short>(memory->getHL()));
 	result -= n;
 
     memory->setCFlag(n > memory->getA());
     memory->setHFlag((n & 0x0F) > (memory->getA() & 0x0F));
     memory->setNFlag(true);
     memory->setZFlag(result == 0);
-    memory->setA(result);
+    memory->setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3360,7 +3363,7 @@ void Cpu::opcode97()
     memory->setHFlag((memory->getA() & 0x0F) > (memory->getA() & 0x0F));
     memory->setNFlag(true);
     memory->setZFlag(result == 0);
-    memory->setA(result);
+    memory->setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3484,7 +3487,7 @@ void Cpu::opcode9E()
 {
 	//Sub data at HL and Carry flag from A
 
-    uint8_t data = memory->readMemory(memory->getHL());
+    uint8_t data = memory->readMemory(static_cast<unsigned short>(memory->getHL()));
     uint8_t carry = memory->getCFlag() ? 1 : 0;
     int result = memory->getA();
 	result -= data;
@@ -3600,7 +3603,7 @@ void Cpu::opcodeA5()
 void Cpu::opcodeA6()
 {
 	//And (HL) from A
-    memory->setA(memory->getA() & memory->readMemory(memory->getHL()));
+    memory->setA(memory->getA() & memory->readMemory(static_cast<unsigned short>(memory->getHL())));
 	mClock += 2;
 	tClock += 8;
 
@@ -3704,7 +3707,7 @@ void Cpu::opcodeAD()
 void Cpu::opcodeAE()
 {
 	//XOR data at HL from A
-    memory->setA(memory->getA() ^ memory->readMemory(memory->getHL()));
+    memory->setA(memory->getA() ^ memory->readMemory(static_cast<unsigned short>(memory->getHL())));
 	mClock += 2;
 	tClock += 8;
 
@@ -3808,7 +3811,7 @@ void Cpu::opcodeB5()
 void Cpu::opcodeB6()
 {
 	//OR (HL) from A
-    memory->setA(memory->getA() | memory->readMemory(memory->getHL()));
+    memory->setA(memory->getA() | memory->readMemory(static_cast<unsigned short>(memory->getHL())));
 	mClock += 2;
 	tClock += 8;
 
@@ -3925,7 +3928,7 @@ void Cpu::opcodeBE()
 {
 	//Compare data at HL with A
 
-    unsigned char n = memory->readMemory(memory->getHL());
+    unsigned char n = memory->readMemory(static_cast<unsigned short>(memory->getHL()));
     int test = memory->getA() - n;
 
     memory->setZFlag(test == 0);
@@ -4009,7 +4012,7 @@ void Cpu::opcodeC4(short nn)
     if (!memory->getZFlag())
 	{
         memory->stackPointer -= 2;
-        memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+        memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
         memory->memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
@@ -4025,7 +4028,7 @@ void Cpu::opcodeC5()
 {
 	//Push BC
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->getBC());
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->getBC());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4036,7 +4039,7 @@ void Cpu::opcodeC6(unsigned char n)
     int result = memory->getA() + n;
 
     memory->setHFlag((((memory->getA() & 0x0F) + (n & 0x0F)) & 0x10) > 0);
-    memory->setA((uint8_t)(result & 0xFF));
+    memory->setA(result & 0xFF);
     memory->setCFlag(result > 0xFF);
     memory->setZFlag(memory->getA() == 0);
     memory->setNFlag(false);
@@ -4104,7 +4107,7 @@ void Cpu::opcodeCC(short nn)
     if (memory->getZFlag())
 	{
         memory->stackPointer -= 2;
-        memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+        memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
         memory->memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
@@ -4120,7 +4123,7 @@ void Cpu::opcodeCD(short nn)
 {
 	//Call nn
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
     memory->memoryPointer = nn;
 	mClock += 6;
 	tClock += 24;
@@ -4147,7 +4150,7 @@ void Cpu::opcodeCF()
 {
 	//Reset to 08
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
     memory->memoryPointer = 0x08;
 	mClock += 4;
 	tClock += 16;
@@ -4203,7 +4206,7 @@ void Cpu::opcodeD4(short nn)
     if (!memory->getCFlag())
 	{
         memory->stackPointer -= 2;
-        memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+        memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
         memory->memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
@@ -4219,7 +4222,7 @@ void Cpu::opcodeD5()
 {
 	//Push DE
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->getDE());
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->getDE());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4235,7 +4238,7 @@ void Cpu::opcodeD6(unsigned char n)
     memory->setHFlag((n & 0x0F) > (memory->getA() & 0x0F));
     memory->setNFlag(true);
     memory->setZFlag(result == 0);
-    memory->setA(result);
+    memory->setA(result & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
@@ -4247,7 +4250,7 @@ void Cpu::opcodeD7()
 {
 	//Reset to 10
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
     memory->memoryPointer = 0x10;
 	mClock += 4;
 	tClock += 16;
@@ -4304,7 +4307,7 @@ void Cpu::opcodeDC(short nn)
     if (memory->getCFlag())
 	{
         memory->stackPointer -= 2;
-        memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+        memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
         memory->memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
@@ -4341,7 +4344,7 @@ void Cpu::opcodeDF()
 {
 	//Reset to 18
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
     memory->memoryPointer = 0x18;
 	mClock += 4;
 	tClock += 16;
@@ -4380,7 +4383,7 @@ void Cpu::opcodeE5()
 {
 	//Push HL
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->getHL());
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->getHL());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4402,7 +4405,7 @@ void Cpu::opcodeE7()
 {
 	//Reset to 20
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
     memory->memoryPointer = 0x20;
 	mClock += 4;
 	tClock += 16;
@@ -4419,7 +4422,7 @@ void Cpu::opcodeE8(signed char n)
     memory->setZFlag(false);
     memory->setNFlag(false);
 
-    memory->setStackPointer((uint16_t)(result & 0xFFFF));
+    memory->setStackPointer(static_cast<short>(result & 0xFFFF));
 
 	mClock += 4;
 	tClock += 16;
@@ -4436,7 +4439,7 @@ void Cpu::opcodeE9()
 void Cpu::opcodeEA(short nn)
 {
 	//Store A at short
-    memory->writeMemory(nn, memory->getA());
+    memory->writeMemory(static_cast<unsigned short>(nn), memory->getA());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4464,7 +4467,7 @@ void Cpu::opcodeEF()
 {
 	//Reset to 28
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
     memory->memoryPointer = 0x28;
 	mClock += 4;
 	tClock += 16;
@@ -4509,7 +4512,7 @@ void Cpu::opcodeF5()
 {
 	//Push AF
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->getAF());
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->getAF());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4531,7 +4534,7 @@ void Cpu::opcodeF7()
 {
 	//Reset to 30
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
     memory->memoryPointer = 0x30;
 	mClock += 4;
 	tClock += 16;
@@ -4548,7 +4551,7 @@ void Cpu::opcodeF8(unsigned char n)
     memory->setZFlag(false);
     memory->setNFlag(false);
 
-    memory->setHL((short)(result & 0xFFFF));
+    memory->setHL(static_cast<short>(result & 0xFFFF));
 
 	mClock += 3;
 	tClock += 12;
@@ -4565,7 +4568,7 @@ void Cpu::opcodeF9()
 void Cpu::opcodeFA(short nn)
 {
 	//Load data at short into A
-    memory->setA(memory->readMemory(nn));
+    memory->setA(memory->readMemory(static_cast<unsigned short>(nn)));
 	mClock += 4;
 	tClock += 16;
 }
@@ -4606,7 +4609,7 @@ void Cpu::opcodeFF()
     //beakStack[--memory->stackPointer] = memory->memoryPointer;
     //memory->writeMemory(--memory->stackPointer, memory->memoryPointer);
     memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
+    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
     memory->memoryPointer = 0x38;
 	mClock += 4;
 	tClock += 16;
@@ -4729,11 +4732,11 @@ void Cpu::opcodeCB05()
 void Cpu::opcodeCB06()
 {
 	//Rotate data in HL Left, put previous bit 7 into Carry flag
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, rotateLeft(memory->readMemory(hl)));
 
-    memory->writeMemory(memory->getHL(), rotateLeft(memory->readMemory(memory->getHL())));
-
-    memory->setCFlag(memory->readMemory(memory->getHL()) & 0x01);
-    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
+    memory->setCFlag(memory->readMemory(hl) & 0x01);
+    memory->setZFlag(memory->readMemory(hl) == 0);
 
 
     //memory->writeMemory(memory->getHL(), (byte)(memory->readMemory(memory->getHL()) << 1));
@@ -4879,12 +4882,12 @@ void Cpu::opcodeCB0D()
 void Cpu::opcodeCB0E()
 {
 	//Rotate data at HL Right, put previous bit 0 into Carry flag
-
-    memory->writeMemory(memory->getHL(), (unsigned char)(rotateRight(memory->readMemory(memory->getHL()))));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->writeMemory(hl, static_cast<unsigned char>(rotateRight(memory->readMemory(hl))));
 
     memory->setB(rotateRight(memory->getB()));
-    memory->setCFlag(((memory->readMemory(memory->getHL()) & 0x80) >> 7) > 0);
-    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
+    memory->setCFlag(((memory->readMemory(hl) & 0x80) >> 7) > 0);
+    memory->setZFlag(memory->readMemory(hl) == 0);
 
 
     //memory->writeMemory(memory->getHL(), (byte)(memory->readMemory(memory->getHL()) >> 1));
@@ -4921,7 +4924,7 @@ void Cpu::opcodeCB10()
     //memory->setB(rotateLeft(memory->getB()));
 
     unsigned char oldBit = (memory->getB() & 0x80) >> 7;
-    memory->setB((memory->getB() << 1) | (unsigned char)memory->getCFlag());
+    memory->setB((memory->getB() << 1) | static_cast<unsigned char>(memory->getCFlag()));
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -4938,7 +4941,7 @@ void Cpu::opcodeCB11()
     //memory->setC(rotateLeft(memory->getC()));
 
     unsigned char oldBit = (memory->getC() & 0x80) >> 7;
-    memory->setC((memory->getC() << 1) | (unsigned char)memory->getCFlag());
+    memory->setC(((memory->getC() << 1) | memory->getCFlag()) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -4954,7 +4957,7 @@ void Cpu::opcodeCB12()
 	//Rotate D Left
 
     unsigned char oldBit = (memory->getD() & 0x80) >> 7;
-    memory->setD((memory->getD() << 1) | (unsigned char)memory->getCFlag());
+    memory->setD(((memory->getD() << 1) | memory->getCFlag()) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -4970,7 +4973,7 @@ void Cpu::opcodeCB13()
 	//Rotate E Left
 
     unsigned char oldBit = (memory->getE() & 0x80) >> 7;
-    memory->setE((memory->getE() << 1) | (unsigned char)memory->getCFlag());
+    memory->setE(((memory->getE() << 1) | memory->getCFlag()) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -4986,7 +4989,7 @@ void Cpu::opcodeCB14()
 	//Rotate H Left
 
     unsigned char oldBit = (memory->getH() & 0x80) >> 7;
-    memory->setH((memory->getH() << 1) | (unsigned char)memory->getCFlag());
+    memory->setH(((memory->getH() << 1) | memory->getCFlag()) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5002,7 +5005,7 @@ void Cpu::opcodeCB15()
 	//Rotate L Left
 
     unsigned char oldBit = (memory->getL() & 0x80) >> 7;
-    memory->setL((memory->getL() << 1) | (unsigned char)memory->getCFlag());
+    memory->setL(((memory->getL() << 1) | memory->getCFlag()) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5016,15 +5019,15 @@ void Cpu::opcodeCB15()
 void Cpu::opcodeCB16()
 {
 	//Rotate data at HL Left
-
-    unsigned char oldBit = (memory->readMemory(memory->getHL()) & 0x80) >> 7;
-    memory->writeMemory(memory->getHL(), (unsigned char)((memory->readMemory(memory->getHL()) << 1) | (unsigned char)memory->getCFlag()));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    unsigned char oldBit = (memory->readMemory(hl) & 0x80) >> 7;
+    memory->writeMemory(hl, static_cast<unsigned char>((memory->readMemory(hl) << 1) | memory->getCFlag()));
     memory->setCFlag(oldBit > 0);
 
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
+    memory->setZFlag(memory->readMemory(static_cast<unsigned short>(memory->getHL())) == 0);
     memory->setNFlag(false);
     memory->setHFlag(false);
 }
@@ -5034,7 +5037,7 @@ void Cpu::opcodeCB17()
 	//Rotate A Left
 
     unsigned char oldBit = (memory->getA() & 0x80) >> 7;
-    memory->setA((memory->getA() << 1) | (unsigned char)memory->getCFlag());
+    memory->setA(((memory->getA() << 1) | memory->getCFlag()) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5050,7 +5053,7 @@ void Cpu::opcodeCB18()
 	//Rotate B Right
 
     unsigned char oldBit = (memory->getB() & 0x01);
-    memory->setB((memory->getB() >> 1) | (memory->getCFlag() << 7));
+    memory->setB(((memory->getB() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5067,7 +5070,7 @@ void Cpu::opcodeCB19()
 	//Rotate C Right
 
     unsigned char oldBit = (memory->getC() & 0x01);
-    memory->setC((memory->getC() >> 1) | (memory->getCFlag() << 7));
+    memory->setC(((memory->getC() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5083,7 +5086,7 @@ void Cpu::opcodeCB1A()
 	//Rotate D Right
 
     unsigned char oldBit = (memory->getD() & 0x01);
-    memory->setD((memory->getD() >> 1) | (memory->getCFlag() << 7));
+    memory->setD(((memory->getD() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5099,7 +5102,7 @@ void Cpu::opcodeCB1B()
 	//Rotate E Right
 
     unsigned char oldBit = (memory->getE() & 0x01);
-    memory->setE((memory->getE() >> 1) | (memory->getCFlag() << 7));
+    memory->setE(((memory->getE() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5115,7 +5118,7 @@ void Cpu::opcodeCB1C()
 	//Rotate H Right
 
     unsigned char oldBit = (memory->getH() & 0x01);
-    memory->setH((memory->getH() >> 1) | (memory->getCFlag() << 7));
+    memory->setH(((memory->getH() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5131,7 +5134,7 @@ void Cpu::opcodeCB1D()
 	//Rotate L Right
 
     unsigned char oldBit = (memory->getL() & 0x01);
-    memory->setL((memory->getL() >> 1) | (memory->getCFlag() << 7));
+    memory->setL(((memory->getL() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5145,15 +5148,15 @@ void Cpu::opcodeCB1D()
 void Cpu::opcodeCB1E()
 {
 	//Rotate/Shift HL Right
-
-    unsigned char oldBit = (memory->readMemory(memory->getHL()) & 0x01);
-    memory->writeMemory(memory->getHL(), (unsigned char)((memory->readMemory(memory->getHL()) >> 1) | (memory->getCFlag() << 7)));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    unsigned char oldBit = (memory->readMemory(hl) & 0x01);
+    memory->writeMemory(hl, (unsigned char)((memory->readMemory(hl) >> 1) | (memory->getCFlag() << 7)));
     memory->setCFlag(oldBit > 0);
 
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
+    memory->setZFlag(memory->readMemory(hl) == 0);
     memory->setNFlag(false);
     memory->setHFlag(false);
 }
@@ -5163,7 +5166,7 @@ void Cpu::opcodeCB1F()
 	//Rotate A Right
 
     unsigned char oldBit = (memory->getA() & 0x01);
-    memory->setA((memory->getA() >> 1) | (memory->getCFlag() << 7));
+    memory->setA(((memory->getA() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
     memory->setCFlag(oldBit > 0);
 
 	mClock += 2;
@@ -5179,7 +5182,7 @@ void Cpu::opcodeCB20()
 	//Shift B Left - Set Carry to old Bit 7
 
     memory->setCFlag(((memory->getB() & 0x80) >> 7) > 0);
-    memory->setB(memory->getB() << 1);
+    memory->setB((memory->getB() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
@@ -5194,7 +5197,7 @@ void Cpu::opcodeCB21()
 	//Shift C Left - Set Carry to old Bit 7
 
     memory->setCFlag(((memory->getC() & 0x80) >> 7) > 0);
-    memory->setC(memory->getC() << 1);
+    memory->setC((memory->getC() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
@@ -5209,7 +5212,7 @@ void Cpu::opcodeCB22()
 	//Shift D Left - Set Carry to old Bit 7
 
     memory->setCFlag(((memory->getD() & 0x80) >> 7) > 0);
-    memory->setD(memory->getD() << 1);
+    memory->setD((memory->getD() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
@@ -5224,7 +5227,7 @@ void Cpu::opcodeCB23()
 	//Shift E Left - Set Carry to old Bit 7
 
     memory->setCFlag(((memory->getE() & 0x80) >> 7) > 0);
-    memory->setE(memory->getE() << 1);
+    memory->setE((memory->getE() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
@@ -5239,7 +5242,7 @@ void Cpu::opcodeCB24()
 	//Shift H Left - Set Carry to old Bit 7
 
     memory->setCFlag(((memory->getH() & 0x80) >> 7) > 0);
-    memory->setH(memory->getH() << 1);
+    memory->setH((memory->getH() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
@@ -5254,7 +5257,7 @@ void Cpu::opcodeCB25()
 	//Shift L Left - Set Carry to old Bit 7
 
     memory->setCFlag(((memory->getL() & 0x80) >> 7) > 0);
-    memory->setL(memory->getL() << 1);
+    memory->setL((memory->getL() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
@@ -5267,14 +5270,14 @@ void Cpu::opcodeCB25()
 void Cpu::opcodeCB26()
 {
 	//Shift data at HL Left - Set Carry to old Bit 7
-
-    memory->setCFlag(((memory->readMemory(memory->getHL()) & 0x80) >> 7) > 0);
-    memory->writeMemory(memory->getHL(), (unsigned char)(memory->readMemory(memory->getHL()) << 1));
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    memory->setCFlag(((memory->readMemory(hl) & 0x80) >> 7) > 0);
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) << 1));
 
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
+    memory->setZFlag(memory->readMemory(hl) == 0);
     memory->setNFlag(false);
     memory->setHFlag(false);
 }
@@ -5284,7 +5287,7 @@ void Cpu::opcodeCB27()
 	//Shift A Left - Set Carry to old Bit 7
 
     memory->setCFlag(((memory->getA() & 0x80) >> 7) > 0);
-    memory->setA(memory->getA() << 1);
+    memory->setA((memory->getA() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
@@ -5300,7 +5303,7 @@ void Cpu::opcodeCB28()
 
     unsigned char oldValue = memory->getB();
     memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setB((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    memory->setB((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
@@ -5316,7 +5319,7 @@ void Cpu::opcodeCB29()
 
     unsigned char oldValue = memory->getC();
     memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setC((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    memory->setC((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
@@ -5332,7 +5335,7 @@ void Cpu::opcodeCB2A()
 
     unsigned char oldValue = memory->getD();
     memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setD((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    memory->setD((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
@@ -5348,7 +5351,7 @@ void Cpu::opcodeCB2B()
 
     unsigned char oldValue = memory->getE();
     memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setE((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    memory->setE((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
@@ -5364,7 +5367,7 @@ void Cpu::opcodeCB2C()
 
     unsigned char oldValue = memory->getH();
     memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setH((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    memory->setH((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
@@ -5380,7 +5383,7 @@ void Cpu::opcodeCB2D()
 
     unsigned char oldValue = memory->getL();
     memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setL((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    memory->setL((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
@@ -5393,15 +5396,15 @@ void Cpu::opcodeCB2D()
 void Cpu::opcodeCB2E()
 {
 	//Shift data at HL Right - Set Carry to old Bit 0
-
-    unsigned char oldValue = memory->readMemory(memory->getHL());
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    unsigned char oldValue = memory->readMemory(hl);
     memory->setCFlag((oldValue & 0x01) > 0);
-    memory->writeMemory(memory->getHL(), ((unsigned char)((oldValue & 0x80) | (oldValue >> 1))));
+    memory->writeMemory(hl, static_cast<unsigned char>((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag(memory->readMemory(memory->getHL()) == 0);
+    memory->setZFlag(memory->readMemory(hl) == 0);
     memory->setNFlag(false);
     memory->setHFlag(false);
 }
@@ -5412,7 +5415,7 @@ void Cpu::opcodeCB2F()
 
     unsigned char oldValue = memory->getA();
     memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setA((unsigned char)((oldValue & 0x80) | (oldValue >> 1)));
+    memory->setA((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
@@ -5426,7 +5429,7 @@ void Cpu::opcodeCB30()
 {
 	//Swap nibbles in B
     unsigned char b = memory->getB();
-	b = ((b & 0x0F) << 4) | ((b & 0xF0) >> 4);
+    b = static_cast<unsigned char>((b & 0x0F) << 4) | ((b & 0xF0) >> 4);
     memory->setB(b);
 	mClock += 2;
 	tClock += 8;
@@ -5441,7 +5444,7 @@ void Cpu::opcodeCB31()
 {
 	//Swap nibbles in C
     unsigned char c = memory->getC();
-	c = ((c & 0x0F) << 4) | ((c & 0xF0) >> 4);
+    c = static_cast<unsigned char>((c & 0x0F) << 4) | ((c & 0xF0) >> 4);
     memory->setC(c);
 	mClock += 2;
 	tClock += 8;
@@ -5456,7 +5459,7 @@ void Cpu::opcodeCB32()
 {
 	//Swap nibbles in D
     unsigned char d = memory->getD();
-	d = ((d & 0x0F) << 4) | ((d & 0xF0) >> 4);
+    d = static_cast<unsigned char>((d & 0x0F) << 4) | ((d & 0xF0) >> 4);
     memory->setD(d);
 	mClock += 2;
 	tClock += 8;
@@ -5471,7 +5474,7 @@ void Cpu::opcodeCB33()
 {
 	//Swap nibbles in E
     unsigned char e = memory->getE();
-	e = ((e & 0x0F) << 4) | ((e & 0xF0) >> 4);
+    e = static_cast<unsigned char>((e & 0x0F) << 4) | ((e & 0xF0) >> 4);
     memory->setE(e);
 	mClock += 2;
 	tClock += 8;
@@ -5486,7 +5489,7 @@ void Cpu::opcodeCB34()
 {
 	//Swap nibbles in H
     unsigned char h = memory->getH();
-	h = ((h & 0x0F) << 4) | ((h & 0xF0) >> 4);
+    h = static_cast<unsigned char>((h & 0x0F) << 4) | ((h & 0xF0) >> 4);
     memory->setH(h);
 	mClock += 2;
 	tClock += 8;
@@ -5501,7 +5504,7 @@ void Cpu::opcodeCB35()
 {
 	//Swap nibbles in L
     unsigned char l = memory->getL();
-	l = ((l & 0x0F) << 4) | ((l & 0xF0) >> 4);
+    l = static_cast<unsigned char>((l & 0x0F) << 4) | ((l & 0xF0) >> 4);
     memory->setL(l);
 	mClock += 2;
 	tClock += 8;
@@ -5516,9 +5519,9 @@ void Cpu::opcodeCB35()
 void Cpu::opcodeCB36()
 {
 	//Swap nibbles in memory at HL
-    short hl = memory->getHL();
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
     unsigned char hlData = memory->readMemory(hl);
-	hlData = ((hlData & 0x0F) << 4) | ((hlData & 0xF0) >> 4);
+    hlData = static_cast<unsigned char>((hlData & 0x0F) << 4) | ((hlData & 0xF0) >> 4);
     memory->writeMemory(hl, hlData);
 	mClock += 3;
 	tClock += 12;
@@ -5533,7 +5536,7 @@ void Cpu::opcodeCB37()
 {
 	//Swap nibbles in A
     unsigned char a = memory->getA();
-	a = ((a & 0x0F) << 4) | ((a & 0xF0) >> 4);
+    a = static_cast<unsigned char>((a & 0x0F) << 4) | ((a & 0xF0) >> 4);
     memory->setA(a);
 	mClock += 2;
 	tClock += 8;
@@ -5633,7 +5636,7 @@ void Cpu::opcodeCB3E()
     //Shift data at HL Right
     unsigned short hl = static_cast<unsigned short>(memory->getHL());
     memory->setCFlag(memory->readMemory(hl) & 0x01);
-    memory->writeMemory(hl, (unsigned char)(memory->readMemory(hl) >> 1));
+    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) >> 1));
 
 	mClock += 3;
 	tClock += 12;
