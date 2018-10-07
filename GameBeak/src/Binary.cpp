@@ -24,7 +24,7 @@ unsigned char rotateLeft(unsigned char number, int shiftAmount)
 
 unsigned char rotateRight(unsigned char number)
 {
-    unsigned char lostBit = (number & 0x01) << 7;
+    unsigned char lostBit = ((number & 0x01) << 7) & 0xFF;
     number >>= 1;
     number |= lostBit;
 
@@ -54,9 +54,9 @@ unsigned char returnHalfNibble(unsigned char data, int halfNibblePosition)
 
 unsigned char reverseBits(unsigned char number)
 {
-    number = ((number & 0xF0) >> 4) | ((number & 0x0F) << 4);
-    number = ((number & 0xCC) >> 2) | ((number & 0x33) << 2);
-    number = ((number & 0xAA) >> 1)  | ((number & 0x55) << 1);
+    number = (((number & 0xF0) >> 4) | ((number & 0x0F) << 4)) & 0xFF;
+    number = (((number & 0xCC) >> 2) | ((number & 0x33) << 2)) & 0xFF;
+    number = (((number & 0xAA) >> 1)  | ((number & 0x55) << 1)) & 0xFF;
     return number;
 }
 
@@ -75,12 +75,12 @@ QString hexToASCII(int value)
             {
                 //0x41 is ASCII 'a', value of character will index appropriate letter
                 toConvert -= 0xA;
-                output = (char)(0x61 + toConvert) + output;
+                output = static_cast<char>(0x61 + toConvert) + output;
             }
             else
             {
                 //0x30 is ASCII '0', value of number will index appropriate character
-                output = (char)(0x30 + toConvert) + output;
+                output = static_cast<char>(0x30 + toConvert) + output;
             }
 
         }
@@ -108,12 +108,12 @@ QString hexToASCIIU(unsigned short value)
             {
                 //0x41 is ASCII 'a', value of character will index appropriate letter
                 toConvert -= 0xA;
-                output = (char)(0x61 + toConvert) + output;
+                output = static_cast<char>(0x61 + toConvert) + output;
             }
             else
             {
                 //0x30 is ASCII '0', value of number will index appropriate character
-                output = (char)(0x30 + toConvert) + output;
+                output = static_cast<char>(0x30 + toConvert) + output;
             }
 
         }
@@ -141,12 +141,12 @@ QString hexToASCII(unsigned char value)
 			{
                 //0x41 is ASCII 'a', value of character will index appropriate letter
                 toConvert -= 0xA;
-                output = (char)(0x61 + toConvert) + output;
+                output = static_cast<char>(0x61 + toConvert) + output;
             }
             else
             {
                 //0x30 is ASCII '0', value of number will index appropriate character
-                output = (char)(0x30 + toConvert) + output;
+                output = static_cast<char>(0x30 + toConvert) + output;
             }
 
         }
