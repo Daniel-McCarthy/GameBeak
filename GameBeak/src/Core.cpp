@@ -21,3 +21,8 @@ Input* Core::getInputPointer() {
 bool* Core::getGBCModePointer() {
     return &GBCMode;
 }
+
+void Core::setPaused(bool setting) {
+    paused = setting;
+}
+
