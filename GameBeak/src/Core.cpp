@@ -30,3 +30,7 @@ void Core::setRun(bool setting) {
     run = setting;
 }
 
+void Core::setStep(bool setting) {
+    step = setting;
+}
+
