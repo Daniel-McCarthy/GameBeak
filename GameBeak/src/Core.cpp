@@ -26,3 +26,7 @@ void Core::setPaused(bool setting) {
     paused = setting;
 }
 
+void Core::setRun(bool setting) {
+    run = setting;
+}
+

@@ -15,6 +15,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect(this, &MainWindow::setEmulationPaused,
                              core, &Core::setPaused);
+
+    QObject::connect(this, &MainWindow::setEmulationRun,
+                             core, &Core::setRun);
 }
 
 MainWindow::~MainWindow()
@@ -25,6 +28,10 @@ MainWindow::~MainWindow()
 
     QObject::disconnect(this, &MainWindow::setEmulationPaused,
                              core, &Core::setPaused);
+
+    QObject::disconnect(this, &MainWindow::setEmulationRun,
+                             core, &Core::setRun);
+
 }
 
 void MainWindow::on_actionOpen_triggered()
