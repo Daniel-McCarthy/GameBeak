@@ -1,5 +1,5 @@
 #include "Gpu.h"
-#include "Main.h"
+#include "Core.h"
 #include <vector>
 
 Gpu::Gpu(Core* core)
@@ -196,7 +196,7 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
         unsigned char vramBankSelection = 0; //DMG only has bank 0.
         unsigned char gbcBGPalette = 0;
 
-		if (GBCMode)
+        if (core->GBCMode)
 		{
             unsigned char tileFlags = beakMemory.readVRAMBankRam((unsigned short)(tileIndex + 0x1800), 1);
             gbcBGPalette = (unsigned char)(tileFlags & 0b0111);
@@ -214,7 +214,7 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
 		{
             QColor pixelColor;
 
-			if (!GBCMode)
+            if (!core->GBCMode)
 			{
 				pixelColor = returnColor(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6), 0);
 			}
@@ -296,7 +296,7 @@ void Gpu::drawLineFromWindowMap(unsigned char lineY)
 		tileOffset = tileID * 16;
 		tileAddress = baseAddress + tileOffset;
 
-		if (GBCMode)
+        if (core->GBCMode)
 		{
             unsigned char tileFlags = beakMemory.readVRAMBankRam((unsigned short)(tileIndex + 0x1C00), 1);
             gbcBGPalette = (unsigned char)(tileFlags & 0b0111);
@@ -314,7 +314,7 @@ void Gpu::drawLineFromWindowMap(unsigned char lineY)
 		{
             QColor pixelColor;
 
-			if (!GBCMode)
+            if (!core->GBCMode)
 			{
 				pixelColor = returnColor(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6), 0);
 			}
@@ -415,7 +415,7 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 						{
                             QColor pixelColor;
 
-							if (!GBCMode)
+                            if (!core->GBCMode)
 							{
 								pixelColor = returnColor(colorNumber, dmgPaletteSetting + 1); //Plus 1 because 0 is BG palette, so value must be 1 or 2 to access OBJ1 or OBj2.
 							}
