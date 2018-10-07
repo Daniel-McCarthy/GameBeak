@@ -1700,7 +1700,7 @@ void Cpu::opcode01(short nn)
 void Cpu::opcode02()
 {
 	//Load A into data at BC
-    memory->writeMemory(memory->getBC(), memory->getA());
+    memory->writeMemory(static_cast<unsigned short>(memory->getBC()), memory->getA());
 	mClock += 2;
 	tClock += 8;
 }
@@ -1769,7 +1769,7 @@ void Cpu::opcode07()
 void Cpu::opcode08(short nn)
 {
 	//Load SP into data at NN
-    memory->writeMemory(nn, memory->stackPointer);
+    memory->writeMemory(static_cast<unsigned short>(nn), memory->stackPointer);
 	mClock += 5;
 	tClock += 20;
 }
@@ -1778,12 +1778,12 @@ void Cpu::opcode09()
 {
 	//Add BC to HL
 
-    unsigned short hl = memory->getHL();
-    unsigned short bc = memory->getBC();
+    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    unsigned short bc = static_cast<unsigned short>(memory->getBC());
 	int totalSum = hl + bc;
 
     memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
-    memory->setHL(totalSum & 0xFFFF);
+    memory->setHL(static_cast<short>(totalSum & 0xFFFF));
     memory->setCFlag(totalSum > 0xFFFF);
 	
 	mClock += 2;
@@ -1797,7 +1797,7 @@ void Cpu::opcode09()
 void Cpu::opcode0A()
 {
 	//Load data at BC into A
-    memory->setA(memory->readMemory(memory->getBC()));
+    memory->setA(memory->readMemory(static_cast<unsigned short>(memory->getBC())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -1884,7 +1884,7 @@ void Cpu::opcode11(short nn)
 void Cpu::opcode12()
 {
 	//Load A into data at DE
-    memory->writeMemory(memory->getDE(), memory->getA());
+    memory->writeMemory(static_cast<unsigned short>(memory->getDE()), memory->getA());
 	mClock += 2;
 	tClock += 8;
 }
