@@ -23,7 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    emit setEmulationRun(false);
     delete ui;
+
     QObject::disconnect(this, &MainWindow::onGameFileOpened,
                         core->getMemoryPointer(), &Memory::romLoaded);
 
