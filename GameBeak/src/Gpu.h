@@ -2,6 +2,7 @@
 
 #include <QList>
 #include <QColor>
+#include <QFile>
 
 using namespace std;
 
@@ -58,7 +59,7 @@ public:
     QColor returnGBCSpriteColor(unsigned char colorNumber, unsigned char palette);
     QColor returnGBCBackgroundColor(unsigned char colorNumber, unsigned char palette);
     unsigned char returnPalette(unsigned char palette);
-	void loadPalettesFromXML(ifstream file);
+    void loadPalettesFromXML(QFile file);
 	ifstream openCreatePalettesXML();
 
 };

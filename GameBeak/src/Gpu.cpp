@@ -2,6 +2,8 @@
 #include "Core.h"
 #include <vector>
 
+#include <QTextStream>
+
 Gpu::Gpu(Core* core)
 {
     this->core = core;
@@ -567,77 +569,75 @@ unsigned char Gpu::returnPalette(unsigned char palette)
     return memory->readMemory(0xFF47 + palette);
 }
 
-void Gpu::loadPalettesFromXML(ifstream file)
+void Gpu::loadPalettesFromXML(QFile file)
 {
-	string line;
+    QString line;
     list<unsigned char> colorValues;
 
-	while (getline(file, line))
-	{
-		bool test1 = (line.find("<bgp>") != string::npos) && (line.find("</bgp>") != string::npos);
-		bool test2 = (line.find("<0bp0>") != string::npos) && (line.find("</0bp0>") != string::npos);
-		bool test3 = (line.find("<0bp1>") != string::npos) && (line.find("</0bp1>") != string::npos);
+    if (file.open(QIODevice::ReadOnly)) {
+        QTextStream text(&file);
 
-		if (test1 || test2 || test3)
-		{
-			int first = line.find_first_of('>') + 1;
-			int last = line.find_last_of('<');
+        QRegExp bgp("<bgp>.*</bgp>"); //Contains both <bgp> and </bgp>
+        QRegExp bp0("<0bp0>.*</0bp0>"); //Contains both <0bp0> and </0bp0>
+        QRegExp bp1("<0bp1>.*</0bp1>"); //Contains both <0bp1> and </0bp1>
 
-			line = line.substr(first, last - first);
+        while (!text.atEnd()) {
+            line =text.readLine();
+            bool test1 = (line.contains(bgp));
+            bool test2 = (line.contains(bp0));
+            bool test3 = (line.contains(bp1));
 
-			for (int i = 0; i < 4; i++)
-			{
-				unsigned int r = stoi(line.substr(0, 2), 0, 16);
-				unsigned int g = stoi(line.substr(2, 2), 0, 16);
-				unsigned int b = stoi(line.substr(4, 2), 0, 16);
+            if (test1 || test2 || test3) {
+                int first = line.indexOf('>') + 1;
+                int last = line.lastIndexOf('<');
 
-				colorValues.push_back(r);
-				colorValues.push_back(g);
-				colorValues.push_back(b);
+                line = line.mid(first, last - first);
 
-				if (line.length() > 8)
-				{
-					line = line.substr(9, line.length() - 9);
-				}
-			}
+                for (int i = 0; i < 4; i++) {
+                    unsigned char r = line.mid(0, 2).toUInt(NULL, 16) & 0xFF;
+                    unsigned char g = line.mid(2, 2).toUInt(NULL, 16) & 0xFF;
+                    unsigned char b = line.mid(4, 2).toUInt(NULL, 16) & 0xFF;
 
-		}
-	}
-	if ((colorValues.size() / 36) > 0)
-	{
-		int paletteOffset = 0;
-		int colorOffset = 0;
+                    colorValues.push_back(r);
+                    colorValues.push_back(g);
+                    colorValues.push_back(b);
 
-		while (colorValues.size() >= (4*3))
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				int r = colorValues.front();
-				colorValues.pop_front();
-				int g = colorValues.front();
-				colorValues.pop_front();
-				int b = colorValues.front();
-				colorValues.pop_front();
+                    if (line.length() > 8) {
+                        line = line.mid(9, line.length() - 9);
+                    }
+                }
 
-                QColor color = QColor(r, g, b, 255);
+            }
+        }
+        if ((colorValues.size() / 36) > 0) {
+            int paletteOffset = 0;
+            int colorOffset = 0;
 
+            while (colorValues.size() >= (4*3))
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    int r = colorValues.front();
+                    colorValues.pop_front();
+                    int g = colorValues.front();
+                    colorValues.pop_front();
+                    int b = colorValues.front();
+                    colorValues.pop_front();
 
-                gameBeakPalette[(paletteOffset * 4) + colorOffset] = color;
+                    QColor color = QColor(r, g, b, 255);
+                    gameBeakPalette[(paletteOffset * 4) + colorOffset] = color;
 
-				if (colorOffset >= 3)
-				{
-					colorOffset = 0;
-				}
-				else
-				{
-					colorOffset++;
-				}
-			}
+                    if (colorOffset >= 3) {
+                        colorOffset = 0;
+                    } else {
+                        colorOffset++;
+                    }
+                }
 
-			paletteOffset++;
-		}
-	}
-
+                paletteOffset++;
+            }
+        }
+    }
 	file.close();
 }
 
