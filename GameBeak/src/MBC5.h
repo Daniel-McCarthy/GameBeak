@@ -1,7 +1,3 @@
-#include <Windows.h>
-#include <string>
-using namespace std;
-
 #pragma once
 class MBC5
 {
