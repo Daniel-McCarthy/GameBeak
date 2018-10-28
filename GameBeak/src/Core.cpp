@@ -34,3 +34,7 @@ void Core::setStep(bool setting) {
     step = setting;
 }
 
+void Core::setForcedDMGMode(bool setting) {
+    ForceDMGMode = setting;
+}
+

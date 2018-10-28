@@ -41,6 +41,7 @@ public slots:
     void setPaused(bool setting);
     void setRun(bool setting);
     void setStep(bool setting);
+    void setForcedDMGMode(bool setting);
 };
 
 #endif // CORE_H
