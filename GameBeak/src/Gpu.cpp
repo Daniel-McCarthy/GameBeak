@@ -482,7 +482,7 @@ unsigned char Gpu::getWindowY()
 
 QColor Gpu::returnColor(int colorNumber)
 {
-	return gameBeakPalette[colorNumber + (paletteSetting * 12)];
+    return gameBeakPalette[colorNumber + (core->paletteSetting * 12)];
 }
 
 QColor Gpu::returnColor(int colorNumber, int palette)
@@ -499,7 +499,7 @@ QColor Gpu::returnColor(int colorNumber, int palette)
 	//colorNumber = (paletteData & (3 << (colorNumber * 2))) >> (colorNumber * 2);//(colorNumber + 1);
 	//return gameBeakPalette[colorNumber + paletteSetting << 2)];
 
-    return gameBeakPalette[((memory->readMemory(0xFF47 + palette) & (3 << (colorNumber * 2))) >> (colorNumber * 2)) + (paletteSetting * 12) + (palette << 2)];
+    return gameBeakPalette[((memory->readMemory(0xFF47 + palette) & (3 << (colorNumber * 2))) >> (colorNumber * 2)) + (core->paletteSetting * 12) + (palette << 2)];
 
 
 	//The palette variable is being used to select the memory location of the palette
