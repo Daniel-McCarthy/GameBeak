@@ -230,7 +230,7 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
                 pixelColor = returnGBCBackgroundColor((unsigned char)(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6)), gbcBGPalette);
 			}
 
-            beakWindow.setBGPixel((unsigned char)((i * 8) + j), (unsigned char)lineY, pixelColor);
+            screen->setBGPixel((unsigned char)((i * 8) + j), (unsigned char)lineY, pixelColor);
 			rowHalf1 <<= 1;
 			rowHalf2 <<= 1;
 
@@ -330,7 +330,7 @@ void Gpu::drawLineFromWindowMap(unsigned char lineY)
                 pixelColor = returnGBCBackgroundColor((unsigned char)(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6)), gbcBGPalette);
 			}
 
-            beakWindow.setWindowPixel((unsigned char)((i * 8) + j), (unsigned char)lineY, pixelColor);
+            screen->setWindowPixel((unsigned char)((i * 8) + j), (unsigned char)lineY, pixelColor);
 			rowHalf1 &= 0x7F;
 			rowHalf1 <<= 1;
 			rowHalf2 &= 0x7F;
@@ -418,7 +418,7 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 
 					if (colorNumber > 0)
 					{
-						if (!priority || (priority && (beakWindow.getBGPixel(scrollX + x + j, lineY + scrollY) == bgColor)))
+                        if (!priority || (priority && (screen->getBGPixel(scrollX + x + j, lineY + scrollY) == bgColor)))
 						{
                             QColor pixelColor;
 
@@ -431,7 +431,7 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 								pixelColor = returnGBCSpriteColor(colorNumber, gbcPaletteSetting);
 							}
 
-                            beakWindow.setSpritePixel((unsigned char)(x + j), (unsigned char)lineY, pixelColor);
+                            screen->setSpritePixel((unsigned char)(x + j), (unsigned char)lineY, pixelColor);
 						}
 					}
 
@@ -454,7 +454,7 @@ void Gpu::drawDebugTile(int tileNumber, QList<QList<QColor>> tile)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			beakWindow.setDebugPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
+            screen->setDebugPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
 		}
 
 		tile.erase(tile.begin());
