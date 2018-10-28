@@ -3,6 +3,9 @@
 #include <vector>
 
 #include <QTextStream>
+#include <QFileInfo>
+#include <QCoreApplication>
+#include <QDir>
 
 Gpu::Gpu(Core* core)
 {
