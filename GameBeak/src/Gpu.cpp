@@ -535,7 +535,7 @@ QColor Gpu::returnGBCSpriteColor(unsigned char colorNumber, unsigned char palett
 	g <<= 3;
 	b <<= 3;
 
-	return Color(r, g, b);
+    return QColor(r, g, b);
 }
 
 QColor Gpu::returnGBCBackgroundColor(unsigned char colorNumber, unsigned char palette)
