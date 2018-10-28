@@ -4,8 +4,6 @@
 #include <QColor>
 #include <QFile>
 
-using namespace std;
-
 class Core;
 class Memory;
 class Gpu
@@ -49,7 +47,7 @@ public:
     unsigned char getScrollY();
     unsigned char getWindowX();
     unsigned char getWindowY();
-    void drawDebugTile(int tileNumber, vector<vector<QColor>> tile);
+    void drawDebugTile(int tileNumber, QList<QList<QColor>> tile);
 	void drawLineFromBGMap(unsigned char  lineY);
 	void drawLineFromWindowMap(unsigned char  lineY);
 	void drawLineFromSpriteMap(unsigned char  lineY);
@@ -60,7 +58,7 @@ public:
     QColor returnGBCBackgroundColor(unsigned char colorNumber, unsigned char palette);
     unsigned char returnPalette(unsigned char palette);
     void loadPalettesFromXML(QFile file);
-	ifstream openCreatePalettesXML();
+    QString openCreatePalettesXML();
 
 };
 
