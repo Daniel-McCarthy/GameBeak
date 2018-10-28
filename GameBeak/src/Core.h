@@ -5,6 +5,7 @@
 #include "src/Rom.h"
 #include "src/Cpu.h"
 #include "src/Input.h"
+#include "src/Screen.h"
 
 #include <QWidget>
 
@@ -39,6 +40,7 @@ private:
     Rom* rom = new Rom();
     Cpu* cpu = new Cpu(this);
     Input* input = new Input(this);
+    Screen* screen = new Screen(this);
 
 
     enum paletteSettings
