@@ -26,6 +26,8 @@ public:
     bool enableInterruptsNextCycle = false;
     bool repeatBug; //Halt bug
 
+    short memoryPointer = 0x100;
+    short stackPointer = 0;
     //Settings values
     bool GBCMode = false;					//This controls whether Gameboy Color emulation is currently activated.
     bool ForceDMGMode = false;				//This allows forcing games to run in DMG emulation.
