@@ -6,6 +6,7 @@
 #include "src/Cpu.h"
 #include "src/Input.h"
 #include "src/Screen.h"
+#include "src/Gpu.h"
 
 #include <QWidget>
 
@@ -41,6 +42,7 @@ private:
     Rom* rom = new Rom();
     Cpu* cpu = new Cpu(this);
     Input* input = new Input(this);
+    Gpu* gpu = new Gpu(this);
     Screen* screen;
 
 
