@@ -11,6 +11,7 @@ Gpu::Gpu(Core* core)
 {
     this->core = core;
     this->memory = core->getMemoryPointer();
+    this->screen = core->getScreenPointer();
 }
 
 Gpu::~Gpu()

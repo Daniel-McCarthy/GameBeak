@@ -6,11 +6,13 @@
 
 class Core;
 class Memory;
+class Screen;
 class Gpu
 {
 private:
     Core* core;
     Memory* memory;
+    Screen* screen;
 
     const QColor darkestPink = QColor(72, 24, 59, 255); //Pink Black //48183BFF
     const QColor darkPink = QColor(255, 131, 217, 255); //Dark Pink //FF83D9FF
