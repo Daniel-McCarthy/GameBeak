@@ -20,6 +20,7 @@ public:
     Cpu* getCPUPointer();
     Input* getInputPointer();
     Screen* getScreenPointer();
+    Gpu* getGpuPointer();
 
     bool* getGBCModePointer();
 

@@ -25,6 +25,10 @@ Screen* Core::getScreenPointer() {
     return screen;
 }
 
+Gpu* Core::getGpuPointer() {
+    return gpu;
+}
+
 bool* Core::getGBCModePointer() {
     return &GBCMode;
 }
