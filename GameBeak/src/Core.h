@@ -18,6 +18,7 @@ public:
     Rom* getRomPointer();
     Cpu* getCPUPointer();
     Input* getInputPointer();
+    Screen* getScreenPointer();
 
     bool* getGBCModePointer();
 

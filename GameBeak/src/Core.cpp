@@ -18,6 +18,10 @@ Input* Core::getInputPointer() {
     return input;
 }
 
+Screen* Core::getScreenPointer() {
+    return screen;
+}
+
 bool* Core::getGBCModePointer() {
     return &GBCMode;
 }
