@@ -36,6 +36,25 @@ private:
     Cpu* cpu = new Cpu(this);
     Input* input = new Input(this);
 
+
+    enum paletteSettings
+    {
+        blackAndWhite,
+        greenDMG,
+        gamebeakPink,
+        gamebeakPinkAlt,
+        ultraPink,
+        grapeCherry,
+        mintPink,
+        kigb,
+        bgbm,
+        noCashGMB,
+        playGuy,
+        dreamGBC,
+        heboWIN,
+        fpgaBoy,
+    };
+
 signals:
 
 public slots:
