@@ -1,6 +1,9 @@
 #include "Core.h"
 
-Core::Core(QWidget *parent) : QWidget(parent) {}
+Core::Core(QWidget *parent, Screen *screen) : QWidget(parent)
+{
+    this->screen = screen;
+}
 
 Memory* Core::getMemoryPointer() {
     return memory;

@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    core = new Core();
+    core = new Core(this, ui->graphicsView);
     QObject::connect(this, &MainWindow::onGameFileOpened,
                              core->getMemoryPointer(), &Memory::romLoaded);
 

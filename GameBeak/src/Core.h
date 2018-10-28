@@ -13,7 +13,7 @@ class Core : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Core(QWidget *parent = nullptr);
+    explicit Core(QWidget *parent = nullptr, Screen* screen = nullptr);
     Memory* getMemoryPointer();
     Rom* getRomPointer();
     Cpu* getCPUPointer();
@@ -41,7 +41,7 @@ private:
     Rom* rom = new Rom();
     Cpu* cpu = new Cpu(this);
     Input* input = new Input(this);
-    Screen* screen = new Screen(this);
+    Screen* screen;
 
 
     enum paletteSettings
