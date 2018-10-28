@@ -99,7 +99,7 @@ void Gpu::drawAllTiles()
 {
 	int baseAddress = 0x8000;
 
-    vector<vector<QColor>> tile;
+    QList<QList<QColor>> tile;
 
 	for (int i = 0; i < 360; i++)
 	{
@@ -114,7 +114,7 @@ void Gpu::drawAllTiles()
             unsigned char rowHalf1 = memory->readMemory(tileAddress + j);
             unsigned char rowHalf2 = memory->readMemory(tileAddress + j + 1);
 
-            vector<QColor> row;
+            QList<QColor> row;
 
 			for (int k = 0; k < 8; k++)
 			{
@@ -441,7 +441,7 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 }
 
 //DrawTile: Draws tile data as given to location of tile number given
-void Gpu::drawDebugTile(int tileNumber, vector<vector<QColor>> tile)
+void Gpu::drawDebugTile(int tileNumber, QList<QList<QColor>> tile)
 {
 	int y = tileNumber / 20;
 	int x = tileNumber - (20 * y);
@@ -572,7 +572,7 @@ unsigned char Gpu::returnPalette(unsigned char palette)
 void Gpu::loadPalettesFromXML(QFile file)
 {
     QString line;
-    list<unsigned char> colorValues;
+    QList<unsigned char> colorValues;
 
     if (file.open(QIODevice::ReadOnly)) {
         QTextStream text(&file);
