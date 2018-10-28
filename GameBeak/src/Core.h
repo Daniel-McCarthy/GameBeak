@@ -24,6 +24,7 @@ public:
     bool paused;
     bool step;
     bool enableInterruptsNextCycle = false;
+    bool interruptNextCycle = false;
     bool repeatBug; //Halt bug
 
     short memoryPointer = 0x100;
