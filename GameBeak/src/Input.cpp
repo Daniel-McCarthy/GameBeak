@@ -9,14 +9,14 @@
 //Mapped to standard keyboard keys:
 //[Up][Left][Right][Down][Z][X][Enter][RShift]
 
-Input::Input(Core* core) {
-    memory = core->getMemoryPointer();
-    cpu = core->getCPUPointer();
+Input::Input(QObject *parent, Memory& memory, Cpu& cpu)
+    : QObject(parent), memory(memory), cpu(cpu)
+{
 }
 
 unsigned char Input::getKeyInput()
 {
-    return memory->readMemory(0xFF00);
+    return memory.readMemory(0xFF00);
 }
 
 bool Input::isAnyKeyPressed()
@@ -28,7 +28,7 @@ void Input::readInput()
 {
     unsigned char keyInput = getKeyInput();
 	bool interrupt = false;
-    cpu->setStop(false);
+    cpu.setStop(false);
 
 	if (((keyInput & 0x10) >> 4) == 1)
 	{
@@ -145,15 +145,15 @@ void Input::readInput()
 
 	if (interrupt)
 	{
-        memory->writeMemory(0xFF0F, (unsigned char)(memory->readMemory(0xFF0F) | 0x10));
+        memory.writeMemory(0xFF0F, (unsigned char)(memory.readMemory(0xFF0F) | 0x10));
 	}
 
-    memory->writeMemory(0xFF00, keyInput);
+    memory.writeMemory(0xFF00, keyInput);
 }
 
 void Input::setKeyInput(int keyCode, bool enabled)
 {
-    cpu->setStop(false);
+    cpu.setStop(false);
 
 	switch (keyCode)
 	{
