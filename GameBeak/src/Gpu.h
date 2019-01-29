@@ -10,9 +10,10 @@ class Screen;
 class Gpu
 {
 private:
-    Core* core;
-    Memory* memory;
-    Screen* screen;
+    Memory& memory;
+    Screen& screen;
+    bool& GBCMode;
+    unsigned char& paletteSetting;
 
     const QColor darkestPink = QColor(72, 24, 59, 255); //Pink Black //48183BFF
     const QColor darkPink = QColor(255, 131, 217, 255); //Dark Pink //FF83D9FF
@@ -27,7 +28,7 @@ public:
     unsigned char gameboyColorBackGroundPalette[64]; //2 unsigned chars per color, 4 colors per BG Palette, 8 BG Palettes
     unsigned char gameboyColorSpritePalette[64]; //2 unsigned chars per color, 4 colors per Sprite Palette, 8 Sprite Palettes
 
-    Gpu(Core* core);
+    Gpu(Memory& memory, Screen& screen, bool& gbcMode, unsigned char& paletteSetting);
     ~Gpu();
     unsigned char getLCDStatus();
     void setLCDStatus(unsigned char newStatus);

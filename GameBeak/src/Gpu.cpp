@@ -7,11 +7,9 @@
 #include <QCoreApplication>
 #include <QDir>
 
-Gpu::Gpu(Core* core)
+Gpu::Gpu(Memory& memory, Screen& screen, bool& gbcMode, unsigned char& paletteSetting)
+    : memory(memory), screen(screen), GBCMode(gbcMode), paletteSetting(paletteSetting)
 {
-    this->core = core;
-    this->memory = core->getMemoryPointer();
-    this->screen = core->getScreenPointer();
 }
 
 Gpu::~Gpu()
@@ -20,17 +18,17 @@ Gpu::~Gpu()
 
 unsigned char Gpu::getLCDStatus()
 {
-    return memory->readMemory(0xFF41);
+    return memory.readMemory(0xFF41);
 }
 
 void Gpu::setLCDStatus(unsigned char newStatus)
 {
-    memory->directMemoryWrite(0xFF41, newStatus);
+    memory.directMemoryWrite(0xFF41, newStatus);
 }
 
 void Gpu::setLCDMode(unsigned char status)
 {
-    memory->directMemoryWrite(0xFF41, (unsigned char)((getLCDStatus() & 0xFC) | status));
+    memory.directMemoryWrite(0xFF41, (unsigned char)((getLCDStatus() & 0xFC) | status));
 }
 
 unsigned char Gpu::getLCDMode()
@@ -45,17 +43,17 @@ unsigned char Gpu::getLCDLYCCheckEnabled()
 
 unsigned char Gpu::getLCDLYCompare()
 {
-    return memory->readMemory(0xFF45);
+    return memory.readMemory(0xFF45);
 }
 
 unsigned char Gpu::getLCDLY()
 {
-    return memory->readMemory(0xFF44);
+    return memory.readMemory(0xFF44);
 }
 
 unsigned char Gpu::getLCDControl()
 {
-    return memory->readMemory(0xFF40);
+    return memory.readMemory(0xFF40);
 }
 
 bool Gpu::getLCDOn()
@@ -115,8 +113,8 @@ void Gpu::drawAllTiles()
 
 		for (int j = 0; j < 16; j += 2)
 		{
-            unsigned char rowHalf1 = memory->readMemory(tileAddress + j);
-            unsigned char rowHalf2 = memory->readMemory(tileAddress + j + 1);
+            unsigned char rowHalf1 = memory.readMemory(tileAddress + j);
+            unsigned char rowHalf2 = memory.readMemory(tileAddress + j + 1);
 
             QList<QColor> row;
 
@@ -184,7 +182,7 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
 		tileIndex = tileX + (32 * tileY);
 		tileIDAddress = mapAddress + tileIndex;
 
-        tileID = memory->readVRAMBankRam(tileIDAddress, 0);
+        tileID = memory.readVRAMBankRam(tileIDAddress, 0);
 
 		if (baseAddress == 0x8800)
 		{
@@ -203,9 +201,9 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
         unsigned char vramBankSelection = 0; //DMG only has bank 0.
         unsigned char gbcBGPalette = 0;
 
-        if (core->GBCMode)
+        if (GBCMode == true)
 		{
-            unsigned char tileFlags = memory->readVRAMBankRam((unsigned short)(tileIndex + 0x1800), 1);
+            unsigned char tileFlags = memory.readVRAMBankRam((unsigned short)(tileIndex + 0x1800), 1);
             gbcBGPalette = (unsigned char)(tileFlags & 0b0111);
             vramBankSelection = (unsigned char)((tileFlags & 0b1000) >> 3);
 			bool horizontalFlip = (tileFlags & 0b0010 - 0000) > 0;
@@ -214,14 +212,14 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
 
 		}
 
-        rowHalf1 = memory->readVRAMBankRam(tileAddress + (lineToDraw * 2), 0);
-        rowHalf2 = memory->readVRAMBankRam(tileAddress + (lineToDraw * 2) + 1, 0);
+        rowHalf1 = memory.readVRAMBankRam(tileAddress + (lineToDraw * 2), 0);
+        rowHalf2 = memory.readVRAMBankRam(tileAddress + (lineToDraw * 2) + 1, 0);
 
 		for (int j = 0; j < 8; j++)
 		{
             QColor pixelColor;
 
-            if (!core->GBCMode)
+            if (GBCMode == false)
 			{
 				pixelColor = returnColor(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6), 0);
 			}
@@ -230,7 +228,7 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
                 pixelColor = returnGBCBackgroundColor((unsigned char)(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6)), gbcBGPalette);
 			}
 
-            screen->setBGPixel((unsigned char)((i * 8) + j), (unsigned char)lineY, pixelColor);
+            screen.setBGPixel((unsigned char)((i * 8) + j), (unsigned char)lineY, pixelColor);
 			rowHalf1 <<= 1;
 			rowHalf2 <<= 1;
 
@@ -286,7 +284,7 @@ void Gpu::drawLineFromWindowMap(unsigned char lineY)
 		tileIndex = tileX + (32 * tileY);
 		tileIDAddress = mapAddress + tileIndex;
 
-        tileID = memory->readVRAMBankRam(tileIDAddress, 0);
+        tileID = memory.readVRAMBankRam(tileIDAddress, 0);
 
 		if (baseAddress == 0x8800)
 		{
@@ -303,9 +301,9 @@ void Gpu::drawLineFromWindowMap(unsigned char lineY)
 		tileOffset = tileID * 16;
 		tileAddress = baseAddress + tileOffset;
 
-        if (core->GBCMode)
+        if (GBCMode == true)
 		{
-            unsigned char tileFlags = memory->readVRAMBankRam((unsigned short)(tileIndex + 0x1C00), 1);
+            unsigned char tileFlags = memory.readVRAMBankRam((unsigned short)(tileIndex + 0x1C00), 1);
             gbcBGPalette = (unsigned char)(tileFlags & 0b0111);
             vramBankSelection = (unsigned char)((tileFlags & 0b1000) >> 3);
 			bool horizontalFlip = (tileFlags & 0b0010 - 0000) > 0;
@@ -314,14 +312,14 @@ void Gpu::drawLineFromWindowMap(unsigned char lineY)
 
 		}
 
-        rowHalf1 = memory->readVRAMBankRam(tileAddress + (lineToDraw * 2), 0);
-        rowHalf2 = memory->readVRAMBankRam(tileAddress + (lineToDraw * 2) + 1, 0);
+        rowHalf1 = memory.readVRAMBankRam(tileAddress + (lineToDraw * 2), 0);
+        rowHalf2 = memory.readVRAMBankRam(tileAddress + (lineToDraw * 2) + 1, 0);
 
 		for (int j = 0; j < 8; j++)
 		{
             QColor pixelColor;
 
-            if (!core->GBCMode)
+            if (GBCMode == false)
 			{
 				pixelColor = returnColor(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6), 0);
 			}
@@ -330,7 +328,7 @@ void Gpu::drawLineFromWindowMap(unsigned char lineY)
                 pixelColor = returnGBCBackgroundColor((unsigned char)(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6)), gbcBGPalette);
 			}
 
-            screen->setWindowPixel((unsigned char)((i * 8) + j), (unsigned char)lineY, pixelColor);
+            screen.setWindowPixel((unsigned char)((i * 8) + j), (unsigned char)lineY, pixelColor);
 			rowHalf1 &= 0x7F;
 			rowHalf1 <<= 1;
 			rowHalf2 &= 0x7F;
@@ -374,11 +372,11 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 
 	for (int i = 0; i < 40; i++)
 	{
-        y = memory->readMemory(mapAddress + (i * 4)) - 16;
+        y = memory.readMemory(mapAddress + (i * 4)) - 16;
 
 		if (y > -8)
 		{
-            x = memory->readMemory(mapAddress + (i * 4) + 1) - 8;
+            x = memory.readMemory(mapAddress + (i * 4) + 1) - 8;
 			bool isSpriteOnLine = (y <= lineY) && ((y + ((spriteSize == 0) ? 8 : 16)) > lineY);
 
 			if (isSpriteOnLine)
@@ -387,8 +385,8 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 
 				lineToDraw = lineY - y;
 
-                tileNumber = memory->readMemory(mapAddress + (i * 4) + 2);
-                tileFlags = memory->readMemory(mapAddress + (i * 4) + 3);
+                tileNumber = memory.readMemory(mapAddress + (i * 4) + 2);
+                tileFlags = memory.readMemory(mapAddress + (i * 4) + 3);
 				priority = ((tileFlags & 0x80) >> 7) > 0; //If 1, displays in front of window. Otherwise is below window and above BG
 				yFlip = ((tileFlags & 0x40) >> 6) > 0; //Vertically flipped if 1, else 0.
 				xFlip = ((tileFlags & 0x20) >> 5) > 0; //Horizontally flipped if 1, else 0;
@@ -403,8 +401,8 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 					lineToDraw = ((spriteSize) ? 15 : 7) - lineToDraw;
 				}
 
-                rowHalf1 = memory->readVRAMBankRam(tileAddress + (lineToDraw * 2), 0);
-                rowHalf2 = memory->readVRAMBankRam(tileAddress + (lineToDraw * 2) + 1, 0);
+                rowHalf1 = memory.readVRAMBankRam(tileAddress + (lineToDraw * 2), 0);
+                rowHalf2 = memory.readVRAMBankRam(tileAddress + (lineToDraw * 2) + 1, 0);
 
 				if (xFlip)
 				{
@@ -418,11 +416,11 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 
 					if (colorNumber > 0)
 					{
-                        if (!priority || (priority && (screen->getBGPixel(scrollX + x + j, lineY + scrollY) == bgColor)))
+                        if (!priority || (priority && (screen.getBGPixel(scrollX + x + j, lineY + scrollY) == bgColor)))
 						{
                             QColor pixelColor;
 
-                            if (!core->GBCMode)
+                            if (GBCMode == false)
 							{
 								pixelColor = returnColor(colorNumber, dmgPaletteSetting + 1); //Plus 1 because 0 is BG palette, so value must be 1 or 2 to access OBJ1 or OBj2.
 							}
@@ -431,7 +429,7 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 								pixelColor = returnGBCSpriteColor(colorNumber, gbcPaletteSetting);
 							}
 
-                            screen->setSpritePixel((unsigned char)(x + j), (unsigned char)lineY, pixelColor);
+                            screen.setSpritePixel((unsigned char)(x + j), (unsigned char)lineY, pixelColor);
 						}
 					}
 
@@ -454,7 +452,7 @@ void Gpu::drawDebugTile(int tileNumber, QList<QList<QColor>> tile)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-            screen->setDebugPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
+            screen.setDebugPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
 		}
 
 		tile.erase(tile.begin());
@@ -463,27 +461,27 @@ void Gpu::drawDebugTile(int tileNumber, QList<QList<QColor>> tile)
 
 unsigned char Gpu::getScrollX()
 {
-    return memory->readMemory(0xFF43);
+    return memory.readMemory(0xFF43);
 }
 
 unsigned char Gpu::getScrollY()
 {
-    return memory->readMemory(0xFF42);
+    return memory.readMemory(0xFF42);
 }
 
 unsigned char Gpu::getWindowX()
 {
-    return memory->readMemory(0xFF4B);
+    return memory.readMemory(0xFF4B);
 }
 
 unsigned char Gpu::getWindowY()
 {
-    return memory->readMemory(0xFF4A);
+    return memory.readMemory(0xFF4A);
 }
 
 QColor Gpu::returnColor(int colorNumber)
 {
-    return gameBeakPalette[colorNumber + (core->paletteSetting * 12)];
+    return gameBeakPalette[colorNumber + (paletteSetting * 12)];
 }
 
 QColor Gpu::returnColor(int colorNumber, int palette)
@@ -497,10 +495,10 @@ QColor Gpu::returnColor(int colorNumber, int palette)
 	//The value returned from the palette data is then used to index from the emulator's palette array.
 
     //unsigned char paletteData = memory->readMemory(0xFF47 + palette);
-	//colorNumber = (paletteData & (3 << (colorNumber * 2))) >> (colorNumber * 2);//(colorNumber + 1);
-	//return gameBeakPalette[colorNumber + paletteSetting << 2)];
+    //colorNumber = (paletteData & (3 << (colorNumber * 2))) >> (colorNumber * 2);//(colorNumber + 1);
+    //return gameBeakPalette[colorNumber + paletteSetting << 2)];
 
-    return gameBeakPalette[((memory->readMemory(0xFF47 + palette) & (3 << (colorNumber * 2))) >> (colorNumber * 2)) + (core->paletteSetting * 12) + (palette << 2)];
+    return gameBeakPalette[((memory.readMemory(0xFF47 + palette) & (3 << (colorNumber * 2))) >> (colorNumber * 2)) + (paletteSetting * 12) + (palette << 2)];
 
 
 	//The palette variable is being used to select the memory location of the palette
@@ -526,8 +524,8 @@ QColor Gpu::returnGBCSpriteColor(unsigned char colorNumber, unsigned char palett
     unsigned char paletteAddress = (unsigned char)(palette * 8);
     unsigned char colorIndex = (unsigned char)(colorNumber * 2);
 
-    unsigned char paletteData1 = memory->readSpritePaletteRam((unsigned char)(paletteAddress + colorIndex + 1));
-    unsigned char paletteData2 = memory->readSpritePaletteRam((unsigned char)(paletteAddress + colorIndex + 0));
+    unsigned char paletteData1 = memory.readSpritePaletteRam((unsigned char)(paletteAddress + colorIndex + 1));
+    unsigned char paletteData2 = memory.readSpritePaletteRam((unsigned char)(paletteAddress + colorIndex + 0));
 
 	// GBC Colors are 5 bit. 0-31 data range. Shifting them left by 3 allows them to be used as 8 bit colors.
 	unsigned short rgbData = (unsigned short)(paletteData1 << 8 | paletteData2);
@@ -549,8 +547,8 @@ QColor Gpu::returnGBCBackgroundColor(unsigned char colorNumber, unsigned char pa
     unsigned char paletteAddress = (unsigned char)(palette * 8);
     unsigned char colorIndex = (unsigned char)(colorNumber * 2);
 
-    unsigned char paletteData1 = memory->readBackgroundPaletteRam((unsigned char)(paletteAddress + colorIndex + 1));
-    unsigned char paletteData2 = memory->readBackgroundPaletteRam((unsigned char)(paletteAddress + colorIndex + 0));
+    unsigned char paletteData1 = memory.readBackgroundPaletteRam((unsigned char)(paletteAddress + colorIndex + 1));
+    unsigned char paletteData2 = memory.readBackgroundPaletteRam((unsigned char)(paletteAddress + colorIndex + 0));
 
 	// GBC Colors are 5 bit. 0-31 data range. Shifting them left by 3 allows them to be used as 8 bit colors.
 	unsigned short rgbData = (unsigned short)(paletteData1 << 8 | paletteData2);
@@ -570,7 +568,7 @@ unsigned char Gpu::returnPalette(unsigned char palette)
 	//Palette: 0 = BGP
 	//Palette: 1 = 0BP0
 	//Palette: 2 = 0BP1
-    return memory->readMemory(0xFF47 + palette);
+    return memory.readMemory(0xFF47 + palette);
 }
 
 void Gpu::loadPalettesFromXML(QFile file)
