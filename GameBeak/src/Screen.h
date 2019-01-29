@@ -2,12 +2,18 @@
 #define SCREEN_H
 
 #include <QWidget>
-#include <QGraphicsView>
 
-class Screen : public QGraphicsView
+class Memory;
+class Gpu;
+class Screen : public QWidget
 {
+    Q_OBJECT
 public:
-    Screen(QWidget* parent = 0);
+    Screen(QWidget *parent, Memory& memory, Gpu& gpu);
+private:
+    Memory& memory;
+    Gpu& gpu;
+
 };
 
 #endif // SCREEN_H
