@@ -97,7 +97,7 @@ bool Gpu::getBackGroundEnabled()
 }
 
 //Draw All Tiles: Draws each tile directly from vram in the order they are in Vram. Prints out each tile that is loaded into memory
-void Gpu::drawAllTiles()
+/*void Gpu::drawAllTiles()
 {
 	int baseAddress = 0x8000;
 
@@ -136,7 +136,7 @@ void Gpu::drawAllTiles()
 		drawDebugTile(i, tile);
 
 	}
-}
+}*/
 
 //DrawLineFromMap: Draws a single specific line of the background map
 void Gpu::drawLineFromBGMap(unsigned char  lineY)
@@ -443,7 +443,7 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
 }
 
 //DrawTile: Draws tile data as given to location of tile number given
-void Gpu::drawDebugTile(int tileNumber, QList<QList<QColor>> tile)
+/*void Gpu::drawDebugTile(int tileNumber, QList<QList<QColor>> tile)
 {
 	int y = tileNumber / 20;
 	int x = tileNumber - (20 * y);
@@ -457,7 +457,7 @@ void Gpu::drawDebugTile(int tileNumber, QList<QList<QColor>> tile)
 
 		tile.erase(tile.begin());
 	}
-}
+}*/
 
 unsigned char Gpu::getScrollX()
 {
