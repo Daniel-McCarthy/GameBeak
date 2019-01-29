@@ -3,13 +3,15 @@
 #ifndef INPUTH
 #define INPUTH
 
+#include <QObject>
+
 #pragma once
 class Cpu;
 class Memory;
 class Core;
-class Input
+class Input : public QObject
 {
-
+    Q_OBJECT
 private:
     Memory* memory;
     Cpu* cpu;
