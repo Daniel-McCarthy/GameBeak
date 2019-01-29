@@ -50,13 +50,6 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>Screen</class>
-   <extends>QGraphicsView</extends>
-   <header>Screen.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
