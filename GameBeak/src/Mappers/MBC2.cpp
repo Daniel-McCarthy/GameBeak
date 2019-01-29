@@ -1,6 +1,11 @@
-#include "Memory.h"
-#include "MBC2.h"
-#include "Main.h"
+#include "src/Mappers/MBC2.h"
+#include "src/Memory.h"
+#include "src/Rom.h"
+
+MBC2::MBC2(Memory& memory, Rom& rom)
+    : Mapper(memory), memory(memory), rom(rom)
+{
+}
 
 void MBC2::changeMBC2RomBanks(int bankNumber)
 {
@@ -17,14 +22,14 @@ void MBC2::changeMBC2RomBanks(int bankNumber)
 		int fixedBankAddress = 0x4000;
 		for (int i = 0; i < 0x4000; i++)
 		{
-			beakMemory.directMemoryWrite(fixedBankAddress + i, rom.readByte(bankAddress + i));
+            memory.directMemoryWrite(fixedBankAddress + i, rom.readByte(bankAddress + i));
 		}
 
-		mapper.romBankNumber = bankNumber;
+        this->romBankNumber = bankNumber;
 	}
 }
 
-void MBC2::writeMBC2Value(short address, byte value)
+void MBC2::writeMBC2Value(short address, unsigned char value)
 {
 	if (address >= 0x0000 && address <= 0x1FFF)
 	{
@@ -32,22 +37,22 @@ void MBC2::writeMBC2Value(short address, byte value)
 		if ((value & 0x0F) == 0x0A)
 		{
 			//Enable Ram
-			mapper.ramEnabled = true;
+            this->ramEnabled = true;
 		}
 		else
 		{
 			//Disable Ram
-			mapper.ramEnabled = false;
+            this->ramEnabled = false;
 		}
 	}
 	else if (address >= 0x2000 && address <= 0x3FFF)
 	{
 		//Set Rom Bank Number 5 bits
-		byte newBankNumber = (value & 0x0F);
+        unsigned char newBankNumber = (value & 0x0F);
 
-		if (mapper.romBankNumber != newBankNumber)
+        if (this->romBankNumber != newBankNumber)
 		{
-			mbc2.changeMBC2RomBanks(newBankNumber);
+            this->changeMBC2RomBanks(newBankNumber);
 		}
 
 	}
@@ -60,13 +65,6 @@ void MBC2::writeMBC2Value(short address, byte value)
 	}
 	*/
 }
-
-
-
-MBC2::MBC2()
-{
-}
-
 
 MBC2::~MBC2()
 {

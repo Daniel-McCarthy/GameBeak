@@ -1,6 +1,11 @@
-#include "Memory.h"
-#include "MBC3.h"
-#include "Main.h"
+#include "src/Mappers/MBC3.h"
+#include "src/Memory.h"
+#include "src/Rom.h"
+
+MBC3::MBC3(Memory& memory, Rom& rom)
+    : Mapper(memory), memory(memory), rom(rom)
+{
+}
 
 void MBC3::changeMBC3RomBanks(int bankNumber)
 {
@@ -17,14 +22,14 @@ void MBC3::changeMBC3RomBanks(int bankNumber)
 		int fixedBankAddress = 0x4000;
 		for (int i = 0; i < 0x4000; i++)
 		{
-			beakMemory.directMemoryWrite(fixedBankAddress + i, rom.readByte(bankAddress + i));
+            memory.directMemoryWrite(fixedBankAddress + i, rom.readByte(bankAddress + i));
 		}
 
-		mapper.romBankNumber = bankNumber;
+        this->romBankNumber = bankNumber;
 	}
 }
 
-void MBC3::writeMBC3Value(short address, byte value)
+void MBC3::writeMBC3Value(short address, unsigned char value)
 {
 	if (address >= 0x0000 && address <= 0x1FFF)
 	{
@@ -32,20 +37,20 @@ void MBC3::writeMBC3Value(short address, byte value)
 		if ((value & 0x0F) == 0x0A)
 		{
 			//Enable Ram
-			mapper.ramEnabled = true;
+            this->ramEnabled = true;
 		}
 		else
 		{
 			//Disable Ram
-			mapper.ramEnabled = false;
+            this->ramEnabled = false;
 		}
 	}
 	else if (address >= 0x2000 && address <= 0x3FFF)
 	{
 		//Set Rom Bank Number 7 bits
-		byte newBankNumber = (value & 0x7F);
+        unsigned char newBankNumber = (value & 0x7F);
 
-		if (mapper.romBankNumber != newBankNumber)
+        if (this->romBankNumber != newBankNumber)
 		{
 			changeMBC3RomBanks(newBankNumber);
 		}
@@ -58,11 +63,11 @@ void MBC3::writeMBC3Value(short address, byte value)
 		if ((value >= 0) && (value <= 3))
 		{
 			//Change Ram Bank
-			byte newBankNumber = value & 0x03;
+            unsigned char newBankNumber = value & 0x03;
 
-			if (mapper.ramBankNumber != newBankNumber)
+            if (this->ramBankNumber != newBankNumber)
 			{
-				mapper.changeRamBanks(newBankNumber);
+                this->changeRamBanks(newBankNumber);
 			}
 		}
 
@@ -104,13 +109,6 @@ void MBC3::writeMBC3Value(short address, byte value)
 	}
 
 }
-
-
-
-MBC3::MBC3()
-{
-}
-
 
 MBC3::~MBC3()
 {
