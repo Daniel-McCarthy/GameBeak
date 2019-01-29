@@ -30,7 +30,15 @@ SOURCES += \
     src/Core.cpp \
     src/Cpu.cpp \
     src/Binary.cpp \
-    src/Input.cpp
+    src/Input.cpp \
+    src/Gpu.cpp \
+    src/Screen.cpp \
+    src/canvas.cpp \
+    src/Mappers/MBC1.cpp \
+    src/Mappers/MBC2.cpp \
+    src/Mappers/MBC5.cpp \
+    src/Mappers/MBC3.cpp \
+    src/Mappers/Mapper.cpp
 
 HEADERS += \
     src/MainWindow/mainwindow.h \
@@ -39,7 +47,15 @@ HEADERS += \
     src/Core.h \
     src/Cpu.h \
     src/Binary.h \
-    src/Input.h
+    src/Input.h \
+    src/Gpu.h \
+    src/Screen.h \
+    src/canvas.h \
+    src/Mappers/MBC1.h \
+    src/Mappers/MBC2.h \
+    src/Mappers/MBC3.h \
+    src/Mappers/MBC5.h \
+    src/Mappers/Mapper.h
 
 FORMS += \
     src/MainWindow/mainwindow.ui
