@@ -1,6 +1,17 @@
+#include <QObject>
+
+#ifndef MAPPERH
+#define MAPPERH
+
 #pragma once
-class Mapper
+class Memory;
+class Mapper : public QObject
 {
+    Q_OBJECT
+
+private:
+    Memory& memory;
+
 public:
     unsigned char beakExternalRam[0x1E000];
     bool ramEnabled = false;
@@ -10,7 +21,8 @@ public:
 
     void changeRamBanks(int bankNumber);
 
-    Mapper();
+    Mapper(Memory& memory);
     ~Mapper();
 };
 
+#endif

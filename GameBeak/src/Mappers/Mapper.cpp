@@ -1,7 +1,10 @@
-#include "Memory.h"
-#include "Mapper.h"
-#include "Main.h"
+#include "src/Mappers/Mapper.h"
+#include "src/Memory.h"
 
+Mapper::Mapper(Memory& memory)
+    : QObject(), memory(memory)
+{
+}
 
 void Mapper::changeRamBanks(int bankNumber)
 {
@@ -10,7 +13,7 @@ void Mapper::changeRamBanks(int bankNumber)
 	//Save Old Beak Ram Data to External Ram Array
 	for (int i = 0; i < 0x2000; i++)
 	{
-		beakExternalRam[externalAddress + i] = beakMemory.readMemory(0xA000 + i);
+        beakExternalRam[externalAddress + i] = memory.readMemory(0xA000 + i);
 	}
 
 	ramBankNumber = bankNumber;
@@ -19,16 +22,10 @@ void Mapper::changeRamBanks(int bankNumber)
 	//Load New External Ram data to Beak Ram
 	for (int i = 0; i < 0x2000; i++)
 	{
-		beakMemory.directMemoryWrite(0xA000 + i, beakExternalRam[externalAddress + i]);
+        memory.directMemoryWrite(0xA000 + i, beakExternalRam[externalAddress + i]);
 	}
 
 }
-
-
-Mapper::Mapper()
-{
-}
-
 
 Mapper::~Mapper()
 {
