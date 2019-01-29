@@ -1,7 +1,7 @@
 #include "src/Rom.h"
 #include "src/Memory.h"
 
-Rom::Rom(QWidget *parent) : QWidget(parent) {}
+Rom::Rom(QObject *parent) : QObject(parent) {}
 Rom::~Rom() {}
 
 Rom::Rom(unsigned char* romData, unsigned int length)

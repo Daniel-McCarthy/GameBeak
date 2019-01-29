@@ -1,5 +1,5 @@
 #include <QString>
-#include <QWidget>
+#include <QObject>
 
 #ifndef ROMH
 #define ROMH
@@ -7,7 +7,7 @@
 
 #pragma once
 class Memory;
-class Rom : public QWidget
+class Rom : public QObject
 {
     Q_OBJECT
 
@@ -30,7 +30,7 @@ public:
 
     QString romFilePath = "";
     QString title = "";
-    Rom(QWidget *parent = nullptr);
+    Rom(QObject *parent = nullptr);
     Rom(unsigned char* romData, unsigned int length);
 	~Rom();
 	void readRomHeader();
