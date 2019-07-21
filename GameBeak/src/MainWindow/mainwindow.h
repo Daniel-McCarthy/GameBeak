@@ -7,6 +7,7 @@ namespace Ui {
 class MainWindow;
 }
 
+class Rom;
 class Core;
 class MainWindow : public QMainWindow
 {

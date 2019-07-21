@@ -11,6 +11,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     core = new Core(this, ui->graphicsView);
+    canvas = new Canvas(this);
+    canvas->move(0,21);
+    canvas->resize(320,288);
+    canvas->stackUnder(ui->menuBar);
+    ui->menuBar->raise();
     QObject::connect(this, &MainWindow::onGameFileOpened,
                              core->getMemoryPointer(), &Memory::romLoaded);
 
