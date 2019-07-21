@@ -8,13 +8,19 @@
 #include "src/Screen.h"
 #include "src/Gpu.h"
 
+#include "src/Mappers/MBC1.h"
+#include "src/Mappers/MBC2.h"
+#include "src/Mappers/MBC3.h"
+#include "src/Mappers/MBC5.h"
+
 #include <QWidget>
 
-class Core : public QWidget
+class Core : public QObject
 {
     Q_OBJECT
 public:
-    explicit Core(QWidget *parent = nullptr, Screen* screen = nullptr);
+    explicit Core(QWidget *parent = 0);
+    virtual ~Core();
     Memory* getMemoryPointer();
     Rom* getRomPointer();
     Cpu* getCPUPointer();
@@ -31,21 +37,33 @@ public:
     bool interruptNextCycle = false;
     bool repeatBug; //Halt bug
 
-    short memoryPointer = 0x100;
-    short stackPointer = 0;
+    int clocks = 4500;
+    int memoryControllerMode = 0;
+
     //Settings values
     bool GBCMode = false;					//This controls whether Gameboy Color emulation is currently activated.
     bool ForceDMGMode = false;				//This allows forcing games to run in DMG emulation.
-    unsigned char paletteSetting = gamebeakPinkAlt;
+    unsigned char paletteSetting = 0;//gamebeakPinkAlt;
+
+    void emulationLoop();
 
 private:
-    Memory* memory = new Memory(this);
-    Rom* rom = new Rom();
-    Cpu* cpu = new Cpu(this);
-    Input* input = new Input(this);
-    Gpu* gpu = new Gpu(this);
-    Screen* screen;
+    Screen screen;
+    Rom rom;
+    Cpu cpu;
+    Gpu gpu;
+    Input input;
+    Memory memory;
 
+    MBC1 mbc1;
+    MBC2 mbc2;
+    MBC3 mbc3;
+    MBC5 mbc5;
+
+    bool soundEnabled = false;
+    bool tileDrawMode = false;
+    bool fullMapScreenMode = false;
+    bool pollingEnabled = true;
 
     enum paletteSettings
     {

@@ -1,32 +1,86 @@
 #include "Core.h"
+#include <QCoreApplication>
+#include <QTextStream>
+#include <QtDebug>
 
-Core::Core(QWidget *parent, Screen *screen) : QWidget(parent)
 {
     this->screen = screen;
+}*/
+
+/*Core::Core() {
+//works
+}*/
+
+/*Core::Core(QWidget *parent,Screen* screen)
+    : QWidget(parent),
+    memory(rom, cpu, GBCMode),
+    gpu(memory, *screen, GBCMode, paletteSetting),
+    cpu(memory, input, enableInterruptsNextCycle, repeatBug),
+    input(memory, cpu),
+    rom()
+{
+    this->screen = screen;
+
+    *//*this->memory = new Memory(this);
+    this->gpu = new Gpu(this);
+    this->cpu = new Cpu(this);
+    this->input = new Input(this);
+    this->rom = new Rom();*//*
+}*/
+
+Core::Core(QWidget *parent)
+    : QObject(parent),
+        screen(nullptr, memory, gpu),
+        rom(this),
+        cpu(memory, input, enableInterruptsNextCycle, repeatBug),
+        gpu(memory, screen, GBCMode, paletteSetting),
+        input(this, memory, cpu),
+        memory(this, rom, cpu, GBCMode, ForceDMGMode, mbc1, mbc2, mbc3, mbc5),
+        mbc1(memory, rom),
+        mbc2(memory, rom),
+        mbc3(memory, rom),
+        mbc5(memory, rom)
+{
+    QObject::connect(&rom, &Rom::fullRomWrite,
+                     &memory, &Memory::writeFullRomToRam);
+    QObject::connect(&rom, &Rom::rom0Write,
+                     &memory, &Memory::writeRom0ToRam);
+    QObject::connect(&memory, &Memory::cpu_SetDoubleSpeedMode,
+                     &cpu, &Cpu::setDoubleSpeedModeSignal);
 }
 
+Core::~Core() {
+    QObject::disconnect(&rom, &Rom::fullRomWrite,
+                     &memory, &Memory::writeFullRomToRam);
+    QObject::disconnect(&rom, &Rom::rom0Write,
+                     &memory, &Memory::writeRom0ToRam);
+    QObject::disconnect(&memory, &Memory::cpu_SetDoubleSpeedMode,
+                     &cpu, &Cpu::setDoubleSpeedModeSignal);
+}
+
+
 Memory* Core::getMemoryPointer() {
-    return memory;
+    return &memory;
 }
 
 Rom* Core::getRomPointer() {
-    return rom;
+    return &rom;
 }
 
 Cpu* Core::getCPUPointer() {
-    return cpu;
+    return &cpu;
 }
 
 Input* Core::getInputPointer() {
-    return input;
+    return &input;
 }
 
 Screen* Core::getScreenPointer() {
-    return screen;
+    return &screen;
 }
 
 Gpu* Core::getGpuPointer() {
-    return gpu;
+    return &gpu;
 }
 
 bool* Core::getGBCModePointer() {
