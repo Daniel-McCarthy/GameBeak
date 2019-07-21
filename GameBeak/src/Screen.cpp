@@ -69,6 +69,7 @@ void Screen::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshC
             else
             {
                 gpu.setLCDMode(2);
+                gpuMode = 2;
 
                 //Set LCD Interrupt if OAM Event is set
                 if ((gpu.getLCDStatus() & 0x10) > 0)
