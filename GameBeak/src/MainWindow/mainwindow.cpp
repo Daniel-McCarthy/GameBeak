@@ -67,6 +67,12 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     this->~MainWindow();
 }
 
+void MainWindow::startEmulationThread() {
+    core->emulationLoop();
+}
+
+void MainWindow::endEmulationThread() {
+    emit setEmulationRun(false);
 }
 
 void MainWindow::on_actionOpen_triggered()

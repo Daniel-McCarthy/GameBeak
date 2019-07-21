@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QThread>
 
 namespace Ui {
 class MainWindow;
@@ -27,6 +28,8 @@ private:
     void closeEvent(QCloseEvent *event);
 private slots:
     void on_actionOpen_triggered();
+    void startEmulationThread();
+    void endEmulationThread();
 
 signals:
     void onGameFileOpened(QString filePath);
