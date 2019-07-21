@@ -8,7 +8,9 @@ class MainWindow;
 }
 
 class Rom;
+class Screen;
 class Core;
+class Canvas;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -20,8 +22,9 @@ public:
 private:
     Ui::MainWindow *ui;
     Core* core = nullptr;
-    QThread* emulationThread;
+    Canvas* canvas;
 
+    void closeEvent(QCloseEvent *event);
 private slots:
     void on_actionOpen_triggered();
 

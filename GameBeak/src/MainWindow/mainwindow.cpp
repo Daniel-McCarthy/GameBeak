@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    core = new Core(this, ui->graphicsView);
+    core = new Core();
     canvas = new Canvas(this);
     canvas->move(0,21);
     canvas->resize(320,288);
@@ -31,6 +31,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect(this, &MainWindow::setEmulationRun,
                              core, &Core::setRun);
+
+    QObject::connect(core->getMemoryPointer(), &Memory::setEmulationRun,
+                     core, &Core::setRun);
+
+    QObject::connect(core->getMemoryPointer(), &Memory::setEmulationRun,
+                     this, &MainWindow::startEmulationThread);
 }
 
 MainWindow::~MainWindow()
@@ -46,6 +52,20 @@ MainWindow::~MainWindow()
 
     QObject::disconnect(this, &MainWindow::setEmulationRun,
                              core, &Core::setRun);
+
+    QObject::disconnect(core->getMemoryPointer(), &Memory::setEmulationRun,
+                     core, &Core::setRun);
+
+    QObject::disconnect(core->getMemoryPointer(), &Memory::setEmulationRun,
+                     this, &MainWindow::startEmulationThread);
+
+    delete core;
+    delete canvas;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    this->~MainWindow();
+}
 
 }
 
