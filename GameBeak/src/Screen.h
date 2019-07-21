@@ -10,6 +10,8 @@ class Screen : public QWidget
     Q_OBJECT
 public:
     Screen(QWidget *parent, Memory& memory, Gpu& gpu);
+    void drawScreenFromMaps(unsigned char  scrollX, unsigned char  ScrollY);
+    void drawFullScreenMaps();
 private:
     Memory& memory;
     Gpu& gpu;
