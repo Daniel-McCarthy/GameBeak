@@ -4,6 +4,11 @@
 #include "src/Memory.h"
 #include <QFileDialog>
 #include <QThread>
+#include <QLayout>
+#include <QPushButton>
+#include "src/canvas.h"
+#include "src/Screen.h"
+#include "src/Rom.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
