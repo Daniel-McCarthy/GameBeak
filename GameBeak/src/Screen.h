@@ -2,6 +2,7 @@
 #define SCREEN_H
 
 #include <QWidget>
+#include <QTime>
 
 class Memory;
 class Gpu;
@@ -25,6 +26,7 @@ signals:
 private:
     Memory& memory;
     Gpu& gpu;
+    QTime screenUpdateTimer;
 
     QVector<QColor> bgPixels = QVector<QColor>(256 * 256);
     QColor windowPixels[256 * 256];
