@@ -7,6 +7,26 @@ Screen::Screen(QWidget *parent, Memory& memory, Gpu& gpu)
 {
 }
 
+void Screen::setBGPixel(unsigned char  x, unsigned char  y, QColor color)
+{
+    uint value = color.rgba();
+    bgPixels[x + (y * 256)] = color;
+}
+
+QColor Screen::getBGPixel(unsigned char  x, unsigned char  y)
+{
+    return bgPixels[x + (y * 256)];
+}
+
+void Screen::setWindowPixel(unsigned char  x, unsigned char  y, QColor color)
+{
+    windowPixels[x + (y * 256)] = color;
+}
+
+void Screen::setSpritePixel(unsigned char  x, unsigned char  y, QColor color)
+{
+    spritePixels[x + (y * 256)] = color;
+}
 
 void Screen::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrollY)
 {
