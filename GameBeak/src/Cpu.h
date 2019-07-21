@@ -17,13 +17,13 @@ private:
 	bool halt = false;
 	bool stop = false; //Button input should set this back to false
     unsigned char haltMode = 0;
-    Memory* memory;
-    Core* core;
-    Input* input;
+    bool& enableInterruptsNextCycle;
+    bool& repeatBug;
+    Memory& memory;
+    Input& input;
 
 public:
-    Cpu(QWidget *parent = nullptr);
-    Cpu(Core* core);
+    Cpu(Memory& memory, Input& input, bool& enableInterruptsNextCycle, bool& repeatBug);
     ~Cpu() {}
 
 	bool interruptsEnabled = true;

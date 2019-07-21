@@ -3,18 +3,17 @@
 #include "Binary.h"
 //#include "Debugger.h"
 
-Cpu::Cpu(Core* core) {
-    memory = core->getMemoryPointer();
-    input = core->getInputPointer();
-    this->core = core;
+Cpu::Cpu(Memory& memory, Input& input, bool& enableInterruptsNextCycle, bool& repeatBug)
+    : memory(memory), input(input), enableInterruptsNextCycle(enableInterruptsNextCycle), repeatBug(repeatBug)
+{
 }
 
 void Cpu::selectOpcode(unsigned char opcode)
 {
 
-    if (core->enableInterruptsNextCycle)
+    if (enableInterruptsNextCycle)
 	{
-        core->enableInterruptsNextCycle = false;
+        enableInterruptsNextCycle = false;
 		interruptsEnabled = true;
 	}
 
@@ -32,7 +31,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 1:
 				{
-                    opcode01((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcode01((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 2:
@@ -57,7 +56,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcode06(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcode06(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -67,7 +66,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcode08((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcode08((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 9:
@@ -97,7 +96,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcode0E(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcode0E(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 0xF:
@@ -119,7 +118,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 1:
 				{
-                    opcode11((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcode11((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 2:
@@ -144,7 +143,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcode16(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcode16(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -154,7 +153,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcode18(static_cast<char>(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++))));
+                    opcode18(static_cast<char>(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++))));
 					break;
 				}
 				case 9:
@@ -184,7 +183,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcode1E(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcode1E(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 0xF:
@@ -201,12 +200,12 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-                    opcode20(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcode20(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 1:
 				{
-                    opcode21((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcode21((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 2:
@@ -231,7 +230,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcode26(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcode26(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -241,7 +240,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcode28(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcode28(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 9:
@@ -271,7 +270,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcode2E(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcode2E(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 0xF:
@@ -288,12 +287,12 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-                    opcode30(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcode30(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 1:
 				{
-                    opcode31((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcode31((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 2:
@@ -318,7 +317,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcode36(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcode36(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -328,7 +327,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcode38(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcode38(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 9:
@@ -358,7 +357,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcode3E(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcode3E(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 0xF:
@@ -1082,17 +1081,21 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x02:
 				{
-                    opcodeC2((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcodeC2((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 0x03:
-				{
-                    opcodeC3((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                {
+                    unsigned char byte1 = memory.readMemory(memory.memoryPointer++);
+                    unsigned char byte2 = memory.readMemory(memory.memoryPointer++);
+                    short address = byte1 | (byte2 << 8);
+                    opcodeC3(address);
+                    //opcodeC3((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 0x04:
 				{
-                    opcodeC4((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcodeC4((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 0x05:
@@ -1102,7 +1105,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x06:
 				{
-                    opcodeC6(memory->readMemory(static_cast<unsigned char>(memory->memoryPointer++)));
+                    opcodeC6(memory.readMemory(memory.memoryPointer++));
 					break;
 				}
 				case 0x07:
@@ -1122,12 +1125,12 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x0A:
 				{
-                    opcodeCA((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcodeCA((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 0x0B:
 				{
-                    switch (memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)))
+                    switch (memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)))
 					{
 
 					case 0x00: { opcodeCB00(); break; }
@@ -1392,17 +1395,17 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0x0C:
 				{
-                    opcodeCC((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcodeCC((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 0x0D:
 				{
-                    opcodeCD((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcodeCD((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 0x0E:
 				{
-                    opcodeCE(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcodeCE(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 0x0F:
@@ -1430,7 +1433,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 2:
 				{
-                    opcodeD2((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcodeD2((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 3:
@@ -1440,7 +1443,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 4:
 				{
-                    opcodeD4((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcodeD4((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 5:
@@ -1450,7 +1453,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcodeD6(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcodeD6(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -1470,7 +1473,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xA:
 				{
-                    opcodeDA((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcodeDA((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 0xB:
@@ -1480,7 +1483,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xC:
 				{
-                    opcodeDC((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcodeDC((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 0xD:
@@ -1490,7 +1493,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcodeDE(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcodeDE(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 
 				}
@@ -1507,7 +1510,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-                    opcodeE0(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcodeE0(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 1:
@@ -1537,7 +1540,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcodeE6(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcodeE6(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -1547,7 +1550,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcodeE8(static_cast<char>(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++))));
+                    opcodeE8(static_cast<char>(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++))));
 					break;
 				}
 				case 9:
@@ -1557,7 +1560,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xA:
 				{
-                    opcodeEA((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcodeEA((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 0xB:
@@ -1577,7 +1580,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcodeEE(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcodeEE(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 0xF:
@@ -1594,7 +1597,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 			{
 				case 0:
 				{
-                    opcodeF0(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcodeF0(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 1:
@@ -1625,7 +1628,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 6:
 				{
-                    opcodeF6(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcodeF6(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 7:
@@ -1635,7 +1638,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 8:
 				{
-                    opcodeF8(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcodeF8(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 9:
@@ -1645,7 +1648,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xA:
 				{
-                    opcodeFA((memory->readMemory(memory->memoryPointer++)) | (memory->readMemory(memory->memoryPointer++) << 8));
+                    opcodeFA((memory.readMemory(memory.memoryPointer++)) | (memory.readMemory(memory.memoryPointer++) << 8));
 					break;
 				}
 				case 0xB:
@@ -1666,7 +1669,7 @@ void Cpu::selectOpcode(unsigned char opcode)
 				}
 				case 0xE:
 				{
-                    opcodeFE(memory->readMemory(static_cast<unsigned short>(memory->memoryPointer++)));
+                    opcodeFE(memory.readMemory(static_cast<unsigned short>(memory.memoryPointer++)));
 					break;
 				}
 				case 0xF:
@@ -1692,7 +1695,7 @@ void Cpu::opcode00()
 void Cpu::opcode01(short nn)
 {
 	//Load short into BC
-    memory->setBC(nn);
+    memory.setBC(nn);
 	mClock += 3;
 	tClock += 12;
 }
@@ -1700,7 +1703,7 @@ void Cpu::opcode01(short nn)
 void Cpu::opcode02()
 {
 	//Load A into data at BC
-    memory->writeMemory(static_cast<unsigned short>(memory->getBC()), memory->getA());
+    memory.writeMemory(static_cast<unsigned short>(memory.getBC()), memory.getA());
 	mClock += 2;
 	tClock += 8;
 }
@@ -1709,7 +1712,7 @@ void Cpu::opcode03()
 {
 	//Inc BC
 
-    memory->setBC(memory->getBC() + 1);
+    memory.setBC(memory.getBC() + 1);
 
 	mClock += 2;
 	tClock += 8;
@@ -1719,34 +1722,34 @@ void Cpu::opcode04()
 {
 	//Inc B
 
-    memory->setB(memory->getB() + 1);
+    memory.setB(memory.getB() + 1);
 
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getB() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag((((memory->getB()) & 0x0F) == 0) ? 1 : 0);
+    memory.setZFlag((memory.getB() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag((((memory.getB()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode05()
 {
 	//Dec B
 
-    memory->setB(memory->getB() - 1);
+    memory.setB(memory.getB() - 1);
 
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getB() == 0) ? 1 : 0);
-    memory->setNFlag(true);
-    memory->setHFlag((((memory->getB()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setZFlag((memory.getB() == 0) ? 1 : 0);
+    memory.setNFlag(true);
+    memory.setHFlag((((memory.getB()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode06(unsigned char n)
 {
 	//Load byte into B
-    memory->setB(n);
+    memory.setB(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -1755,21 +1758,21 @@ void Cpu::opcode07()
 {
 	
 	//Rotate A Left - Set C flag to old bit 7
-    memory->setA(rotateLeft(memory->getA()));
-    memory->setCFlag(((memory->getA() & 0x01) == 1) ? true : false);
+    memory.setA(rotateLeft(memory.getA()));
+    memory.setCFlag((memory.getA() & 0x01) == 1);
 	mClock += 1;
 	tClock += 4;
 	
-    memory->setZFlag(false);
-    memory->setHFlag(false);
-    memory->setNFlag(false);
+    memory.setZFlag(false);
+    memory.setHFlag(false);
+    memory.setNFlag(false);
 
 }
 
 void Cpu::opcode08(short nn)
 {
 	//Load SP into data at NN
-    memory->writeMemory(static_cast<unsigned short>(nn), memory->stackPointer);
+    memory.writeMemory(static_cast<unsigned short>(nn), memory.stackPointer);
 	mClock += 5;
 	tClock += 20;
 }
@@ -1778,18 +1781,18 @@ void Cpu::opcode09()
 {
 	//Add BC to HL
 
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    unsigned short bc = static_cast<unsigned short>(memory->getBC());
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    unsigned short bc = static_cast<unsigned short>(memory.getBC());
 	int totalSum = hl + bc;
 
-    memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
-    memory->setHL(static_cast<short>(totalSum & 0xFFFF));
-    memory->setCFlag(totalSum > 0xFFFF);
+    memory.setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
+    memory.setHL(static_cast<short>(totalSum & 0xFFFF));
+    memory.setCFlag(totalSum > 0xFFFF);
 	
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
+    memory.setNFlag(false);
 
 }
 
@@ -1797,7 +1800,7 @@ void Cpu::opcode09()
 void Cpu::opcode0A()
 {
 	//Load data at BC into A
-    memory->setA(memory->readMemory(static_cast<unsigned short>(memory->getBC())));
+    memory.setA(memory.readMemory(static_cast<unsigned short>(memory.getBC())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -1806,7 +1809,7 @@ void Cpu::opcode0B()
 {
 	//Dec BC
 
-    memory->setBC(memory->getBC() - 1);
+    memory.setBC(memory.getBC() - 1);
 
 	mClock += 2;
 	tClock += 8;
@@ -1816,34 +1819,34 @@ void Cpu::opcode0C()
 {
 	//Inc C
 
-    memory->setC(memory->getC() + 1);
+    memory.setC(memory.getC() + 1);
 
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getC() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag((((memory->getC()) & 0x0F) == 0) ? 1 : 0);
+    memory.setZFlag((memory.getC() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag((((memory.getC()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode0D()
 {
 	//Dec C
 
-    memory->setC(memory->getC() - 1);
+    memory.setC(memory.getC() - 1);
 
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getC() == 0) ? 1 : 0);
-    memory->setNFlag(true);
-    memory->setHFlag((((memory->getC()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setZFlag((memory.getC() == 0) ? 1 : 0);
+    memory.setNFlag(true);
+    memory.setHFlag((((memory.getC()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode0E(unsigned char n)
 {
 	//Load byte into C
-    memory->setC(n);
+    memory.setC(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -1852,15 +1855,15 @@ void Cpu::opcode0F()
 {
 	//Rotate A Right, put previous bit 0 into Carry flag
 
-    memory->setCFlag( (memory->getA() & 0x01) > 0);
-    memory->setA(rotateRight(memory->getA()));
+    memory.setCFlag( (memory.getA() & 0x01) > 0);
+    memory.setA(rotateRight(memory.getA()));
 
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag(false);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 
 }
 
@@ -1869,14 +1872,16 @@ void Cpu::opcode10()
 	// Stop
 	stop = true;
 
+    executeStop();
+
 	// Skip operand byte.
-    memory->memoryPointer++;
+    memory.memoryPointer++;
 }
 
 void Cpu::opcode11(short nn)
 {
 	//Load short into DE
-    memory->setDE(nn);
+    memory.setDE(nn);
 	mClock += 3;
 	tClock += 12;
 }
@@ -1884,7 +1889,7 @@ void Cpu::opcode11(short nn)
 void Cpu::opcode12()
 {
 	//Load A into data at DE
-    memory->writeMemory(static_cast<unsigned short>(memory->getDE()), memory->getA());
+    memory.writeMemory(static_cast<unsigned short>(memory.getDE()), memory.getA());
 	mClock += 2;
 	tClock += 8;
 }
@@ -1893,7 +1898,7 @@ void Cpu::opcode13()
 {
 	//Inc DE
 
-    memory->setDE(memory->getDE() + 1);
+    memory.setDE(memory.getDE() + 1);
 
 	mClock += 2;
 	tClock += 8;
@@ -1903,34 +1908,34 @@ void Cpu::opcode14()
 {
 	//Inc D
 
-    memory->setD(memory->getD() + 1);
+    memory.setD(memory.getD() + 1);
 
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getD() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag((((memory->getD()) & 0x0F) == 0) ? 1 : 0);
+    memory.setZFlag((memory.getD() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag((((memory.getD()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode15()
 {
 	//Dec D
 
-    memory->setD(memory->getD() - 1);
+    memory.setD(memory.getD() - 1);
 
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getD() == 0) ? 1 : 0);
-    memory->setNFlag(true);
-    memory->setHFlag((((memory->getD()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setZFlag((memory.getD() == 0) ? 1 : 0);
+    memory.setNFlag(true);
+    memory.setHFlag((((memory.getD()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode16(unsigned char n)
 {
 	//Load byte into D
-    memory->setD(n);
+    memory.setD(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -1938,13 +1943,13 @@ void Cpu::opcode16(unsigned char n)
 void Cpu::opcode17()
 {
 	//RLCA Rotate A Left - Set right most bit to current carry flag
-    unsigned char cFlag = (memory->getCFlag() == true) ? 0x01 : 0x00;
-    memory->setCFlag( ((memory->getA() & 0x80) >> 7) > 0);
-    memory->setA(((memory->getA() << 1) | cFlag) & 0xFF);
+    unsigned char cFlag = (memory.getCFlag() == true) ? 0x01 : 0x00;
+    memory.setCFlag( ((memory.getA() & 0x80) >> 7) > 0);
+    memory.setA(((memory.getA() << 1) | cFlag) & 0xFF);
 
-    memory->setZFlag(false);
-    memory->setHFlag(false);
-    memory->setNFlag(false);
+    memory.setZFlag(false);
+    memory.setHFlag(false);
+    memory.setNFlag(false);
 	mClock += 1;
 	tClock += 4;
 
@@ -1953,7 +1958,7 @@ void Cpu::opcode17()
 void Cpu::opcode18(char n) //signed byte
 {
 	//Jump Relative to n
-    memory->memoryPointer += (signed char)n;
+    memory.memoryPointer += (signed char)n;
 	mClock += 3;
 	tClock += 12;
 }
@@ -1962,24 +1967,24 @@ void Cpu::opcode19()
 {
 	//Add DE to HL
 
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    unsigned short de = static_cast<unsigned short>(memory->getDE());
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    unsigned short de = static_cast<unsigned short>(memory.getDE());
 	int totalSum = hl + de;
 
-    memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
-    memory->setHL(static_cast<short>(totalSum & 0xFFFF));
-    memory->setCFlag(totalSum > 0xFFFF);
+    memory.setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
+    memory.setHL(static_cast<short>(totalSum & 0xFFFF));
+    memory.setCFlag(totalSum > 0xFFFF);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
+    memory.setNFlag(false);
 }
 
 void Cpu::opcode1A()
 {
 	//Load data at DE into A
-    memory->setA(memory->readMemory(static_cast<unsigned short>(memory->getDE())));
+    memory.setA(memory.readMemory(static_cast<unsigned short>(memory.getDE())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -1988,7 +1993,7 @@ void Cpu::opcode1B()
 {
 	//Dec DE
 
-    memory->setDE(memory->getDE() - 1);
+    memory.setDE(memory.getDE() - 1);
 
 	mClock += 2;
 	tClock += 8;
@@ -1998,34 +2003,34 @@ void Cpu::opcode1C()
 {
 	//Inc E
 
-    memory->setE(memory->getE() + 1);
+    memory.setE(memory.getE() + 1);
 
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getE() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag((((memory->getE()) & 0x0F) == 0) ? 1 : 0);
+    memory.setZFlag((memory.getE() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag((((memory.getE()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode1D()
 {
 	//Dec E
 
-    memory->setE(memory->getE() - 1);
+    memory.setE(memory.getE() - 1);
 
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getE() == 0) ? 1 : 0);
-    memory->setNFlag(true);
-    memory->setHFlag((((memory->getE()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setZFlag((memory.getE() == 0) ? 1 : 0);
+    memory.setNFlag(true);
+    memory.setHFlag((((memory.getE()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode1E(unsigned char n)
 {
 	//Load byte into E
-    memory->setE(n);
+    memory.setE(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2034,23 +2039,23 @@ void Cpu::opcode1F()
 {
 	//RRA - Rotate A Right - Store old bit 0 in Carry Flag - Current Carry flag becomes new bit 7
 	//Rotate A Right - Set left most bit to current carry flag
-    unsigned char cFlag = (memory->getCFlag() == true) ? 0x80 : 0x00;
-    memory->setCFlag(((memory->getA() & 0x01) == 1) ? true : false);
-    memory->setA((memory->getA() >> 1) | cFlag);
+    unsigned char cFlag = (memory.getCFlag() == true) ? 0x80 : 0x00;
+    memory.setCFlag(((memory.getA() & 0x01) == 1) ? true : false);
+    memory.setA((memory.getA() >> 1) | cFlag);
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag(false);
-    memory->setHFlag(false);
-    memory->setNFlag(false);
+    memory.setZFlag(false);
+    memory.setHFlag(false);
+    memory.setNFlag(false);
 }
 
 void Cpu::opcode20(unsigned char n)
 {
 	//Jump Relative to n if Not Zero
-    if (!memory->getZFlag())
+    if (!memory.getZFlag())
 	{
-        memory->memoryPointer += static_cast<char>(n);
+        memory.memoryPointer += static_cast<char>(n);
 		mClock += 3;
 		tClock += 12;
 
@@ -2065,7 +2070,7 @@ void Cpu::opcode20(unsigned char n)
 void Cpu::opcode21(short nn)
 {
 	//Load short into HL
-    memory->setHL(nn);
+    memory.setHL(nn);
 	mClock += 3;
 	tClock += 12;
 }
@@ -2073,8 +2078,8 @@ void Cpu::opcode21(short nn)
 void Cpu::opcode22()
 {
 	//Load A into data at HL and increment HL
-    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getA());
-    memory->setHL(memory->getHL() + 1);
+    memory.writeMemory(static_cast<unsigned short>(memory.getHL()), memory.getA());
+    memory.setHL(memory.getHL() + 1);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2083,7 +2088,7 @@ void Cpu::opcode23()
 {
 	//Inc HL
 
-    memory->setHL(memory->getHL() + 1);
+    memory.setHL(memory.getHL() + 1);
 
 	mClock += 2;
 	tClock += 8;
@@ -2093,34 +2098,34 @@ void Cpu::opcode24()
 {
 	//Inc H
 
-    memory->setH(memory->getH() + 1);
+    memory.setH(memory.getH() + 1);
 
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getH() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag((((memory->getH()) & 0x0F) == 0) ? 1 : 0);
+    memory.setZFlag((memory.getH() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag((((memory.getH()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode25()
 {
 	//Dec H
 
-    memory->setH(memory->getH() - 1);
+    memory.setH(memory.getH() - 1);
 
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getH() == 0) ? 1 : 0);
-    memory->setNFlag(true);
-    memory->setHFlag((((memory->getH()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setZFlag((memory.getH() == 0) ? 1 : 0);
+    memory.setNFlag(true);
+    memory.setHFlag((((memory.getH()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode26(unsigned char n)
 {
 	//Load byte into H
-    memory->setH(n);
+    memory.setH(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2129,17 +2134,17 @@ void Cpu::opcode27()
 {
 	//DAA Load decimal representation of A into A
 
-    uint8_t aValue = memory->getA();
+    uint8_t aValue = memory.getA();
 
-    if (!memory->getNFlag())
+    if (!memory.getNFlag())
 	{
-        if (memory->getCFlag() || (aValue > 0x99))
+        if (memory.getCFlag() || (aValue > 0x99))
 		{
 			aValue += 0x60;
-            memory->setCFlag(true);
+            memory.setCFlag(true);
 		}
 
-        if(memory->getHFlag() || ((aValue & 0x0F) > 0x09))
+        if(memory.getHFlag() || ((aValue & 0x0F) > 0x09))
 		{
 			aValue += 0x06;
 		}
@@ -2147,20 +2152,20 @@ void Cpu::opcode27()
 	}
 	else
 	{
-        if (memory->getHFlag())
+        if (memory.getHFlag())
 		{
 			aValue -= 0x6;
 		}
 
-        if (memory->getCFlag())
+        if (memory.getCFlag())
 		{
 			aValue -= 0x60;
 		}
 	}
 
-    memory->setA(aValue);
-    memory->setZFlag(aValue == 0);
-    memory->setHFlag(false);
+    memory.setA(aValue);
+    memory.setZFlag(aValue == 0);
+    memory.setHFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -2168,11 +2173,11 @@ void Cpu::opcode27()
 
 void Cpu::opcode28(unsigned char n)
 {
-    //Jump to memory->memoryPointer + n if Zero
-    if (memory->getZFlag())
+    //Jump to memory.memoryPointer + n if Zero
+    if (memory.getZFlag())
 	{
-        //memory->memoryPointer += (signed char)n;
-        memory->memoryPointer += static_cast<char>(n);
+        //memory.memoryPointer += (signed char)n;
+        memory.memoryPointer += static_cast<char>(n);
 		mClock += 3;
 		tClock += 12;
 	}
@@ -2187,25 +2192,25 @@ void Cpu::opcode29()
 {
 	//Add HL to HL
 
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
 	int totalSum = hl + hl;
 
-    memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
-    memory->setHL(static_cast<short>(totalSum & 0xFFFF));
-    memory->setCFlag(totalSum > 0xFFFF);
+    memory.setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
+    memory.setHL(static_cast<short>(totalSum & 0xFFFF));
+    memory.setCFlag(totalSum > 0xFFFF);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
+    memory.setNFlag(false);
 }
 
 void Cpu::opcode2A()
 {
 	//Load data at HL to A and inc HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->setA(memory->readMemory(hl));
-    memory->setHL(static_cast<short>(hl + 1));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.setA(memory.readMemory(hl));
+    memory.setHL(static_cast<short>(hl + 1));
 	mClock += 2;
 	tClock += 8;
 
@@ -2214,7 +2219,7 @@ void Cpu::opcode2A()
 void Cpu::opcode2B()
 {
 	//Dec HL
-    memory->setHL(memory->getHL() - 1);
+    memory.setHL(memory.getHL() - 1);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2222,31 +2227,31 @@ void Cpu::opcode2B()
 void Cpu::opcode2C()
 {
 	//Inc L
-    memory->setL(memory->getL() + 1);
+    memory.setL(memory.getL() + 1);
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getL() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag((((memory->getL()) & 0x0F) == 0) ? 1 : 0);
+    memory.setZFlag((memory.getL() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag((((memory.getL()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode2D()
 {
 	//Dec L
-    memory->setL(memory->getL() - 1);
+    memory.setL(memory.getL() - 1);
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getL() == 0) ? 1 : 0);
-    memory->setNFlag(true);
-    memory->setHFlag((((memory->getL()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setZFlag((memory.getL() == 0) ? 1 : 0);
+    memory.setNFlag(true);
+    memory.setHFlag((((memory.getL()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode2E(unsigned char n)
 {
 	//Load a byte into L
-    memory->setL(n);
+    memory.setL(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2254,20 +2259,20 @@ void Cpu::opcode2E(unsigned char n)
 void Cpu::opcode2F()
 {
 	//CPL - Flip all bits in A
-    memory->setA(~memory->getA());
+    memory.setA(~memory.getA());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setNFlag(true);
-    memory->setHFlag(true);
+    memory.setNFlag(true);
+    memory.setHFlag(true);
 }
 
 void Cpu::opcode30(unsigned char n)
 {
 	//Jump Relative to n if Not Carry
-    if (!memory->getCFlag())
+    if (!memory.getCFlag())
 	{
-        memory->memoryPointer += static_cast<signed char>(n);
+        memory.memoryPointer += static_cast<signed char>(n);
 		mClock += 3;
 		tClock += 12;
 	}
@@ -2281,7 +2286,7 @@ void Cpu::opcode30(unsigned char n)
 void Cpu::opcode31(short nn)
 {
 	//Load short into SP
-    memory->stackPointer = nn;
+    memory.stackPointer = nn;
 	mClock += 3;
 	tClock += 12;
 }
@@ -2289,8 +2294,8 @@ void Cpu::opcode31(short nn)
 void Cpu::opcode32()
 {
 	//Load A into data at HL and dec HL
-    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getA());
-    memory->setHL(memory->getHL() - 1);
+    memory.writeMemory(static_cast<unsigned short>(memory.getHL()), memory.getA());
+    memory.setHL(memory.getHL() - 1);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2298,7 +2303,7 @@ void Cpu::opcode32()
 void Cpu::opcode33()
 {
 	//Inc SP
-    memory->stackPointer++;
+    memory.stackPointer++;
 	mClock += 2;
 	tClock += 8;
 }
@@ -2306,33 +2311,33 @@ void Cpu::opcode33()
 void Cpu::opcode34()
 {
 	//Inc data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) + 1));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) + 1));
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag((memory->readMemory(hl) == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag((((memory->readMemory(hl)) & 0x0F) == 0) ? 1 : 0);
+    memory.setZFlag((memory.readMemory(hl) == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag((((memory.readMemory(hl)) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode35()
 {
 	//Dec data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) - 1));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) - 1));
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag((memory->readMemory(hl) == 0) ? 1 : 0);
-    memory->setNFlag(true);
-    memory->setHFlag((((memory->readMemory(hl)) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setZFlag((memory.readMemory(hl) == 0) ? 1 : 0);
+    memory.setNFlag(true);
+    memory.setHFlag((((memory.readMemory(hl)) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode36(unsigned char n)
 {
 	//Load byte into data at HL
-    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), n);
+    memory.writeMemory(static_cast<unsigned short>(memory.getHL()), n);
 	mClock += 3;
 	tClock += 12;
 }
@@ -2340,20 +2345,20 @@ void Cpu::opcode36(unsigned char n)
 void Cpu::opcode37()
 {
 	//SCF Set Carry Flag
-    memory->setCFlag(true);
+    memory.setCFlag(true);
 	mClock += 1;
 	tClock += 4;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcode38(unsigned char n)
 {
 	//Jump Relative to n if Carry
-    if (memory->getCFlag())
+    if (memory.getCFlag())
 	{
-        memory->memoryPointer += static_cast<signed char>(n);
+        memory.memoryPointer += static_cast<signed char>(n);
 		mClock += 3;
 		tClock += 12;
 	}
@@ -2367,25 +2372,25 @@ void Cpu::opcode38(unsigned char n)
 void Cpu::opcode39()
 {
 	//Add SP to HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    unsigned short sp = static_cast<unsigned short>(memory->stackPointer);
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    unsigned short sp = static_cast<unsigned short>(memory.stackPointer);
 	int totalSum = hl + sp;
 
-    memory->setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
-    memory->setHL(static_cast<short>(totalSum & 0xFFFF));
-    memory->setCFlag(totalSum > 0xFFFF);
+    memory.setHFlag((hl & 0x0FFF) > (totalSum & 0x0FFF));
+    memory.setHL(static_cast<short>(totalSum & 0xFFFF));
+    memory.setCFlag(totalSum > 0xFFFF);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
+    memory.setNFlag(false);
 }
 
 void Cpu::opcode3A()
 {
 	//Load data in HL into A and decrement HL
-    memory->setA(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
-    memory->setHL(memory->getHL() - 1);
+    memory.setA(memory.readMemory(static_cast<unsigned short>(memory.getHL())));
+    memory.setHL(memory.getHL() - 1);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2393,7 +2398,7 @@ void Cpu::opcode3A()
 void Cpu::opcode3B()
 {
 	//Dec SP
-    memory->stackPointer--;
+    memory.stackPointer--;
 	mClock += 2;
 	tClock += 8;
 }
@@ -2401,31 +2406,31 @@ void Cpu::opcode3B()
 void Cpu::opcode3C()
 {
 	//Inc A
-    memory->setA(memory->getA() + 1);
+    memory.setA(memory.getA() + 1);
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag((((memory->getA()) & 0x0F) == 0) ? 1 : 0);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag((((memory.getA()) & 0x0F) == 0) ? 1 : 0);
 }
 
 void Cpu::opcode3D()
 {
 	//Dec A
-    memory->setA(memory->getA() - 1);
+    memory.setA(memory.getA() - 1);
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(true);
-    memory->setHFlag((((memory->getA()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(true);
+    memory.setHFlag((((memory.getA()) & 0x0F) == 0xF) ? 1 : 0);
 }
 
 void Cpu::opcode3E(unsigned char n)
 {
 	//Load byte into A
-    memory->setA(n);
+    memory.setA(n);
 	mClock += 2;
 	tClock += 8;
 }
@@ -2433,18 +2438,18 @@ void Cpu::opcode3E(unsigned char n)
 void Cpu::opcode3F()
 {
 	//Complement Carry Flag (Toggle C Flag)
-    memory->setCFlag((memory->getCFlag() == 1) ? 0 : 1);
+    memory.setCFlag((memory.getCFlag() == 1) ? 0 : 1);
 	mClock += 1;
 	tClock += 4;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcode40()
 {
 	//Load B into B
-    memory->setB(memory->getB());
+    memory.setB(memory.getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2452,7 +2457,7 @@ void Cpu::opcode40()
 void Cpu::opcode41()
 {
 	//Load C into B
-    memory->setB(memory->getC());
+    memory.setB(memory.getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2460,7 +2465,7 @@ void Cpu::opcode41()
 void Cpu::opcode42()
 {
 	//Load D into B
-    memory->setB(memory->getD());
+    memory.setB(memory.getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2468,7 +2473,7 @@ void Cpu::opcode42()
 void Cpu::opcode43()
 {
 	//Load E into B
-    memory->setB(memory->getE());
+    memory.setB(memory.getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2476,7 +2481,7 @@ void Cpu::opcode43()
 void Cpu::opcode44()
 {
 	//Load H into B
-    memory->setB(memory->getH());
+    memory.setB(memory.getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2484,7 +2489,7 @@ void Cpu::opcode44()
 void Cpu::opcode45()
 {
 	//Load L into B
-    memory->setB(memory->getL());
+    memory.setB(memory.getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2492,7 +2497,7 @@ void Cpu::opcode45()
 void Cpu::opcode46()
 {
 	//Load data at HL into B
-    memory->setB(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
+    memory.setB(memory.readMemory(static_cast<unsigned short>(memory.getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2500,7 +2505,7 @@ void Cpu::opcode46()
 void Cpu::opcode47()
 {
 	//Load A into B
-    memory->setB(memory->getA());
+    memory.setB(memory.getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2508,7 +2513,7 @@ void Cpu::opcode47()
 void Cpu::opcode48()
 {
 	//Load B into C
-    memory->setC(memory->getB());
+    memory.setC(memory.getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2516,7 +2521,7 @@ void Cpu::opcode48()
 void Cpu::opcode49()
 {
 	//Load C into C
-    memory->setC(memory->getC());
+    memory.setC(memory.getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2524,7 +2529,7 @@ void Cpu::opcode49()
 void Cpu::opcode4A()
 {
 	//Load D into C
-    memory->setC(memory->getD());
+    memory.setC(memory.getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2532,7 +2537,7 @@ void Cpu::opcode4A()
 void Cpu::opcode4B()
 {
 	//Load E into C
-    memory->setC(memory->getE());
+    memory.setC(memory.getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2540,7 +2545,7 @@ void Cpu::opcode4B()
 void Cpu::opcode4C()
 {
 	//Load H into C
-    memory->setC(memory->getH());
+    memory.setC(memory.getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2548,7 +2553,7 @@ void Cpu::opcode4C()
 void Cpu::opcode4D()
 {
 	//Load L into C
-    memory->setC(memory->getL());
+    memory.setC(memory.getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2556,7 +2561,7 @@ void Cpu::opcode4D()
 void Cpu::opcode4E()
 {
 	//Load data at HL into C
-    memory->setC(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
+    memory.setC(memory.readMemory(static_cast<unsigned short>(memory.getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2564,7 +2569,7 @@ void Cpu::opcode4E()
 void Cpu::opcode4F()
 {
 	//Load A into C
-    memory->setC(memory->getA());
+    memory.setC(memory.getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2572,7 +2577,7 @@ void Cpu::opcode4F()
 void Cpu::opcode50()
 {
 	//Load B into D
-    memory->setD(memory->getB());
+    memory.setD(memory.getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2580,7 +2585,7 @@ void Cpu::opcode50()
 void Cpu::opcode51()
 {
 	//Load C into D
-    memory->setD(memory->getC());
+    memory.setD(memory.getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2588,7 +2593,7 @@ void Cpu::opcode51()
 void Cpu::opcode52()
 {
 	//Load D into D
-    memory->setD(memory->getD());
+    memory.setD(memory.getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2596,7 +2601,7 @@ void Cpu::opcode52()
 void Cpu::opcode53()
 {
 	//Load E into D
-    memory->setD(memory->getE());
+    memory.setD(memory.getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2604,7 +2609,7 @@ void Cpu::opcode53()
 void Cpu::opcode54()
 {
 	//Load H into D
-    memory->setD(memory->getH());
+    memory.setD(memory.getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2612,7 +2617,7 @@ void Cpu::opcode54()
 void Cpu::opcode55()
 {
 	//Load L into D
-    memory->setD(memory->getL());
+    memory.setD(memory.getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2620,7 +2625,7 @@ void Cpu::opcode55()
 void Cpu::opcode56()
 {
 	//Load data at HL into D
-    memory->setD(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
+    memory.setD(memory.readMemory(static_cast<unsigned short>(memory.getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2628,7 +2633,7 @@ void Cpu::opcode56()
 void Cpu::opcode57()
 {
 	//Load A into D
-    memory->setD(memory->getA());
+    memory.setD(memory.getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2636,7 +2641,7 @@ void Cpu::opcode57()
 void Cpu::opcode58()
 {
 	//Load B into E
-    memory->setE(memory->getB());
+    memory.setE(memory.getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2644,7 +2649,7 @@ void Cpu::opcode58()
 void Cpu::opcode59()
 {
 	//Load C into E
-    memory->setE(memory->getC());
+    memory.setE(memory.getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2652,7 +2657,7 @@ void Cpu::opcode59()
 void Cpu::opcode5A()
 {
 	//Load D into E
-    memory->setE(memory->getD());
+    memory.setE(memory.getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2660,7 +2665,7 @@ void Cpu::opcode5A()
 void Cpu::opcode5B()
 {
 	//Load E into E
-    memory->setE(memory->getE());
+    memory.setE(memory.getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2668,7 +2673,7 @@ void Cpu::opcode5B()
 void Cpu::opcode5C()
 {
 	//Load H into E
-    memory->setE(memory->getH());
+    memory.setE(memory.getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2676,7 +2681,7 @@ void Cpu::opcode5C()
 void Cpu::opcode5D()
 {
 	//Load L into D
-    memory->setE(memory->getL());
+    memory.setE(memory.getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2684,7 +2689,7 @@ void Cpu::opcode5D()
 void Cpu::opcode5E()
 {
 	//Load data at HL into E
-    memory->setE(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
+    memory.setE(memory.readMemory(static_cast<unsigned short>(memory.getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2692,7 +2697,7 @@ void Cpu::opcode5E()
 void Cpu::opcode5F()
 {
 	//Load A into E
-    memory->setE(memory->getA());
+    memory.setE(memory.getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2700,7 +2705,7 @@ void Cpu::opcode5F()
 void Cpu::opcode60()
 {
 	//Load B into H
-    memory->setH(memory->getB());
+    memory.setH(memory.getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2708,7 +2713,7 @@ void Cpu::opcode60()
 void Cpu::opcode61()
 {
 	//Load C into H
-    memory->setH(memory->getC());
+    memory.setH(memory.getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2716,7 +2721,7 @@ void Cpu::opcode61()
 void Cpu::opcode62()
 {
 	//Load D into H
-    memory->setH(memory->getD());
+    memory.setH(memory.getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2724,7 +2729,7 @@ void Cpu::opcode62()
 void Cpu::opcode63()
 {
 	//Load E into H
-    memory->setH(memory->getE());
+    memory.setH(memory.getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2732,7 +2737,7 @@ void Cpu::opcode63()
 void Cpu::opcode64()
 {
 	//Load H into H
-    memory->setH(memory->getH());
+    memory.setH(memory.getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2740,7 +2745,7 @@ void Cpu::opcode64()
 void Cpu::opcode65()
 {
 	//Load L into H
-    memory->setH(memory->getL());
+    memory.setH(memory.getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2748,7 +2753,7 @@ void Cpu::opcode65()
 void Cpu::opcode66()
 {
 	//Load data at HL into H
-    memory->setH(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
+    memory.setH(memory.readMemory(static_cast<unsigned short>(memory.getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2756,7 +2761,7 @@ void Cpu::opcode66()
 void Cpu::opcode67()
 {
 	//Load A into H
-    memory->setH(memory->getA());
+    memory.setH(memory.getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2764,7 +2769,7 @@ void Cpu::opcode67()
 void Cpu::opcode68()
 {
 	//Load B into L
-    memory->setL(memory->getB());
+    memory.setL(memory.getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2772,7 +2777,7 @@ void Cpu::opcode68()
 void Cpu::opcode69()
 {
 	//Load C into L
-    memory->setL(memory->getC());
+    memory.setL(memory.getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2780,7 +2785,7 @@ void Cpu::opcode69()
 void Cpu::opcode6A()
 {
 	//Load D into L
-    memory->setL(memory->getD());
+    memory.setL(memory.getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2788,7 +2793,7 @@ void Cpu::opcode6A()
 void Cpu::opcode6B()
 {
 	//Load E into L
-    memory->setL(memory->getE());
+    memory.setL(memory.getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2796,7 +2801,7 @@ void Cpu::opcode6B()
 void Cpu::opcode6C()
 {
 	//Load H into L
-    memory->setL(memory->getH());
+    memory.setL(memory.getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2804,7 +2809,7 @@ void Cpu::opcode6C()
 void Cpu::opcode6D()
 {
 	//Load L into L
-    memory->setL(memory->getL());
+    memory.setL(memory.getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2812,7 +2817,7 @@ void Cpu::opcode6D()
 void Cpu::opcode6E()
 {
 	//Load data at HL into L
-    memory->setL(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
+    memory.setL(memory.readMemory(static_cast<unsigned short>(memory.getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2820,7 +2825,7 @@ void Cpu::opcode6E()
 void Cpu::opcode6F()
 {
 	//Load A into L
-    memory->setL(memory->getA());
+    memory.setL(memory.getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2828,7 +2833,7 @@ void Cpu::opcode6F()
 void Cpu::opcode70()
 {
 	//Load B into data at HL
-    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getB());
+    memory.writeMemory(static_cast<unsigned short>(memory.getHL()), memory.getB());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2836,7 +2841,7 @@ void Cpu::opcode70()
 void Cpu::opcode71()
 {
 	//Load C into data at HL
-    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getC());
+    memory.writeMemory(static_cast<unsigned short>(memory.getHL()), memory.getC());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2844,7 +2849,7 @@ void Cpu::opcode71()
 void Cpu::opcode72()
 {
 	//Load D into data at HL
-    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getD());
+    memory.writeMemory(static_cast<unsigned short>(memory.getHL()), memory.getD());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2852,7 +2857,7 @@ void Cpu::opcode72()
 void Cpu::opcode73()
 {
 	//Load E into data at HL
-    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getE());
+    memory.writeMemory(static_cast<unsigned short>(memory.getHL()), memory.getE());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2860,7 +2865,7 @@ void Cpu::opcode73()
 void Cpu::opcode74()
 {
 	//Load H into data at HL
-    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getH());
+    memory.writeMemory(static_cast<unsigned short>(memory.getHL()), memory.getH());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2868,7 +2873,7 @@ void Cpu::opcode74()
 void Cpu::opcode75()
 {
 	//Load L into data at HL
-    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getL());
+    memory.writeMemory(static_cast<unsigned short>(memory.getHL()), memory.getL());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2890,7 +2895,7 @@ void Cpu::opcode76()
 			//Halt is not entered, halt bug occurs
 			haltMode = 0;
 			halt = false;
-            core->repeatBug = true;
+            repeatBug = true;
 		}
 		else
 		{
@@ -2907,7 +2912,7 @@ void Cpu::opcode76()
 void Cpu::opcode77()
 {
 	//Load A into data at HL
-    memory->writeMemory(static_cast<unsigned short>(memory->getHL()), memory->getA());
+    memory.writeMemory(static_cast<unsigned short>(memory.getHL()), memory.getA());
 	mClock += 2;
 	tClock += 8;
 }
@@ -2915,7 +2920,7 @@ void Cpu::opcode77()
 void Cpu::opcode78()
 {
 	//Load B into A
-    memory->setA(memory->getB());
+    memory.setA(memory.getB());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2923,7 +2928,7 @@ void Cpu::opcode78()
 void Cpu::opcode79()
 {
 	//Load C into A
-    memory->setA(memory->getC());
+    memory.setA(memory.getC());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2931,7 +2936,7 @@ void Cpu::opcode79()
 void Cpu::opcode7A()
 {
 	//Load D into A
-    memory->setA(memory->getD());
+    memory.setA(memory.getD());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2939,7 +2944,7 @@ void Cpu::opcode7A()
 void Cpu::opcode7B()
 {
 	//Load E into A
-    memory->setA(memory->getE());
+    memory.setA(memory.getE());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2947,7 +2952,7 @@ void Cpu::opcode7B()
 void Cpu::opcode7C()
 {
 	//Load H into A
-    memory->setA(memory->getH());
+    memory.setA(memory.getH());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2955,7 +2960,7 @@ void Cpu::opcode7C()
 void Cpu::opcode7D()
 {
 	//Load L into A
-    memory->setA(memory->getL());
+    memory.setA(memory.getL());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2963,7 +2968,7 @@ void Cpu::opcode7D()
 void Cpu::opcode7E()
 {
 	//Load data at HL into A
-    memory->setA(memory->readMemory(static_cast<unsigned short>(memory->getHL())));
+    memory.setA(memory.readMemory(static_cast<unsigned short>(memory.getHL())));
 	mClock += 2;
 	tClock += 8;
 }
@@ -2971,7 +2976,7 @@ void Cpu::opcode7E()
 void Cpu::opcode7F()
 {
 	//Load A into A
-    memory->setA(memory->getA());
+    memory.setA(memory.getA());
 	mClock += 1;
 	tClock += 4;
 }
@@ -2979,13 +2984,13 @@ void Cpu::opcode7F()
 void Cpu::opcode80()
 {
 	//Add B to A
-    int result = memory->getA() + memory->getB();
+    int result = memory.getA() + memory.getB();
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getB() & 0x0F)) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getB() & 0x0F)) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -2995,13 +3000,13 @@ void Cpu::opcode80()
 void Cpu::opcode81()
 {
 	//Add C to A
-    int result = memory->getA() + memory->getC();
+    int result = memory.getA() + memory.getC();
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getC() & 0x0F)) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getC() & 0x0F)) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3010,13 +3015,13 @@ void Cpu::opcode81()
 void Cpu::opcode82()
 {
 	//Add D to A
-    int result = memory->getA() + memory->getD();
+    int result = memory.getA() + memory.getD();
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getD() & 0x0F)) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getD() & 0x0F)) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3025,13 +3030,13 @@ void Cpu::opcode82()
 void Cpu::opcode83()
 {
 	//Add E to A
-    int result = memory->getA() + memory->getE();
+    int result = memory.getA() + memory.getE();
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getE() & 0x0F)) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getE() & 0x0F)) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3040,13 +3045,13 @@ void Cpu::opcode83()
 void Cpu::opcode84()
 {
 	//Add H to A
-    int result = memory->getA() + memory->getH();
+    int result = memory.getA() + memory.getH();
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getH() & 0x0F)) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getH() & 0x0F)) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3055,13 +3060,13 @@ void Cpu::opcode84()
 void Cpu::opcode85()
 {
 	//Add L to A
-    int result = memory->getA() + memory->getL();
+    int result = memory.getA() + memory.getL();
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getL() & 0x0F)) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getL() & 0x0F)) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3070,17 +3075,17 @@ void Cpu::opcode85()
 void Cpu::opcode86()
 {
 	//Add data at HL to A
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
 
-    uint8_t data = memory->readMemory(static_cast<unsigned short>(memory->getHL()));
-    int result = memory->getA() + data;
+    uint8_t data = memory.readMemory(static_cast<unsigned short>(memory.getHL()));
+    int result = memory.getA() + data;
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (data & 0x0F)) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (data & 0x0F)) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 2;
 	tClock += 8;
@@ -3089,13 +3094,13 @@ void Cpu::opcode86()
 void Cpu::opcode87()
 {
 	//Add A to A
-    int result = memory->getA() + memory->getA();
+    int result = memory.getA() + memory.getA();
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getA() & 0x0F)) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getA() & 0x0F)) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3104,14 +3109,14 @@ void Cpu::opcode87()
 void Cpu::opcode88()
 {
 	//Add B and Carry flag to A
-    int carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA() + memory->getB() + carry;
+    int carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA() + memory.getB() + carry;
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getB() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getB() & 0x0F) + carry) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3120,14 +3125,14 @@ void Cpu::opcode88()
 void Cpu::opcode89()
 {
 	//Add C and Carry flag to A
-    int carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA() + memory->getC() + carry;
+    int carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA() + memory.getC() + carry;
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getC() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getC() & 0x0F) + carry) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3136,14 +3141,14 @@ void Cpu::opcode89()
 void Cpu::opcode8A()
 {
 	//Add D and Carry flag to A
-    int carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA() + memory->getD() + carry;
+    int carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA() + memory.getD() + carry;
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getD() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getD() & 0x0F) + carry) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3152,14 +3157,14 @@ void Cpu::opcode8A()
 void Cpu::opcode8B()
 {
 	//Add E and Carry flag to A
-    int carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA() + memory->getE() + carry;
+    int carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA() + memory.getE() + carry;
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getE() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getE() & 0x0F) + carry) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3168,14 +3173,14 @@ void Cpu::opcode8B()
 void Cpu::opcode8C()
 {
 	//Add H and Carry flag to A
-    int carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA() + memory->getH() + carry;
+    int carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA() + memory.getH() + carry;
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getH() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getH() & 0x0F) + carry) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3184,14 +3189,14 @@ void Cpu::opcode8C()
 void Cpu::opcode8D()
 {
 	//Add L and Carry flag to A
-    int carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA() + memory->getL() + carry;
+    int carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA() + memory.getL() + carry;
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getL() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getL() & 0x0F) + carry) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3200,15 +3205,15 @@ void Cpu::opcode8D()
 void Cpu::opcode8E()
 {
 	//Add data at HL and Carry flag to A
-    int data = memory->readMemory(static_cast<unsigned short>(memory->getHL()));
-    int carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA() + data + carry;
+    int data = memory.readMemory(static_cast<unsigned short>(memory.getHL()));
+    int carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA() + data + carry;
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (data & 0x0F) + carry) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (data & 0x0F) + carry) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 2;
 	tClock += 8;
@@ -3217,14 +3222,14 @@ void Cpu::opcode8E()
 void Cpu::opcode8F()
 {
 	//Add A and Carry flag to A
-    int carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA() + memory->getA() + carry;
+    int carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA() + memory.getA() + carry;
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (memory->getA() & 0x0F) + carry) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (memory.getA() & 0x0F) + carry) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 1;
 	tClock += 4;
@@ -3234,14 +3239,14 @@ void Cpu::opcode90()
 {
 	//Sub B from A
 
-    int result = memory->getA();
-    result -= memory->getB();
+    int result = memory.getA();
+    result -= memory.getB();
 
-    memory->setCFlag(memory->getB() > memory->getA());
-    memory->setHFlag((memory->getB() & 0x0F) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setZFlag(result == 0);
-    memory->setA(result & 0xFF);
+    memory.setCFlag(memory.getB() > memory.getA());
+    memory.setHFlag((memory.getB() & 0x0F) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setZFlag(result == 0);
+    memory.setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3252,14 +3257,14 @@ void Cpu::opcode91()
 {
 	//Sub C from A
 
-    int result = memory->getA();
-    result -= memory->getC();
+    int result = memory.getA();
+    result -= memory.getC();
 
-    memory->setCFlag(memory->getC() > memory->getA());
-    memory->setHFlag((memory->getC() & 0x0F) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setZFlag(result == 0);
-    memory->setA(result & 0xFF);
+    memory.setCFlag(memory.getC() > memory.getA());
+    memory.setHFlag((memory.getC() & 0x0F) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setZFlag(result == 0);
+    memory.setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3270,14 +3275,14 @@ void Cpu::opcode92()
 {
 	//Sub D from A
 
-    int result = memory->getA();
-    result -= memory->getD();
+    int result = memory.getA();
+    result -= memory.getD();
 
-    memory->setCFlag(memory->getD() > memory->getA());
-    memory->setHFlag((memory->getD() & 0x0F) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setZFlag(result == 0);
-    memory->setA(result & 0xFF);
+    memory.setCFlag(memory.getD() > memory.getA());
+    memory.setHFlag((memory.getD() & 0x0F) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setZFlag(result == 0);
+    memory.setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3287,14 +3292,14 @@ void Cpu::opcode93()
 {
 	//Sub E from A
 
-    int result = memory->getA();
-    result -= memory->getE();
+    int result = memory.getA();
+    result -= memory.getE();
 
-    memory->setCFlag(memory->getE() > memory->getA());
-    memory->setHFlag((memory->getE() & 0x0F) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setZFlag(result == 0);
-    memory->setA(result & 0xFF);
+    memory.setCFlag(memory.getE() > memory.getA());
+    memory.setHFlag((memory.getE() & 0x0F) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setZFlag(result == 0);
+    memory.setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3304,14 +3309,14 @@ void Cpu::opcode94()
 {
 	//Sub B from H
 
-    int result = memory->getA();
-    result -= memory->getH();
+    int result = memory.getA();
+    result -= memory.getH();
 
-    memory->setCFlag(memory->getH() > memory->getA());
-    memory->setHFlag((memory->getH() & 0x0F) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setZFlag(result == 0);
-    memory->setA(result & 0xFF);
+    memory.setCFlag(memory.getH() > memory.getA());
+    memory.setHFlag((memory.getH() & 0x0F) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setZFlag(result == 0);
+    memory.setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3321,14 +3326,14 @@ void Cpu::opcode95()
 {
 	//Sub L from A
 
-    int result = memory->getA();
-    result -= memory->getL();
+    int result = memory.getA();
+    result -= memory.getL();
 
-    memory->setCFlag(memory->getL() > memory->getA());
-    memory->setHFlag((memory->getL() & 0x0F) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setZFlag(result == 0);
-    memory->setA(result & 0xFF);
+    memory.setCFlag(memory.getL() > memory.getA());
+    memory.setHFlag((memory.getL() & 0x0F) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setZFlag(result == 0);
+    memory.setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3338,15 +3343,15 @@ void Cpu::opcode96()
 {
 	//Sub data at HL from A
 
-    int result = memory->getA();
-    uint8_t n = memory->readMemory(static_cast<unsigned short>(memory->getHL()));
+    int result = memory.getA();
+    uint8_t n = memory.readMemory(static_cast<unsigned short>(memory.getHL()));
 	result -= n;
 
-    memory->setCFlag(n > memory->getA());
-    memory->setHFlag((n & 0x0F) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setZFlag(result == 0);
-    memory->setA(result & 0xFF);
+    memory.setCFlag(n > memory.getA());
+    memory.setHFlag((n & 0x0F) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setZFlag(result == 0);
+    memory.setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3356,14 +3361,14 @@ void Cpu::opcode97()
 {
 	//Sub A from A
 
-    int result = memory->getA();
-    result -= memory->getA();
+    int result = memory.getA();
+    result -= memory.getA();
 
-    memory->setCFlag(memory->getA() > memory->getA());
-    memory->setHFlag((memory->getA() & 0x0F) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setZFlag(result == 0);
-    memory->setA(result & 0xFF);
+    memory.setCFlag(memory.getA() > memory.getA());
+    memory.setHFlag((memory.getA() & 0x0F) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setZFlag(result == 0);
+    memory.setA(result & 0xFF);
 
 	mClock += 1;
 	tClock += 4;
@@ -3373,16 +3378,16 @@ void Cpu::opcode98()
 {
 	//Sub B and Carry flag from A
 
-    uint8_t carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA();
-    result -= memory->getB();
+    uint8_t carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA();
+    result -= memory.getB();
 	result -= carry;
 
-    memory->setCFlag((memory->getB() + carry) > memory->getA());
-    memory->setHFlag(((memory->getB() & 0x0F) + carry) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setA(result & 0xFF);
-    memory->setZFlag(memory->getA() == 0);
+    memory.setCFlag((memory.getB() + carry) > memory.getA());
+    memory.setHFlag(((memory.getB() & 0x0F) + carry) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setA(result & 0xFF);
+    memory.setZFlag(memory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3392,16 +3397,16 @@ void Cpu::opcode99()
 {
 	//Sub C and Carry flag from A
 
-    uint8_t carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA();
-    result -= memory->getC();
+    uint8_t carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA();
+    result -= memory.getC();
 	result -= carry;
 
-    memory->setCFlag((memory->getC() + carry) > memory->getA());
-    memory->setHFlag(((memory->getC() & 0x0F) + carry) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setA(result & 0xFF);
-    memory->setZFlag(memory->getA() == 0);
+    memory.setCFlag((memory.getC() + carry) > memory.getA());
+    memory.setHFlag(((memory.getC() & 0x0F) + carry) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setA(result & 0xFF);
+    memory.setZFlag(memory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3411,16 +3416,16 @@ void Cpu::opcode9A()
 {
 	//Sub D and Carry flag from A
 
-    uint8_t carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA();
-    result -= memory->getD();
+    uint8_t carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA();
+    result -= memory.getD();
 	result -= carry;
 
-    memory->setCFlag((memory->getD() + carry) > memory->getA());
-    memory->setHFlag(((memory->getD() & 0x0F) + carry) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setA(result & 0xFF);
-    memory->setZFlag(memory->getA() == 0);
+    memory.setCFlag((memory.getD() + carry) > memory.getA());
+    memory.setHFlag(((memory.getD() & 0x0F) + carry) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setA(result & 0xFF);
+    memory.setZFlag(memory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3430,16 +3435,16 @@ void Cpu::opcode9B()
 {
 	//Sub E and Carry flag from A
 
-    uint8_t carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA();
-    result -= memory->getE();
+    uint8_t carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA();
+    result -= memory.getE();
 	result -= carry;
 
-    memory->setCFlag((memory->getE() + carry) > memory->getA());
-    memory->setHFlag(((memory->getE() & 0x0F) + carry) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setA(result & 0xFF);
-    memory->setZFlag(memory->getA() == 0);
+    memory.setCFlag((memory.getE() + carry) > memory.getA());
+    memory.setHFlag(((memory.getE() & 0x0F) + carry) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setA(result & 0xFF);
+    memory.setZFlag(memory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3449,16 +3454,16 @@ void Cpu::opcode9C()
 {
 	//Sub H and Carry flag from A
 
-    uint8_t carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA();
-    result -= memory->getH();
+    uint8_t carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA();
+    result -= memory.getH();
 	result -= carry;
 
-    memory->setCFlag((memory->getH() + carry) > memory->getA());
-    memory->setHFlag(((memory->getH() & 0x0F) + carry) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setA(result & 0xFF);
-    memory->setZFlag(memory->getA() == 0);
+    memory.setCFlag((memory.getH() + carry) > memory.getA());
+    memory.setHFlag(((memory.getH() & 0x0F) + carry) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setA(result & 0xFF);
+    memory.setZFlag(memory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3468,16 +3473,16 @@ void Cpu::opcode9D()
 {
 	//Sub L and Carry flag from A
 
-    uint8_t carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA();
-    result -= memory->getL();
+    uint8_t carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA();
+    result -= memory.getL();
 	result -= carry;
 
-    memory->setCFlag((memory->getL() + carry) > memory->getA());
-    memory->setHFlag(((memory->getL() & 0x0F) + carry) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setA(result & 0xFF);
-    memory->setZFlag(memory->getA() == 0);
+    memory.setCFlag((memory.getL() + carry) > memory.getA());
+    memory.setHFlag(((memory.getL() & 0x0F) + carry) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setA(result & 0xFF);
+    memory.setZFlag(memory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3487,17 +3492,17 @@ void Cpu::opcode9E()
 {
 	//Sub data at HL and Carry flag from A
 
-    uint8_t data = memory->readMemory(static_cast<unsigned short>(memory->getHL()));
-    uint8_t carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA();
+    uint8_t data = memory.readMemory(static_cast<unsigned short>(memory.getHL()));
+    uint8_t carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA();
 	result -= data;
 	result -= carry;
 
-    memory->setCFlag((data + carry) > memory->getA());
-    memory->setHFlag(((data & 0x0F) + carry) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setA(result & 0xFF);
-    memory->setZFlag(memory->getA() == 0);
+    memory.setCFlag((data + carry) > memory.getA());
+    memory.setHFlag(((data & 0x0F) + carry) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setA(result & 0xFF);
+    memory.setZFlag(memory.getA() == 0);
 
 	mClock += 2;
 	tClock += 8;
@@ -3507,16 +3512,16 @@ void Cpu::opcode9F()
 {
 	//Sub A and Carry flag from A
 
-    uint8_t carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA();
-    result -= memory->getA();
+    uint8_t carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA();
+    result -= memory.getA();
 	result -= carry;
 
-    memory->setCFlag((memory->getA() + carry) > memory->getA());
-    memory->setHFlag(((memory->getA() & 0x0F) + carry) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setA(result & 0xFF);
-    memory->setZFlag(memory->getA() == 0);
+    memory.setCFlag((memory.getA() + carry) > memory.getA());
+    memory.setHFlag(((memory.getA() & 0x0F) + carry) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setA(result & 0xFF);
+    memory.setZFlag(memory.getA() == 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3525,325 +3530,325 @@ void Cpu::opcode9F()
 void Cpu::opcodeA0()
 {
 	//And B from A
-    memory->setA(memory->getA() & memory->getB());
+    memory.setA(memory.getA() & memory.getB());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeA1()
 {
 	//And C from A
-    memory->setA(memory->getA() & memory->getC());
+    memory.setA(memory.getA() & memory.getC());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeA2()
 {
 	//And D from A
-    memory->setA(memory->getA() & memory->getD());
+    memory.setA(memory.getA() & memory.getD());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeA3()
 {
 	//And E from A
-    memory->setA(memory->getA() & memory->getE());
+    memory.setA(memory.getA() & memory.getE());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeA4()
 {
 	//And H from A
-    memory->setA(memory->getA() & memory->getH());
+    memory.setA(memory.getA() & memory.getH());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeA5()
 {
 	//And L from A
-    memory->setA(memory->getA() & memory->getL());
+    memory.setA(memory.getA() & memory.getL());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeA6()
 {
 	//And (HL) from A
-    memory->setA(memory->getA() & memory->readMemory(static_cast<unsigned short>(memory->getHL())));
+    memory.setA(memory.getA() & memory.readMemory(static_cast<unsigned short>(memory.getHL())));
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeA7()
 {
 	//And A from A
-    memory->setA(memory->getA() & memory->getA());
+    memory.setA(memory.getA() & memory.getA());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeA8()
 {
 	//XOR B from A
-    memory->setA(memory->getA() ^ memory->getB());
+    memory.setA(memory.getA() ^ memory.getB());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeA9()
 {
 	//XOR C from A
-    memory->setA(memory->getA() ^ memory->getC());
+    memory.setA(memory.getA() ^ memory.getC());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeAA()
 {
 	//XOR D from A
-    memory->setA(memory->getA() ^ memory->getD());
+    memory.setA(memory.getA() ^ memory.getD());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeAB()
 {
 	//XOR E from A
-    memory->setA(memory->getA() ^ memory->getE());
+    memory.setA(memory.getA() ^ memory.getE());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeAC()
 {
 	//XOR H from A
-    memory->setA(memory->getA() ^ memory->getH());
+    memory.setA(memory.getA() ^ memory.getH());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeAD()
 {
 	//XOR L from A
-    memory->setA(memory->getA() ^ memory->getL());
+    memory.setA(memory.getA() ^ memory.getL());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeAE()
 {
 	//XOR data at HL from A
-    memory->setA(memory->getA() ^ memory->readMemory(static_cast<unsigned short>(memory->getHL())));
+    memory.setA(memory.getA() ^ memory.readMemory(static_cast<unsigned short>(memory.getHL())));
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeAF()
 {
 	//XOR A from A
-    memory->setA(memory->getA() ^ memory->getA());
+    memory.setA(memory.getA() ^ memory.getA());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeB0()
 {
 	//OR B from A
-    memory->setA(memory->getA() | memory->getB());
+    memory.setA(memory.getA() | memory.getB());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeB1()
 {
 	//OR C from A
-    memory->setA(memory->getA() | memory->getC());
+    memory.setA(memory.getA() | memory.getC());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeB2()
 {
 	//OR D from A
-    memory->setA(memory->getA() | memory->getD());
+    memory.setA(memory.getA() | memory.getD());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeB3()
 {
 	//OR E from A
-    memory->setA(memory->getA() | memory->getE());
+    memory.setA(memory.getA() | memory.getE());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeB4()
 {
 	//OR H from A
-    memory->setA(memory->getA() | memory->getH());
+    memory.setA(memory.getA() | memory.getH());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeB5()
 {
 	//OR L from A
-    memory->setA(memory->getA() | memory->getL());
+    memory.setA(memory.getA() | memory.getL());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeB6()
 {
 	//OR (HL) from A
-    memory->setA(memory->getA() | memory->readMemory(static_cast<unsigned short>(memory->getHL())));
+    memory.setA(memory.getA() | memory.readMemory(static_cast<unsigned short>(memory.getHL())));
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeB7()
 {
 	//OR A from A
-    memory->setA(memory->getA() | memory->getA());
+    memory.setA(memory.getA() | memory.getA());
 	mClock += 1;
 	tClock += 4;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeB8()
 {
 	//Compare B with A
 
-    int test = memory->getA() - memory->getB();
+    int test = memory.getA() - memory.getB();
 
-    memory->setZFlag(test == 0);
-    memory->setNFlag(true);
-    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
-    memory->setCFlag(test < 0);
+    memory.setZFlag(test == 0);
+    memory.setNFlag(true);
+    memory.setHFlag((test & 0xF) > (memory.getA() & 0xF));
+    memory.setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3853,12 +3858,12 @@ void Cpu::opcodeB9()
 {
 	//Compare C with A
 
-    int test = memory->getA() - memory->getC();
+    int test = memory.getA() - memory.getC();
 
-    memory->setZFlag(test == 0);
-    memory->setNFlag(true);
-    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
-    memory->setCFlag(test < 0);
+    memory.setZFlag(test == 0);
+    memory.setNFlag(true);
+    memory.setHFlag((test & 0xF) > (memory.getA() & 0xF));
+    memory.setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3868,12 +3873,12 @@ void Cpu::opcodeBA()
 {
 	//Compare D with A
 	
-    int test = memory->getA() - memory->getD();
+    int test = memory.getA() - memory.getD();
 
-    memory->setZFlag(test == 0);
-    memory->setNFlag(true);
-    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
-    memory->setCFlag(test < 0);
+    memory.setZFlag(test == 0);
+    memory.setNFlag(true);
+    memory.setHFlag((test & 0xF) > (memory.getA() & 0xF));
+    memory.setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3883,12 +3888,12 @@ void Cpu::opcodeBB()
 {
 	//Compare E with A
 	
-    int test = memory->getA() - memory->getE();
+    int test = memory.getA() - memory.getE();
 
-    memory->setZFlag(test == 0);
-    memory->setNFlag(true);
-    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
-    memory->setCFlag(test < 0);
+    memory.setZFlag(test == 0);
+    memory.setNFlag(true);
+    memory.setHFlag((test & 0xF) > (memory.getA() & 0xF));
+    memory.setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3898,12 +3903,12 @@ void Cpu::opcodeBC()
 {
 	//Compare H with A
 	
-    int test = memory->getA() - memory->getH();
+    int test = memory.getA() - memory.getH();
 
-    memory->setZFlag(test == 0);
-    memory->setNFlag(true);
-    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
-    memory->setCFlag(test < 0);
+    memory.setZFlag(test == 0);
+    memory.setNFlag(true);
+    memory.setHFlag((test & 0xF) > (memory.getA() & 0xF));
+    memory.setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3913,12 +3918,12 @@ void Cpu::opcodeBD()
 {
 	//Compare L with A
 	
-    int test = memory->getA() - memory->getL();
+    int test = memory.getA() - memory.getL();
 
-    memory->setZFlag(test == 0);
-    memory->setNFlag(true);
-    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
-    memory->setCFlag(test < 0);
+    memory.setZFlag(test == 0);
+    memory.setNFlag(true);
+    memory.setHFlag((test & 0xF) > (memory.getA() & 0xF));
+    memory.setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3928,13 +3933,13 @@ void Cpu::opcodeBE()
 {
 	//Compare data at HL with A
 
-    unsigned char n = memory->readMemory(static_cast<unsigned short>(memory->getHL()));
-    int test = memory->getA() - n;
+    unsigned char n = memory.readMemory(static_cast<unsigned short>(memory.getHL()));
+    int test = memory.getA() - n;
 
-    memory->setZFlag(test == 0);
-    memory->setNFlag(true);
-    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
-    memory->setCFlag(test < 0);
+    memory.setZFlag(test == 0);
+    memory.setNFlag(true);
+    memory.setHFlag((test & 0xF) > (memory.getA() & 0xF));
+    memory.setCFlag(test < 0);
 
 	mClock += 2;
 	tClock += 8;
@@ -3945,12 +3950,12 @@ void Cpu::opcodeBF()
 {
 	//Compare A with A
 	
-    int test = memory->getA() - memory->getA();
+    int test = memory.getA() - memory.getA();
 
-    memory->setZFlag(test == 0);
-    memory->setNFlag(true);
-    memory->setHFlag((test & 0xF) > (memory->getA() & 0xF));
-    memory->setCFlag(test < 0);
+    memory.setZFlag(test == 0);
+    memory.setNFlag(true);
+    memory.setHFlag((test & 0xF) > (memory.getA() & 0xF));
+    memory.setCFlag(test < 0);
 
 	mClock += 1;
 	tClock += 4;
@@ -3959,10 +3964,10 @@ void Cpu::opcodeBF()
 void Cpu::opcodeC0()
 {
 	//RET if Not Zero
-    if (!memory->getZFlag())
+    if (!memory.getZFlag())
 	{
-        memory->memoryPointer = (memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer));
-        memory->stackPointer += 2;
+        memory.memoryPointer = (memory.readMemory(memory.stackPointer + 1) << 8) | (memory.readMemory(memory.stackPointer));
+        memory.stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
 	}
@@ -3976,8 +3981,8 @@ void Cpu::opcodeC0()
 void Cpu::opcodeC1()
 {
 	//POP into BC
-    memory->setBC((memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer)));
-    memory->stackPointer += 2;
+    memory.setBC((memory.readMemory(memory.stackPointer + 1) << 8) | (memory.readMemory(memory.stackPointer)));
+    memory.stackPointer += 2;
 	mClock += 3;
 	tClock += 12;
 }
@@ -3985,9 +3990,9 @@ void Cpu::opcodeC1()
 void Cpu::opcodeC2(short nn)
 {
 	//Jump if Not Zero
-    if (!memory->getZFlag())
+    if (!memory.getZFlag())
 	{
-        memory->memoryPointer = nn;
+        memory.memoryPointer = nn;
 		mClock += 4;
 		tClock += 16;
 	}
@@ -4001,7 +4006,7 @@ void Cpu::opcodeC2(short nn)
 void Cpu::opcodeC3(short nn)
 {
 	//Jump to NNNN
-    memory->memoryPointer = nn;
+    memory.memoryPointer = nn;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4009,11 +4014,11 @@ void Cpu::opcodeC3(short nn)
 void Cpu::opcodeC4(short nn)
 {
 	//Call nn if Not Zero
-    if (!memory->getZFlag())
+    if (!memory.getZFlag())
 	{
-        memory->stackPointer -= 2;
-        memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
-        memory->memoryPointer = nn;
+        memory.stackPointer -= 2;
+        memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
+        memory.memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
 	}
@@ -4027,8 +4032,8 @@ void Cpu::opcodeC4(short nn)
 void Cpu::opcodeC5()
 {
 	//Push BC
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->getBC());
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.getBC());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4036,13 +4041,13 @@ void Cpu::opcodeC5()
 void Cpu::opcodeC6(unsigned char n)
 {
 	//Add byte to A
-    int result = memory->getA() + n;
+    int result = memory.getA() + n;
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (n & 0x0F)) & 0x10) > 0);
-    memory->setA(result & 0xFF);
-    memory->setCFlag(result > 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (n & 0x0F)) & 0x10) > 0);
+    memory.setA(result & 0xFF);
+    memory.setCFlag(result > 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 2;
 	tClock += 8;
@@ -4051,9 +4056,9 @@ void Cpu::opcodeC6(unsigned char n)
 void Cpu::opcodeC7()
 {
 	//Reset to 00
-    memory->stackPointer -= 2;
-    memory->writeMemory(memory->stackPointer, memory->memoryPointer);
-    memory->memoryPointer = 0x00;
+    memory.stackPointer -= 2;
+    memory.writeMemory(memory.stackPointer, memory.memoryPointer);
+    memory.memoryPointer = 0x00;
 	mClock += 4;
 	tClock += 16;
 
@@ -4062,10 +4067,10 @@ void Cpu::opcodeC7()
 void Cpu::opcodeC8()
 {
 	//Ret if Zero
-    if (memory->getZFlag())
+    if (memory.getZFlag())
 	{
-        memory->memoryPointer = (memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer));
-        memory->stackPointer += 2;
+        memory.memoryPointer = (memory.readMemory(memory.stackPointer + 1) << 8) | (memory.readMemory(memory.stackPointer));
+        memory.stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
 	}
@@ -4079,8 +4084,8 @@ void Cpu::opcodeC8()
 void Cpu::opcodeC9()
 {
 	//Ret
-    memory->memoryPointer = (memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer));
-    memory->stackPointer += 2;
+    memory.memoryPointer = (memory.readMemory(memory.stackPointer + 1) << 8) | (memory.readMemory(memory.stackPointer));
+    memory.stackPointer += 2;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4088,9 +4093,9 @@ void Cpu::opcodeC9()
 void Cpu::opcodeCA(short nn)
 {
 	//Jump to nn if Zero
-    if (memory->getZFlag())
+    if (memory.getZFlag())
 	{
-        memory->memoryPointer = nn;
+        memory.memoryPointer = nn;
 		mClock += 4;
 		tClock += 16;
 	}
@@ -4104,11 +4109,11 @@ void Cpu::opcodeCA(short nn)
 void Cpu::opcodeCC(short nn)
 {
 	//Call nn if Zero
-    if (memory->getZFlag())
+    if (memory.getZFlag())
 	{
-        memory->stackPointer -= 2;
-        memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
-        memory->memoryPointer = nn;
+        memory.stackPointer -= 2;
+        memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
+        memory.memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
 	}
@@ -4122,9 +4127,9 @@ void Cpu::opcodeCC(short nn)
 void Cpu::opcodeCD(short nn)
 {
 	//Call nn
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
-    memory->memoryPointer = nn;
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
+    memory.memoryPointer = nn;
 	mClock += 6;
 	tClock += 24;
 }
@@ -4133,14 +4138,14 @@ void Cpu::opcodeCE(unsigned char n)
 {
 	//Add n and Carry flag to A
 
-    int carry = memory->getCFlag() ? 1 : 0;
-    int result = memory->getA() + n + carry;
+    int carry = memory.getCFlag() ? 1 : 0;
+    int result = memory.getA() + n + carry;
 
-    memory->setHFlag((((memory->getA() & 0x0F) + (n & 0x0F) + carry) & 0x10) > 0);
-    memory->setCFlag(result > 0xFF);
-    memory->setA(result & 0xFF);
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
+    memory.setHFlag((((memory.getA() & 0x0F) + (n & 0x0F) + carry) & 0x10) > 0);
+    memory.setCFlag(result > 0xFF);
+    memory.setA(result & 0xFF);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
 
 	mClock += 2;
 	tClock += 8;
@@ -4149,9 +4154,9 @@ void Cpu::opcodeCE(unsigned char n)
 void Cpu::opcodeCF()
 {
 	//Reset to 08
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
-    memory->memoryPointer = 0x08;
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
+    memory.memoryPointer = 0x08;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4159,10 +4164,10 @@ void Cpu::opcodeCF()
 void Cpu::opcodeD0()
 {
 	//Ret if not Carry
-    if (!memory->getCFlag())
+    if (!memory.getCFlag())
 	{
-        memory->memoryPointer = (memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer));
-        memory->stackPointer += 2;
+        memory.memoryPointer = (memory.readMemory(memory.stackPointer + 1) << 8) | (memory.readMemory(memory.stackPointer));
+        memory.stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
 	}
@@ -4176,8 +4181,8 @@ void Cpu::opcodeD0()
 void Cpu::opcodeD1()
 {
 	//POP DE
-    memory->setDE((memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer)));
-    memory->stackPointer += 2;
+    memory.setDE((memory.readMemory(memory.stackPointer + 1) << 8) | (memory.readMemory(memory.stackPointer)));
+    memory.stackPointer += 2;
 	mClock += 3;
 	tClock += 12;
 }
@@ -4185,9 +4190,9 @@ void Cpu::opcodeD1()
 void Cpu::opcodeD2(short nn)
 {
 	//Jump to nn if not Carry
-    if (!memory->getCFlag())
+    if (!memory.getCFlag())
 	{
-        memory->memoryPointer = nn;
+        memory.memoryPointer = nn;
 		mClock += 4;
 		tClock += 16;
 	}
@@ -4203,11 +4208,11 @@ void Cpu::opcodeD2(short nn)
 void Cpu::opcodeD4(short nn)
 {
 	//Call nn if Not Carry
-    if (!memory->getCFlag())
+    if (!memory.getCFlag())
 	{
-        memory->stackPointer -= 2;
-        memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
-        memory->memoryPointer = nn;
+        memory.stackPointer -= 2;
+        memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
+        memory.memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
 	}
@@ -4221,8 +4226,8 @@ void Cpu::opcodeD4(short nn)
 void Cpu::opcodeD5()
 {
 	//Push DE
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->getDE());
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.getDE());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4231,14 +4236,14 @@ void Cpu::opcodeD6(unsigned char n)
 {
 	//Subtract n from A
 
-    int result = memory->getA();
+    int result = memory.getA();
 	result -= n;
 
-    memory->setCFlag(n > memory->getA());
-    memory->setHFlag((n & 0x0F) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setZFlag(result == 0);
-    memory->setA(result & 0xFF);
+    memory.setCFlag(n > memory.getA());
+    memory.setHFlag((n & 0x0F) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setZFlag(result == 0);
+    memory.setA(result & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
@@ -4249,9 +4254,9 @@ void Cpu::opcodeD6(unsigned char n)
 void Cpu::opcodeD7()
 {
 	//Reset to 10
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
-    memory->memoryPointer = 0x10;
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
+    memory.memoryPointer = 0x10;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4259,10 +4264,10 @@ void Cpu::opcodeD7()
 void Cpu::opcodeD8()
 {
 	//Ret if Carry
-    if (memory->getCFlag())
+    if (memory.getCFlag())
 	{
-        memory->memoryPointer = (memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer));
-        memory->stackPointer += 2;
+        memory.memoryPointer = (memory.readMemory(memory.stackPointer + 1) << 8) | (memory.readMemory(memory.stackPointer));
+        memory.stackPointer += 2;
 		mClock += 5;
 		tClock += 20;
 	}
@@ -4276,8 +4281,8 @@ void Cpu::opcodeD8()
 void Cpu::opcodeD9()
 {
 	//Return and enable Interrupts
-    memory->memoryPointer = (memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer));
-    memory->stackPointer += 2;
+    memory.memoryPointer = (memory.readMemory(memory.stackPointer + 1) << 8) | (memory.readMemory(memory.stackPointer));
+    memory.stackPointer += 2;
 	interruptsEnabled = true;
 	mClock += 4;
 	tClock += 16;
@@ -4286,9 +4291,9 @@ void Cpu::opcodeD9()
 void Cpu::opcodeDA(short nn)
 {
 	//Jump to nn if Carry
-    if (memory->getCFlag())
+    if (memory.getCFlag())
 	{
-        memory->memoryPointer = nn;
+        memory.memoryPointer = nn;
 		mClock += 4;
 		tClock += 16;
 	}
@@ -4304,11 +4309,11 @@ void Cpu::opcodeDA(short nn)
 void Cpu::opcodeDC(short nn)
 {
 	//Call nn if Carry
-    if (memory->getCFlag())
+    if (memory.getCFlag())
 	{
-        memory->stackPointer -= 2;
-        memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
-        memory->memoryPointer = nn;
+        memory.stackPointer -= 2;
+        memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
+        memory.memoryPointer = nn;
 		mClock += 6;
 		tClock += 24;
 	}
@@ -4325,16 +4330,16 @@ void Cpu::opcodeDE(unsigned char n)
 {
 	//Sub n and Carry flag from A
 
-    uint8_t carry = memory->getCFlag()? 1: 0;
-    int result = memory->getA();
+    uint8_t carry = memory.getCFlag()? 1: 0;
+    int result = memory.getA();
 	result -= n;
 	result -= carry;
 
-    memory->setCFlag((n + carry) > memory->getA());
-    memory->setHFlag(((n & 0x0F) + carry) > (memory->getA() & 0x0F));
-    memory->setNFlag(true);
-    memory->setA(result & 0xFF);
-    memory->setZFlag(memory->getA() == 0);
+    memory.setCFlag((n + carry) > memory.getA());
+    memory.setHFlag(((n & 0x0F) + carry) > (memory.getA() & 0x0F));
+    memory.setNFlag(true);
+    memory.setA(result & 0xFF);
+    memory.setZFlag(memory.getA() == 0);
 
 	mClock += 2;
 	tClock += 8;
@@ -4343,9 +4348,9 @@ void Cpu::opcodeDE(unsigned char n)
 void Cpu::opcodeDF()
 {
 	//Reset to 18
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
-    memory->memoryPointer = 0x18;
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
+    memory.memoryPointer = 0x18;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4353,7 +4358,7 @@ void Cpu::opcodeDF()
 void Cpu::opcodeE0(unsigned char n)
 {
 	//Load A into address at (FF00 + n)
-    memory->writeMemory(0xFF00 + n, memory->getA());
+    memory.writeMemory(0xFF00 + n, memory.getA());
 	mClock += 3;
 	tClock += 12;
 }
@@ -4361,8 +4366,8 @@ void Cpu::opcodeE0(unsigned char n)
 void Cpu::opcodeE1()
 {
 	//Pop HL
-    memory->setHL((memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer)));
-    memory->stackPointer += 2;
+    memory.setHL((memory.readMemory(memory.stackPointer + 1) << 8) | (memory.readMemory(memory.stackPointer)));
+    memory.stackPointer += 2;
 	mClock += 3;
 	tClock += 12;
 }
@@ -4370,7 +4375,7 @@ void Cpu::opcodeE1()
 void Cpu::opcodeE2()
 {
 	//Load A into address at (FF00 + C)
-    memory->writeMemory(0xFF00 + memory->getC(), memory->getA());
+    memory.writeMemory(0xFF00 + memory.getC(), memory.getA());
 	mClock += 2;
 	tClock += 8;
 }
@@ -4382,8 +4387,8 @@ void Cpu::opcodeE2()
 void Cpu::opcodeE5()
 {
 	//Push HL
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->getHL());
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.getHL());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4391,22 +4396,22 @@ void Cpu::opcodeE5()
 void Cpu::opcodeE6(unsigned char n)
 {
 	//And n from A
-    memory->setA(memory->getA() & n);
+    memory.setA(memory.getA() & n);
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeE7()
 {
 	//Reset to 20
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
-    memory->memoryPointer = 0x20;
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
+    memory.memoryPointer = 0x20;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4415,14 +4420,14 @@ void Cpu::opcodeE8(signed char n)
 {
 	//Add n to Stack Pointer
 
-    int result = memory->stackPointer + n;
+    int result = memory.stackPointer + n;
 
-    memory->setCFlag((result & 0xFF) < (memory->stackPointer & 0xFF));
-    memory->setHFlag((result & 0x0F) < (memory->stackPointer & 0x0F));
-    memory->setZFlag(false);
-    memory->setNFlag(false);
+    memory.setCFlag((result & 0xFF) < (memory.stackPointer & 0xFF));
+    memory.setHFlag((result & 0x0F) < (memory.stackPointer & 0x0F));
+    memory.setZFlag(false);
+    memory.setNFlag(false);
 
-    memory->setStackPointer(static_cast<short>(result & 0xFFFF));
+    memory.setStackPointer(static_cast<short>(result & 0xFFFF));
 
 	mClock += 4;
 	tClock += 16;
@@ -4431,7 +4436,7 @@ void Cpu::opcodeE8(signed char n)
 void Cpu::opcodeE9()
 {
 	//Jump to HL
-    memory->memoryPointer = memory->getHL();
+    memory.memoryPointer = memory.getHL();
 	mClock += 1;
 	tClock += 4;
 }
@@ -4439,7 +4444,7 @@ void Cpu::opcodeE9()
 void Cpu::opcodeEA(short nn)
 {
 	//Store A at short
-    memory->writeMemory(static_cast<unsigned short>(nn), memory->getA());
+    memory.writeMemory(static_cast<unsigned short>(nn), memory.getA());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4453,22 +4458,22 @@ void Cpu::opcodeEA(short nn)
 void Cpu::opcodeEE(unsigned char n)
 {
 	//XOR byte with A
-    memory->setA(memory->getA() ^ n);
+    memory.setA(memory.getA() ^ n);
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeEF()
 {
 	//Reset to 28
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
-    memory->memoryPointer = 0x28;
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
+    memory.memoryPointer = 0x28;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4476,7 +4481,7 @@ void Cpu::opcodeEF()
 void Cpu::opcodeF0(unsigned char n)
 {
 	//Load data at (FF00 + n) into A
-    memory->setA(memory->readMemory(0xFF00 + n));
+    memory.setA(memory.readMemory(0xFF00 + n));
 	mClock += 3;
 	tClock += 12;
 }
@@ -4484,8 +4489,8 @@ void Cpu::opcodeF0(unsigned char n)
 void Cpu::opcodeF1()
 {
 	//Pop AF
-    memory->setAF((memory->readMemory(memory->stackPointer + 1) << 8) | (memory->readMemory(memory->stackPointer)));
-    memory->stackPointer += 2;
+    memory.setAF((memory.readMemory(memory.stackPointer + 1) << 8) | (memory.readMemory(memory.stackPointer)));
+    memory.stackPointer += 2;
 	mClock += 3;
 	tClock += 12;
 }
@@ -4493,7 +4498,7 @@ void Cpu::opcodeF1()
 void Cpu::opcodeF2()
 {
 	//Load data at (FF00 + C) into A
-    memory->setA(memory->readMemory(0xFF00 + memory->getC()));
+    memory.setA(memory.readMemory(0xFF00 + memory.getC()));
 	mClock += 2;
 	tClock += 8;
 }
@@ -4511,8 +4516,8 @@ void Cpu::opcodeF3()
 void Cpu::opcodeF5()
 {
 	//Push AF
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->getAF());
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.getAF());
 	mClock += 4;
 	tClock += 16;
 }
@@ -4520,22 +4525,22 @@ void Cpu::opcodeF5()
 void Cpu::opcodeF6(unsigned char n)
 {
 	//OR byte with A
-    memory->setA(memory->getA() | n);
+    memory.setA(memory.getA() | n);
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeF7()
 {
 	//Reset to 30
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
-    memory->memoryPointer = 0x30;
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
+    memory.memoryPointer = 0x30;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4544,14 +4549,14 @@ void Cpu::opcodeF8(unsigned char n)
 {
 	//Load SP + n into HL
 
-    int result = memory->stackPointer + (int8_t)n;
+    int result = memory.stackPointer + (int8_t)n;
 
-    memory->setCFlag((result & 0xFF) < (memory->stackPointer & 0xFF));
-    memory->setHFlag((result & 0x0F) < (memory->stackPointer & 0x0F));
-    memory->setZFlag(false);
-    memory->setNFlag(false);
+    memory.setCFlag((result & 0xFF) < (memory.stackPointer & 0xFF));
+    memory.setHFlag((result & 0x0F) < (memory.stackPointer & 0x0F));
+    memory.setZFlag(false);
+    memory.setNFlag(false);
 
-    memory->setHL(static_cast<short>(result & 0xFFFF));
+    memory.setHL(static_cast<short>(result & 0xFFFF));
 
 	mClock += 3;
 	tClock += 12;
@@ -4560,7 +4565,7 @@ void Cpu::opcodeF8(unsigned char n)
 void Cpu::opcodeF9()
 {
 	//Load SP into HL
-    memory->stackPointer = memory->getHL();
+    memory.stackPointer = memory.getHL();
 	mClock += 2;
 	tClock += 8;
 }
@@ -4568,7 +4573,7 @@ void Cpu::opcodeF9()
 void Cpu::opcodeFA(short nn)
 {
 	//Load data at short into A
-    memory->setA(memory->readMemory(static_cast<unsigned short>(nn)));
+    memory.setA(memory.readMemory(static_cast<unsigned short>(nn)));
 	mClock += 4;
 	tClock += 16;
 }
@@ -4576,7 +4581,7 @@ void Cpu::opcodeFA(short nn)
 void Cpu::opcodeFB()
 {
 	//Enable Interrupts
-    core->enableInterruptsNextCycle = true;
+    enableInterruptsNextCycle = true;
 	//interruptsEnabled = true;
 	mClock += 1;
 	tClock += 4;
@@ -4588,29 +4593,29 @@ void Cpu::opcodeFB()
 void Cpu::opcodeFE(unsigned char n)
 {
 	//Compare n with A
-    //byte test = memory->getA() - n;
+    //byte test = memory.getA() - n;
 	mClock += 2;
 	tClock += 8;
 
-    //memory->setZFlag((test == 0) ? 1 : 0);
-    //memory->setNFlag(true);
-    //memory->setHFlag((test > memory->getA()));
-    //memory->setCFlag((test < 0) ? 1 : 0);
+    //memory.setZFlag((test == 0) ? 1 : 0);
+    //memory.setNFlag(true);
+    //memory.setHFlag((test > memory.getA()));
+    //memory.setCFlag((test < 0) ? 1 : 0);
 
-    memory->setZFlag((memory->getA() == n) ? 1 : 0);
-    memory->setNFlag(true);
-    memory->setHFlag(((memory->getA() & 0x0F) < (n & 0x0F)) ? 1 : 0);
-    memory->setCFlag((memory->getA() < n) ? 1 : 0);
+    memory.setZFlag((memory.getA() == n) ? 1 : 0);
+    memory.setNFlag(true);
+    memory.setHFlag(((memory.getA() & 0x0F) < (n & 0x0F)) ? 1 : 0);
+    memory.setCFlag((memory.getA() < n) ? 1 : 0);
 }
 
 void Cpu::opcodeFF()
 {
 	//Reset to 38
-    //beakStack[--memory->stackPointer] = memory->memoryPointer;
-    //memory->writeMemory(--memory->stackPointer, memory->memoryPointer);
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
-    memory->memoryPointer = 0x38;
+    //beakStack[--memory.stackPointer] = memory.memoryPointer;
+    //memory.writeMemory(--memory.stackPointer, memory.memoryPointer);
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
+    memory.memoryPointer = 0x38;
 	mClock += 4;
 	tClock += 16;
 }
@@ -4619,449 +4624,449 @@ void Cpu::opcodeCB00()
 {
 	//Rotate B Left, put previous bit 7 into Carry flag
 
-    memory->setB(rotateLeft(memory->getB()));
+    memory.setB(rotateLeft(memory.getB()));
 
-    memory->setCFlag(memory->getB() & 0x01);
-    memory->setZFlag(memory->getB() == 0);
+    memory.setCFlag(memory.getB() & 0x01);
+    memory.setZFlag(memory.getB() == 0);
 
 
-    //memory->setB (memory->getB() << 1);
+    //memory.setB (memory.getB() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB01()
 {
 	//Rotate C Left, put previous bit 7 into Carry flag
 
-    memory->setC(rotateLeft(memory->getC()));
+    memory.setC(rotateLeft(memory.getC()));
 
-    memory->setCFlag(memory->getC() & 0x01);
-    memory->setZFlag(memory->getC() == 0);
+    memory.setCFlag(memory.getC() & 0x01);
+    memory.setZFlag(memory.getC() == 0);
 
 
-    //memory->setC(memory->getC() << 1);
+    //memory.setC(memory.getC() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB02()
 {
 	//Rotate D Left, put previous bit 7 into Carry flag
 
-    memory->setD(rotateLeft(memory->getD()));
+    memory.setD(rotateLeft(memory.getD()));
 
-    memory->setCFlag(memory->getD() & 0x01);
-    memory->setZFlag(memory->getD() == 0);
+    memory.setCFlag(memory.getD() & 0x01);
+    memory.setZFlag(memory.getD() == 0);
 
 
-    //memory->setD(memory->getD() << 1);
+    //memory.setD(memory.getD() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB03()
 {
 	//Rotate E Left, put previous bit 7 into Carry flag
 
-    memory->setE(rotateLeft(memory->getE()));
+    memory.setE(rotateLeft(memory.getE()));
 
-    memory->setCFlag(memory->getE() & 0x01);
-    memory->setZFlag(memory->getE() == 0);
+    memory.setCFlag(memory.getE() & 0x01);
+    memory.setZFlag(memory.getE() == 0);
 
 
-    //memory->setE(memory->getE() << 1);
+    //memory.setE(memory.getE() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB04()
 {
 	//Rotate H Left, put previous bit 7 into Carry flag
 
-    memory->setH(rotateLeft(memory->getH()));
+    memory.setH(rotateLeft(memory.getH()));
 
-    memory->setCFlag(memory->getH() & 0x01);
-    memory->setZFlag(memory->getH() == 0);
+    memory.setCFlag(memory.getH() & 0x01);
+    memory.setZFlag(memory.getH() == 0);
 
 
-    //memory->setH(memory->getH() << 1);
+    //memory.setH(memory.getH() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB05()
 {
 	//Rotate L Left, put previous bit 7 into Carry flag
 
-    memory->setL(rotateLeft(memory->getL()));
+    memory.setL(rotateLeft(memory.getL()));
 
-    memory->setCFlag(memory->getL() & 0x01);
-    memory->setZFlag(memory->getL() == 0);
+    memory.setCFlag(memory.getL() & 0x01);
+    memory.setZFlag(memory.getL() == 0);
 
 
-    //memory->setL(memory->getL() << 1);
+    //memory.setL(memory.getL() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB06()
 {
 	//Rotate data in HL Left, put previous bit 7 into Carry flag
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, rotateLeft(memory->readMemory(hl)));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, rotateLeft(memory.readMemory(hl)));
 
-    memory->setCFlag(memory->readMemory(hl) & 0x01);
-    memory->setZFlag(memory->readMemory(hl) == 0);
+    memory.setCFlag(memory.readMemory(hl) & 0x01);
+    memory.setZFlag(memory.readMemory(hl) == 0);
 
 
-    //memory->writeMemory(memory->getHL(), (byte)(memory->readMemory(memory->getHL()) << 1));
+    //memory.writeMemory(memory.getHL(), (byte)(memory.readMemory(memory.getHL()) << 1));
 
 	mClock += 3;
 	tClock += 12;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB07()
 {
 	//Rotate A Left, put previous bit 7 into Carry flag
 
-    memory->setA(rotateLeft(memory->getA()));
+    memory.setA(rotateLeft(memory.getA()));
 
-    memory->setCFlag(memory->getA() & 0x01);
-    memory->setZFlag(memory->getA() == 0);
+    memory.setCFlag(memory.getA() & 0x01);
+    memory.setZFlag(memory.getA() == 0);
 
 
-    //memory->setA(memory->getA() << 1);
+    //memory.setA(memory.getA() << 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB08()
 {
 	//Rotate B Right, put previous bit 0 into Carry flag
 
-    memory->setB(rotateRight(memory->getB()));
+    memory.setB(rotateRight(memory.getB()));
 
-    memory->setCFlag(((memory->getB() & 0x80) >> 7) > 0);
-    memory->setZFlag(memory->getB() == 0);
+    memory.setCFlag(((memory.getB() & 0x80) >> 7) > 0);
+    memory.setZFlag(memory.getB() == 0);
 
 
-    //memory->setB(memory->getB() >> 1);
+    //memory.setB(memory.getB() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB09()
 {
 	//Rotate C Right, put previous bit 0 into Carry flag
 
-    memory->setC(rotateRight(memory->getC()));
+    memory.setC(rotateRight(memory.getC()));
 
-    memory->setCFlag(((memory->getC() & 0x80) >> 7) > 0);
-    memory->setZFlag(memory->getC() == 0);
+    memory.setCFlag(((memory.getC() & 0x80) >> 7) > 0);
+    memory.setZFlag(memory.getC() == 0);
 
 
-    //memory->setC(memory->getC() >> 1);
+    //memory.setC(memory.getC() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB0A()
 {
 	//Rotate D Right, put previous bit 0 into Carry flag
 
-    memory->setD(rotateRight(memory->getD()));
+    memory.setD(rotateRight(memory.getD()));
 
-    memory->setCFlag(((memory->getD() & 0x80) >> 7) > 0);
-    memory->setZFlag(memory->getD() == 0);
+    memory.setCFlag(((memory.getD() & 0x80) >> 7) > 0);
+    memory.setZFlag(memory.getD() == 0);
 
-    //memory->setD(memory->getD() >> 1);
+    //memory.setD(memory.getD() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB0B()
 {
 	//Rotate E Right, put previous bit 0 into Carry flag
 
-    memory->setE(rotateRight(memory->getE()));
+    memory.setE(rotateRight(memory.getE()));
 
-    memory->setCFlag(((memory->getE() & 0x80) >> 7) > 0);
-    memory->setZFlag(memory->getE() == 0);
+    memory.setCFlag(((memory.getE() & 0x80) >> 7) > 0);
+    memory.setZFlag(memory.getE() == 0);
 
 
-    //memory->setE(memory->getE() >> 1);
+    //memory.setE(memory.getE() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB0C()
 {
 	//Rotate H Right, put previous bit 0 into Carry flag
 
-    memory->setH(rotateRight(memory->getH()));
+    memory.setH(rotateRight(memory.getH()));
 
-    memory->setCFlag(((memory->getH() & 0x80) >> 7) > 0);
-    memory->setZFlag(memory->getH() == 0);
+    memory.setCFlag(((memory.getH() & 0x80) >> 7) > 0);
+    memory.setZFlag(memory.getH() == 0);
 
-    //memory->setH(memory->getH() >> 1);
+    //memory.setH(memory.getH() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB0D()
 {
 	//Rotate L Right, put previous bit 0 into Carry flag
 
-    memory->setL(rotateRight(memory->getL()));
+    memory.setL(rotateRight(memory.getL()));
 
-    memory->setCFlag(((memory->getL() & 0x80) >> 7) > 0);
-    memory->setZFlag(memory->getL() == 0);
+    memory.setCFlag(((memory.getL() & 0x80) >> 7) > 0);
+    memory.setZFlag(memory.getL() == 0);
 
 
-    //memory->setL(memory->getL() >> 1);
+    //memory.setL(memory.getL() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB0E()
 {
 	//Rotate data at HL Right, put previous bit 0 into Carry flag
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(rotateRight(memory->readMemory(hl))));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(rotateRight(memory.readMemory(hl))));
 
-    memory->setB(rotateRight(memory->getB()));
-    memory->setCFlag(((memory->readMemory(hl) & 0x80) >> 7) > 0);
-    memory->setZFlag(memory->readMemory(hl) == 0);
+    memory.setB(rotateRight(memory.getB()));
+    memory.setCFlag(((memory.readMemory(hl) & 0x80) >> 7) > 0);
+    memory.setZFlag(memory.readMemory(hl) == 0);
 
 
-    //memory->writeMemory(memory->getHL(), (byte)(memory->readMemory(memory->getHL()) >> 1));
+    //memory.writeMemory(memory.getHL(), (byte)(memory.readMemory(memory.getHL()) >> 1));
 
 	mClock += 3;
 	tClock += 12;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB0F()
 {
 	//Rotate A Right, put previous bit 0 into Carry flag (Does not Or C flag in)
 
-    memory->setA(rotateRight(memory->getA()));
+    memory.setA(rotateRight(memory.getA()));
 
-    memory->setCFlag(((memory->getA() & 0x80) >> 7) > 0);
-    memory->setZFlag(memory->getA() == 0);
+    memory.setCFlag(((memory.getA() & 0x80) >> 7) > 0);
+    memory.setZFlag(memory.getA() == 0);
 
 
-    //memory->setA(memory->getA() >> 1);
+    //memory.setA(memory.getA() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB10()
 {
 	//Rotate B Left
-    //memory->setB(rotateLeft(memory->getB()));
+    //memory.setB(rotateLeft(memory.getB()));
 
-    unsigned char oldBit = (memory->getB() & 0x80) >> 7;
-    memory->setB((memory->getB() << 1) | static_cast<unsigned char>(memory->getCFlag()));
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getB() & 0x80) >> 7;
+    memory.setB((memory.getB() << 1) | static_cast<unsigned char>(memory.getCFlag()));
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getB() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getB() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB11()
 {
 	//Rotate C Left
-    //memory->setC(rotateLeft(memory->getC()));
+    //memory.setC(rotateLeft(memory.getC()));
 
-    unsigned char oldBit = (memory->getC() & 0x80) >> 7;
-    memory->setC(((memory->getC() << 1) | memory->getCFlag()) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getC() & 0x80) >> 7;
+    memory.setC(((memory.getC() << 1) | memory.getCFlag()) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getC() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getC() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB12()
 {
 	//Rotate D Left
 
-    unsigned char oldBit = (memory->getD() & 0x80) >> 7;
-    memory->setD(((memory->getD() << 1) | memory->getCFlag()) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getD() & 0x80) >> 7;
+    memory.setD(((memory.getD() << 1) | memory.getCFlag()) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getD() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getD() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB13()
 {
 	//Rotate E Left
 
-    unsigned char oldBit = (memory->getE() & 0x80) >> 7;
-    memory->setE(((memory->getE() << 1) | memory->getCFlag()) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getE() & 0x80) >> 7;
+    memory.setE(((memory.getE() << 1) | memory.getCFlag()) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getE() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getE() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB14()
 {
 	//Rotate H Left
 
-    unsigned char oldBit = (memory->getH() & 0x80) >> 7;
-    memory->setH(((memory->getH() << 1) | memory->getCFlag()) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getH() & 0x80) >> 7;
+    memory.setH(((memory.getH() << 1) | memory.getCFlag()) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getH() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getH() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB15()
 {
 	//Rotate L Left
 
-    unsigned char oldBit = (memory->getL() & 0x80) >> 7;
-    memory->setL(((memory->getL() << 1) | memory->getCFlag()) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getL() & 0x80) >> 7;
+    memory.setL(((memory.getL() << 1) | memory.getCFlag()) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getL() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getL() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB16()
 {
 	//Rotate data at HL Left
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    unsigned char oldBit = (memory->readMemory(hl) & 0x80) >> 7;
-    memory->writeMemory(hl, static_cast<unsigned char>((memory->readMemory(hl) << 1) | memory->getCFlag()));
-    memory->setCFlag(oldBit > 0);
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    unsigned char oldBit = (memory.readMemory(hl) & 0x80) >> 7;
+    memory.writeMemory(hl, static_cast<unsigned char>((memory.readMemory(hl) << 1) | memory.getCFlag()));
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag(memory->readMemory(static_cast<unsigned short>(memory->getHL())) == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.readMemory(static_cast<unsigned short>(memory.getHL())) == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB17()
 {
 	//Rotate A Left
 
-    unsigned char oldBit = (memory->getA() & 0x80) >> 7;
-    memory->setA(((memory->getA() << 1) | memory->getCFlag()) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getA() & 0x80) >> 7;
+    memory.setA(((memory.getA() << 1) | memory.getCFlag()) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB18()
 {
 	//Rotate B Right
 
-    unsigned char oldBit = (memory->getB() & 0x01);
-    memory->setB(((memory->getB() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getB() & 0x01);
+    memory.setB(((memory.getB() >> 1) | (memory.getCFlag() << 7)) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getB() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getB() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 
 }
 
@@ -5069,603 +5074,603 @@ void Cpu::opcodeCB19()
 {
 	//Rotate C Right
 
-    unsigned char oldBit = (memory->getC() & 0x01);
-    memory->setC(((memory->getC() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getC() & 0x01);
+    memory.setC(((memory.getC() >> 1) | (memory.getCFlag() << 7)) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getC() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getC() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB1A()
 {
 	//Rotate D Right
 
-    unsigned char oldBit = (memory->getD() & 0x01);
-    memory->setD(((memory->getD() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getD() & 0x01);
+    memory.setD(((memory.getD() >> 1) | (memory.getCFlag() << 7)) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getD() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getD() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB1B()
 {
 	//Rotate E Right
 
-    unsigned char oldBit = (memory->getE() & 0x01);
-    memory->setE(((memory->getE() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getE() & 0x01);
+    memory.setE(((memory.getE() >> 1) | (memory.getCFlag() << 7)) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getE() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getE() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB1C()
 {
 	//Rotate H Right
 
-    unsigned char oldBit = (memory->getH() & 0x01);
-    memory->setH(((memory->getH() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getH() & 0x01);
+    memory.setH(((memory.getH() >> 1) | (memory.getCFlag() << 7)) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getH() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getH() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB1D()
 {
 	//Rotate L Right
 
-    unsigned char oldBit = (memory->getL() & 0x01);
-    memory->setL(((memory->getL() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getL() & 0x01);
+    memory.setL(((memory.getL() >> 1) | (memory.getCFlag() << 7)) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getL() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getL() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB1E()
 {
 	//Rotate/Shift HL Right
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    unsigned char oldBit = (memory->readMemory(hl) & 0x01);
-    memory->writeMemory(hl, (unsigned char)((memory->readMemory(hl) >> 1) | (memory->getCFlag() << 7)));
-    memory->setCFlag(oldBit > 0);
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    unsigned char oldBit = (memory.readMemory(hl) & 0x01);
+    memory.writeMemory(hl, (unsigned char)((memory.readMemory(hl) >> 1) | (memory.getCFlag() << 7)));
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag(memory->readMemory(hl) == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.readMemory(hl) == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB1F()
 {
 	//Rotate A Right
 
-    unsigned char oldBit = (memory->getA() & 0x01);
-    memory->setA(((memory->getA() >> 1) | (memory->getCFlag() << 7)) & 0xFF);
-    memory->setCFlag(oldBit > 0);
+    unsigned char oldBit = (memory.getA() & 0x01);
+    memory.setA(((memory.getA() >> 1) | (memory.getCFlag() << 7)) & 0xFF);
+    memory.setCFlag(oldBit > 0);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB20()
 {
 	//Shift B Left - Set Carry to old Bit 7
 
-    memory->setCFlag(((memory->getB() & 0x80) >> 7) > 0);
-    memory->setB((memory->getB() << 1) & 0xFF);
+    memory.setCFlag(((memory.getB() & 0x80) >> 7) > 0);
+    memory.setB((memory.getB() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getB() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getB() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB21()
 {
 	//Shift C Left - Set Carry to old Bit 7
 
-    memory->setCFlag(((memory->getC() & 0x80) >> 7) > 0);
-    memory->setC((memory->getC() << 1) & 0xFF);
+    memory.setCFlag(((memory.getC() & 0x80) >> 7) > 0);
+    memory.setC((memory.getC() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getC() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getC() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB22()
 {
 	//Shift D Left - Set Carry to old Bit 7
 
-    memory->setCFlag(((memory->getD() & 0x80) >> 7) > 0);
-    memory->setD((memory->getD() << 1) & 0xFF);
+    memory.setCFlag(((memory.getD() & 0x80) >> 7) > 0);
+    memory.setD((memory.getD() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getD() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getD() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB23()
 {
 	//Shift E Left - Set Carry to old Bit 7
 
-    memory->setCFlag(((memory->getE() & 0x80) >> 7) > 0);
-    memory->setE((memory->getE() << 1) & 0xFF);
+    memory.setCFlag(((memory.getE() & 0x80) >> 7) > 0);
+    memory.setE((memory.getE() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getE() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getE() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB24()
 {
 	//Shift H Left - Set Carry to old Bit 7
 
-    memory->setCFlag(((memory->getH() & 0x80) >> 7) > 0);
-    memory->setH((memory->getH() << 1) & 0xFF);
+    memory.setCFlag(((memory.getH() & 0x80) >> 7) > 0);
+    memory.setH((memory.getH() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getH() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getH() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB25()
 {
 	//Shift L Left - Set Carry to old Bit 7
 
-    memory->setCFlag(((memory->getL() & 0x80) >> 7) > 0);
-    memory->setL((memory->getL() << 1) & 0xFF);
+    memory.setCFlag(((memory.getL() & 0x80) >> 7) > 0);
+    memory.setL((memory.getL() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getL() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getL() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB26()
 {
 	//Shift data at HL Left - Set Carry to old Bit 7
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->setCFlag(((memory->readMemory(hl) & 0x80) >> 7) > 0);
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) << 1));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.setCFlag(((memory.readMemory(hl) & 0x80) >> 7) > 0);
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) << 1));
 
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag(memory->readMemory(hl) == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.readMemory(hl) == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB27()
 {
 	//Shift A Left - Set Carry to old Bit 7
 
-    memory->setCFlag(((memory->getA() & 0x80) >> 7) > 0);
-    memory->setA((memory->getA() << 1) & 0xFF);
+    memory.setCFlag(((memory.getA() & 0x80) >> 7) > 0);
+    memory.setA((memory.getA() << 1) & 0xFF);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB28()
 {
 	//Shift B Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = memory->getB();
-    memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setB((oldValue & 0x80) | (oldValue >> 1));
+    unsigned char oldValue = memory.getB();
+    memory.setCFlag((oldValue & 0x01) > 0);
+    memory.setB((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getB() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getB() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB29()
 {
 	//Shift C Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = memory->getC();
-    memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setC((oldValue & 0x80) | (oldValue >> 1));
+    unsigned char oldValue = memory.getC();
+    memory.setCFlag((oldValue & 0x01) > 0);
+    memory.setC((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getC() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getC() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB2A()
 {
 	//Shift D Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = memory->getD();
-    memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setD((oldValue & 0x80) | (oldValue >> 1));
+    unsigned char oldValue = memory.getD();
+    memory.setCFlag((oldValue & 0x01) > 0);
+    memory.setD((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getD() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getD() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB2B()
 {
 	//Shift E Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = memory->getE();
-    memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setE((oldValue & 0x80) | (oldValue >> 1));
+    unsigned char oldValue = memory.getE();
+    memory.setCFlag((oldValue & 0x01) > 0);
+    memory.setE((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getE() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getE() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB2C()
 {
 	//Shift H Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = memory->getH();
-    memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setH((oldValue & 0x80) | (oldValue >> 1));
+    unsigned char oldValue = memory.getH();
+    memory.setCFlag((oldValue & 0x01) > 0);
+    memory.setH((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getH() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getH() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB2D()
 {
 	//Shift L Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = memory->getL();
-    memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setL((oldValue & 0x80) | (oldValue >> 1));
+    unsigned char oldValue = memory.getL();
+    memory.setCFlag((oldValue & 0x01) > 0);
+    memory.setL((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getL() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getL() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB2E()
 {
 	//Shift data at HL Right - Set Carry to old Bit 0
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    unsigned char oldValue = memory->readMemory(hl);
-    memory->setCFlag((oldValue & 0x01) > 0);
-    memory->writeMemory(hl, static_cast<unsigned char>((oldValue & 0x80) | (oldValue >> 1)));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    unsigned char oldValue = memory.readMemory(hl);
+    memory.setCFlag((oldValue & 0x01) > 0);
+    memory.writeMemory(hl, static_cast<unsigned char>((oldValue & 0x80) | (oldValue >> 1)));
 
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag(memory->readMemory(hl) == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.readMemory(hl) == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB2F()
 {
 	//Shift A Right - Set Carry to old Bit 0
 
-    unsigned char oldValue = memory->getA();
-    memory->setCFlag((oldValue & 0x01) > 0);
-    memory->setA((oldValue & 0x80) | (oldValue >> 1));
+    unsigned char oldValue = memory.getA();
+    memory.setCFlag((oldValue & 0x01) > 0);
+    memory.setA((oldValue & 0x80) | (oldValue >> 1));
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB30()
 {
 	//Swap nibbles in B
-    unsigned char b = memory->getB();
+    unsigned char b = memory.getB();
     b = static_cast<unsigned char>((b & 0x0F) << 4) | ((b & 0xF0) >> 4);
-    memory->setB(b);
+    memory.setB(b);
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getB() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getB() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeCB31()
 {
 	//Swap nibbles in C
-    unsigned char c = memory->getC();
+    unsigned char c = memory.getC();
     c = static_cast<unsigned char>((c & 0x0F) << 4) | ((c & 0xF0) >> 4);
-    memory->setC(c);
+    memory.setC(c);
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getC() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getC() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeCB32()
 {
 	//Swap nibbles in D
-    unsigned char d = memory->getD();
+    unsigned char d = memory.getD();
     d = static_cast<unsigned char>((d & 0x0F) << 4) | ((d & 0xF0) >> 4);
-    memory->setD(d);
+    memory.setD(d);
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getD() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getD() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeCB33()
 {
 	//Swap nibbles in E
-    unsigned char e = memory->getE();
+    unsigned char e = memory.getE();
     e = static_cast<unsigned char>((e & 0x0F) << 4) | ((e & 0xF0) >> 4);
-    memory->setE(e);
+    memory.setE(e);
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getE() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getE() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeCB34()
 {
 	//Swap nibbles in H
-    unsigned char h = memory->getH();
+    unsigned char h = memory.getH();
     h = static_cast<unsigned char>((h & 0x0F) << 4) | ((h & 0xF0) >> 4);
-    memory->setH(h);
+    memory.setH(h);
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getH() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getH() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeCB35()
 {
 	//Swap nibbles in L
-    unsigned char l = memory->getL();
+    unsigned char l = memory.getL();
     l = static_cast<unsigned char>((l & 0x0F) << 4) | ((l & 0xF0) >> 4);
-    memory->setL(l);
+    memory.setL(l);
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getL() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getL() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 
 void Cpu::opcodeCB36()
 {
 	//Swap nibbles in memory at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    unsigned char hlData = memory->readMemory(hl);
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    unsigned char hlData = memory.readMemory(hl);
     hlData = static_cast<unsigned char>((hlData & 0x0F) << 4) | ((hlData & 0xF0) >> 4);
-    memory->writeMemory(hl, hlData);
+    memory.writeMemory(hl, hlData);
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag((memory->readMemory(hl) == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.readMemory(hl) == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeCB37()
 {
 	//Swap nibbles in A
-    unsigned char a = memory->getA();
+    unsigned char a = memory.getA();
     a = static_cast<unsigned char>((a & 0x0F) << 4) | ((a & 0xF0) >> 4);
-    memory->setA(a);
+    memory.setA(a);
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag((memory->getA() == 0) ? 1 : 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
-    memory->setCFlag(false);
+    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
+    memory.setCFlag(false);
 }
 
 void Cpu::opcodeCB38()
 {
 	//Shift B Right
-    memory->setCFlag(memory->getB() & 0x01);
-    memory->setB(memory->getB() >> 1);
+    memory.setCFlag(memory.getB() & 0x01);
+    memory.setB(memory.getB() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getB() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getB() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB39()
 {
 	//Shift C Right
-    memory->setCFlag(memory->getC() & 0x01);
-    memory->setC(memory->getC() >> 1);
+    memory.setCFlag(memory.getC() & 0x01);
+    memory.setC(memory.getC() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getC() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getC() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB3A()
 {
 	//Shift D Right
-    memory->setCFlag(memory->getD() & 0x01);
-    memory->setD(memory->getD() >> 1);
+    memory.setCFlag(memory.getD() & 0x01);
+    memory.setD(memory.getD() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getD() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getD() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB3B()
 {
 	//Shift E Right
-    memory->setCFlag(memory->getE() & 0x01);
-    memory->setE(memory->getE() >> 1);
+    memory.setCFlag(memory.getE() & 0x01);
+    memory.setE(memory.getE() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getE() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getE() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB3C()
 {
 	//Shift H Right
-    memory->setCFlag(memory->getH() & 0x01);
-    memory->setH(memory->getH() >> 1);
+    memory.setCFlag(memory.getH() & 0x01);
+    memory.setH(memory.getH() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getH() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getH() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB3D()
 {
 	//Shift L Right
-    memory->setCFlag(memory->getL() & 0x01);
-    memory->setL(memory->getL() >> 1);
+    memory.setCFlag(memory.getL() & 0x01);
+    memory.setL(memory.getL() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getL() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getL() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB3E()
 {
     //Shift data at HL Right
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->setCFlag(memory->readMemory(hl) & 0x01);
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) >> 1));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.setCFlag(memory.readMemory(hl) & 0x01);
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) >> 1));
 
 	mClock += 3;
 	tClock += 12;
 
-    memory->setZFlag(memory->readMemory(hl) == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.readMemory(hl) == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB3F()
 {
 	//Shift A Right
-    memory->setCFlag(memory->getA() & 0x01);
-    memory->setA(memory->getA() >> 1);
+    memory.setCFlag(memory.getA() & 0x01);
+    memory.setA(memory.getA() >> 1);
 
 	mClock += 2;
 	tClock += 8;
 
-    memory->setZFlag(memory->getA() == 0);
-    memory->setNFlag(false);
-    memory->setHFlag(false);
+    memory.setZFlag(memory.getA() == 0);
+    memory.setNFlag(false);
+    memory.setHFlag(false);
 }
 
 void Cpu::opcodeCB40()
 {
 	//Test bit 0 in B
-    memory->setZFlag(((memory->getB() & 0x01) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag(((memory.getB() & 0x01) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5674,9 +5679,9 @@ void Cpu::opcodeCB40()
 void Cpu::opcodeCB41()
 {
 	//Test bit 0 in C
-    memory->setZFlag(((memory->getC() & 0x01) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag(((memory.getC() & 0x01) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5685,9 +5690,9 @@ void Cpu::opcodeCB41()
 void Cpu::opcodeCB42()
 {
 	//Test bit 0 in D
-    memory->setZFlag(((memory->getD() & 0x01) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag(((memory.getD() & 0x01) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5696,9 +5701,9 @@ void Cpu::opcodeCB42()
 void Cpu::opcodeCB43()
 {
 	//Test bit 0 in E
-    memory->setZFlag(((memory->getE() & 0x01) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag(((memory.getE() & 0x01) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5707,9 +5712,9 @@ void Cpu::opcodeCB43()
 void Cpu::opcodeCB44()
 {
 	//Test bit 0 in H
-    memory->setZFlag(((memory->getH() & 0x01) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag(((memory.getH() & 0x01) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5718,9 +5723,9 @@ void Cpu::opcodeCB44()
 void Cpu::opcodeCB45()
 {
 	//Test bit 0 in L
-    memory->setZFlag(((memory->getL() & 0x01) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag(((memory.getL() & 0x01) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5729,10 +5734,10 @@ void Cpu::opcodeCB45()
 void Cpu::opcodeCB46()
 {
 	//Test bit 0 in data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->setZFlag(((memory->readMemory(hl) & 0x01) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.setZFlag(((memory.readMemory(hl) & 0x01) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -5741,9 +5746,9 @@ void Cpu::opcodeCB46()
 void Cpu::opcodeCB47()
 {
 	//Test bit 0 in A
-    memory->setZFlag(((memory->getA() & 0x01) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag(((memory.getA() & 0x01) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5752,9 +5757,9 @@ void Cpu::opcodeCB47()
 void Cpu::opcodeCB48()
 {
 	//Test bit 1 in B
-    memory->setZFlag((((memory->getB() & 0x02) >> 1) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getB() & 0x02) >> 1) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5763,9 +5768,9 @@ void Cpu::opcodeCB48()
 void Cpu::opcodeCB49()
 {
 	//Test bit 1 in C
-    memory->setZFlag((((memory->getC() & 0x02) >> 1) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getC() & 0x02) >> 1) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5774,9 +5779,9 @@ void Cpu::opcodeCB49()
 void Cpu::opcodeCB4A()
 {
 	//Test bit 1 in D
-    memory->setZFlag((((memory->getD() & 0x02) >> 1) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getD() & 0x02) >> 1) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5785,9 +5790,9 @@ void Cpu::opcodeCB4A()
 void Cpu::opcodeCB4B()
 {
 	//Test bit 1 in E
-    memory->setZFlag((((memory->getE() & 0x02) >> 1) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getE() & 0x02) >> 1) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5796,9 +5801,9 @@ void Cpu::opcodeCB4B()
 void Cpu::opcodeCB4C()
 {
 	//Test bit 1 in H
-    memory->setZFlag((((memory->getH() & 0x02) >> 1) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getH() & 0x02) >> 1) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5807,9 +5812,9 @@ void Cpu::opcodeCB4C()
 void Cpu::opcodeCB4D()
 {
 	//Test bit 1 in L
-    memory->setZFlag((((memory->getL() & 0x02) >> 1) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getL() & 0x02) >> 1) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5818,10 +5823,10 @@ void Cpu::opcodeCB4D()
 void Cpu::opcodeCB4E()
 {
 	//Test bit 1 in data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->setZFlag((((memory->readMemory(hl) & 0x02) >> 1) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.setZFlag((((memory.readMemory(hl) & 0x02) >> 1) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -5830,9 +5835,9 @@ void Cpu::opcodeCB4E()
 void Cpu::opcodeCB4F()
 {
 	//Test bit 1 in A
-    memory->setZFlag((((memory->getA() & 0x02) >> 1) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getA() & 0x02) >> 1) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5841,9 +5846,9 @@ void Cpu::opcodeCB4F()
 void Cpu::opcodeCB50()
 {
 	//Test bit 2 in B
-    memory->setZFlag((((memory->getB() & 0x04) >> 2) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getB() & 0x04) >> 2) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5852,9 +5857,9 @@ void Cpu::opcodeCB50()
 void Cpu::opcodeCB51()
 {
 	//Test bit 2 in C
-    memory->setZFlag((((memory->getC() & 0x04) >> 2) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getC() & 0x04) >> 2) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5863,9 +5868,9 @@ void Cpu::opcodeCB51()
 void Cpu::opcodeCB52()
 {
 	//Test bit 2 in D
-    memory->setZFlag((((memory->getD() & 0x04) >> 2) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getD() & 0x04) >> 2) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5874,9 +5879,9 @@ void Cpu::opcodeCB52()
 void Cpu::opcodeCB53()
 {
 	//Test bit 2 in E
-    memory->setZFlag((((memory->getE() & 0x04) >> 2) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getE() & 0x04) >> 2) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5885,9 +5890,9 @@ void Cpu::opcodeCB53()
 void Cpu::opcodeCB54()
 {
 	//Test bit 2 in H
-    memory->setZFlag((((memory->getH() & 0x04) >> 2) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getH() & 0x04) >> 2) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5896,9 +5901,9 @@ void Cpu::opcodeCB54()
 void Cpu::opcodeCB55()
 {
 	//Test bit 2 in L
-    memory->setZFlag((((memory->getL() & 0x04) >> 2) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getL() & 0x04) >> 2) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5907,10 +5912,10 @@ void Cpu::opcodeCB55()
 void Cpu::opcodeCB56()
 {
 	//Test bit 2 in data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->setZFlag((((memory->readMemory(hl) & 0x04) >> 2) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.setZFlag((((memory.readMemory(hl) & 0x04) >> 2) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -5919,9 +5924,9 @@ void Cpu::opcodeCB56()
 void Cpu::opcodeCB57()
 {
 	//Test bit 2 in A
-    memory->setZFlag((((memory->getA() & 0x04) >> 2) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getA() & 0x04) >> 2) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5930,9 +5935,9 @@ void Cpu::opcodeCB57()
 void Cpu::opcodeCB58()
 {
 	//Test bit 3 in B
-    memory->setZFlag((((memory->getB() & 0x08) >> 3) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getB() & 0x08) >> 3) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5941,9 +5946,9 @@ void Cpu::opcodeCB58()
 void Cpu::opcodeCB59()
 {
 	//Test bit 3 in C
-    memory->setZFlag((((memory->getC() & 0x08) >> 3) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getC() & 0x08) >> 3) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5952,9 +5957,9 @@ void Cpu::opcodeCB59()
 void Cpu::opcodeCB5A()
 {
 	//Test bit 3 in D
-    memory->setZFlag((((memory->getD() & 0x08) >> 3) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getD() & 0x08) >> 3) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5963,9 +5968,9 @@ void Cpu::opcodeCB5A()
 void Cpu::opcodeCB5B()
 {
 	//Test bit 3 in E
-    memory->setZFlag((((memory->getE() & 0x08) >> 3) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getE() & 0x08) >> 3) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5974,9 +5979,9 @@ void Cpu::opcodeCB5B()
 void Cpu::opcodeCB5C()
 {
 	//Test bit 3 in H
-    memory->setZFlag((((memory->getH() & 0x08) >> 3) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getH() & 0x08) >> 3) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5985,9 +5990,9 @@ void Cpu::opcodeCB5C()
 void Cpu::opcodeCB5D()
 {
 	//Test bit 3 in L
-    memory->setZFlag((((memory->getL() & 0x08) >> 3) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getL() & 0x08) >> 3) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -5996,10 +6001,10 @@ void Cpu::opcodeCB5D()
 void Cpu::opcodeCB5E()
 {
 	//Test bit 3 in data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->setZFlag((((memory->readMemory(hl) & 0x08) >> 3) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.setZFlag((((memory.readMemory(hl) & 0x08) >> 3) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -6008,9 +6013,9 @@ void Cpu::opcodeCB5E()
 void Cpu::opcodeCB5F()
 {
 	//Test bit 3 in A
-    memory->setZFlag((((memory->getA() & 0x08) >> 3) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getA() & 0x08) >> 3) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6019,9 +6024,9 @@ void Cpu::opcodeCB5F()
 void Cpu::opcodeCB60()
 {
 	//Test bit 4 in B
-    memory->setZFlag((((memory->getB() & 0x10) >> 4) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getB() & 0x10) >> 4) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6030,9 +6035,9 @@ void Cpu::opcodeCB60()
 void Cpu::opcodeCB61()
 {
 	//Test bit 4 in C
-    memory->setZFlag((((memory->getC() & 0x10) >> 4) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getC() & 0x10) >> 4) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6041,9 +6046,9 @@ void Cpu::opcodeCB61()
 void Cpu::opcodeCB62()
 {
 	//Test bit 4 in D
-    memory->setZFlag((((memory->getD() & 0x10) >> 4) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getD() & 0x10) >> 4) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6052,9 +6057,9 @@ void Cpu::opcodeCB62()
 void Cpu::opcodeCB63()
 {
 	//Test bit 4 in E
-    memory->setZFlag((((memory->getE() & 0x10) >> 4) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getE() & 0x10) >> 4) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6063,9 +6068,9 @@ void Cpu::opcodeCB63()
 void Cpu::opcodeCB64()
 {
 	//Test bit 4 in H
-    memory->setZFlag((((memory->getH() & 0x10) >> 4) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getH() & 0x10) >> 4) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6074,9 +6079,9 @@ void Cpu::opcodeCB64()
 void Cpu::opcodeCB65()
 {
 	//Test bit 4 in L
-    memory->setZFlag((((memory->getL() & 0x10) >> 4) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getL() & 0x10) >> 4) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6085,10 +6090,10 @@ void Cpu::opcodeCB65()
 void Cpu::opcodeCB66()
 {
 	//Test bit 4 in data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->setZFlag((((memory->readMemory(hl) & 0x10) >> 4) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.setZFlag((((memory.readMemory(hl) & 0x10) >> 4) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -6097,9 +6102,9 @@ void Cpu::opcodeCB66()
 void Cpu::opcodeCB67()
 {
 	//Test bit 4 in A
-    memory->setZFlag((((memory->getA() & 0x10) >> 4) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getA() & 0x10) >> 4) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6108,9 +6113,9 @@ void Cpu::opcodeCB67()
 void Cpu::opcodeCB68()
 {
 	//Test bit 5 in B
-    memory->setZFlag((((memory->getB() & 0x20) >> 5) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getB() & 0x20) >> 5) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6119,9 +6124,9 @@ void Cpu::opcodeCB68()
 void Cpu::opcodeCB69()
 {
 	//Test bit 5 in C
-    memory->setZFlag((((memory->getC() & 0x20) >> 5) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getC() & 0x20) >> 5) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6130,9 +6135,9 @@ void Cpu::opcodeCB69()
 void Cpu::opcodeCB6A()
 {
 	//Test bit 5 in D
-    memory->setZFlag((((memory->getD() & 0x20) >> 5) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getD() & 0x20) >> 5) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6141,9 +6146,9 @@ void Cpu::opcodeCB6A()
 void Cpu::opcodeCB6B()
 {
 	//Test bit 5 in E
-    memory->setZFlag((((memory->getE() & 0x20) >> 5) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getE() & 0x20) >> 5) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6152,9 +6157,9 @@ void Cpu::opcodeCB6B()
 void Cpu::opcodeCB6C()
 {
 	//Test bit 5 in H
-    memory->setZFlag((((memory->getH() & 0x20) >> 5) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getH() & 0x20) >> 5) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6163,9 +6168,9 @@ void Cpu::opcodeCB6C()
 void Cpu::opcodeCB6D()
 {
 	//Test bit 5 in L
-    memory->setZFlag((((memory->getL() & 0x20) >> 5) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getL() & 0x20) >> 5) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6174,10 +6179,10 @@ void Cpu::opcodeCB6D()
 void Cpu::opcodeCB6E()
 {
 	//Test bit 5 in data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->setZFlag((((memory->readMemory(hl) & 0x20) >> 5) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.setZFlag((((memory.readMemory(hl) & 0x20) >> 5) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -6186,9 +6191,9 @@ void Cpu::opcodeCB6E()
 void Cpu::opcodeCB6F()
 {
 	//Test bit 5 in A
-    memory->setZFlag((((memory->getA() & 0x20) >> 5) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getA() & 0x20) >> 5) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6197,9 +6202,9 @@ void Cpu::opcodeCB6F()
 void Cpu::opcodeCB70()
 {
 	//Test bit 6 in B
-    memory->setZFlag((((memory->getB() & 0x40) >> 6) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getB() & 0x40) >> 6) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6208,9 +6213,9 @@ void Cpu::opcodeCB70()
 void Cpu::opcodeCB71()
 {
 	//Test bit 6 in C
-    memory->setZFlag((((memory->getC() & 0x40) >> 6) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getC() & 0x40) >> 6) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6219,9 +6224,9 @@ void Cpu::opcodeCB71()
 void Cpu::opcodeCB72()
 {
 	//Test bit 6 in D
-    memory->setZFlag((((memory->getD() & 0x40) >> 6) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getD() & 0x40) >> 6) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6230,9 +6235,9 @@ void Cpu::opcodeCB72()
 void Cpu::opcodeCB73()
 {
 	//Test bit 6 in E
-    memory->setZFlag((((memory->getE() & 0x40) >> 6) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getE() & 0x40) >> 6) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6241,9 +6246,9 @@ void Cpu::opcodeCB73()
 void Cpu::opcodeCB74()
 {
 	//Test bit 6 in H
-    memory->setZFlag((((memory->getH() & 0x40) >> 6) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getH() & 0x40) >> 6) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6252,9 +6257,9 @@ void Cpu::opcodeCB74()
 void Cpu::opcodeCB75()
 {
 	//Test bit 6 in L
-    memory->setZFlag((((memory->getL() & 0x40) >> 6) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getL() & 0x40) >> 6) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6263,10 +6268,10 @@ void Cpu::opcodeCB75()
 void Cpu::opcodeCB76()
 {
 	//Test bit 6 in data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->setZFlag((((memory->readMemory(hl) & 0x40) >> 6) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.setZFlag((((memory.readMemory(hl) & 0x40) >> 6) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -6275,9 +6280,9 @@ void Cpu::opcodeCB76()
 void Cpu::opcodeCB77()
 {
 	//Test bit 6 in A
-    memory->setZFlag((((memory->getA() & 0x40) >> 6) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getA() & 0x40) >> 6) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6286,9 +6291,9 @@ void Cpu::opcodeCB77()
 void Cpu::opcodeCB78()
 {
 	//Test bit 7 in B
-    memory->setZFlag((((memory->getB() & 0x80) >> 7) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getB() & 0x80) >> 7) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6297,9 +6302,9 @@ void Cpu::opcodeCB78()
 void Cpu::opcodeCB79()
 {
 	//Test bit 7 in C
-    memory->setZFlag((((memory->getC() & 0x80) >> 7) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getC() & 0x80) >> 7) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6308,9 +6313,9 @@ void Cpu::opcodeCB79()
 void Cpu::opcodeCB7A()
 {
 	//Test bit 7 in D
-    memory->setZFlag((((memory->getD() & 0x80) >> 7) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getD() & 0x80) >> 7) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6319,9 +6324,9 @@ void Cpu::opcodeCB7A()
 void Cpu::opcodeCB7B()
 {
 	//Test bit 7 in E
-    memory->setZFlag((((memory->getE() & 0x80) >> 7) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getE() & 0x80) >> 7) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6330,9 +6335,9 @@ void Cpu::opcodeCB7B()
 void Cpu::opcodeCB7C()
 {
 	//Test bit 7 in H
-    memory->setZFlag((((memory->getH() & 0x80) >> 7) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getH() & 0x80) >> 7) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6341,9 +6346,9 @@ void Cpu::opcodeCB7C()
 void Cpu::opcodeCB7D()
 {
 	//Test bit 7 in L
-    memory->setZFlag((((memory->getL() & 0x80) >> 7) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getL() & 0x80) >> 7) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6352,10 +6357,10 @@ void Cpu::opcodeCB7D()
 void Cpu::opcodeCB7E()
 {
 	//Test bit 7 in data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->setZFlag((((memory->readMemory(hl) & 0x80) >> 7) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.setZFlag((((memory.readMemory(hl) & 0x80) >> 7) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 3;
 	tClock += 12;
@@ -6364,9 +6369,9 @@ void Cpu::opcodeCB7E()
 void Cpu::opcodeCB7F()
 {
 	//Test bit 7 in A
-    memory->setZFlag((((memory->getA() & 0x80) >> 7) == 0) ? true : false);
-    memory->setNFlag(false);
-    memory->setHFlag(true);
+    memory.setZFlag((((memory.getA() & 0x80) >> 7) == 0) ? true : false);
+    memory.setNFlag(false);
+    memory.setHFlag(true);
 
 	mClock += 2;
 	tClock += 8;
@@ -6375,7 +6380,7 @@ void Cpu::opcodeCB7F()
 void Cpu::opcodeCB80()
 {
 	//Reset bit 0 in B
-    memory->setB(memory->getB() & 0xFE); //Masks off left most bit
+    memory.setB(memory.getB() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6383,7 +6388,7 @@ void Cpu::opcodeCB80()
 void Cpu::opcodeCB81()
 {
 	//Reset bit 0 in C
-    memory->setC(memory->getC() & 0xFE); //Masks off left most bit
+    memory.setC(memory.getC() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6391,7 +6396,7 @@ void Cpu::opcodeCB81()
 void Cpu::opcodeCB82()
 {
 	//Reset bit 0 in D
-    memory->setD(memory->getD() & 0xFE); //Masks off left most bit
+    memory.setD(memory.getD() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6399,7 +6404,7 @@ void Cpu::opcodeCB82()
 void Cpu::opcodeCB83()
 {
 	//Reset bit 0 in E
-    memory->setE(memory->getE() & 0xFE); //Masks off left most bit
+    memory.setE(memory.getE() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6407,7 +6412,7 @@ void Cpu::opcodeCB83()
 void Cpu::opcodeCB84()
 {
 	//Reset bit 0 in H
-    memory->setH(memory->getH() & 0xFE); //Masks off left most bit
+    memory.setH(memory.getH() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6415,7 +6420,7 @@ void Cpu::opcodeCB84()
 void Cpu::opcodeCB85()
 {
 	//Reset bit 0 of data at L
-    memory->setL(memory->getL() & 0xFE); //Masks off left most bit
+    memory.setL(memory.getL() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6423,8 +6428,8 @@ void Cpu::opcodeCB85()
 void Cpu::opcodeCB86()
 {
 	//Reset bit 0 in HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xFE)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) & 0xFE)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6432,7 +6437,7 @@ void Cpu::opcodeCB86()
 void Cpu::opcodeCB87()
 {
 	//Reset bit 0 of data at A
-    memory->setA(memory->getA() & 0xFE); //Masks off left most bit
+    memory.setA(memory.getA() & 0xFE); //Masks off left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6441,7 +6446,7 @@ void Cpu::opcodeCB87()
 void Cpu::opcodeCB88()
 {
 	//Reset bit 1 in B
-    memory->setB(memory->getB() & 0xFD); //Masks off second to left most bit
+    memory.setB(memory.getB() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6449,7 +6454,7 @@ void Cpu::opcodeCB88()
 void Cpu::opcodeCB89()
 {
 	//Reset bit 1 in C
-    memory->setC(memory->getC() & 0xFD); //Masks off second to left most bit
+    memory.setC(memory.getC() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6457,7 +6462,7 @@ void Cpu::opcodeCB89()
 void Cpu::opcodeCB8A()
 {
 	//Reset bit 1 in D
-    memory->setD(memory->getD() & 0xFD); //Masks off second to left most bit
+    memory.setD(memory.getD() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6465,7 +6470,7 @@ void Cpu::opcodeCB8A()
 void Cpu::opcodeCB8B()
 {
 	//Reset bit 1 in E
-    memory->setE(memory->getE() & 0xFD); //Masks off second to left most bit
+    memory.setE(memory.getE() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6473,7 +6478,7 @@ void Cpu::opcodeCB8B()
 void Cpu::opcodeCB8C()
 {
 	//Reset bit 1 in H
-    memory->setH(memory->getH() & 0xFD); //Masks off second to left most bit
+    memory.setH(memory.getH() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6481,7 +6486,7 @@ void Cpu::opcodeCB8C()
 void Cpu::opcodeCB8D()
 {
 	//Reset bit 1 in L
-    memory->setL(memory->getL() & 0xFD); //Masks off second to left most bit
+    memory.setL(memory.getL() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6489,8 +6494,8 @@ void Cpu::opcodeCB8D()
 void Cpu::opcodeCB8E()
 {
 	//Reset bit 1 in HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xFD)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) & 0xFD)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6498,7 +6503,7 @@ void Cpu::opcodeCB8E()
 void Cpu::opcodeCB8F()
 {
 	//Reset bit 1 in A
-    memory->setA(memory->getA() & 0xFD); //Masks off second to left most bit
+    memory.setA(memory.getA() & 0xFD); //Masks off second to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6506,7 +6511,7 @@ void Cpu::opcodeCB8F()
 void Cpu::opcodeCB90()
 {
 	//Reset bit 2 in B
-    memory->setB(memory->getB() & 0xFB); //Masks off third to left most bit
+    memory.setB(memory.getB() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6514,7 +6519,7 @@ void Cpu::opcodeCB90()
 void Cpu::opcodeCB91()
 {
 	//Reset bit 2 in C
-    memory->setC(memory->getC() & 0xFB); //Masks off third to left most bit
+    memory.setC(memory.getC() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6522,7 +6527,7 @@ void Cpu::opcodeCB91()
 void Cpu::opcodeCB92()
 {
 	//Reset bit 2 in D
-    memory->setD(memory->getD() & 0xFB); //Masks off third to left most bit
+    memory.setD(memory.getD() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6530,7 +6535,7 @@ void Cpu::opcodeCB92()
 void Cpu::opcodeCB93()
 {
 	//Reset bit 2 in E
-    memory->setE(memory->getE() & 0xFB); //Masks off third to left most bit
+    memory.setE(memory.getE() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6538,7 +6543,7 @@ void Cpu::opcodeCB93()
 void Cpu::opcodeCB94()
 {
 	//Reset bit 2 in H
-    memory->setH(memory->getH() & 0xFB); //Masks off third to left most bit
+    memory.setH(memory.getH() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6546,7 +6551,7 @@ void Cpu::opcodeCB94()
 void Cpu::opcodeCB95()
 {
 	//Reset bit 2 in L
-    memory->setL(memory->getL() & 0xFB); //Masks off third to left most bit
+    memory.setL(memory.getL() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6554,8 +6559,8 @@ void Cpu::opcodeCB95()
 void Cpu::opcodeCB96()
 {
 	//Reset bit 2 in HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xFB)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) & 0xFB)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6563,7 +6568,7 @@ void Cpu::opcodeCB96()
 void Cpu::opcodeCB97()
 {
 	//Reset bit 2 in A
-    memory->setA(memory->getA() & 0xFB); //Masks off third to left most bit
+    memory.setA(memory.getA() & 0xFB); //Masks off third to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6571,7 +6576,7 @@ void Cpu::opcodeCB97()
 void Cpu::opcodeCB98()
 {
 	//Reset bit 3 in B
-    memory->setB(memory->getB() & 0xF7); //Masks off fourth to left most bit
+    memory.setB(memory.getB() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6579,7 +6584,7 @@ void Cpu::opcodeCB98()
 void Cpu::opcodeCB99()
 {
 	//Reset bit 3 in C
-    memory->setC(memory->getC() & 0xF7); //Masks off fourth to left most bit
+    memory.setC(memory.getC() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6587,7 +6592,7 @@ void Cpu::opcodeCB99()
 void Cpu::opcodeCB9A()
 {
 	//Reset bit 3 in D
-    memory->setD(memory->getD() & 0xF7); //Masks off fourth to left most bit
+    memory.setD(memory.getD() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6595,7 +6600,7 @@ void Cpu::opcodeCB9A()
 void Cpu::opcodeCB9B()
 {
 	//Reset bit 3 in E
-    memory->setE(memory->getE() & 0xF7); //Masks off fourth to left most bit
+    memory.setE(memory.getE() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6603,7 +6608,7 @@ void Cpu::opcodeCB9B()
 void Cpu::opcodeCB9C()
 {
 	//Reset bit 3 in H
-    memory->setH(memory->getH() & 0xF7); //Masks off fourth to left most bit
+    memory.setH(memory.getH() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6611,7 +6616,7 @@ void Cpu::opcodeCB9C()
 void Cpu::opcodeCB9D()
 {
 	//Reset bit 3 in L
-    memory->setL(memory->getL() & 0xF7); //Masks off fourth to left most bit
+    memory.setL(memory.getL() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6619,8 +6624,8 @@ void Cpu::opcodeCB9D()
 void Cpu::opcodeCB9E()
 {
 	//Reset bit 3 in HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xF7)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) & 0xF7)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6628,7 +6633,7 @@ void Cpu::opcodeCB9E()
 void Cpu::opcodeCB9F()
 {
 	//Reset bit 3 in A
-    memory->setA(memory->getA() & 0xF7); //Masks off fourth to left most bit
+    memory.setA(memory.getA() & 0xF7); //Masks off fourth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6636,7 +6641,7 @@ void Cpu::opcodeCB9F()
 void Cpu::opcodeCBA0()
 {
 	//Reset bit 4 in B
-    memory->setB(memory->getB() & 0xEF); //Masks off fifth to left most bit
+    memory.setB(memory.getB() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6644,7 +6649,7 @@ void Cpu::opcodeCBA0()
 void Cpu::opcodeCBA1()
 {
 	//Reset bit 4 in C
-    memory->setC(memory->getC() & 0xEF); //Masks off fifth to left most bit
+    memory.setC(memory.getC() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6652,7 +6657,7 @@ void Cpu::opcodeCBA1()
 void Cpu::opcodeCBA2()
 {
 	//Reset bit 4 in D
-    memory->setD(memory->getD() & 0xEF); //Masks off fifth to left most bit
+    memory.setD(memory.getD() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6660,7 +6665,7 @@ void Cpu::opcodeCBA2()
 void Cpu::opcodeCBA3()
 {
 	//Reset bit 4 in E
-    memory->setE(memory->getE() & 0xEF); //Masks off fifth to left most bit
+    memory.setE(memory.getE() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6668,7 +6673,7 @@ void Cpu::opcodeCBA3()
 void Cpu::opcodeCBA4()
 {
 	//Reset bit 4 in H
-    memory->setH(memory->getH() & 0xEF); //Masks off fifth to left most bit
+    memory.setH(memory.getH() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6676,7 +6681,7 @@ void Cpu::opcodeCBA4()
 void Cpu::opcodeCBA5()
 {
 	//Reset bit 4 in L
-    memory->setL(memory->getL() & 0xEF); //Masks off fifth to left most bit
+    memory.setL(memory.getL() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6684,8 +6689,8 @@ void Cpu::opcodeCBA5()
 void Cpu::opcodeCBA6()
 {
 	//Reset bit 4 in HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xEF)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) & 0xEF)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6693,7 +6698,7 @@ void Cpu::opcodeCBA6()
 void Cpu::opcodeCBA7()
 {
 	//Reset bit 4 in A
-    memory->setA(memory->getA() & 0xEF); //Masks off fifth to left most bit
+    memory.setA(memory.getA() & 0xEF); //Masks off fifth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6701,7 +6706,7 @@ void Cpu::opcodeCBA7()
 void Cpu::opcodeCBA8()
 {
 	//Reset bit 5 in B
-    memory->setB(memory->getB() & 0xDF); //Masks off sixth to left most bit
+    memory.setB(memory.getB() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6709,7 +6714,7 @@ void Cpu::opcodeCBA8()
 void Cpu::opcodeCBA9()
 {
 	//Reset bit 5 in C
-    memory->setC(memory->getC() & 0xDF); //Masks off sixth to left most bit
+    memory.setC(memory.getC() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6717,7 +6722,7 @@ void Cpu::opcodeCBA9()
 void Cpu::opcodeCBAA()
 {
 	//Reset bit 5 in D
-    memory->setD(memory->getD() & 0xDF); //Masks off sixth to left most bit
+    memory.setD(memory.getD() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6725,7 +6730,7 @@ void Cpu::opcodeCBAA()
 void Cpu::opcodeCBAB()
 {
 	//Reset bit 5 in E
-    memory->setE(memory->getE() & 0xDF); //Masks off sixth to left most bit
+    memory.setE(memory.getE() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6733,7 +6738,7 @@ void Cpu::opcodeCBAB()
 void Cpu::opcodeCBAC()
 {
 	//Reset bit 5 in H
-    memory->setH(memory->getH() & 0xDF); //Masks off sixth to left most bit
+    memory.setH(memory.getH() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6741,7 +6746,7 @@ void Cpu::opcodeCBAC()
 void Cpu::opcodeCBAD()
 {
 	//Reset bit 5 in L
-    memory->setL(memory->getL() & 0xDF); //Masks off sixth to left most bit
+    memory.setL(memory.getL() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6749,8 +6754,8 @@ void Cpu::opcodeCBAD()
 void Cpu::opcodeCBAE()
 {
 	//Reset bit 5 in HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xDF)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) & 0xDF)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6758,7 +6763,7 @@ void Cpu::opcodeCBAE()
 void Cpu::opcodeCBAF()
 {
 	//Reset bit 5 in A
-    memory->setA(memory->getA() & 0xDF); //Masks off sixth to left most bit
+    memory.setA(memory.getA() & 0xDF); //Masks off sixth to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6766,7 +6771,7 @@ void Cpu::opcodeCBAF()
 void Cpu::opcodeCBB0()
 {
 	//Reset bit 6 in B
-    memory->setB(memory->getB() & 0xBF); //Masks off seventh to left most bit
+    memory.setB(memory.getB() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6774,7 +6779,7 @@ void Cpu::opcodeCBB0()
 void Cpu::opcodeCBB1()
 {
 	//Reset bit 6 in C
-    memory->setC(memory->getC() & 0xBF); //Masks off seventh to left most bit
+    memory.setC(memory.getC() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6782,7 +6787,7 @@ void Cpu::opcodeCBB1()
 void Cpu::opcodeCBB2()
 {
 	//Reset bit 6 in D
-    memory->setD(memory->getD() & 0xBF); //Masks off seventh to left most bit
+    memory.setD(memory.getD() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6790,7 +6795,7 @@ void Cpu::opcodeCBB2()
 void Cpu::opcodeCBB3()
 {
 	//Reset bit 6 in E
-    memory->setE(memory->getE() & 0xBF); //Masks off seventh to left most bit
+    memory.setE(memory.getE() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6798,7 +6803,7 @@ void Cpu::opcodeCBB3()
 void Cpu::opcodeCBB4()
 {
 	//Reset bit 6 in H
-    memory->setH(memory->getH() & 0xBF); //Masks off seventh to left most bit
+    memory.setH(memory.getH() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6806,7 +6811,7 @@ void Cpu::opcodeCBB4()
 void Cpu::opcodeCBB5()
 {
 	//Reset bit 6 in L
-    memory->setL(memory->getL() & 0xBF); //Masks off seventh to left most bit
+    memory.setL(memory.getL() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6814,8 +6819,8 @@ void Cpu::opcodeCBB5()
 void Cpu::opcodeCBB6()
 {
 	//Reset bit 6 in HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0xBF)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) & 0xBF)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6823,7 +6828,7 @@ void Cpu::opcodeCBB6()
 void Cpu::opcodeCBB7()
 {
 	//Reset bit 6 in A
-    memory->setA(memory->getA() & 0xBF); //Masks off seventh to left most bit
+    memory.setA(memory.getA() & 0xBF); //Masks off seventh to left most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6831,14 +6836,14 @@ void Cpu::opcodeCBB7()
 void Cpu::opcodeCBB8()
 {
 	//Reset bit 7 in B
-    memory->setB(memory->getB() & 0x7F); //Masks off right most bit
+    memory.setB(memory.getB() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
 void Cpu::opcodeCBB9()
 {
 	//Reset bit 7 in C
-    memory->setC(memory->getC() & 0x7F); //Masks off right most bit
+    memory.setC(memory.getC() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6846,7 +6851,7 @@ void Cpu::opcodeCBB9()
 void Cpu::opcodeCBBA()
 {
 	//Reset bit 7 in D
-    memory->setD(memory->getD() & 0x7F); //Masks off right most bit
+    memory.setD(memory.getD() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6854,7 +6859,7 @@ void Cpu::opcodeCBBA()
 void Cpu::opcodeCBBB()
 {
 	//Reset bit 7 in E
-    memory->setE(memory->getE() & 0x7F); //Masks off right most bit
+    memory.setE(memory.getE() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6862,7 +6867,7 @@ void Cpu::opcodeCBBB()
 void Cpu::opcodeCBBC()
 {
 	//Reset bit 7 in H
-    memory->setH(memory->getH() & 0x7F); //Masks off right most bit
+    memory.setH(memory.getH() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6870,7 +6875,7 @@ void Cpu::opcodeCBBC()
 void Cpu::opcodeCBBD()
 {
 	//Reset bit 7 in L
-    memory->setL(memory->getL() & 0x7F); //Masks off right most bit
+    memory.setL(memory.getL() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6878,8 +6883,8 @@ void Cpu::opcodeCBBD()
 void Cpu::opcodeCBBE()
 {
 	//Reset bit 7 in HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) & 0x7F)); //Masks off left most bit
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) & 0x7F)); //Masks off left most bit
 	mClock += 3;
 	tClock += 12;
 }
@@ -6887,7 +6892,7 @@ void Cpu::opcodeCBBE()
 void Cpu::opcodeCBBF()
 {
 	//Reset bit 7 in A
-    memory->setA(memory->getA() & 0x7F); //Masks off right most bit
+    memory.setA(memory.getA() & 0x7F); //Masks off right most bit
 	mClock += 2;
 	tClock += 8;
 }
@@ -6895,7 +6900,7 @@ void Cpu::opcodeCBBF()
 void Cpu::opcodeCBC0()
 {
 	//Set Bit 0 of B
-    memory->setB(memory->getB() | 0x01);
+    memory.setB(memory.getB() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6903,7 +6908,7 @@ void Cpu::opcodeCBC0()
 void Cpu::opcodeCBC1()
 {
 	//Set Bit 0 of C
-    memory->setC(memory->getC() | 0x01);
+    memory.setC(memory.getC() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6911,7 +6916,7 @@ void Cpu::opcodeCBC1()
 void Cpu::opcodeCBC2()
 {
 	//Set Bit 0 of D
-    memory->setD(memory->getD() | 0x01);
+    memory.setD(memory.getD() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6919,7 +6924,7 @@ void Cpu::opcodeCBC2()
 void Cpu::opcodeCBC3()
 {
 	//Set Bit 0 of E
-    memory->setE(memory->getE() | 0x01);
+    memory.setE(memory.getE() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6927,7 +6932,7 @@ void Cpu::opcodeCBC3()
 void Cpu::opcodeCBC4()
 {
 	//Set Bit 0 of H
-    memory->setH(memory->getH() | 0x01);
+    memory.setH(memory.getH() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6935,7 +6940,7 @@ void Cpu::opcodeCBC4()
 void Cpu::opcodeCBC5()
 {
 	//Set Bit 0 of L
-    memory->setL(memory->getL() | 0x01);
+    memory.setL(memory.getL() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6943,8 +6948,8 @@ void Cpu::opcodeCBC5()
 void Cpu::opcodeCBC6()
 {
 	//Set Bit 0 of data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x01));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) | 0x01));
 	mClock += 3;
 	tClock += 12;
 }
@@ -6952,7 +6957,7 @@ void Cpu::opcodeCBC6()
 void Cpu::opcodeCBC7()
 {
 	//Set Bit 0 of A
-    memory->setA(memory->getA() | 0x01);
+    memory.setA(memory.getA() | 0x01);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6960,7 +6965,7 @@ void Cpu::opcodeCBC7()
 void Cpu::opcodeCBC8()
 {
 	//Set Bit 1 of B
-    memory->setB(memory->getB() | 0x02);
+    memory.setB(memory.getB() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6968,7 +6973,7 @@ void Cpu::opcodeCBC8()
 void Cpu::opcodeCBC9()
 {
 	//Set Bit 1 of C
-    memory->setC(memory->getC() | 0x02);
+    memory.setC(memory.getC() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6976,7 +6981,7 @@ void Cpu::opcodeCBC9()
 void Cpu::opcodeCBCA()
 {
 	//Set Bit 1 of D
-    memory->setD(memory->getD() | 0x02);
+    memory.setD(memory.getD() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6984,7 +6989,7 @@ void Cpu::opcodeCBCA()
 void Cpu::opcodeCBCB()
 {
 	//Set Bit 1 of E
-    memory->setE(memory->getE() | 0x02);
+    memory.setE(memory.getE() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -6992,7 +6997,7 @@ void Cpu::opcodeCBCB()
 void Cpu::opcodeCBCC()
 {
 	//Set Bit 1 of H
-    memory->setH(memory->getH() | 0x02);
+    memory.setH(memory.getH() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7000,7 +7005,7 @@ void Cpu::opcodeCBCC()
 void Cpu::opcodeCBCD()
 {
 	//Set Bit 1 of L
-    memory->setL(memory->getL() | 0x02);
+    memory.setL(memory.getL() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7008,8 +7013,8 @@ void Cpu::opcodeCBCD()
 void Cpu::opcodeCBCE()
 {
 	//Set Bit 1 of data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x02));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) | 0x02));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7017,7 +7022,7 @@ void Cpu::opcodeCBCE()
 void Cpu::opcodeCBCF()
 {
 	//Set Bit 1 of A
-    memory->setA(memory->getA() | 0x02);
+    memory.setA(memory.getA() | 0x02);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7025,7 +7030,7 @@ void Cpu::opcodeCBCF()
 void Cpu::opcodeCBD0()
 {
 	//Set Bit 2 of B
-    memory->setB(memory->getB() | 0x04);
+    memory.setB(memory.getB() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7033,7 +7038,7 @@ void Cpu::opcodeCBD0()
 void Cpu::opcodeCBD1()
 {
 	//Set Bit 2 of C
-    memory->setC(memory->getC() | 0x04);
+    memory.setC(memory.getC() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7041,7 +7046,7 @@ void Cpu::opcodeCBD1()
 void Cpu::opcodeCBD2()
 {
 	//Set Bit 2 of D
-    memory->setD(memory->getD() | 0x04);
+    memory.setD(memory.getD() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7049,7 +7054,7 @@ void Cpu::opcodeCBD2()
 void Cpu::opcodeCBD3()
 {
 	//Set Bit 2 of E
-    memory->setE(memory->getE() | 0x04);
+    memory.setE(memory.getE() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7057,7 +7062,7 @@ void Cpu::opcodeCBD3()
 void Cpu::opcodeCBD4()
 {
 	//Set Bit 2 of H
-    memory->setH(memory->getH() | 0x04);
+    memory.setH(memory.getH() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7065,7 +7070,7 @@ void Cpu::opcodeCBD4()
 void Cpu::opcodeCBD5()
 {
 	//Set Bit 2 of L
-    memory->setL(memory->getL() | 0x04);
+    memory.setL(memory.getL() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7073,8 +7078,8 @@ void Cpu::opcodeCBD5()
 void Cpu::opcodeCBD6()
 {
 	//Set Bit 2 of data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x04));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) | 0x04));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7082,7 +7087,7 @@ void Cpu::opcodeCBD6()
 void Cpu::opcodeCBD7()
 {
 	//Set Bit 2 of A
-    memory->setA(memory->getA() | 0x04);
+    memory.setA(memory.getA() | 0x04);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7090,7 +7095,7 @@ void Cpu::opcodeCBD7()
 void Cpu::opcodeCBD8()
 {
 	//Set Bit 3 of B
-    memory->setB(memory->getB() | 0x08);
+    memory.setB(memory.getB() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7098,7 +7103,7 @@ void Cpu::opcodeCBD8()
 void Cpu::opcodeCBD9()
 {
 	//Set Bit 3 of C
-    memory->setC(memory->getC() | 0x08);
+    memory.setC(memory.getC() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7106,7 +7111,7 @@ void Cpu::opcodeCBD9()
 void Cpu::opcodeCBDA()
 {
 	//Set Bit 3 of D
-    memory->setD(memory->getD() | 0x08);
+    memory.setD(memory.getD() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7114,7 +7119,7 @@ void Cpu::opcodeCBDA()
 void Cpu::opcodeCBDB()
 {
 	//Set Bit 3 of E
-    memory->setE(memory->getE() | 0x08);
+    memory.setE(memory.getE() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7122,7 +7127,7 @@ void Cpu::opcodeCBDB()
 void Cpu::opcodeCBDC()
 {
 	//Set Bit 3 of H
-    memory->setH(memory->getH() | 0x08);
+    memory.setH(memory.getH() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7130,7 +7135,7 @@ void Cpu::opcodeCBDC()
 void Cpu::opcodeCBDD()
 {
 	//Set Bit 3 of L
-    memory->setL(memory->getL() | 0x08);
+    memory.setL(memory.getL() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7138,8 +7143,8 @@ void Cpu::opcodeCBDD()
 void Cpu::opcodeCBDE()
 {
 	//Set Bit 3 of data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x08));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) | 0x08));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7147,7 +7152,7 @@ void Cpu::opcodeCBDE()
 void Cpu::opcodeCBDF()
 {
 	//Set Bit 3 of A
-    memory->setA(memory->getA() | 0x08);
+    memory.setA(memory.getA() | 0x08);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7155,7 +7160,7 @@ void Cpu::opcodeCBDF()
 void Cpu::opcodeCBE0()
 {
 	//Set Bit 4 of B
-    memory->setB(memory->getB() | 0x10);
+    memory.setB(memory.getB() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7163,7 +7168,7 @@ void Cpu::opcodeCBE0()
 void Cpu::opcodeCBE1()
 {
 	//Set Bit 4 of C
-    memory->setC(memory->getC() | 0x10);
+    memory.setC(memory.getC() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7171,7 +7176,7 @@ void Cpu::opcodeCBE1()
 void Cpu::opcodeCBE2()
 {
 	//Set Bit 4 of D
-    memory->setD(memory->getD() | 0x10);
+    memory.setD(memory.getD() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7179,7 +7184,7 @@ void Cpu::opcodeCBE2()
 void Cpu::opcodeCBE3()
 {
 	//Set Bit 4 of E
-    memory->setE(memory->getE() | 0x10);
+    memory.setE(memory.getE() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7187,7 +7192,7 @@ void Cpu::opcodeCBE3()
 void Cpu::opcodeCBE4()
 {
 	//Set Bit 4 of H
-    memory->setH(memory->getH() | 0x10);
+    memory.setH(memory.getH() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7195,7 +7200,7 @@ void Cpu::opcodeCBE4()
 void Cpu::opcodeCBE5()
 {
 	//Set Bit 4 of L
-    memory->setL(memory->getL() | 0x10);
+    memory.setL(memory.getL() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7203,8 +7208,8 @@ void Cpu::opcodeCBE5()
 void Cpu::opcodeCBE6()
 {
 	//Set Bit 4 of data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x10));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) | 0x10));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7212,7 +7217,7 @@ void Cpu::opcodeCBE6()
 void Cpu::opcodeCBE7()
 {
 	//Set Bit 4 of A
-    memory->setA(memory->getA() | 0x10);
+    memory.setA(memory.getA() | 0x10);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7220,7 +7225,7 @@ void Cpu::opcodeCBE7()
 void Cpu::opcodeCBE8()
 {
 	//Set Bit 5 of B
-    memory->setB(memory->getB() | 0x20);
+    memory.setB(memory.getB() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7228,7 +7233,7 @@ void Cpu::opcodeCBE8()
 void Cpu::opcodeCBE9()
 {
 	//Set Bit 5 of C
-    memory->setC(memory->getC() | 0x20);
+    memory.setC(memory.getC() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7236,7 +7241,7 @@ void Cpu::opcodeCBE9()
 void Cpu::opcodeCBEA()
 {
 	//Set Bit 5 of D
-    memory->setD(memory->getD() | 0x20);
+    memory.setD(memory.getD() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7244,7 +7249,7 @@ void Cpu::opcodeCBEA()
 void Cpu::opcodeCBEB()
 {
 	//Set Bit 5 of E
-    memory->setE(memory->getE() | 0x20);
+    memory.setE(memory.getE() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7252,7 +7257,7 @@ void Cpu::opcodeCBEB()
 void Cpu::opcodeCBEC()
 {
 	//Set Bit 5 of H
-    memory->setH(memory->getH() | 0x20);
+    memory.setH(memory.getH() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7260,7 +7265,7 @@ void Cpu::opcodeCBEC()
 void Cpu::opcodeCBED()
 {
 	//Set Bit 5 of L
-    memory->setL(memory->getL() | 0x20);
+    memory.setL(memory.getL() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7268,8 +7273,8 @@ void Cpu::opcodeCBED()
 void Cpu::opcodeCBEE()
 {
 	//Set Bit 5 of data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x20));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) | 0x20));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7277,7 +7282,7 @@ void Cpu::opcodeCBEE()
 void Cpu::opcodeCBEF()
 {
 	//Set Bit 5 of A
-    memory->setA(memory->getA() | 0x20);
+    memory.setA(memory.getA() | 0x20);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7285,7 +7290,7 @@ void Cpu::opcodeCBEF()
 void Cpu::opcodeCBF0()
 {
 	//Set Bit 6 of B
-    memory->setB(memory->getB() | 0x40);
+    memory.setB(memory.getB() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7293,7 +7298,7 @@ void Cpu::opcodeCBF0()
 void Cpu::opcodeCBF1()
 {
 	//Set Bit 6 of C
-    memory->setC(memory->getC() | 0x40);
+    memory.setC(memory.getC() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7301,7 +7306,7 @@ void Cpu::opcodeCBF1()
 void Cpu::opcodeCBF2()
 {
 	//Set Bit 6 of D
-    memory->setD(memory->getD() | 0x40);
+    memory.setD(memory.getD() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7309,7 +7314,7 @@ void Cpu::opcodeCBF2()
 void Cpu::opcodeCBF3()
 {
 	//Set Bit 6 of E
-    memory->setE(memory->getE() | 0x40);
+    memory.setE(memory.getE() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7317,7 +7322,7 @@ void Cpu::opcodeCBF3()
 void Cpu::opcodeCBF4()
 {
 	//Set Bit 6 of H
-    memory->setH(memory->getH() | 0x40);
+    memory.setH(memory.getH() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7325,7 +7330,7 @@ void Cpu::opcodeCBF4()
 void Cpu::opcodeCBF5()
 {
 	//Set Bit 6 of L
-    memory->setL(memory->getL() | 0x40);
+    memory.setL(memory.getL() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7333,8 +7338,8 @@ void Cpu::opcodeCBF5()
 void Cpu::opcodeCBF6()
 {
 	//Set Bit 6 of data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x40));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) | 0x40));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7342,7 +7347,7 @@ void Cpu::opcodeCBF6()
 void Cpu::opcodeCBF7()
 {
 	//Set Bit 6 of A
-    memory->setA(memory->getA() | 0x40);
+    memory.setA(memory.getA() | 0x40);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7350,7 +7355,7 @@ void Cpu::opcodeCBF7()
 void Cpu::opcodeCBF8()
 {
 	//Set Bit 7 of B
-    memory->setB(memory->getB() | 0x80);
+    memory.setB(memory.getB() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7358,7 +7363,7 @@ void Cpu::opcodeCBF8()
 void Cpu::opcodeCBF9()
 {
 	//Set Bit 7 of C
-    memory->setC(memory->getC() | 0x80);
+    memory.setC(memory.getC() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7366,7 +7371,7 @@ void Cpu::opcodeCBF9()
 void Cpu::opcodeCBFA()
 {
 	//Set Bit 7 of D
-    memory->setD(memory->getD() | 0x80);
+    memory.setD(memory.getD() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7374,7 +7379,7 @@ void Cpu::opcodeCBFA()
 void Cpu::opcodeCBFB()
 {
 	//Set Bit 7 of E
-    memory->setE(memory->getE() | 0x80);
+    memory.setE(memory.getE() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7382,7 +7387,7 @@ void Cpu::opcodeCBFB()
 void Cpu::opcodeCBFC()
 {
 	//Set Bit 7 of H
-    memory->setH(memory->getH() | 0x80);
+    memory.setH(memory.getH() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7390,7 +7395,7 @@ void Cpu::opcodeCBFC()
 void Cpu::opcodeCBFD()
 {
 	//Set Bit 7 of L
-    memory->setL(memory->getL() | 0x80);
+    memory.setL(memory.getL() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7398,8 +7403,8 @@ void Cpu::opcodeCBFD()
 void Cpu::opcodeCBFE()
 {
 	//Set Bit 7 of data at HL
-    unsigned short hl = static_cast<unsigned short>(memory->getHL());
-    memory->writeMemory(hl, static_cast<unsigned char>(memory->readMemory(hl) | 0x80));
+    unsigned short hl = static_cast<unsigned short>(memory.getHL());
+    memory.writeMemory(hl, static_cast<unsigned char>(memory.readMemory(hl) | 0x80));
 	mClock += 3;
 	tClock += 12;
 }
@@ -7407,7 +7412,7 @@ void Cpu::opcodeCBFE()
 void Cpu::opcodeCBFF()
 {
 	//Set Bit 7 of A
-    memory->setA(memory->getA() | 0x80);
+    memory.setA(memory.getA() | 0x80);
 	mClock += 2;
 	tClock += 8;
 }
@@ -7419,12 +7424,12 @@ void Cpu::updateTIMA(int curClocks, int& clocksSinceLastTIMAUpdate, int& clocksS
 	If so, it writes the incremented value to the timer register and requests an interrupt if it overflows.
 	*/
 
-    bool timerEnabled = ((memory->readMemory(0xFF07) & 0x04) > 0);
+    bool timerEnabled = ((memory.readMemory(0xFF07) & 0x04) > 0);
 
 	if (timerEnabled)
 	{
 
-        unsigned char timerFrequency = memory->readMemory(0xFF07) & 0x03;
+        unsigned char timerFrequency = memory.readMemory(0xFF07) & 0x03;
 		int timerNumClocksToUpdate;
 
 		switch (timerFrequency)
@@ -7462,25 +7467,25 @@ void Cpu::updateTIMA(int curClocks, int& clocksSinceLastTIMAUpdate, int& clocksS
 
 
 			//Increment TIMA
-            unsigned char tima = memory->readMemory(0xFF05);
+            unsigned char tima = memory.readMemory(0xFF05);
 			if (tima == 0xFF)
 			{
 				//Set Timer Overflow Interrupt Flag
-                memory->writeMemory(0xFF0F, static_cast<unsigned char>(memory->readMemory(0xFF0F) | 0x4));
+                memory.writeMemory(0xFF0F, static_cast<unsigned char>(memory.readMemory(0xFF0F) | 0x4));
 
 				//Load TMA value into TIMA
-                memory->writeMemory(0xFF05, memory->readMemory(0xFF06));
+                memory.writeMemory(0xFF05, memory.readMemory(0xFF06));
 			}
 			else
 			{
-                memory->writeMemory(0xFF05, static_cast<unsigned char>(tima + 1));
+                memory.writeMemory(0xFF05, static_cast<unsigned char>(tima + 1));
 			}
 		}
 	}
 
 	if ((curClocks - clocksSinceLastDIVUpdate) >= 256) //16386 hz
 	{
-        memory->writeMemory(0xFF04, static_cast<unsigned char>(memory->readMemory(0xFF04) + 1));
+        memory.writeMemory(0xFF04, static_cast<unsigned char>(memory.readMemory(0xFF04) + 1));
 		clocksSinceLastDIVUpdate = curClocks;
 	}
 }
@@ -7490,10 +7495,10 @@ bool Cpu::checkForInterrupt()
 	/*
 	Purpose: Checks if there are any interrupts pending so that they can be serviced later. The intention is to be able to check with
 	minimal effort and not having any functionality related to servicing the interrupt itself.
-	*/
+    */
 
-    unsigned char IE = memory->readMemory(0xFFFF);
-    unsigned char IF = memory->readMemory(0xFF0F);
+    unsigned char IE = memory.readMemory(0xFFFF);
+    unsigned char IF = memory.readMemory(0xFF0F);
 
 	//The interrupt bits are within 0x1 an 0x1F
 	//If a bit is enabled in both IE and IF, (IE & IF) will keep them
@@ -7507,13 +7512,13 @@ void Cpu::executeInterrupt()
 	/*
 	Purpose: Services any interrupts active in the IE and IF registers. If both IE and IF contain a matching bit, the current stack pointer
 	is stored before jumping to the interrupt vector that corresponds to those enabled bits.
-	*/
+    */
 
-    unsigned char IE = memory->readMemory(0xFFFF);
-    unsigned char IF = memory->readMemory(0xFF0F);
+    unsigned char IE = memory.readMemory(0xFFFF);
+    unsigned char IF = memory.readMemory(0xFF0F);
 
-    memory->stackPointer -= 2;
-    memory->writeMemory(static_cast<unsigned short>(memory->stackPointer), memory->memoryPointer);
+    memory.stackPointer -= 2;
+    memory.writeMemory(static_cast<unsigned short>(memory.stackPointer), memory.memoryPointer);
 
 	interruptsEnabled = false;
 
@@ -7521,32 +7526,32 @@ void Cpu::executeInterrupt()
 	if (((IF & 0x01) == 1) && ((IE & 0x01) == 1))
 	{
 		//VBLANK
-        memory->memoryPointer = 0x0040;
-        memory->writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xFE)); //Clear bit in IF
+        memory.memoryPointer = 0x0040;
+        memory.writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xFE)); //Clear bit in IF
 	}
 	else if (((((IF & 0x02) >> 1) == 1) && ((IE & 0x02) >> 1 == 1)))
 	{
 		//LCD
-        memory->memoryPointer = 0x0048;
-        memory->writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xFD)); //Clear bit in IF
+        memory.memoryPointer = 0x0048;
+        memory.writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xFD)); //Clear bit in IF
 	}
 	else if (((((IF & 0x04) >> 2) == 1) && ((IE & 0x04) >> 2 == 1)))
 	{
 		//Timer Overflow
-        memory->memoryPointer = 0x0050;
-        memory->writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xFB)); //Clear bit in IF
+        memory.memoryPointer = 0x0050;
+        memory.writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xFB)); //Clear bit in IF
 	}
 	else if (((((IF & 0x08) >> 3) == 1) && ((IE & 0x08) >> 3 == 1)))
 	{
 		//Serial
-        memory->memoryPointer = 0x0058;
-        memory->writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xF7)); //Clear bit in IF
+        memory.memoryPointer = 0x0058;
+        memory.writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xF7)); //Clear bit in IF
 	}
 	else if (((((IF & 0x10) >> 4) == 1) && ((IE & 0x10) >> 4 == 1)))
 	{
 		//Joypad
-        memory->memoryPointer = 0x0060;
-        memory->writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xEF)); //Clear bit in IF
+        memory.memoryPointer = 0x0060;
+        memory.writeMemory(0xFF0F, static_cast<unsigned char>(IF & 0xEF)); //Clear bit in IF
 	}
 
 	mClock += 5;
@@ -7558,7 +7563,7 @@ bool Cpu::checkForHaltOrInterrupt()
 	/*
 	Purpose: Allows interrupts or halts to be serviced if they are active.
 	Otherwise, it will return false and the next assembly instruction will be executed as normal.
-	*/
+    */
 
 	bool pendingInterrupt = checkForInterrupt();
 
@@ -7606,7 +7611,7 @@ bool Cpu::checkForHaltOrInterrupt()
 
 void Cpu::executeStop()
 {
-    if (input->isAnyKeyPressed())
+    if (input.isAnyKeyPressed())
 	{
 		stop = false;
 	}
@@ -7614,8 +7619,8 @@ void Cpu::executeStop()
 	{
 		if (interruptsEnabled)
 		{
-            unsigned char IE = memory->readMemory(0xFFFF);
-            unsigned char IF = memory->readMemory(0xFF0F);
+            unsigned char IE = memory.readMemory(0xFFFF);
+            unsigned char IF = memory.readMemory(0xFF0F);
 
 			if (((((IF & 0x10) >> 4) == 1) && ((IE & 0x10) >> 4 == 1)))
 			{
@@ -7664,7 +7669,7 @@ bool Cpu::returnIME()
 
 bool Cpu::returnRepeat()
 {
-    return core->repeatBug;
+    return repeatBug;
 }
 
 void Cpu::setTClock(int newTClock)
@@ -7698,7 +7703,7 @@ void Cpu::setInterrupt(bool newInterrupt)
 }
 void Cpu::setRepeat(bool newRepeat)
 {
-    core->repeatBug = newRepeat;
+    repeatBug = newRepeat;
 }
 
 void Cpu::setDoubleSpeedModeSignal(bool newSpeedSetting) {
