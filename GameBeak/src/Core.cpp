@@ -3,31 +3,6 @@
 #include <QTextStream>
 #include <QtDebug>
 
-{
-    this->screen = screen;
-}*/
-
-/*Core::Core() {
-//works
-}*/
-
-/*Core::Core(QWidget *parent,Screen* screen)
-    : QWidget(parent),
-    memory(rom, cpu, GBCMode),
-    gpu(memory, *screen, GBCMode, paletteSetting),
-    cpu(memory, input, enableInterruptsNextCycle, repeatBug),
-    input(memory, cpu),
-    rom()
-{
-    this->screen = screen;
-
-    *//*this->memory = new Memory(this);
-    this->gpu = new Gpu(this);
-    this->cpu = new Cpu(this);
-    this->input = new Input(this);
-    this->rom = new Rom();*//*
-}*/
-
 Core::Core(QWidget *parent)
     : QObject(parent),
         screen(nullptr, memory, gpu),
