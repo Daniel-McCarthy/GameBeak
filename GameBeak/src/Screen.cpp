@@ -6,3 +6,8 @@ Screen::Screen(QWidget *parent, Memory& memory, Gpu& gpu)
     : QWidget(parent), memory(memory), gpu(gpu)
 {
 }
+
+int Screen::getGPUMode()
+{
+    return gpuMode;
+}
