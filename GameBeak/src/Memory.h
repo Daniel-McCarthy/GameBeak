@@ -2,6 +2,7 @@
 
 #include <QString>
 #include <QList>
+#include <QVector>
 #include <QWidget>
 
 #ifndef MEMORYH
@@ -10,17 +11,29 @@
 class Cpu;
 class Core;
 class Rom;
-class Memory : public QWidget
+class MBC1;
+class MBC2;
+class MBC3;
+class MBC5;
+class Memory : public QObject
 {
     Q_OBJECT
 
 	private:
-        Rom* rom;
-        Cpu* cpu;
-        bool* GBCMode;
-        unsigned char beakRam[0xFFFF+1];
-        unsigned char externalVRAMBank[0x2000]; //CGB Only
-        unsigned char internalRam[0x8000]; //CGB Only
+        Rom& rom;
+        Cpu& cpu;
+        bool& GBCMode;
+        bool& forceDMGMode;
+
+        MBC1& mbc1;
+        MBC2& mbc2;
+        MBC3& mbc3;
+        MBC5& mbc5;
+
+    public:
+        QVector<unsigned char> beakRam = QVector<unsigned char>(0xFFFF + 1);
+        unsigned char externalVRAMBank[0x2000] = {0}; //CGB Only
+        unsigned char internalRam[0x8000] = {0}; //CGB Only
         QString title;
 
         //Registers
@@ -30,17 +43,15 @@ class Memory : public QWidget
         short regHL;
 
         //GBC Only Registers
-        unsigned char backgroundPaletteRam[0x40];
-        unsigned char spritePaletteRam[0x40];
+        unsigned char backgroundPaletteRam[0x40] = {0};
+        unsigned char spritePaletteRam[0x40] = {0};
         unsigned char internalRamBank = 1; //CGB Only
         unsigned char vramBank = 0; //CGB Only
 
-	public:
-        short memoryPointer;
-        short stackPointer;
+        short memoryPointer = 0x100;
+        short stackPointer = 0;
 
-        explicit Memory(QWidget *parent = nullptr);
-        explicit Memory(Core* core);
+        explicit Memory(QObject* parent, Rom& rom, Cpu& cpu, bool& gbcMode, bool& forceDMGMode, MBC1& mbc1, MBC2& mbc2, MBC3& mbc3, MBC5& mbc5);
         ~Memory();
 
         unsigned char readSpritePaletteRam(unsigned char address);
@@ -143,10 +154,7 @@ class Memory : public QWidget
 
        signals:
             void cpu_SetDoubleSpeedMode(bool speedSetting);
-            void writeMBC1Value(unsigned short address, unsigned char value);
-            void writeMBC2Value(unsigned short address, unsigned char value);
-            void writeMBC3Value(unsigned short address, unsigned char value);
-            void writeMBC5Value(unsigned short address, unsigned char value);
+            void setEmulationRun(bool setting);
 };
 
 

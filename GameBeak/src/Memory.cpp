@@ -1,16 +1,12 @@
 #include "Core.h"
 #include "Rom.h"
 #include "Memory.h"
+#include "MainWindow/mainwindow.h"
+#include "QtDebug"
 
-Memory::Memory(QWidget *parent) : QWidget(parent)
+Memory::Memory(QObject* parent, Rom& rom, Cpu& cpu, bool& gbcMode, bool& forceDMGMode, MBC1& mbc1, MBC2& mbc2, MBC3& mbc3, MBC5& mbc5)
+    : QObject(parent), rom(rom), cpu(cpu), GBCMode(gbcMode), forceDMGMode(forceDMGMode), mbc1(mbc1), mbc2(mbc2), mbc3(mbc3), mbc5(mbc5)
 {
-}
-
-Memory::Memory(Core* core)
-{
-    this->rom = core->getRomPointer();
-    this->cpu = core->getCPUPointer();
-    this->GBCMode = core->getGBCModePointer();
 }
 
 Memory::~Memory()
@@ -21,7 +17,7 @@ void Memory::writeRom0ToRam()
 {
 	for (int i = 0; i <= 0x3FFF; i++)
 	{
-        beakRam[i] = rom->readByte(i);
+        beakRam[i] = rom.readByte(i);
 	}
 }
 
@@ -29,7 +25,7 @@ void Memory::writeFullRomToRam()
 {
 	for (int i = 0; i <= 0x7FFF; i++)
 	{
-        beakRam[i] = rom->readByte(i);
+        beakRam[i] = rom.readByte(i);
 	}
 }
 
@@ -72,12 +68,12 @@ unsigned char Memory::readVRAMBankRam(unsigned short address, unsigned char bank
 
 unsigned char Memory::readMemory(unsigned short address)
 {
-	/*
+    /*
 	if (accessBreakpoint && memoryPointer == accessBreakpointAddress)
 	{
 	paused = true;
 	}
-	*/
+    */
 	if (address == 0xFF41)
 	{
 		return (beakRam[address] | 0x80);
@@ -87,8 +83,8 @@ unsigned char Memory::readMemory(unsigned short address)
 		// Get Speed Mode
 
         unsigned char returnValue = 0;
-        returnValue |= (unsigned char)(cpu->preparingSpeedChange ? 1 : 0);
-        returnValue |= (unsigned char)(cpu->doubleSpeedMode ? 0x80 : 0);
+        returnValue |= (unsigned char)(cpu.preparingSpeedChange ? 1 : 0);
+        returnValue |= (unsigned char)(cpu.doubleSpeedMode ? 0x80 : 0);
 
 		return returnValue;
 
@@ -122,7 +118,8 @@ unsigned char Memory::readMemory(unsigned short address)
 	}
 	else
 	{
-		return beakRam[address];
+        unsigned char memoryByte = beakRam.at(address);
+        return memoryByte;
 	}
 }
 
@@ -156,40 +153,39 @@ void Memory::transferDMA(unsigned char address)
 
 void Memory::directMemoryWrite(unsigned short address, unsigned char value)
 {
-	/*
+    /*
 	Write to Ram without ordinary restrictions. Only to be used by hardware emulating functions and not game instructions.
-	*/
+    */
 
 	beakRam[address] = value;
 
 }
 
-
 void Memory::writeMemory(unsigned short address, unsigned char value)
 {
 
-    if (rom->mapperSetting > 0 && address <= 0x7FFF)
+    if (rom.mapperSetting > 0 && address <= 0x7FFF)
 	{
-        if (rom->mapperSetting <= 3)
+        if (rom.mapperSetting <= 3)
 		{
-            emit writeMBC1Value(address, value);
+            mbc1.writeMBC1Value(address, value);
 		}
-        else if (rom->mapperSetting <= 6)
+        else if (rom.mapperSetting <= 6)
 		{
-            emit writeMBC2Value(address, value);
+            mbc2.writeMBC2Value(address, value);
 		}
-        else if (rom->mapperSetting <= 9)
+        else if (rom.mapperSetting <= 9)
 		{
 			//8: Rom+Ram
 			//9: Rom+Ram+Battery
 		}
-        else if (rom->mapperSetting <= 0x0D)
+        else if (rom.mapperSetting <= 0x0D)
 		{
 			//0B: MMM01
 			//0C: MMM01+Ram
 			//0D: MMM01+Ram+Battery
 		}
-        else if (rom->mapperSetting <= 0x10)
+        else if (rom.mapperSetting <= 0x10)
 		{
 			//0F: MBC3+Timer+Battery
 			//10: MBC3+Timer+Ram+Battery
@@ -198,11 +194,11 @@ void Memory::writeMemory(unsigned short address, unsigned char value)
 			//13: MBC3+Ram+Battery
 
 			//Add this later: MBC3 is not currently ready (RTC)
-            emit writeMBC3Value(address, value);
+            mbc3.writeMBC3Value(address, value);
 		}
-        else if (rom->mapperSetting <= 0x1E)
+        else if (rom.mapperSetting <= 0x1E)
 		{
-            emit writeMBC5Value(address, value);
+            mbc5.writeMBC5Value(address, value);
 		}
 		//TODO: Add more MBC controllers
 
@@ -221,19 +217,19 @@ void Memory::writeMemory(unsigned short address, unsigned char value)
 				//Set LCDC Status
 				beakRam[address] = ((beakRam[address] & 0x87) | (value & 0x78) | 0x80); //Bit 7 is always 1, Bit 0, 1, and 2 are read Only //&0x87clears bits 3, 4, 5, 6 from Stat. &0xF8 clears all but bit bit 0, 1, 2, and 7 from value being written.
 			}
-			else if (address == 0xFF4D && GBCMode)
+            else if (address == 0xFF4D && GBCMode == true)
 			{
 				// Set Speed Mode
 
-				bool newSpeedSetting = (value & 0b0000 - 0001) == 1;
+                bool newSpeedSetting = (value & 0b0000 - 0001) == 1;
                 emit cpu_SetDoubleSpeedMode(newSpeedSetting);
 			}
-			else if (address == 0xFF4F && GBCMode)
+            else if (address == 0xFF4F && GBCMode == true)
 			{
 				// Swap VRAM Bank
 				swapVRAMBank(value);
 			}
-			else if (address == 0xFF55 && GBCMode)
+            else if (address == 0xFF55 && GBCMode == true)
 			{
 				// Initiate GBC HDMA Transfer.
 				unsigned short sourceAddress = (unsigned short)((beakRam[0xFF51] << 8) | beakRam[0xFF52]);
@@ -250,13 +246,13 @@ void Memory::writeMemory(unsigned short address, unsigned char value)
 					beakRam[0x8000 + targetAddress + i] = beakRam[sourceAddress + i];
 				}
 			}
-			else if (address == 0xFF68 && GBCMode)
+            else if (address == 0xFF68 && GBCMode == true)
 			{
 				// Set GBC Background Palette Index
                 beakRam[address] = (unsigned char)(0x40 | (value));
 				// Bit 7: Increment on Write setting //Bit 6: Unused //Bit 0,1,2,3,4,5 Index (0-3F)
 			}
-			else if (address == 0xFF69 && GBCMode)
+            else if (address == 0xFF69 && GBCMode == true)
 			{
 				// Write to Background Palette Ram.
 
@@ -278,13 +274,13 @@ void Memory::writeMemory(unsigned short address, unsigned char value)
 					beakRam[0xFF68] = newIndexData;
 				}
 			}
-			else if (address == 0xFF6A && GBCMode)
+            else if (address == 0xFF6A && GBCMode == true)
 			{
 				// Set GBC Sprite Palette Index
                 beakRam[address] = (unsigned char)(0x40 | (value));
 				// Bit 7: Increment on Write setting //Bit 6: Unused //Bit 0,1,2,3,4,5 Index (0-3F)
 			}
-			else if (address == 0xFF6B && GBCMode)
+            else if (address == 0xFF6B && GBCMode == true)
 			{
 				// Write to Sprite Palette Ram.
 
@@ -306,7 +302,7 @@ void Memory::writeMemory(unsigned short address, unsigned char value)
 					beakRam[0xFF6A] = newIndexData;
 				}
 			}
-			else if (address == 0xFF70 && GBCMode)
+            else if (address == 0xFF70 && GBCMode == true)
 			{
 				// Swap WRAM Bank at 0xD000
                 unsigned char bankValue = (unsigned char)(value & 0b111);
@@ -693,7 +689,7 @@ void Memory::clearRegistersFlagsAndMemory()
 	setDE(0x0000);
 	setHL(0x0000);
 	setStackPointer((short)0x0000);
-	memset(beakRam, 0, 0xFFFF);
+    beakRam.fill(0);
 }
 
 void Memory::clearRegistersAndFlags()
@@ -883,7 +879,7 @@ bool Memory::loadRom(QString path)
 			int address = 0;
             for (int i = 0x0; i < fileLength; i++)
 			{
-                rom->beakRom[address + i] = static_cast<unsigned char>(binaryFileData.at(i));
+                rom.beakRom[address + i] = static_cast<unsigned char>(binaryFileData.at(i));
 			}
 		}
 		else
@@ -939,7 +935,7 @@ bool Memory::loadRom(QByteArray romData)
     if (romSize > 0) {
         if (romSize <= 0x500000) {
             for (int i = 0x0; i < romSize; i++) {
-                rom->beakRom[i] = (unsigned char)romData[i];
+                rom.beakRom[i] = (unsigned char)romData[i];
 			}
         } else {
             //cout << "Error: Rom too large. It does not fit in GameBoy's memory." << endl;
@@ -1021,7 +1017,7 @@ QList<unsigned char> Memory::returnSaveDataFromMemory()
 	return memory;
 }
 
-
+/*
 void Memory::saveState()
 {
 	char path1[MAX_PATH];
@@ -1034,7 +1030,7 @@ void Memory::saveState()
 	if (file.is_open())
 	{
 		file << "[Title:]" << title << endl;
-        file << "[MBC:]" << hexToASCII(rom->mapperSetting) << endl;
+        file << "[MBC:]" << hexToASCII(rom.mapperSetting) << endl;
 		file << "[Rom Bank:]" << hexToASCIIU(mapper.romBankNumber) << endl;
 		file << "[Ram Bank:]" << hexToASCII(mapper.ramBankNumber) << endl;
 		file << "[AF:]" << hexToASCIIU(regAF) << endl;
@@ -1062,9 +1058,9 @@ void Memory::saveState()
 	}
 
 	file.close();
-}
+}*/
 
-
+/*
 void Memory::loadSaveState()
 {
 	char path1[MAX_PATH];
@@ -1165,7 +1161,7 @@ void Memory::loadSaveState()
 					unsigned int romBank = stoi(line, 0, 16);
 
 					//Change Rom Bank based on which memory controller it is
-                    switch (rom->mapperSetting)
+                    switch (rom.mapperSetting)
 					{
 					case 1:
 					case 2:
@@ -1349,8 +1345,8 @@ void Memory::loadSaveState()
 					line = line.substr(nextDelimiter + 1, line.length() - (nextDelimiter + 1));
 				}
 			}
-		}
+        }
 	}
-	//paused = true;
+    //paused = true;
 }
-
+*/
