@@ -10,12 +10,18 @@ class Screen : public QWidget
     Q_OBJECT
 public:
     Screen(QWidget *parent, Memory& memory, Gpu& gpu);
+
+    QColor getBGPixel(unsigned char  x, unsigned char  y);
     void setBGPixel(unsigned char  x, unsigned char  y, QColor color);
     void setWindowPixel(unsigned char  x, unsigned char  y, QColor color);
     void setSpritePixel(unsigned char  x, unsigned char  y, QColor color);
     void setDebugPixel(unsigned char  x, unsigned char  y, QColor color);
     void drawScreenFromMaps(unsigned char  scrollX, unsigned char  ScrollY);
     void drawFullScreenMaps();
+
+signals:
+    void drawImageToScreen(QImage image);
+
 private:
     Memory& memory;
     Gpu& gpu;
