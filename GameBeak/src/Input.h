@@ -24,6 +24,8 @@ public:
 	bool isAnyKeyPressed();
 	void readInput();
 	void setKeyInput(int keyCode, bool enabled);
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
 };
 
 #endif // !INPUTH

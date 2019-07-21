@@ -200,3 +200,40 @@ void Input::setKeyInput(int keyCode, bool enabled)
 	}
 }
 
+bool Input::eventFilter(QObject *obj, QEvent *event) {
+    bool keyPressed = event->type() == QEvent::KeyPress;
+    bool keyReleased = event->type() == QEvent::KeyRelease;
+
+    if (keyPressed || keyReleased) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        int key = keyEvent->key();
+
+        if (key == Qt::Key_Z) {
+            setKeyInput(6, keyPressed);
+        }
+        if (key == Qt::Key_X) {
+            setKeyInput(7, keyPressed);
+        }
+        if (key == Qt::Key_Return) {
+            setKeyInput(4, keyPressed);
+        }
+        if (key == Qt::Key_Shift) {
+            setKeyInput(5, keyPressed);
+        }
+        if (key == Qt::Key_Right) {
+            setKeyInput(3, keyPressed);
+        }
+        if (key == Qt::Key_Left) {
+            setKeyInput(2, keyPressed);
+        }
+        if (key == Qt::Key_Up) {
+            setKeyInput(0, keyPressed);
+        }
+        if (key == Qt::Key_Down) {
+            setKeyInput(1, keyPressed);
+        }
+    }
+
+    return QObject::eventFilter(obj, event);
+}
+
