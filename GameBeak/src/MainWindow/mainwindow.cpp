@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QImage image = QImage(320,288, QImage::Format_RGB32);
     image.fill(0xFF8080FF);
     canvas->drawImage(image);
+
+    installEventFilter(core->getInputPointer());
+
     QObject::connect(this, &MainWindow::onGameFileOpened,
                              core->getMemoryPointer(), &Memory::romLoaded);
 
