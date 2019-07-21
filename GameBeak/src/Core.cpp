@@ -103,3 +103,65 @@ void Core::setForcedDMGMode(bool setting) {
     ForceDMGMode = setting;
 }
 
+void Core::emulationLoop() {
+    rom.readRomHeader();
+    GBCMode = (rom.isGBCRom() && !ForceDMGMode);
+
+    if (GBCMode)
+    {
+        memory.initializeGameBoyColorValues();
+    }
+    else
+    {
+        memory.initializeGameBoyValues();
+    }
+    int clocksSinceLastTimerTIMAIncrement = 0;
+    int clocksSinceLastTimerDIVIncrement = 0;
+    int clocksSinceLastScanLineComplete = 0;
+    int clocksSinceLastVBlank = 0;
+    int clocksSinceLastScreenRefresh = 0;
+    uint opcodeCounter = 0;
+    while (run)
+    {
+        //Poll QT Events
+        QCoreApplication::processEvents();
+
+        if (!paused || step)
+        {
+            input.readInput();
+            if (!cpu.returnStop() && !cpu.checkForHaltOrInterrupt())
+            {
+
+                unsigned char opcode = memory.readMemory(memory.memoryPointer++); 
+
+                cpu.selectOpcode(opcode);
+                opcodeCounter++;
+
+                if (repeatBug)
+                {
+                    memory.memoryPointer--;
+                    repeatBug = false;
+                }
+            }
+            else
+            {
+                if (cpu.returnStop())
+                {
+                    cpu.executeStop();
+                }
+
+                cpu.selectOpcode(0); //Gets stuck at a halt without this, because no cycles are occuring (no opcode is running) the vblank interrupt never occurs
+            }
+
+
+            step = false;
+            clocks += cpu.tClock;
+            cpu.updateTIMA(clocks, clocksSinceLastTimerTIMAIncrement, clocksSinceLastTimerDIVIncrement);
+            screen.updateLCD(clocks, clocksSinceLastScanLineComplete, clocksSinceLastScreenRefresh, clocksSinceLastVBlank);
+            cpu.mClock = 0;
+            cpu.tClock = 0;
+        }
+
+    }
+
+}
