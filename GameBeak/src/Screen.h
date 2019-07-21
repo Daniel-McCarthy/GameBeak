@@ -19,6 +19,7 @@ public:
     void setDebugPixel(unsigned char  x, unsigned char  y, QColor color);
     void drawScreenFromMaps(unsigned char  scrollX, unsigned char  ScrollY);
     void drawFullScreenMaps();
+    void updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshClocksSinceLastUpdate, int& clocksSinceLastVBlank);
 
 signals:
     void drawImageToScreen(QImage image);
