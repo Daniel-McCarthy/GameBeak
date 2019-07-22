@@ -49,8 +49,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    emit setEmulationRun(false);
     delete ui;
+    delete canvas;
+    delete core;
+}
+
+void MainWindow::terminateEmulation() {
+    emit setEmulationRun(false);
 
     QObject::disconnect(this, &MainWindow::onGameFileOpened,
                         core->getMemoryPointer(), &Memory::romLoaded);
@@ -66,13 +71,11 @@ MainWindow::~MainWindow()
 
     QObject::disconnect(core->getMemoryPointer(), &Memory::setEmulationRun,
                      this, &MainWindow::startEmulationThread);
-
-    delete core;
-    delete canvas;
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
-    this->~MainWindow();
+    this->terminateEmulation();
+    event->accept();
 }
 
 void MainWindow::startEmulationThread() {

@@ -98,8 +98,6 @@ void Core::emulationLoop() {
     uint opcodeCounter = 0;
     while (run)
     {
-        //Poll QT Events
-        QCoreApplication::processEvents();
 
         if (!paused || step)
         {
@@ -137,6 +135,8 @@ void Core::emulationLoop() {
             cpu.tClock = 0;
         }
 
+        //Poll Final QT Events
+        QCoreApplication::processEvents();
     }
 
 }

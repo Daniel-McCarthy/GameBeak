@@ -26,6 +26,7 @@ private:
     Canvas* canvas;
 
     void closeEvent(QCloseEvent *event);
+    void terminateEmulation();
 private slots:
     void on_actionOpen_triggered();
     void startEmulationThread();
