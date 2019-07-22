@@ -202,7 +202,6 @@ void Screen::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshC
 
 void Screen::setBGPixel(unsigned char  x, unsigned char  y, QColor color)
 {
-    uint value = color.rgba();
     bgPixels[x + (y * 256)] = color;
 }
 
@@ -236,10 +235,7 @@ void Screen::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrollY)
             {
                 y = scrollY + j;
                 x = (unsigned char)(scrollXValues[y] + i);
-
-                QColor pixelColor = bgPixels.at(x + (y * 256));
-                uint colorValue = pixelColor.rgba();
-                screen.setPixelColor(i, j, colorValue);
+                screen.setPixelColor(i, j, bgPixels.at(x + (y * 256)));
             }
         }
     }
@@ -282,8 +278,6 @@ void Screen::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrollY)
             {
                 for (int j = 0; (j + y + yShift) < 144; j++)
                 {
-                    QColor color = windowPixels[(xShift + i) + ((yShift + j) * 256)];
-                    uint colorValue = color.rgba();
                     screen.setPixelColor((x + xShift + i), (y + yShift + j), windowPixels[(xShift + i) + ((yShift + j) * 256)]);
                 }
             }
@@ -300,9 +294,7 @@ void Screen::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrollY)
         {
             if (spritePixels[((x) + ((y) * 256))].alpha() != 0)
             {
-                QColor color = spritePixels[(x) + (y * 256)];
-                uint colorValue = color.rgba();
-                screen.setPixelColor(x, y, colorValue);
+                screen.setPixelColor(x, y, spritePixels[(x) + (y * 256)]);
             }
 
             if (x < 159)
