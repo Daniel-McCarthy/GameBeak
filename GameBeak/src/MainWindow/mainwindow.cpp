@@ -28,6 +28,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     installEventFilter(core->getInputPointer());
 
+    QObject::connect(core->getScreenPointer(), &Screen::drawImageToScreen,
+                     canvas, &Canvas::drawImage);
+
     QObject::connect(this, &MainWindow::onGameFileOpened,
                              core->getMemoryPointer(), &Memory::romLoaded);
 
