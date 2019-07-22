@@ -30,7 +30,7 @@ private:
     QTime screenUpdateTimer;
 
     void setIcon(int width, int height, QString path);
-    QVector<QColor> bgPixels = QVector<QColor>(256 * 256);
+    QColor bgPixels[256 * 256];
     QColor windowPixels[256 * 256];
     QColor spritePixels[256 * 256];
     QColor tileDebugPixels[256 * 256];

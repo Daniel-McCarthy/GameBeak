@@ -235,7 +235,7 @@ void Screen::drawScreenFromMaps(unsigned char  scrollX, unsigned char  scrollY)
             {
                 y = scrollY + j;
                 x = (unsigned char)(scrollXValues[y] + i);
-                screen.setPixelColor(i, j, bgPixels.at(x + (y * 256)));
+                screen.setPixelColor(i, j, bgPixels[x + (y * 256)]);
             }
         }
     }
