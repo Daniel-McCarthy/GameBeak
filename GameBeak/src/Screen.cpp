@@ -64,7 +64,6 @@ void Screen::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshC
                 }
 
                 refreshClocksSinceLastUpdate = clocks;
-                memset(spritePixels, 0, 256 * 256 * 4);
             }
             else
             {
