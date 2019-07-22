@@ -6,6 +6,7 @@ Canvas::Canvas(QWidget* parent)
     scene = new QGraphicsScene();
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setInteractive(false);
     setFocusPolicy(Qt::NoFocus);
 }
 
