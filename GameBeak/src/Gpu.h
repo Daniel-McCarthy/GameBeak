@@ -15,10 +15,10 @@ private:
     bool& GBCMode;
     unsigned char& paletteSetting;
 
-    const QColor darkestPink = QColor(72, 24, 59, 255); //Pink Black //48183BFF
-    const QColor darkPink = QColor(255, 131, 217, 255); //Dark Pink //FF83D9FF
-    const QColor lightPink = QColor(255, 214, 245, 255); //Light Pink //FFD6F5FF
-    const QColor lightestPink = QColor(255, 241, 254, 255); //Pink WHITE //FFF1FEFF
+    const QColor darkestPink = QColor(82, 5, 40, 255); //Darkest Pink //FFF0F5FF
+    const QColor darkPink = QColor(255, 116, 217, 255); //Dark Pink //FFBADEFF
+    const QColor lightPink = QColor(255, 186, 222, 255); //Light Pink //FF74D9FF
+    const QColor lightestPink = QColor(255, 240, 245, 255); //Lightest Pink //520528FF
 
 public:
     QColor gameBeakPalette[4000] = { lightestPink, lightPink, darkPink, darkestPink,
