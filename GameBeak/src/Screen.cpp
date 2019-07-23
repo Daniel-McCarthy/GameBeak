@@ -9,6 +9,13 @@
 Screen::Screen(QWidget *parent, Memory& memory, Gpu& gpu)
     : QWidget(parent), memory(memory), gpu(gpu)
 {
+    QColor transparent = QColor(0, 0, 0, 0);
+    for(int i = 0; i < (256*256); i++) {
+        bgPixels[i] = transparent;
+        spritePixels[i] = transparent;
+        windowPixels[i] = transparent;
+        tileDebugPixels[i] = transparent;
+    }
 }
 
 void Screen::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshClocksSinceLastUpdate, int& clocksSinceLastVBlank)
