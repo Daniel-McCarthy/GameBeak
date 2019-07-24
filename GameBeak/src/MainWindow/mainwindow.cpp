@@ -55,6 +55,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::terminateEmulation() {
+    removeEventFilter(core->getInputPointer());
     emit setEmulationRun(false);
 
     QObject::disconnect(this, &MainWindow::onGameFileOpened,
