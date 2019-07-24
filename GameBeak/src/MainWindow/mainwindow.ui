@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>GameBeak</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../ICON1.ico</normaloff>../ICON1.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
