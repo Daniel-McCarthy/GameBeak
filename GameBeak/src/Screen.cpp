@@ -20,7 +20,7 @@ Screen::Screen(QWidget *parent, Memory& memory, Gpu& gpu)
 
 void Screen::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshClocksSinceLastUpdate, int& clocksSinceLastVBlank)
 {
-    unsigned char ly = memory.getLCDLY();//memory.getLCDLY();
+    unsigned char ly = memory.getLCDLY();
     unsigned char originalLY = ly;
     if (gpuMode == 0)// || !gpu.getLCDOn()) //(Should be more accurate? Causes Bust A Move to be extremely slow when LCD is off)
     {
