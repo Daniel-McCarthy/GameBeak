@@ -118,8 +118,7 @@ unsigned char Memory::readMemory(unsigned short address)
 	}
 	else
 	{
-        unsigned char memoryByte = beakRam.at(address);
-        return memoryByte;
+        return beakRam[address];
 	}
 }
 
