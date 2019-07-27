@@ -30,12 +30,12 @@ public:
 
     bool* getGBCModePointer();
 
-    bool run;
-    bool paused;
-    bool step;
+    bool run = false;
+    bool paused = false;
+    bool step = false;
     bool enableInterruptsNextCycle = false;
     bool interruptNextCycle = false;
-    bool repeatBug; //Halt bug
+    bool repeatBug = false; //Halt bug
 
     int clocks = 4500;
     int memoryControllerMode = 0;
