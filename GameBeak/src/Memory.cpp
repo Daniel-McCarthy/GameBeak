@@ -917,7 +917,7 @@ bool Memory::loadRom(QString path, bool findAndLoadSaveFile)
     if (fileLoaded && findAndLoadSaveFile)
 	{
 		//Attempt to open file, if it was successful close it and call the full loadSave function
-        QString savePath = path.left(path.indexOf('.')) + ".sav";
+        QString savePath = path.left(path.lastIndexOf('.')) + ".sav";
         QFile saveFile(savePath);
 
         bool fileExists = saveFile.open(QIODevice::ReadOnly);
