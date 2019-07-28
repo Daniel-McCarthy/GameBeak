@@ -142,7 +142,7 @@ class Memory : public QObject
         */
         bool loadSaveFile(QByteArray saveFile);
 
-        QList<unsigned char> returnSaveDataFromMemory();
+        QByteArray returnSaveDataFromMemory();
 
         void saveState();
         void loadSaveState();

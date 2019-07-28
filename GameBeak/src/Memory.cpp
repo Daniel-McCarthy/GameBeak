@@ -1015,12 +1015,12 @@ bool Memory::loadSaveFile(QByteArray saveFile)
     }
 }
 
-QList<unsigned char> Memory::returnSaveDataFromMemory()
+QByteArray Memory::returnSaveDataFromMemory()
 {
-    QList<unsigned char> memory;
+    QByteArray memory;
     unsigned short address = 0xA000;
     for (int i = 0; i <= 0x1FFF; i++) {
-		memory.push_back(beakRam[address + i]);
+        memory.push_back(beakRam[address + i]);
 	}
 
 	return memory;
