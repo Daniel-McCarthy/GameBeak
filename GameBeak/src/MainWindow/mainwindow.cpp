@@ -96,3 +96,21 @@ void MainWindow::on_actionOpen_triggered()
         emit onGameFileOpened(filePath);
     }
 }
+
+void MainWindow::on_actionForce_DMG_triggered() {
+    core->ForceDMGMode = true;
+
+    if (ui->actionForce_DMG->isChecked() == false)
+        ui->actionForce_DMG->toggle();
+    if (ui->actionAutomatic_Selection->isChecked() == true)
+        ui->actionAutomatic_Selection->toggle();
+}
+
+void MainWindow::on_actionAutomatic_Selection_triggered() {
+    core->ForceDMGMode = false;
+
+    if (ui->actionForce_DMG->isChecked() == true)
+        ui->actionForce_DMG->toggle();
+    if (ui->actionAutomatic_Selection->isChecked() == false)
+        ui->actionAutomatic_Selection->toggle();
+}

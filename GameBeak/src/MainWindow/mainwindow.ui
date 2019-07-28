@@ -31,7 +31,21 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuSettings">
+     <property name="title">
+      <string>Settings</string>
+     </property>
+     <widget class="QMenu" name="menuModel_Emulation">
+      <property name="title">
+       <string>Model Emulation</string>
+      </property>
+      <addaction name="actionForce_DMG"/>
+      <addaction name="actionAutomatic_Selection"/>
+     </widget>
+     <addaction name="menuModel_Emulation"/>
+    </widget>
     <addaction name="actionOpen"/>
+    <addaction name="menuSettings"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -41,6 +55,25 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionForce_DMG">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Force DMG</string>
+   </property>
+  </action>
+  <action name="actionAutomatic_Selection">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Automatic Selection</string>
    </property>
   </action>
  </widget>

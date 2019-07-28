@@ -29,6 +29,8 @@ private:
     void terminateEmulation();
 private slots:
     void on_actionOpen_triggered();
+    void on_actionForce_DMG_triggered();
+    void on_actionAutomatic_Selection_triggered();
     void startEmulationThread();
     void endEmulationThread();
 
