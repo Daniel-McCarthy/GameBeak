@@ -63,6 +63,7 @@ void Screen::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshC
                         }
                     }
                     refreshClocksSinceLastUpdate = clocks;
+                    processPolling = true;
                 }
                 //Set VBLANK Interrupt Flag
                 if (gpu.getLCDOn())

@@ -10,6 +10,7 @@ class Screen : public QWidget
 {
     Q_OBJECT
 public:
+    bool processPolling = false;
     Screen(QWidget *parent, Memory& memory, Gpu& gpu);
 
     QColor getBGPixel(unsigned char  x, unsigned char  y);

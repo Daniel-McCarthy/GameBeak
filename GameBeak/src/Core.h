@@ -63,7 +63,6 @@ private:
     bool soundEnabled = false;
     bool tileDrawMode = false;
     bool fullMapScreenMode = false;
-    bool pollingEnabled = true;
 
     enum paletteSettings
     {
