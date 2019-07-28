@@ -1026,6 +1026,38 @@ QByteArray Memory::returnSaveDataFromMemory()
 	return memory;
 }
 
+bool Memory::createSaveFile(bool overwrite) {
+    /*
+    00 Rom only | 01 MBC1 | 02 MBC1 + Ram | 03 MBC1 + Ram + Battery | 05 MBC2 | 06 MBC2 + Battery | 08 Rom + Ram |
+    09 Rom + Ram + Battery | 0B MMM01 | 0C MMM01 + Ram | 0D MMM01 + Ram + Battery | 11 MBC3 | 12 MBC3 + Ram |
+    13 MBC3 + Ram + Battery | 19 MBC5 | 1A MBC5 + Ram | 1B MBC5 + Ram + Battery | 1C MBC5 + Rumble | 1D MBC5 + Rumble + Ram |
+    1E MBC5 + Rumble + Ram + Battery | 20 MBC6 | 22 MBC7 + Sensor + Rumble + Ram + Battery | FC Pocket Camera |
+    FD Bandai Tama5 | FE HuC3 | FF HuC1 + Ram + Battery |
+    */
+
+    bool romUsesRam = rom.mapperSetting == 0x02 || rom.mapperSetting == 0x03 || rom.mapperSetting == 0x06 || rom.mapperSetting == 0x08 || rom.mapperSetting == 0x09 || rom.mapperSetting == 0x0C || rom.mapperSetting == 0x0D
+        || rom.mapperSetting == 0x12 || rom.mapperSetting == 0x13 || rom.mapperSetting == 0x1A || rom.mapperSetting == 0x1B || rom.mapperSetting == 0x1D || rom.mapperSetting == 0x1E || rom.mapperSetting == 0x22 || rom.mapperSetting == 0xFF;
+
+    if (romUsesRam)
+    {
+        QByteArray saveData = returnSaveDataFromMemory();
+
+        //Attempt to open file, to check if it exists and potentially overwrite it.
+        QString savePath = rom.romFilePath.left(rom.romFilePath.lastIndexOf('.')) + ".sav";
+        QFile saveFile(savePath);
+
+        bool fileExists = saveFile.open(QIODevice::ReadWrite);
+
+        if (!fileExists || overwrite)
+        {
+            saveFile.write(saveData);
+            return true;
+        }
+    }
+
+    return false;
+}
+
 /*
 void Memory::saveState()
 {

@@ -144,6 +144,7 @@ class Memory : public QObject
 
         QByteArray returnSaveDataFromMemory();
 
+        bool createSaveFile(bool overwrite);
         void saveState();
         void loadSaveState();
 
