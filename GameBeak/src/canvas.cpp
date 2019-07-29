@@ -5,6 +5,7 @@ Canvas::Canvas(QWidget* parent)
 {
     setFocusPolicy(Qt::NoFocus);
     setMouseTracking(false);
+   setMinimumSize(320,288);
 }
 
 Canvas::~Canvas() {
