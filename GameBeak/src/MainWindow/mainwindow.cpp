@@ -22,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent) :
     canvas->stackUnder(ui->menuBar);
     ui->menuBar->raise();
 
+    hLayout = new QHBoxLayout(ui->centralWidget);
+    hLayout->addWidget(canvas);
+
     QImage image = QImage(320,288, QImage::Format_RGB32);
     image.fill(0xFF8080FF);
     canvas->drawImage(image);
@@ -52,6 +55,7 @@ MainWindow::~MainWindow()
     delete ui;
     delete canvas;
     delete core;
+    delete hLayout;
 }
 
 void MainWindow::terminateEmulation() {

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QThread>
+#include <QHBoxLayout>
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,7 @@ private:
     Ui::MainWindow *ui;
     Core* core = nullptr;
     Canvas* canvas;
+    QHBoxLayout* hLayout;
 
     void closeEvent(QCloseEvent *event);
     void terminateEmulation();
