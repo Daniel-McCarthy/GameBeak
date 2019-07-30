@@ -863,6 +863,7 @@ void Memory::initializeGameBoyColorValues()
 void Memory::romLoaded(QString gameFilePath) {
     loadRom(gameFilePath, true);
     rom.readRomHeader();
+    rom.romFilePath = gameFilePath;
     GBCMode = rom.isGBCRom() == true && forceDMGMode == false;
 
     if (GBCMode == true) {
