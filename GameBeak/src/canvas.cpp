@@ -50,6 +50,8 @@ void Canvas::initializeGL() {
     shaderProgram.link();
 
     m_Texture = new QOpenGLTexture((currentFrame).mirrored());
+    m_Texture->setMinificationFilter(QOpenGLTexture::Linear);
+    m_Texture->setMagnificationFilter(QOpenGLTexture::Linear);
     buildDrawingSurface();
 
 }
@@ -112,7 +114,6 @@ void Canvas::buildDrawingSurface() {
 void Canvas:: updateTexture() {
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, currentFrame.width(), currentFrame.height(), GL_BGRA, GL_UNSIGNED_BYTE, currentFrame.mirrored().bits());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
 void Canvas::resizeGL(int w, int h) {
