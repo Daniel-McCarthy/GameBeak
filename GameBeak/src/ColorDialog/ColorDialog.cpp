@@ -8,20 +8,19 @@ ColorDialog::ColorDialog(QWidget *parent, Gpu* gpu) :
     ui->setupUi(this);
 //    ui->listView->setEditTriggers(QAbstractItemView.NoEditTriggers);
     this->gpu = gpu;
-//    loadPalettes();
 }
 
 void ColorDialog::loadPalettes() {
     QFile* palettesFile = new QFile(gpu->openCreatePalettesXML());
     gpu->loadPalettesFromXML(palettesFile);
 
-    QStandardItemModel* itemModel = new QStandardItemModel(gpu->paletteNames.count(), 1, this);
+    QStandardItemModel* itemModel = new QStandardItemModel(gpu->gameBeakPalette.count(), 1, this);
 
-    for(int i = 0; i < gpu->paletteNames.count(); i++)
+    for(int i = 0; i < gpu->gameBeakPalette.count(); i++)
     {
 //        paletteNameListBox.Items.Add(paletteNames[i]);
 //        ui->listView->it
-        QStandardItem* paletteName = new QStandardItem(gpu->paletteNames[i]);
+        QStandardItem* paletteName = new QStandardItem(gpu->gameBeakPalette[i].paletteName);
         itemModel->setItem(i, paletteName);
     }
 
@@ -40,20 +39,20 @@ void ColorDialog::loadPalettes() {
 void ColorDialog::setPalettePreviews(int index) {
     if (index > -1)
     {
-        setPreviewColor(ui->bg0ColorWidget0, gpu->gameBeakPalette[(index * 12) + 0]);
-        setPreviewColor(ui->bg0ColorWidget1, gpu->gameBeakPalette[(index * 12) + 1]);
-        setPreviewColor(ui->bg0ColorWidget2, gpu->gameBeakPalette[(index * 12) + 2]);
-        setPreviewColor(ui->bg0ColorWidget3, gpu->gameBeakPalette[(index * 12) + 3]);
+        setPreviewColor(ui->bg0ColorWidget0, gpu->gameBeakPalette[index].paletteColors[0]);
+        setPreviewColor(ui->bg0ColorWidget1, gpu->gameBeakPalette[index].paletteColors[1]);
+        setPreviewColor(ui->bg0ColorWidget2, gpu->gameBeakPalette[index].paletteColors[2]);
+        setPreviewColor(ui->bg0ColorWidget3, gpu->gameBeakPalette[index].paletteColors[3]);
 
-        setPreviewColor(ui->bp0ColorWidget0, gpu->gameBeakPalette[(index * 12) + 4]);
-        setPreviewColor(ui->bp0ColorWidget1, gpu->gameBeakPalette[(index * 12) + 5]);
-        setPreviewColor(ui->bp0ColorWidget2, gpu->gameBeakPalette[(index * 12) + 6]);
-        setPreviewColor(ui->bp0ColorWidget3, gpu->gameBeakPalette[(index * 12) + 7]);
+        setPreviewColor(ui->bp0ColorWidget0, gpu->gameBeakPalette[index].paletteColors[4]);
+        setPreviewColor(ui->bp0ColorWidget1, gpu->gameBeakPalette[index].paletteColors[5]);
+        setPreviewColor(ui->bp0ColorWidget2, gpu->gameBeakPalette[index].paletteColors[6]);
+        setPreviewColor(ui->bp0ColorWidget3, gpu->gameBeakPalette[index].paletteColors[7]);
 
-        setPreviewColor(ui->bp1ColorWidget0, gpu->gameBeakPalette[(index * 12) + 8]);
-        setPreviewColor(ui->bp1ColorWidget1, gpu->gameBeakPalette[(index * 12) + 9]);
-        setPreviewColor(ui->bp1ColorWidget2, gpu->gameBeakPalette[(index * 12) + 10]);
-        setPreviewColor(ui->bp1ColorWidget3, gpu->gameBeakPalette[(index * 12) + 11]);
+        setPreviewColor(ui->bp1ColorWidget0, gpu->gameBeakPalette[index].paletteColors[8]);
+        setPreviewColor(ui->bp1ColorWidget1, gpu->gameBeakPalette[index].paletteColors[9]);
+        setPreviewColor(ui->bp1ColorWidget2, gpu->gameBeakPalette[index].paletteColors[10]);
+        setPreviewColor(ui->bp1ColorWidget3, gpu->gameBeakPalette[index].paletteColors[11]);
     }
     else
     {

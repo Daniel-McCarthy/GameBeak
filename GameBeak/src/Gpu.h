@@ -4,6 +4,11 @@
 #include <QColor>
 #include <QFile>
 
+struct Palette {
+  QString paletteName;
+  QColor paletteColors[12];
+};
+
 class Core;
 class Memory;
 class Screen;
@@ -20,12 +25,17 @@ private:
     const QColor lightPink = QColor(255, 186, 222, 255); //Light Pink //FF74D9FF
     const QColor lightestPink = QColor(255, 240, 245, 255); //Lightest Pink //520528FF
 
-public:
-    QList<QColor> gameBeakPalette = QList<QColor>({lightestPink, lightPink, darkPink, darkestPink,
-									lightestPink, lightPink, darkPink, darkestPink,
-                                    lightestPink, lightPink, darkPink, darkestPink});
+    const Palette defaultPalette = {
+        "Default Palette",
+        {
+            lightestPink, lightPink, darkPink, darkestPink,
+            lightestPink, lightPink, darkPink, darkestPink,
+            lightestPink, lightPink, darkPink, darkestPink
+        }
+    };
 
-    QList<QString> paletteNames = QList<QString>({"Default Scheme"});
+public:
+    QList<Palette> gameBeakPalette = QList<Palette>({defaultPalette});
 
     unsigned char gameboyColorBackGroundPalette[64]; //2 unsigned chars per color, 4 colors per BG Palette, 8 BG Palettes
     unsigned char gameboyColorSpritePalette[64]; //2 unsigned chars per color, 4 colors per Sprite Palette, 8 Sprite Palettes

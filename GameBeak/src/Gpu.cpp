@@ -481,7 +481,7 @@ unsigned char Gpu::getWindowY()
 
 QColor Gpu::returnColor(int colorNumber)
 {
-    return gameBeakPalette[colorNumber + (paletteSetting * 12)];
+    return gameBeakPalette[paletteSetting].paletteColors[colorNumber];
 }
 
 QColor Gpu::returnColor(int colorNumber, int palette)
@@ -496,9 +496,9 @@ QColor Gpu::returnColor(int colorNumber, int palette)
 
     //unsigned char paletteData = memory->readMemory(0xFF47 + palette);
     //colorNumber = (paletteData & (3 << (colorNumber * 2))) >> (colorNumber * 2);//(colorNumber + 1);
-    //return gameBeakPalette[colorNumber + paletteSetting << 2)];
+    //return gameBeakPalette[paletteSetting].paletteColors[colorNumber];
 
-    return gameBeakPalette[((memory.readMemory(0xFF47 + palette) & (3 << (colorNumber * 2))) >> (colorNumber * 2)) + (paletteSetting * 12) + (palette << 2)];
+    return gameBeakPalette[paletteSetting].paletteColors[((memory.readMemory(0xFF47 + palette) & (3 << (colorNumber * 2))) >> (colorNumber * 2)) + (palette << 2)];
 
 
 	//The palette variable is being used to select the memory location of the palette
@@ -575,6 +575,8 @@ void Gpu::loadPalettesFromXML(QFile* file)
 {
     QString line;
     QList<unsigned char> colorValues;
+    QList<QColor> paletteColors;
+    QList<QString> paletteNames;
 
     if (file->open(QIODevice::ReadOnly)) {
         QTextStream text(file);
@@ -584,6 +586,7 @@ void Gpu::loadPalettesFromXML(QFile* file)
         QRegExp bp1("<0bp1>.*</0bp1>"); //Contains both <0bp1> and </0bp1>
         QRegExp name("<name>.*</name>");
 
+        gameBeakPalette.clear();
         while (!text.atEnd()) {
             line = text.readLine();
 
@@ -636,7 +639,7 @@ void Gpu::loadPalettesFromXML(QFile* file)
                     colorValues.pop_front();
 
                     QColor color = QColor(r, g, b, 255);
-                    gameBeakPalette.push_back(color);
+                    paletteColors.push_back(color);
 
                     if (colorOffset >= 3) {
                         colorOffset = 0;
@@ -649,6 +652,26 @@ void Gpu::loadPalettesFromXML(QFile* file)
             }
         }
     }
+
+    // Assemble names and colors into Palette structs for storage.
+    for (int i =  0; i < paletteNames.count(); i++) {
+        if (paletteColors.count() >= 12) {
+            gameBeakPalette.push_back({
+                paletteNames[0],
+                {
+                  paletteColors[0], paletteColors[1], paletteColors[2], paletteColors[3],
+                  paletteColors[4], paletteColors[5], paletteColors[6], paletteColors[7],
+                  paletteColors[8], paletteColors[9], paletteColors[10], paletteColors[11],
+                },
+            });
+        }
+
+        paletteNames.pop_front();
+        for (int j = 0; j < 12; j++) {
+            paletteColors.pop_front();
+        }
+    }
+
     file->close();
 }
 
