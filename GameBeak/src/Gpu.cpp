@@ -646,8 +646,7 @@ void Gpu::loadPalettesFromXML(QFile* file)
 QString Gpu::openCreatePalettesXML()
 {
 	//open XML palette file
-    QString path = QFileInfo(QCoreApplication::applicationFilePath()).absoluteFilePath();
-    path += "palettes.xml";
+    QString path = QDir(QFileInfo(QCoreApplication::applicationFilePath()).absolutePath()).filePath("palettes.xml");
 
     QFileInfo fileStatus(path);
 
