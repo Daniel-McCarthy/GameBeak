@@ -627,7 +627,7 @@ void Gpu::loadPalettesFromXML(QFile* file)
                     colorValues.pop_front();
 
                     QColor color = QColor(r, g, b, 255);
-                    gameBeakPalette[(paletteOffset * 4) + colorOffset] = color;
+                    gameBeakPalette.push_back(color);
 
                     if (colorOffset >= 3) {
                         colorOffset = 0;

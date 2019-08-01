@@ -21,9 +21,9 @@ private:
     const QColor lightestPink = QColor(255, 240, 245, 255); //Lightest Pink //520528FF
 
 public:
-    QColor gameBeakPalette[4000] = { lightestPink, lightPink, darkPink, darkestPink,
+    QList<QColor> gameBeakPalette = QList<QColor>({lightestPink, lightPink, darkPink, darkestPink,
 									lightestPink, lightPink, darkPink, darkestPink,
-									lightestPink, lightPink, darkPink, darkestPink };
+                                    lightestPink, lightPink, darkPink, darkestPink});
 
     unsigned char gameboyColorBackGroundPalette[64]; //2 unsigned chars per color, 4 colors per BG Palette, 8 BG Palettes
     unsigned char gameboyColorSpritePalette[64]; //2 unsigned chars per color, 4 colors per Sprite Palette, 8 Sprite Palettes
