@@ -1,5 +1,6 @@
 #include "ColorDialog.h"
 #include "ui_ColorDialog.h"
+#include "PaletteListView.h"
 
 ColorDialog::ColorDialog(QWidget *parent, Gpu* gpu) :
     QDialog(parent),

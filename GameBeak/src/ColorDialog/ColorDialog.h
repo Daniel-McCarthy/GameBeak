@@ -8,6 +8,7 @@
 #include "src/Gpu.h"
 
 namespace Ui {
+class PaletteListView;
 class ColorDialog;
 }
 

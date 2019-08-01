@@ -41,7 +41,7 @@
    <property name="title">
     <string>Palette Selection</string>
    </property>
-   <widget class="QListView" name="listView">
+   <widget class="PaletteListView" name="listView">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -225,6 +225,13 @@
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PaletteListView</class>
+   <extends>QListView</extends>
+   <header>src/ColorDialog/PaletteListView.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
