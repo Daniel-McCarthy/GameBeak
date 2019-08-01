@@ -6,7 +6,9 @@ ColorDialog::ColorDialog(QWidget *parent, Gpu* gpu) :
     ui(new Ui::ColorDialog)
 {
     ui->setupUi(this);
+//    ui->listView->setEditTriggers(QAbstractItemView.NoEditTriggers);
     this->gpu = gpu;
+//    loadPalettes();
 }
 
 void ColorDialog::loadPalettes() {
@@ -17,6 +19,8 @@ void ColorDialog::loadPalettes() {
 
     for(int i = 0; i < gpu->paletteNames.count(); i++)
     {
+//        paletteNameListBox.Items.Add(paletteNames[i]);
+//        ui->listView->it
         QStandardItem* paletteName = new QStandardItem(gpu->paletteNames[i]);
         itemModel->setItem(i, paletteName);
     }
@@ -26,6 +30,7 @@ void ColorDialog::loadPalettes() {
     //Set first palette to preview
     setPalettePreviews(0);
 
+//    paletteNameListBox.SelectedIndex = 0;
 
     //To Do: Consider storing the name and index of the previously selected palette, then after reloading the palettes check if the index corresponds
     // to a palette of the same name. If so, keep the index where it was. If the index corresponds to something else, set it to 0.

@@ -39,7 +39,7 @@ SOURCES += \
     src/Mappers/MBC5.cpp \
     src/Mappers/MBC3.cpp \
     src/Mappers/Mapper.cpp \
-    src/Forms/ColorDialog.cpp
+    src/ColorDialog/ColorDialog.cpp
 
 HEADERS += \
     src/MainWindow/mainwindow.h \
@@ -57,11 +57,11 @@ HEADERS += \
     src/Mappers/MBC3.h \
     src/Mappers/MBC5.h \
     src/Mappers/Mapper.h \
-    src/Forms/ColorDialog.h
+    src/ColorDialog/ColorDialog.h
 
 FORMS += \
     src/MainWindow/mainwindow.ui \
-    src/Forms/ColorDialog.ui
+    src/ColorDialog/ColorDialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
