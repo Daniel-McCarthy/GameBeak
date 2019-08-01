@@ -60,7 +60,7 @@ public:
     QColor returnGBCSpriteColor(unsigned char colorNumber, unsigned char palette);
     QColor returnGBCBackgroundColor(unsigned char colorNumber, unsigned char palette);
     unsigned char returnPalette(unsigned char palette);
-    void loadPalettesFromXML(QFile file);
+    void loadPalettesFromXML(QFile* file);
     QString openCreatePalettesXML();
 
 };

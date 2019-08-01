@@ -571,20 +571,20 @@ unsigned char Gpu::returnPalette(unsigned char palette)
     return memory.readMemory(0xFF47 + palette);
 }
 
-void Gpu::loadPalettesFromXML(QFile file)
+void Gpu::loadPalettesFromXML(QFile* file)
 {
     QString line;
     QList<unsigned char> colorValues;
 
-    if (file.open(QIODevice::ReadOnly)) {
-        QTextStream text(&file);
+    if (file->open(QIODevice::ReadOnly)) {
+        QTextStream text(file);
 
         QRegExp bgp("<bgp>.*</bgp>"); //Contains both <bgp> and </bgp>
         QRegExp bp0("<0bp0>.*</0bp0>"); //Contains both <0bp0> and </0bp0>
         QRegExp bp1("<0bp1>.*</0bp1>"); //Contains both <0bp1> and </0bp1>
 
         while (!text.atEnd()) {
-            line =text.readLine();
+            line = text.readLine();
             bool test1 = (line.contains(bgp));
             bool test2 = (line.contains(bp0));
             bool test3 = (line.contains(bp1));
@@ -640,7 +640,7 @@ void Gpu::loadPalettesFromXML(QFile file)
             }
         }
     }
-	file.close();
+    file->close();
 }
 
 QString Gpu::openCreatePalettesXML()
