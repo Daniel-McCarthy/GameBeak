@@ -657,117 +657,117 @@ QString Gpu::openCreatePalettesXML()
     QFile file(path);
 
     if (file.open(QIODevice::WriteOnly)) {
-        QTextStream(file);
+        QTextStream textStream(&file);
 
-        file << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
-        file << "<colorschemes>\n" << endl;
+        textStream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
+        textStream << "<colorschemes>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>BlackWhite</name>" << endl;
-        file << "\t\t<bgp>FFFFFFFF|B9B9B9FF|696969FF|000000FF</bgp>" << endl;
-        file << "\t\t<0bp0>FFFFFFFF|B9B9B9FF|696969FF|000000FF</0bp0>" << endl;
-        file << "\t\t<0bp1>FFFFFFFF|B9B9B9FF|696969FF|000000FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>BlackWhite</name>" << endl;
+        textStream << "\t\t<bgp>FFFFFFFF|B9B9B9FF|696969FF|000000FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>FFFFFFFF|B9B9B9FF|696969FF|000000FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>FFFFFFFF|B9B9B9FF|696969FF|000000FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>Green</name>" << endl;
-        file << "\t\t<bgp>E0FFEBFF|88D058FF|34B73CFF|084703FF</bgp>" << endl;
-        file << "\t\t<0bp0>E0FFEBFF|88D058FF|34B73CFF|084703FF</0bp0>" << endl;
-        file << "\t\t<0bp1>E0FFEBFF|88D058FF|34B73CFF|084703FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>Green</name>" << endl;
+        textStream << "\t\t<bgp>E0FFEBFF|88D058FF|34B73CFF|084703FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>E0FFEBFF|88D058FF|34B73CFF|084703FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>E0FFEBFF|88D058FF|34B73CFF|084703FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>Pink</name>" << endl;
-        file << "\t\t<bgp>FFF1FEFF|FFD6F5FF|FF83D9FF|48183BFF</bgp>" << endl;
-        file << "\t\t<0bp0>FFF1FEFF|FFD6F5FF|FF83D9FF|48183BFF</0bp0>" << endl;
-        file << "\t\t<0bp1>FFF1FEFF|FFD6F5FF|FF83D9FF|48183BFF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>Pink</name>" << endl;
+        textStream << "\t\t<bgp>FFF1FEFF|FFD6F5FF|FF83D9FF|48183BFF</bgp>" << endl;
+        textStream << "\t\t<0bp0>FFF1FEFF|FFD6F5FF|FF83D9FF|48183BFF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>FFF1FEFF|FFD6F5FF|FF83D9FF|48183BFF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>PinkAlt</name>" << endl;
-        file << "\t\t<bgp>FFF0F5FF|FFBADEFF|FF74D9FF|520528FF</bgp>" << endl;
-        file << "\t\t<0bp0>FFF0F5FF|FFBADEFF|FF74D9FF|520528FF</0bp0>" << endl;
-        file << "\t\t<0bp1>FFF0F5FF|FFBADEFF|FF74D9FF|520528FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>PinkAlt</name>" << endl;
+        textStream << "\t\t<bgp>FFF0F5FF|FFBADEFF|FF74D9FF|520528FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>FFF0F5FF|FFBADEFF|FF74D9FF|520528FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>FFF0F5FF|FFBADEFF|FF74D9FF|520528FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>Ultra-Pink</name>" << endl;
-        file << "\t\t<bgp>52263EFF|FE04E8FF|CCE20AFF|AA7C94FF</bgp>" << endl;
-        file << "\t\t<0bp0>FE9EB6FF|52263EFF|E69EB6FF|AA7C94FF</0bp0>" << endl;
-        file << "\t\t<0bp1>FE9EB6FF|52263EFF|E69EB6FF|AA7C94FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>Ultra-Pink</name>" << endl;
+        textStream << "\t\t<bgp>52263EFF|FE04E8FF|CCE20AFF|AA7C94FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>FE9EB6FF|52263EFF|E69EB6FF|AA7C94FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>FE9EB6FF|52263EFF|E69EB6FF|AA7C94FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>GrapeCherry</name>" << endl;
-        file << "\t\t<bgp>FFE3FEFF|CBA0BAFF|975076FF|5A0033FF</bgp>" << endl;
-        file << "\t\t<0bp0>FFE3FEFF|CBA0BAFF|975076FF|5A0033FF</0bp0>" << endl;
-        file << "\t\t<0bp1>FFE3FEFF|CBA0BAFF|975076FF|5A0033FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>GrapeCherry</name>" << endl;
+        textStream << "\t\t<bgp>FFE3FEFF|CBA0BAFF|975076FF|5A0033FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>FFE3FEFF|CBA0BAFF|975076FF|5A0033FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>FFE3FEFF|CBA0BAFF|975076FF|5A0033FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>MintPink</name>" << endl;
-        file << "\t\t<bgp>FFA5CEFF|19C7F0FF|33EF12FF|511733FF</bgp>" << endl;
-        file << "\t\t<0bp0>FFA5CEFF|19C7F0FF|33EF12FF|511733FF</0bp0>" << endl;
-        file << "\t\t<0bp1>FFA5CEFF|19C7F0FF|33EF12FF|511733FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>MintPink</name>" << endl;
+        textStream << "\t\t<bgp>FFA5CEFF|19C7F0FF|33EF12FF|511733FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>FFA5CEFF|19C7F0FF|33EF12FF|511733FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>FFA5CEFF|19C7F0FF|33EF12FF|511733FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>KiGB</name>" << endl;
-        file << "\t\t<bgp>9CB916FF|8CAA14FF|306430FF|103F10FF</bgp>" << endl;
-        file << "\t\t<0bp0>9CB916FF|8CAA14FF|306430FF|103F10FF</0bp0>" << endl;
-        file << "\t\t<0bp1>9CB916FF|8CAA14FF|306430FF|103F10FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>KiGB</name>" << endl;
+        textStream << "\t\t<bgp>9CB916FF|8CAA14FF|306430FF|103F10FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>9CB916FF|8CAA14FF|306430FF|103F10FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>9CB916FF|8CAA14FF|306430FF|103F10FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>BGB</name>" << endl;
-        file << "\t\t<bgp>E0F8D0FF|88C070FF|346856FF|081820FF</bgp>" << endl;
-        file << "\t\t<0bp0>E0F8D0FF|88C070FF|346856FF|081820FF</0bp0>" << endl;
-        file << "\t\t<0bp1>E0F8D0FF|88C070FF|346856FF|081820FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>BGB</name>" << endl;
+        textStream << "\t\t<bgp>E0F8D0FF|88C070FF|346856FF|081820FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>E0F8D0FF|88C070FF|346856FF|081820FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>E0F8D0FF|88C070FF|346856FF|081820FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>NO$GMB</name>" << endl;
-        file << "\t\t<bgp>FCE88CFF|DCB45CFF|987C3CFF|4C3C1CFF</bgp>" << endl;
-        file << "\t\t<0bp0>FCE88CFF|DCB45CFF|987C3CFF|4C3C1CFF</0bp0>" << endl;
-        file << "\t\t<0bp1>FCE88CFF|DCB45CFF|987C3CFF|4C3C1CFF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>NO$GMB</name>" << endl;
+        textStream << "\t\t<bgp>FCE88CFF|DCB45CFF|987C3CFF|4C3C1CFF</bgp>" << endl;
+        textStream << "\t\t<0bp0>FCE88CFF|DCB45CFF|987C3CFF|4C3C1CFF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>FCE88CFF|DCB45CFF|987C3CFF|4C3C1CFF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>PLAYGUY</name>" << endl;
-        file << "\t\t<bgp>FFEEACFF|ACA473FF|5A5239FF|000000FF</bgp>" << endl;
-        file << "\t\t<0bp0>FFEEACFF|ACA473FF|5A5239FF|000000FF</0bp0>" << endl;
-        file << "\t\t<0bp1>FFEEACFF|ACA473FF|5A5239FF|000000FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>PLAYGUY</name>" << endl;
+        textStream << "\t\t<bgp>FFEEACFF|ACA473FF|5A5239FF|000000FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>FFEEACFF|ACA473FF|5A5239FF|000000FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>FFEEACFF|ACA473FF|5A5239FF|000000FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>DREAMGBC</name>" << endl;
-        file << "\t\t<bgp>FFFFFFFF|00B2B5FF|00868CFF|000000FF</bgp>" << endl;
-        file << "\t\t<0bp0>FFFFFFFF|00B2B5FF|00868CFF|000000FF</0bp0>" << endl;
-        file << "\t\t<0bp1>FFFFFFFF|00B2B5FF|00868CFF|000000FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>DREAMGBC</name>" << endl;
+        textStream << "\t\t<bgp>FFFFFFFF|00B2B5FF|00868CFF|000000FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>FFFFFFFF|00B2B5FF|00868CFF|000000FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>FFFFFFFF|00B2B5FF|00868CFF|000000FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>HEBOWIN</name>" << endl;
-        file << "\t\t<bgp>FFFFFFFF|7FCC7FFF|3399B2FF|000000FF</bgp>" << endl;
-        file << "\t\t<0bp0>FFFFFFFF|FFCCCCFF|7F3333FF|000000FF</0bp0>" << endl;
-        file << "\t\t<0bp1>FFFFFFFF|7FCC7FFF|3399B2FF|000000FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>HEBOWIN</name>" << endl;
+        textStream << "\t\t<bgp>FFFFFFFF|7FCC7FFF|3399B2FF|000000FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>FFFFFFFF|FFCCCCFF|7F3333FF|000000FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>FFFFFFFF|7FCC7FFF|3399B2FF|000000FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>FPGABOY</name>" << endl;
-        file << "\t\t<bgp>BFB9FDFF|6E58D7FF|28196BFF|000000FF</bgp>" << endl;
-        file << "\t\t<0bp0>BFB9FDFF|6E58D7FF|28196BFF|000000FF</0bp0>" << endl;
-        file << "\t\t<0bp1>BFB9FDFF|6E58D7FF|28196BFF|000000FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>FPGABOY</name>" << endl;
+        textStream << "\t\t<bgp>BFB9FDFF|6E58D7FF|28196BFF|000000FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>BFB9FDFF|6E58D7FF|28196BFF|000000FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>BFB9FDFF|6E58D7FF|28196BFF|000000FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t<scheme>" << endl;
-        file << "\t\t<name>GBC UP A</name>" << endl;
-        file << "\t\t<bgp>FFFFFFFF|FFCCCCFF|7F3333FF|000000FF</bgp>" << endl;
-        file << "\t\t<0bp0>FFFFFFFF|CCFFCCFF|337F33FF|000000FF</0bp0>" << endl;
-        file << "\t\t<0bp1>FFFFFFFF|FFCCCCFF|7F3333FF|000000FF</0bp1>" << endl;
-        file << "\t</scheme>\n" << endl;
+        textStream << "\t<scheme>" << endl;
+        textStream << "\t\t<name>GBC UP A</name>" << endl;
+        textStream << "\t\t<bgp>FFFFFFFF|FFCCCCFF|7F3333FF|000000FF</bgp>" << endl;
+        textStream << "\t\t<0bp0>FFFFFFFF|CCFFCCFF|337F33FF|000000FF</0bp0>" << endl;
+        textStream << "\t\t<0bp1>FFFFFFFF|FFCCCCFF|7F3333FF|000000FF</0bp1>" << endl;
+        textStream << "\t</scheme>\n" << endl;
 
-        file << "\t</colorschemes>" << endl;
+        textStream << "\t</colorschemes>" << endl;
     }
 
     file.close();
