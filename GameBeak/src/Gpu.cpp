@@ -582,9 +582,18 @@ void Gpu::loadPalettesFromXML(QFile* file)
         QRegExp bgp("<bgp>.*</bgp>"); //Contains both <bgp> and </bgp>
         QRegExp bp0("<0bp0>.*</0bp0>"); //Contains both <0bp0> and </0bp0>
         QRegExp bp1("<0bp1>.*</0bp1>"); //Contains both <0bp1> and </0bp1>
+        QRegExp name("<name>.*</name>");
 
         while (!text.atEnd()) {
             line = text.readLine();
+
+            // Add name to list of palettes.
+            if (line.contains(name)) {
+                int first = line.indexOf('>') + 1;
+                int last = line.lastIndexOf('<');
+                paletteNames.push_back(line.mid(first, last - first));
+            }
+
             bool test1 = (line.contains(bgp));
             bool test2 = (line.contains(bp0));
             bool test3 = (line.contains(bp1));

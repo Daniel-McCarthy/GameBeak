@@ -25,6 +25,8 @@ public:
 									lightestPink, lightPink, darkPink, darkestPink,
                                     lightestPink, lightPink, darkPink, darkestPink});
 
+    QList<QString> paletteNames = QList<QString>({"Default Scheme"});
+
     unsigned char gameboyColorBackGroundPalette[64]; //2 unsigned chars per color, 4 colors per BG Palette, 8 BG Palettes
     unsigned char gameboyColorSpritePalette[64]; //2 unsigned chars per color, 4 colors per Sprite Palette, 8 Sprite Palettes
 
