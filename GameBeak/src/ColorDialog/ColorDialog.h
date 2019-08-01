@@ -12,6 +12,11 @@ class PaletteListView;
 class ColorDialog;
 }
 
+struct PaletteSelection {
+    QString paletteName;
+    int paletteIndex;
+};
+
 class ColorDialog : public QDialog
 {
     Q_OBJECT
@@ -21,11 +26,14 @@ public:
     void loadPalettes();
     void setPalettePreviews(int index);
     void setPreviewColor(QWidget*& colorWidget, QColor& color);
+    void indexChanged(int row, int column);
     ~ColorDialog();
 
 private:
     Gpu* gpu;
     Ui::ColorDialog *ui;
+    PaletteSelection defaultPalette = {"Default Palette", 0};
+    PaletteSelection currentSelection = defaultPalette;
 };
 
 #endif // COLORDIALOG_H

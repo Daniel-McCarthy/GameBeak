@@ -11,6 +11,12 @@ class PaletteListView : public QListView
 public:
     explicit PaletteListView(QGroupBox*& groupBox);
 
+protected:
+    virtual void currentChanged(const QModelIndex &current, const QModelIndex &previous) override;
+
+signals:
+    void selectedIndexChanged(int rowIndex, int colIndex);
+
 public slots:
 };
 

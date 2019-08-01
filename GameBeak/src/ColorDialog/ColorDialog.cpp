@@ -9,6 +9,9 @@ ColorDialog::ColorDialog(QWidget *parent, Gpu* gpu) :
     ui->setupUi(this);
 //    ui->listView->setEditTriggers(QAbstractItemView.NoEditTriggers);
     this->gpu = gpu;
+
+    QObject::connect(ui->listView, &PaletteListView::selectedIndexChanged,
+                        this, &ColorDialog::indexChanged);
 }
 
 void ColorDialog::loadPalettes() {
@@ -26,6 +29,23 @@ void ColorDialog::loadPalettes() {
     }
 
     ui->listView->setModel(itemModel);
+
+    //
+    if (itemModel->rowCount() > 0) {
+        QString nameOfPreviousSelectedPalette = currentSelection.paletteName;
+        QString currentNameAtLastSelectedIndex = (itemModel->rowCount() > currentSelection.paletteIndex) ? itemModel->item(currentSelection.paletteIndex, 0)->text() : "No Such Palette";
+
+        // Keep previous selected index if the newly loaded palette at the same
+        // index has the same name. Otherwise, reset the selection to 0.
+        if (currentNameAtLastSelectedIndex != nameOfPreviousSelectedPalette) {
+            currentSelection = {
+                itemModel->item(0, 0)->text(),
+                0
+            };
+        }
+    } else {
+        currentSelection = defaultPalette;
+    }
 
     //Set first palette to preview
     setPalettePreviews(0);
@@ -82,7 +102,27 @@ void ColorDialog::setPreviewColor(QWidget*& colorWidget, QColor& color) {
     colorWidget->setPalette(widgetPalette);
 }
 
+void ColorDialog::indexChanged(int row, int column) {
+    int previousSelection = currentSelection.paletteIndex;
+    if (row != -1 && gpu->gameBeakPalette.count() > row) {
+        PaletteSelection newSelection = {
+            gpu->gameBeakPalette[row].paletteName,
+            row
+        };
+        currentSelection = newSelection;
+    } else {
+        currentSelection = defaultPalette;
+    }
+
+    if (previousSelection != currentSelection.paletteIndex) {
+        setPalettePreviews(currentSelection.paletteIndex);
+    }
+}
+
 ColorDialog::~ColorDialog()
 {
+    QObject::disconnect(ui->listView, &PaletteListView::selectedIndexChanged,
+                        this, &ColorDialog::indexChanged);
+
     delete ui;
 }
