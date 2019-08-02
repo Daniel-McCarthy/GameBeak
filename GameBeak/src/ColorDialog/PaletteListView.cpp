@@ -2,6 +2,7 @@
 
 PaletteListView::PaletteListView(QGroupBox*& groupBox) : QListView(groupBox)
 {
+    setSelectionMode(QAbstractItemView::SingleSelection);
 }
 
 void PaletteListView::currentChanged(const QModelIndex &current, const QModelIndex &previous) {
