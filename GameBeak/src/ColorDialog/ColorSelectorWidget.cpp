@@ -16,7 +16,10 @@ QColor ColorSelectorWidget::getColor() {
 }
 
 void ColorSelectorWidget::selectColorViaDialog() {
-    setColor(QColorDialog::getColor());
+    QColor selectedColor = QColorDialog::getColor(getColor());
+    if (selectedColor.isValid()) {
+        setColor(selectedColor);
+    }
 }
 
 void ColorSelectorWidget::mouseDoubleClickEvent(QMouseEvent* event) {
