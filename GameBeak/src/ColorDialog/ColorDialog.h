@@ -27,6 +27,7 @@ public:
     void loadPalettes();
     void setPalettePreviews(int index);
     void setPreviewColor(QWidget*& colorWidget, QColor& color);
+    void setPalette();
     void indexChanged(int row, int column);
     ~ColorDialog();
 
@@ -37,6 +38,7 @@ public slots:
 private:
     Gpu* gpu;
     Ui::ColorDialog *ui;
+    QAction* selectAction;
     PaletteSelection defaultPalette = {"Default Palette", 0};
     PaletteSelection currentSelection = defaultPalette;
 };
