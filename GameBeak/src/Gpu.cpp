@@ -7,8 +7,8 @@
 #include <QCoreApplication>
 #include <QDir>
 
-Gpu::Gpu(Memory& memory, Screen& screen, bool& gbcMode, unsigned char& paletteSetting)
-    : memory(memory), screen(screen), GBCMode(gbcMode), paletteSetting(paletteSetting)
+Gpu::Gpu(Memory& memory, Screen& screen, bool& gbcMode)
+    : memory(memory), screen(screen), GBCMode(gbcMode)
 {
 }
 

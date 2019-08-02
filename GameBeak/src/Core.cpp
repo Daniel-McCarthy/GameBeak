@@ -8,7 +8,7 @@ Core::Core(QWidget *parent)
         screen(nullptr, memory, gpu),
         rom(this),
         cpu(memory, input, enableInterruptsNextCycle, repeatBug),
-        gpu(memory, screen, GBCMode, paletteSetting),
+        gpu(memory, screen, GBCMode),
         input(this, memory, cpu),
         memory(this, rom, cpu, GBCMode, ForceDMGMode, mbc1, mbc2, mbc3, mbc5),
         mbc1(memory, rom),

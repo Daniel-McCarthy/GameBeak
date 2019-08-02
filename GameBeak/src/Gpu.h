@@ -18,7 +18,6 @@ private:
     Memory& memory;
     Screen& screen;
     bool& GBCMode;
-    unsigned char& paletteSetting;
 
     const QColor darkestPink = QColor(82, 5, 40, 255); //Darkest Pink //FFF0F5FF
     const QColor darkPink = QColor(255, 116, 217, 255); //Dark Pink //FFBADEFF
@@ -35,12 +34,13 @@ private:
     };
 
 public:
+    unsigned int paletteSetting = 0; // gamebeakPinkAlt;
     QList<Palette> gameBeakPalette = QList<Palette>({defaultPalette});
 
     unsigned char gameboyColorBackGroundPalette[64]; //2 unsigned chars per color, 4 colors per BG Palette, 8 BG Palettes
     unsigned char gameboyColorSpritePalette[64]; //2 unsigned chars per color, 4 colors per Sprite Palette, 8 Sprite Palettes
 
-    Gpu(Memory& memory, Screen& screen, bool& gbcMode, unsigned char& paletteSetting);
+    Gpu(Memory& memory, Screen& screen, bool& gbcMode);
     ~Gpu();
     unsigned char getLCDStatus();
     void setLCDStatus(unsigned char newStatus);

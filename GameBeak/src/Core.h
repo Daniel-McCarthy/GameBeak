@@ -43,7 +43,6 @@ public:
     //Settings values
     bool GBCMode = false;					//This controls whether Gameboy Color emulation is currently activated.
     bool ForceDMGMode = false;				//This allows forcing games to run in DMG emulation.
-    unsigned char paletteSetting = 0;//gamebeakPinkAlt;
 
     void emulationLoop();
 
