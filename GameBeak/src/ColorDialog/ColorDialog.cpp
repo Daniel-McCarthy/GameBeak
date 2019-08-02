@@ -146,22 +146,20 @@ void ColorDialog::setPalette() {
     int paletteRow = ui->listView->currentIndex().row();
 
     if (gpu->gameBeakPalette.length() > paletteRow) {
-        QColor colors[12] = gpu->gameBeakPalette[paletteRow].paletteColors;
+        gpu->gameBeakPalette[paletteRow].paletteColors[0] = ui->bg0ColorWidget0->getColor();
+        gpu->gameBeakPalette[paletteRow].paletteColors[1] = ui->bg0ColorWidget1->getColor();
+        gpu->gameBeakPalette[paletteRow].paletteColors[2] = ui->bg0ColorWidget2->getColor();
+        gpu->gameBeakPalette[paletteRow].paletteColors[3] = ui->bg0ColorWidget3->getColor();
 
-        colors[0] = ui->bg0ColorWidget0->getColor();
-        colors[1] = ui->bg0ColorWidget1->getColor();
-        colors[2] = ui->bg0ColorWidget2->getColor();
-        colors[3] = ui->bg0ColorWidget3->getColor();
+        gpu->gameBeakPalette[paletteRow].paletteColors[4] = ui->bp0ColorWidget0->getColor();
+        gpu->gameBeakPalette[paletteRow].paletteColors[5] = ui->bp0ColorWidget1->getColor();
+        gpu->gameBeakPalette[paletteRow].paletteColors[6] = ui->bp0ColorWidget2->getColor();
+        gpu->gameBeakPalette[paletteRow].paletteColors[7] = ui->bp0ColorWidget3->getColor();
 
-        colors[4] = ui->bp0ColorWidget0->getColor();
-        colors[5] = ui->bp0ColorWidget0->getColor();
-        colors[6] = ui->bp0ColorWidget0->getColor();
-        colors[7] = ui->bp0ColorWidget0->getColor();
-
-        colors[8] = ui->bp1ColorWidget0->getColor();
-        colors[9] = ui->bp1ColorWidget0->getColor();
-        colors[10] = ui->bp1ColorWidget0->getColor();
-        colors[11] = ui->bp1ColorWidget0->getColor();
+        gpu->gameBeakPalette[paletteRow].paletteColors[8] = ui->bp1ColorWidget0->getColor();
+        gpu->gameBeakPalette[paletteRow].paletteColors[9] = ui->bp1ColorWidget1->getColor();
+        gpu->gameBeakPalette[paletteRow].paletteColors[10] = ui->bp1ColorWidget2->getColor();
+        gpu->gameBeakPalette[paletteRow].paletteColors[11] = ui->bp1ColorWidget3->getColor();
     }
     gpu->paletteSetting = paletteRow;
 }
