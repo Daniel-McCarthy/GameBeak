@@ -22,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent) :
     canvas->stackUnder(ui->menuBar);
     ui->menuBar->raise();
 
+
+    setWindowIcon(QIcon(":/src/ICON1.ico"));
+
     hLayout = new QHBoxLayout(ui->centralWidget);
     hLayout->addWidget(canvas);
 
