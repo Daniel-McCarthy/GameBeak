@@ -14,3 +14,11 @@ void ColorSelectorWidget::setColor(QColor color) {
 QColor ColorSelectorWidget::getColor() {
     return QWidget::palette().background().color();
 }
+
+void ColorSelectorWidget::selectColorViaDialog() {
+    setColor(QColorDialog::getColor());
+}
+
+void ColorSelectorWidget::mouseDoubleClickEvent(QMouseEvent* event) {
+    selectColorViaDialog();
+}
