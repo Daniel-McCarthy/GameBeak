@@ -178,5 +178,7 @@ ColorDialog::~ColorDialog()
     QObject::disconnect(ui->buttonBox->button(QDialogButtonBox::Reset), &QPushButton::pressed,
                         this, &ColorDialog::resetButtonClicked);
 
+    ui->listView->removeAction(selectAction);
+    delete selectAction;
     delete ui;
 }
