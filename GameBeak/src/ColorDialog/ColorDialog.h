@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QStandardItem>
 #include <QStandardItemModel>
+#include <QPushButton>
 #include "src/Gpu.h"
 
 namespace Ui {
@@ -31,6 +32,7 @@ public:
 
 public slots:
     void listDataChanged();
+    void resetButtonClicked();
 
 private:
     Gpu* gpu;
