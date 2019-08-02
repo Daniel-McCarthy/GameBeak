@@ -40,7 +40,8 @@ SOURCES += \
     src/Mappers/MBC3.cpp \
     src/Mappers/Mapper.cpp \
     src/ColorDialog/ColorDialog.cpp \
-    src/ColorDialog/PaletteListView.cpp
+    src/ColorDialog/PaletteListView.cpp \
+    src/ColorDialog/ColorSelectorWidget.cpp
 
 HEADERS += \
     src/MainWindow/mainwindow.h \
@@ -59,7 +60,8 @@ HEADERS += \
     src/Mappers/MBC5.h \
     src/Mappers/Mapper.h \
     src/ColorDialog/ColorDialog.h \
-    src/ColorDialog/PaletteListView.h
+    src/ColorDialog/PaletteListView.h \
+    src/ColorDialog/ColorSelectorWidget.h
 
 FORMS += \
     src/MainWindow/mainwindow.ui \

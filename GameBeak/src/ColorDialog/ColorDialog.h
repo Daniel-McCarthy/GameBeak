@@ -9,7 +9,6 @@
 #include "src/Gpu.h"
 
 namespace Ui {
-class PaletteListView;
 class ColorDialog;
 }
 
@@ -18,6 +17,8 @@ struct PaletteSelection {
     int paletteIndex;
 };
 
+class PaletteListView;
+class ColorSelectorWidget;
 class ColorDialog : public QDialog
 {
     Q_OBJECT
@@ -26,7 +27,7 @@ public:
     explicit ColorDialog(QWidget *parent, Gpu* gpu);
     void loadPalettes();
     void setPalettePreviews(int index);
-    void setPreviewColor(QWidget*& colorWidget, QColor& color);
+    void setPreviewColor(ColorSelectorWidget* colorWidget, QColor& color);
     void setPalette();
     void indexChanged(int row, int column);
     ~ColorDialog();

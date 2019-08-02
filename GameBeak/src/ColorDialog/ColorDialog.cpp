@@ -1,6 +1,7 @@
 #include "ColorDialog.h"
 #include "ui_ColorDialog.h"
 #include "PaletteListView.h"
+#include "ColorSelectorWidget.h"
 
 ColorDialog::ColorDialog(QWidget *parent, Gpu* gpu) :
     QDialog(parent),
@@ -105,11 +106,8 @@ void ColorDialog::setPalettePreviews(int index) {
     }
 }
 
-void ColorDialog::setPreviewColor(QWidget*& colorWidget, QColor& color) {
-    QPalette widgetPalette = colorWidget->palette();
-    widgetPalette.setColor(colorWidget->backgroundRole(), *(new QColor(color)));
-    colorWidget->setAutoFillBackground(true);
-    colorWidget->setPalette(widgetPalette);
+void ColorDialog::setPreviewColor(ColorSelectorWidget* colorWidget, QColor& color) {
+    colorWidget->setColor(color);
 }
 
 void ColorDialog::indexChanged(int row, int column) {
@@ -150,20 +148,20 @@ void ColorDialog::setPalette() {
     if (gpu->gameBeakPalette.length() > paletteRow) {
         QColor colors[12] = gpu->gameBeakPalette[paletteRow].paletteColors;
 
-        colors[0] = ui->bg0ColorWidget0->palette().background().color();
-        colors[1] = ui->bg0ColorWidget1->palette().background().color();
-        colors[2] = ui->bg0ColorWidget2->palette().background().color();
-        colors[3] = ui->bg0ColorWidget3->palette().background().color();
+        colors[0] = ui->bg0ColorWidget0->getColor();
+        colors[1] = ui->bg0ColorWidget1->getColor();
+        colors[2] = ui->bg0ColorWidget2->getColor();
+        colors[3] = ui->bg0ColorWidget3->getColor();
 
-        colors[4] = ui->bp0ColorWidget0->palette().background().color();
-        colors[5] = ui->bp0ColorWidget0->palette().background().color();
-        colors[6] = ui->bp0ColorWidget0->palette().background().color();
-        colors[7] = ui->bp0ColorWidget0->palette().background().color();
+        colors[4] = ui->bp0ColorWidget0->getColor();
+        colors[5] = ui->bp0ColorWidget0->getColor();
+        colors[6] = ui->bp0ColorWidget0->getColor();
+        colors[7] = ui->bp0ColorWidget0->getColor();
 
-        colors[8] = ui->bp1ColorWidget0->palette().background().color();
-        colors[9] = ui->bp1ColorWidget0->palette().background().color();
-        colors[10] = ui->bp1ColorWidget0->palette().background().color();
-        colors[11] = ui->bp1ColorWidget0->palette().background().color();
+        colors[8] = ui->bp1ColorWidget0->getColor();
+        colors[9] = ui->bp1ColorWidget0->getColor();
+        colors[10] = ui->bp1ColorWidget0->getColor();
+        colors[11] = ui->bp1ColorWidget0->getColor();
     }
     gpu->paletteSetting = paletteRow;
 }
