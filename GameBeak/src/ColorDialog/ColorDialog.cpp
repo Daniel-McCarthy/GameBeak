@@ -12,6 +12,8 @@ ColorDialog::ColorDialog(QWidget *parent, Gpu* gpu) :
 
     QObject::connect(ui->listView, &PaletteListView::selectedIndexChanged,
                         this, &ColorDialog::indexChanged);
+    QObject::connect(ui->listView, &PaletteListView::paletteDataChanged,
+                        this, &ColorDialog::listDataChanged);
 }
 
 void ColorDialog::loadPalettes() {
@@ -119,10 +121,23 @@ void ColorDialog::indexChanged(int row, int column) {
     }
 }
 
+void ColorDialog::listDataChanged() {
+    QModelIndex currentIndex = ui->listView->currentIndex();
+    if (currentIndex.row() == currentSelection.paletteIndex) {
+        QString currentPaletteName = currentIndex.data().toString();
+        if (currentPaletteName != currentSelection.paletteName) {
+            currentSelection.paletteName = currentPaletteName;
+        }
+    }
+}
+
 ColorDialog::~ColorDialog()
 {
     QObject::disconnect(ui->listView, &PaletteListView::selectedIndexChanged,
                         this, &ColorDialog::indexChanged);
+
+    QObject::disconnect(ui->listView, &PaletteListView::paletteDataChanged,
+                        this, &ColorDialog::listDataChanged);
 
     delete ui;
 }

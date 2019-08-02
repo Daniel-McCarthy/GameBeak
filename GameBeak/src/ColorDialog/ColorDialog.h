@@ -29,6 +29,9 @@ public:
     void indexChanged(int row, int column);
     ~ColorDialog();
 
+public slots:
+    void listDataChanged();
+
 private:
     Gpu* gpu;
     Ui::ColorDialog *ui;
