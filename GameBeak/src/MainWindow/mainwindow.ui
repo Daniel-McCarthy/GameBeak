@@ -42,6 +42,7 @@
       <addaction name="actionForce_DMG"/>
       <addaction name="actionAutomatic_Selection"/>
      </widget>
+     <addaction name="actionPalette"/>
      <addaction name="menuModel_Emulation"/>
     </widget>
     <addaction name="actionOpen"/>
@@ -74,6 +75,11 @@
    </property>
    <property name="text">
     <string>Automatic Selection</string>
+   </property>
+  </action>
+  <action name="actionPalette">
+   <property name="text">
+    <string>Palette</string>
    </property>
   </action>
  </widget>

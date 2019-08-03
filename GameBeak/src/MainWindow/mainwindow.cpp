@@ -9,6 +9,7 @@
 #include "src/canvas.h"
 #include "src/Screen.h"
 #include "src/Rom.h"
+#include "src/ColorDialog/ColorDialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -120,4 +121,26 @@ void MainWindow::on_actionAutomatic_Selection_triggered() {
         ui->actionForce_DMG->toggle();
     if (ui->actionAutomatic_Selection->isChecked() == false)
         ui->actionAutomatic_Selection->toggle();
+}
+
+void MainWindow::on_actionPalette_triggered() {
+    if (currentColorDialog != NULL) {
+        return;
+    }
+
+    currentColorDialog = new ColorDialog(this, core->getGpuPointer());
+
+    QObject::connect(currentColorDialog, &ColorDialog::finished,
+                     this, &MainWindow::paletteWindowClosed);
+
+    currentColorDialog->loadPalettes();
+    currentColorDialog->show();
+}
+
+void MainWindow::paletteWindowClosed() {
+    QObject::disconnect(currentColorDialog, &ColorDialog::finished,
+                        this, &MainWindow::paletteWindowClosed);
+
+    delete currentColorDialog;
+    currentColorDialog = NULL;
 }

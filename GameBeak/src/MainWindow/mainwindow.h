@@ -13,6 +13,7 @@ class Rom;
 class Screen;
 class Core;
 class Canvas;
+class ColorDialog;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -26,6 +27,7 @@ private:
     Core* core = nullptr;
     Canvas* canvas;
     QHBoxLayout* hLayout;
+    ColorDialog* currentColorDialog = NULL;
 
     void closeEvent(QCloseEvent *event);
     void terminateEmulation();
@@ -33,6 +35,8 @@ private slots:
     void on_actionOpen_triggered();
     void on_actionForce_DMG_triggered();
     void on_actionAutomatic_Selection_triggered();
+    void on_actionPalette_triggered();
+    void paletteWindowClosed();
     void startEmulationThread();
     void endEmulationThread();
 
