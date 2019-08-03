@@ -32,11 +32,19 @@ ColorDialog::ColorDialog(QWidget *parent, Gpu* gpu) :
 }
 
 void ColorDialog::addNewPalette() {
-    QStandardItemModel* modelS = qobject_cast<QStandardItemModel*>(ui->listView->model());
-    modelS->appendRow(new QStandardItem("New Palette"));
+    // Add new palette item to QListView.
+    QStandardItemModel* model = qobject_cast<QStandardItemModel*>(ui->listView->model());
+    model->appendRow(new QStandardItem("New Palette"));
 
+    // Add new palette to GPU palette list to match.
     Palette newPalette = gpu->defaultPalette;
     gpu->gameBeakPalette.push_back(newPalette);
+
+    // Select/highlight the new item in the QListView and scroll to it.
+    QModelIndex newSelectionIndex = model->index(model->rowCount() - 1, 0, QModelIndex());
+    ui->listView->setCurrentIndex(newSelectionIndex);
+    ui->listView->selectionModel()->select(newSelectionIndex, QItemSelectionModel::Select);
+    ui->listView->scrollTo(newSelectionIndex);
 }
 
 void ColorDialog::deleteCurrentPalette() {
