@@ -23,6 +23,8 @@ ColorDialog::ColorDialog(QWidget *parent, Gpu* gpu) :
                         this, &ColorDialog::listDataChanged);
     QObject::connect(ui->buttonBox->button(QDialogButtonBox::Reset), &QPushButton::pressed,
                         this, &ColorDialog::resetButtonClicked);
+    QObject::connect(ui->saveToFileButton, &QPushButton::pressed,
+                        this, &ColorDialog::savePalettesToFile);
 }
 
 void ColorDialog::loadPalettes() {
@@ -168,9 +170,18 @@ void ColorDialog::overwriteGPUPaletteAtIndexWithCurrentPalette(int index) {
     }
 }
 
+void ColorDialog::savePalettesToFile() {
+    // Update GPU palettes with current selected palette.
+    int paletteRow = currentSelection.paletteIndex;
+    overwriteGPUPaletteAtIndexWithCurrentPalette(paletteRow);
+
+    // Write all GPU palettes to palettes.xml.
+    gpu->savePalettesToFile();
+}
+
 ColorDialog::~ColorDialog()
 {
-    QObject::connect(selectAction, &QAction::triggered,
+    QObject::disconnect(selectAction, &QAction::triggered,
                         this, &ColorDialog::setPalette);
 
     QObject::disconnect(ui->listView, &PaletteListView::selectedIndexChanged,
@@ -181,6 +192,9 @@ ColorDialog::~ColorDialog()
 
     QObject::disconnect(ui->buttonBox->button(QDialogButtonBox::Reset), &QPushButton::pressed,
                         this, &ColorDialog::resetButtonClicked);
+
+    QObject::disconnect(ui->saveToFileButton, &QPushButton::pressed,
+                        this, &ColorDialog::savePalettesToFile);
 
     ui->listView->removeAction(selectAction);
     delete selectAction;

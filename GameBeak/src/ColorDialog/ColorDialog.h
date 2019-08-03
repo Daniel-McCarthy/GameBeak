@@ -31,6 +31,7 @@ public:
     void setPalette();
     void overwriteGPUPaletteAtIndexWithCurrentPalette(int index);
     void indexChanged(int row, int column);
+    void savePalettesToFile();
     ~ColorDialog();
 
 public slots:
