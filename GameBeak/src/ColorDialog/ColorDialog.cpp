@@ -144,24 +144,28 @@ void ColorDialog::resetButtonClicked() {
 //void ColorDialog::setPalette(QModelIndex& index) {
 void ColorDialog::setPalette() {
     int paletteRow = ui->listView->currentIndex().row();
+    overwriteGPUPaletteAtIndexWithCurrentPalette(paletteRow);
 
-    if (gpu->gameBeakPalette.length() > paletteRow) {
-        gpu->gameBeakPalette[paletteRow].paletteColors[0] = ui->bg0ColorWidget0->getColor();
-        gpu->gameBeakPalette[paletteRow].paletteColors[1] = ui->bg0ColorWidget1->getColor();
-        gpu->gameBeakPalette[paletteRow].paletteColors[2] = ui->bg0ColorWidget2->getColor();
-        gpu->gameBeakPalette[paletteRow].paletteColors[3] = ui->bg0ColorWidget3->getColor();
-
-        gpu->gameBeakPalette[paletteRow].paletteColors[4] = ui->bp0ColorWidget0->getColor();
-        gpu->gameBeakPalette[paletteRow].paletteColors[5] = ui->bp0ColorWidget1->getColor();
-        gpu->gameBeakPalette[paletteRow].paletteColors[6] = ui->bp0ColorWidget2->getColor();
-        gpu->gameBeakPalette[paletteRow].paletteColors[7] = ui->bp0ColorWidget3->getColor();
-
-        gpu->gameBeakPalette[paletteRow].paletteColors[8] = ui->bp1ColorWidget0->getColor();
-        gpu->gameBeakPalette[paletteRow].paletteColors[9] = ui->bp1ColorWidget1->getColor();
-        gpu->gameBeakPalette[paletteRow].paletteColors[10] = ui->bp1ColorWidget2->getColor();
-        gpu->gameBeakPalette[paletteRow].paletteColors[11] = ui->bp1ColorWidget3->getColor();
-    }
     gpu->paletteSetting = paletteRow;
+}
+
+void ColorDialog::overwriteGPUPaletteAtIndexWithCurrentPalette(int index) {
+    if (gpu->gameBeakPalette.length() > index) {
+        gpu->gameBeakPalette[index].paletteColors[0] = ui->bg0ColorWidget0->getColor();
+        gpu->gameBeakPalette[index].paletteColors[1] = ui->bg0ColorWidget1->getColor();
+        gpu->gameBeakPalette[index].paletteColors[2] = ui->bg0ColorWidget2->getColor();
+        gpu->gameBeakPalette[index].paletteColors[3] = ui->bg0ColorWidget3->getColor();
+
+        gpu->gameBeakPalette[index].paletteColors[4] = ui->bp0ColorWidget0->getColor();
+        gpu->gameBeakPalette[index].paletteColors[5] = ui->bp0ColorWidget1->getColor();
+        gpu->gameBeakPalette[index].paletteColors[6] = ui->bp0ColorWidget2->getColor();
+        gpu->gameBeakPalette[index].paletteColors[7] = ui->bp0ColorWidget3->getColor();
+
+        gpu->gameBeakPalette[index].paletteColors[8] = ui->bp1ColorWidget0->getColor();
+        gpu->gameBeakPalette[index].paletteColors[9] = ui->bp1ColorWidget1->getColor();
+        gpu->gameBeakPalette[index].paletteColors[10] = ui->bp1ColorWidget2->getColor();
+        gpu->gameBeakPalette[index].paletteColors[11] = ui->bp1ColorWidget3->getColor();
+    }
 }
 
 ColorDialog::~ColorDialog()

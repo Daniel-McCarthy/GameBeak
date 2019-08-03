@@ -29,6 +29,7 @@ public:
     void setPalettePreviews(int index);
     void setPreviewColor(ColorSelectorWidget* colorWidget, QColor& color);
     void setPalette();
+    void overwriteGPUPaletteAtIndexWithCurrentPalette(int index);
     void indexChanged(int row, int column);
     ~ColorDialog();
 
