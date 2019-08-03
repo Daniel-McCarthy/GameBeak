@@ -623,11 +623,8 @@ void Gpu::loadPalettesFromXML(QFile* file)
 
             }
         }
-        if ((colorValues.size() / 36) > 0) {
-            int paletteOffset = 0;
-            int colorOffset = 0;
-
-            while (colorValues.size() >= (4*3))
+        if (colorValues.count() >= 36) {
+            while (colorValues.count() >= 4)
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -640,21 +637,14 @@ void Gpu::loadPalettesFromXML(QFile* file)
 
                     QColor color = QColor(r, g, b, 255);
                     paletteColors.push_back(color);
-
-                    if (colorOffset >= 3) {
-                        colorOffset = 0;
-                    } else {
-                        colorOffset++;
-                    }
                 }
-
-                paletteOffset++;
             }
         }
     }
 
     // Assemble names and colors into Palette structs for storage.
-    for (int i =  0; i < paletteNames.count(); i++) {
+    int palettesTotal = paletteNames.count();
+    for (int i =  0; i < palettesTotal; i++) {
         if (paletteColors.count() >= 12) {
             gameBeakPalette.push_back({
                 paletteNames[0],
