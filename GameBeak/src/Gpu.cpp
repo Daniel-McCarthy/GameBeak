@@ -796,3 +796,67 @@ QString Gpu::openCreatePalettesXML()
 
     return path;
 }
+
+void Gpu::savePalettesToFile()
+{
+    auto ucharToHexString = [](unsigned char byte) {
+      QString hexByte = QString::number(byte, 16);
+      while (hexByte.length() < 2) {
+          hexByte = '0' + hexByte;
+      }
+      return hexByte;
+    };
+
+    auto qcolorToHexString = [ucharToHexString](QColor &color) {
+        unsigned char r = color.red(), g = color.green(), b = color.blue(), a = color.alpha();
+        return (ucharToHexString(r) + ucharToHexString(g) + ucharToHexString(b) + ucharToHexString(a)).toUpper();
+    };
+
+    auto writeSchemeLine = [qcolorToHexString](Palette& palette, QTextStream& textStream, int offset, QString paletteType) {
+        QString color1 = qcolorToHexString(palette.paletteColors[offset + 0]);
+        QString color2 = qcolorToHexString(palette.paletteColors[offset + 1]);
+        QString color3 = qcolorToHexString(palette.paletteColors[offset + 2]);
+        QString color4 = qcolorToHexString(palette.paletteColors[offset + 3]);
+
+        textStream << "\t\t<" + paletteType  + ">" + color1 + '|' + color2 + '|' + color3 + '|' + color4 + "</" + paletteType  + ">" << endl;
+    };
+
+    //open XML palette file
+    QDir directory = QDir(QFileInfo(QCoreApplication::applicationFilePath()).absolutePath());
+    QString filePath = directory.filePath("palettes.xml");
+
+    QFile file(filePath);
+
+    // Make a back up of the palettes file if none exists.
+    file.copy(filePath, directory.filePath("palettes.copy.xml"));
+
+    // Delete original palettes.xml file to write from scratch.
+    file.remove();
+
+    if (file.open(QIODevice::WriteOnly)) {
+        QTextStream textStream(&file);
+
+        // Write start of xml file.
+        textStream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
+        textStream << "<colorschemes>\n" << endl;
+
+        // Write each of the palettes to the file.
+        for (int i = 0; i < gameBeakPalette.count(); i++) {
+            // Write name of the palette.
+            textStream << "\t<scheme>" << endl;
+            textStream << "\t\t<name>" + gameBeakPalette[i].paletteName + "</name>" << endl;
+
+            writeSchemeLine(gameBeakPalette[i], textStream, 0, "bgp");
+            writeSchemeLine(gameBeakPalette[i], textStream, 4, "0bp0");
+            writeSchemeLine(gameBeakPalette[i], textStream, 8, "0bp1");
+
+            // Write end of current palette.
+            textStream << "\t</scheme>\n" << endl;
+        }
+
+        // Write end of palettes file.
+        textStream << "\t</colorschemes>" << endl;
+    }
+
+    file.close();
+}

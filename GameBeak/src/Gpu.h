@@ -74,6 +74,7 @@ public:
     unsigned char returnPalette(unsigned char palette);
     void loadPalettesFromXML(QFile* file);
     QString openCreatePalettesXML();
+    void savePalettesToFile();
 
 };
 
