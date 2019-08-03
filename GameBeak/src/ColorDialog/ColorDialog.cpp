@@ -19,8 +19,6 @@ ColorDialog::ColorDialog(QWidget *parent, Gpu* gpu) :
                         this, &ColorDialog::setPalette);
     QObject::connect(ui->listView, &PaletteListView::selectedIndexChanged,
                         this, &ColorDialog::indexChanged);
-    QObject::connect(ui->listView, &PaletteListView::paletteDataChanged,
-                        this, &ColorDialog::listDataChanged);
     QObject::connect(ui->buttonBox->button(QDialogButtonBox::Reset), &QPushButton::pressed,
                         this, &ColorDialog::resetButtonClicked);
     QObject::connect(ui->saveToFileButton, &QPushButton::pressed,
@@ -128,16 +126,6 @@ void ColorDialog::indexChanged(int row, int column) {
     }
 }
 
-void ColorDialog::listDataChanged() {
-    QModelIndex currentIndex = ui->listView->currentIndex();
-    if (currentIndex.row() == currentSelection.paletteIndex) {
-        QString currentPaletteName = currentIndex.data().toString();
-        if (currentPaletteName != currentSelection.paletteName) {
-            currentSelection.paletteName = currentPaletteName;
-        }
-    }
-}
-
 void ColorDialog::resetButtonClicked() {
     QStandardItemModel* model = qobject_cast<QStandardItemModel*>(ui->listView->model());
     QString currentPaletteName = ui->listView->currentIndex().data().toString();
@@ -152,8 +140,6 @@ void ColorDialog::resetButtonClicked() {
         ui->listView->scrollTo(indexOfMatch);
         setPalettePreviews(indexOfMatch.row());
     }
-
-
 }
 
 //void ColorDialog::setPalette(QModelIndex& index) {
@@ -185,7 +171,7 @@ void ColorDialog::overwriteGPUPaletteAtIndexWithCurrentPalette(int index) {
 
 void ColorDialog::savePalettesToFile() {
     // Update GPU palettes with current selected palette.
-    int paletteRow = currentSelection.paletteIndex;
+    int paletteRow = ui->listView->currentIndex().row();
     overwriteGPUPaletteAtIndexWithCurrentPalette(paletteRow);
 
     // Write all GPU palettes to palettes.xml.
@@ -199,9 +185,6 @@ ColorDialog::~ColorDialog()
 
     QObject::disconnect(ui->listView, &PaletteListView::selectedIndexChanged,
                         this, &ColorDialog::indexChanged);
-
-    QObject::disconnect(ui->listView, &PaletteListView::paletteDataChanged,
-                        this, &ColorDialog::listDataChanged);
 
     QObject::disconnect(ui->buttonBox->button(QDialogButtonBox::Reset), &QPushButton::pressed,
                         this, &ColorDialog::resetButtonClicked);

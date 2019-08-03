@@ -12,11 +12,6 @@ namespace Ui {
 class ColorDialog;
 }
 
-struct PaletteSelection {
-    QString paletteName;
-    int paletteIndex;
-};
-
 class PaletteListView;
 class ColorSelectorWidget;
 class ColorDialog : public QDialog
@@ -37,15 +32,12 @@ public:
     ~ColorDialog();
 
 public slots:
-    void listDataChanged();
     void resetButtonClicked();
 
 private:
     Gpu* gpu;
     Ui::ColorDialog *ui;
     QAction* selectAction;
-    PaletteSelection defaultPalette = {"Default Palette", 0};
-    PaletteSelection currentSelection = defaultPalette;
 };
 
 #endif // COLORDIALOG_H
