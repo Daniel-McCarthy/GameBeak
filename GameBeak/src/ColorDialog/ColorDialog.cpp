@@ -168,7 +168,20 @@ void ColorDialog::listDataChanged() {
 }
 
 void ColorDialog::resetButtonClicked() {
+    QStandardItemModel* model = qobject_cast<QStandardItemModel*>(ui->listView->model());
+    QString currentPaletteName = ui->listView->currentIndex().data().toString();
+
     loadPalettes();
+
+    QList<QStandardItem*> matches = model->findItems(currentPaletteName);
+    if (matches.count() > 0) {
+        QModelIndex indexOfMatch = matches[0]->index();
+        ui->listView->setCurrentIndex(indexOfMatch);
+        ui->listView->selectionModel()->select(indexOfMatch, QItemSelectionModel::Select);
+        ui->listView->scrollTo(indexOfMatch);
+    }
+
+
 }
 
 //void ColorDialog::setPalette(QModelIndex& index) {
