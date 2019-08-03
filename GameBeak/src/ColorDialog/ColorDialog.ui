@@ -64,6 +64,32 @@
      <string>Save to File</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="newPaletteButton">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>170</y>
+      <width>51</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>New</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="deletePaletteButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>170</y>
+      <width>121</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete Selection</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QGroupBox" name="palettePreviewGroupBox">
    <property name="geometry">

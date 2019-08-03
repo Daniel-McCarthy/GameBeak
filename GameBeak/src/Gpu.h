@@ -24,6 +24,7 @@ private:
     const QColor lightPink = QColor(255, 186, 222, 255); //Light Pink //FF74D9FF
     const QColor lightestPink = QColor(255, 240, 245, 255); //Lightest Pink //520528FF
 
+public:
     const Palette defaultPalette = {
         "Default Palette",
         {
@@ -33,7 +34,6 @@ private:
         }
     };
 
-public:
     unsigned int paletteSetting = 0; // gamebeakPinkAlt;
     QList<Palette> gameBeakPalette = QList<Palette>({defaultPalette});
 

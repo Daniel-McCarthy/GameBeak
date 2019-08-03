@@ -25,6 +25,26 @@ ColorDialog::ColorDialog(QWidget *parent, Gpu* gpu) :
                         this, &ColorDialog::resetButtonClicked);
     QObject::connect(ui->saveToFileButton, &QPushButton::pressed,
                         this, &ColorDialog::savePalettesToFile);
+    QObject::connect(ui->newPaletteButton, &QPushButton::pressed,
+                        this, &ColorDialog::addNewPalette);
+    QObject::connect(ui->deletePaletteButton, &QPushButton::pressed,
+                        this, &ColorDialog::deleteCurrentPalette);
+}
+
+void ColorDialog::addNewPalette() {
+    QStandardItemModel* modelS = qobject_cast<QStandardItemModel*>(ui->listView->model());
+    modelS->appendRow(new QStandardItem("New Palette"));
+
+    Palette newPalette = gpu->defaultPalette;
+    gpu->gameBeakPalette.push_back(newPalette);
+}
+
+void ColorDialog::deleteCurrentPalette() {
+    int currentIndex = ui->listView->currentIndex().row();
+    if (currentIndex >= 0 && currentIndex < gpu->gameBeakPalette.count()) {
+        ui->listView->model()->removeRow(currentIndex, ui->listView->model()->index(currentIndex, 1, QModelIndex()));
+        gpu->gameBeakPalette.removeAt(currentIndex);
+    }
 }
 
 void ColorDialog::loadPalettes() {
@@ -195,6 +215,12 @@ ColorDialog::~ColorDialog()
 
     QObject::disconnect(ui->saveToFileButton, &QPushButton::pressed,
                         this, &ColorDialog::savePalettesToFile);
+
+    QObject::disconnect(ui->newPaletteButton, &QPushButton::pressed,
+                        this, &ColorDialog::addNewPalette);
+
+    QObject::disconnect(ui->deletePaletteButton, &QPushButton::pressed,
+                        this, &ColorDialog::deleteCurrentPalette);
 
     ui->listView->removeAction(selectAction);
     delete selectAction;
