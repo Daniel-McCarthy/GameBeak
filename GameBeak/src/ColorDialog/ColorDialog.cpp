@@ -63,30 +63,11 @@ void ColorDialog::loadPalettes() {
 
     for(int i = 0; i < gpu->gameBeakPalette.count(); i++)
     {
-//        paletteNameListBox.Items.Add(paletteNames[i]);
-//        ui->listView->it
         QStandardItem* paletteName = new QStandardItem(gpu->gameBeakPalette[i].paletteName);
         itemModel->setItem(i, paletteName);
     }
 
     ui->listView->setModel(itemModel);
-
-    //
-    if (itemModel->rowCount() > 0) {
-        QString nameOfPreviousSelectedPalette = currentSelection.paletteName;
-        QString currentNameAtLastSelectedIndex = (itemModel->rowCount() > currentSelection.paletteIndex) ? itemModel->item(currentSelection.paletteIndex, 0)->text() : "No Such Palette";
-
-        // Keep previous selected index if the newly loaded palette at the same
-        // index has the same name. Otherwise, reset the selection to 0.
-        if (currentNameAtLastSelectedIndex != nameOfPreviousSelectedPalette) {
-            currentSelection = {
-                itemModel->item(0, 0)->text(),
-                0
-            };
-        }
-    } else {
-        currentSelection = defaultPalette;
-    }
 
     //Set first palette to preview
     setPalettePreviews(0);
@@ -141,19 +122,9 @@ void ColorDialog::setPreviewColor(ColorSelectorWidget* colorWidget, QColor& colo
 }
 
 void ColorDialog::indexChanged(int row, int column) {
-    int previousSelection = currentSelection.paletteIndex;
-    if (row != -1 && gpu->gameBeakPalette.count() > row) {
-        PaletteSelection newSelection = {
-            gpu->gameBeakPalette[row].paletteName,
-            row
-        };
-        currentSelection = newSelection;
-    } else {
-        currentSelection = defaultPalette;
-    }
-
-    if (previousSelection != currentSelection.paletteIndex) {
-        setPalettePreviews(currentSelection.paletteIndex);
+    int selectedIndex = row;
+    if (selectedIndex >= 0 && selectedIndex < gpu->gameBeakPalette.count()) {
+        setPalettePreviews(selectedIndex);
     }
 }
 
@@ -179,6 +150,7 @@ void ColorDialog::resetButtonClicked() {
         ui->listView->setCurrentIndex(indexOfMatch);
         ui->listView->selectionModel()->select(indexOfMatch, QItemSelectionModel::Select);
         ui->listView->scrollTo(indexOfMatch);
+        setPalettePreviews(indexOfMatch.row());
     }
 
 
