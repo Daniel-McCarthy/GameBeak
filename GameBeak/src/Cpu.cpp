@@ -3353,8 +3353,8 @@ void Cpu::opcode96()
     memory.setZFlag(result == 0);
     memory.setA(result & 0xFF);
 
-	mClock += 1;
-	tClock += 4;
+    mClock += 2;
+    tClock += 8;
 }
 
 void Cpu::opcode97()
@@ -3504,8 +3504,8 @@ void Cpu::opcode9E()
     memory.setA(result & 0xFF);
     memory.setZFlag(memory.getA() == 0);
 
-	mClock += 2;
-	tClock += 8;
+    mClock += 1;
+    tClock += 4;
 }
 
 void Cpu::opcode9F()
