@@ -9,9 +9,86 @@
 //Mapped to standard keyboard keys:
 //[Up][Left][Right][Down][Z][X][Enter][RShift]
 
+//Mapped to standard Xbox controller buttons:
+//[Up][Left][Right][Down][A][X][Start][Select]
+//                          or
+//                          [B]
+
 Input::Input(QObject *parent, Memory& memory, Cpu& cpu)
     : QObject(parent), memory(memory), cpu(cpu)
 {
+    QObject::connect(QGamepadManager::instance(), &QGamepadManager::gamepadButtonPressEvent,
+                        this, &Input::gamepadButtonPressed);
+    QObject::connect(QGamepadManager::instance(), &QGamepadManager::gamepadButtonReleaseEvent,
+                        this, &Input::gamepadButtonReleased);
+}
+
+void Input::gamepadButtonPressed(int id, QGamepadManager::GamepadButton button, double value) {
+        switch(button) {
+            case QGamepadManager::ButtonA:
+                padA = true;
+                break;
+            case QGamepadManager::ButtonB:
+            case QGamepadManager::ButtonX:
+                padB = true;
+                break;
+            case QGamepadManager::ButtonStart:
+                padStart = true;
+                break;
+            case QGamepadManager::ButtonSelect:
+                padSelect = false;
+                break;
+            case QGamepadManager::ButtonLeft:
+                padLeft = true;
+                break;
+            case QGamepadManager::ButtonRight:
+                padRight = true;
+                break;
+            case QGamepadManager::ButtonUp:
+                padUp = true;
+                break;
+            case QGamepadManager::ButtonDown:
+                padDown = true;
+                break;
+        }
+}
+
+void Input::gamepadButtonReleased(int id, QGamepadManager::GamepadButton button) {
+    switch(button) {
+        case QGamepadManager::ButtonA:
+            padA = false;
+            break;
+        case QGamepadManager::ButtonB:
+        case QGamepadManager::ButtonX:
+            padB = false;
+            break;
+        case QGamepadManager::ButtonStart:
+            padStart = false;
+            break;
+        case QGamepadManager::ButtonSelect:
+            padSelect = false;
+            break;
+        case QGamepadManager::ButtonLeft:
+            padLeft = false;
+            break;
+        case QGamepadManager::ButtonRight:
+            padRight = false;
+            break;
+        case QGamepadManager::ButtonUp:
+            padUp = false;
+            break;
+        case QGamepadManager::ButtonDown:
+            padDown = false;
+            break;
+    }
+}
+
+
+Input::~Input() {
+    QObject::disconnect(QGamepadManager::instance(), &QGamepadManager::gamepadButtonPressEvent,
+                        this, &Input::gamepadButtonPressed);
+    QObject::disconnect(QGamepadManager::instance(), &QGamepadManager::gamepadButtonReleaseEvent,
+                        this, &Input::gamepadButtonReleased);
 }
 
 unsigned char Input::getKeyInput()
@@ -21,7 +98,8 @@ unsigned char Input::getKeyInput()
 
 bool Input::isAnyKeyPressed()
 {
-	return keyUp || keyDown || keyLeft || keyRight || keyStart || keySelect || keyA || keyB;
+    return keyUp || keyDown || keyLeft || keyRight || keyStart || keySelect || keyA || keyB ||
+           padUp || padDown || padLeft || padRight || padStart || padSelect || padA || padB;
 }
 
 void Input::readInput()
@@ -33,7 +111,7 @@ void Input::readInput()
 	if (((keyInput & 0x10) >> 4) == 1)
 	{
 
-		if (keyA) { //Z //A
+        if (keyA || padA) { //Z //A
 			keyInput &= 0xFE;
 			interrupt = true;
 		}
@@ -42,7 +120,7 @@ void Input::readInput()
 			keyInput |= 0x01;
 		}
 
-		if (keyB) { //X //B
+        if (keyB || padB) { //X //B
 			keyInput &= 0xFD;
 			interrupt = true;
 		}
@@ -51,7 +129,7 @@ void Input::readInput()
 			keyInput |= 0x02;
 		}
 
-		if (keySelect) { //Control //Select
+        if (keySelect || padSelect) { //Control //Select
 			keyInput &= 0xFB;
 			interrupt = true;
 		}
@@ -60,7 +138,7 @@ void Input::readInput()
 			keyInput |= 0x04;
 		}
 
-		if (keyStart) { //Enter //Start
+        if (keyStart || padStart) { //Enter //Start
 			keyInput &= 0xF7;
 			interrupt = true;
 		}
@@ -73,9 +151,9 @@ void Input::readInput()
 	else if (((keyInput & 0x20) >> 5) == 1)//(keyInput == 0x20)
 	{
 
-		if (!(keyRight && keyLeft)) //Detect if both inputs are NOT enabled at once
+        if (!((keyRight || padRight) && (keyLeft || padLeft))) //Detect if both inputs are NOT enabled at once
 		{
-			if (keyRight)
+            if (keyRight || padRight)
 			{
 				keyInput &= 0xFE;
 				interrupt = true;
@@ -85,7 +163,7 @@ void Input::readInput()
 				keyInput |= 0x01;
 			}
 
-			if (keyLeft)
+            if (keyLeft || padLeft)
 			{
 				keyInput &= 0xFD;
 				interrupt = true;
@@ -101,9 +179,9 @@ void Input::readInput()
 			keyInput |= 0x02;
 		}
 
-		if (!(keyUp && keyDown)) //Detect if both inputs are NOT enabled at once
+        if (!((keyUp || padUp) && (keyDown || padDown))) //Detect if both inputs are NOT enabled at once
 		{
-			if (keyUp)
+            if (keyUp || padUp)
 			{
 				keyInput &= 0xFB;
 				interrupt = true;
@@ -113,7 +191,7 @@ void Input::readInput()
 				keyInput |= 0x04;
 			}
 
-			if (keyDown)
+            if (keyDown || padDown)
 			{
 				keyInput &= 0xF7;
 				interrupt = true;

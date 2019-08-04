@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets
+QT       += core gui widgets gamepad
 
 TARGET = GameBeak
 TEMPLATE = app
