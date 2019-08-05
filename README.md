@@ -1,19 +1,16 @@
-# GameBeak
-GameBeak is a new emulator which supports the original DMG and GBC Gameboys. It is being developed with C++ and the SFML framework.
-It is planned to support Gameboy Color and Gameboy Advance games later on in development. It is the C++ sister project to [GameBeak-Sharp.](https://github.com/Daniel-McCarthy/GameBeak-Sharp)
+﻿# GameBeak
+GameBeak is a new emulator which supports the original DMG and GBC Gameboys. It is being developed with C++ and the Qt framework.
+
+It is the C++ sister project to [GameBeak-Sharp.](https://github.com/Daniel-McCarthy/GameBeak-Sharp)
 
 ![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-1.png)
 ![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-2.png)
-![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-11.png)
-![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-12.png)
 ![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-3.png)
 ![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-4.png)
-![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-9.png)
-![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-10.png)
 ![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-5.png)
 ![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-6.png)
-![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-13.png)
-![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-14.png)
+![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-7.png)
+![ ](https://github.com/Daniel-McCarthy/GameBeak/blob/master/Preview%20Images/GameBeak%20Preview-8.png)
 
 ---
 This is a personal learning project and not ready for use as a primary emulator.
