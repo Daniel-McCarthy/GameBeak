@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowIcon(QIcon(":/src/ICON1.ico"));
 
     hLayout = new QHBoxLayout(ui->centralWidget);
+    hLayout->setContentsMargins(0,0,0,0);
     hLayout->addWidget(canvas);
 
     QImage image = QImage(320,288, QImage::Format_RGB32);
