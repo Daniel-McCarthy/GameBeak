@@ -134,7 +134,6 @@ void MainWindow::on_actionPalette_triggered() {
     QObject::connect(currentColorDialog, &ColorDialog::finished,
                      this, &MainWindow::paletteWindowClosed);
 
-    currentColorDialog->loadPalettes();
     currentColorDialog->show();
 }
 

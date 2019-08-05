@@ -33,6 +33,7 @@ public:
 
 public slots:
     void resetButtonClicked();
+    void listItemRenamed(QStandardItem* item);
 
 private:
     Gpu* gpu;

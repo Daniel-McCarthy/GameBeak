@@ -15,6 +15,8 @@ ColorDialog::ColorDialog(QWidget *parent, Gpu* gpu) :
     selectAction = new QAction ("Select Palette", this);
     ui->listView->addAction(selectAction);
 
+    loadPalettes();
+
     QObject::connect(selectAction, &QAction::triggered,
                         this, &ColorDialog::setPalette);
     QObject::connect(ui->listView, &PaletteListView::selectedIndexChanged,
@@ -27,6 +29,8 @@ ColorDialog::ColorDialog(QWidget *parent, Gpu* gpu) :
                         this, &ColorDialog::addNewPalette);
     QObject::connect(ui->deletePaletteButton, &QPushButton::pressed,
                         this, &ColorDialog::deleteCurrentPalette);
+    QObject::connect(qobject_cast<QStandardItemModel*>(ui->listView->model()), &QStandardItemModel::itemChanged,
+                        this, &ColorDialog::listItemRenamed);
 }
 
 void ColorDialog::addNewPalette() {
@@ -50,6 +54,22 @@ void ColorDialog::deleteCurrentPalette() {
     if (currentIndex >= 0 && currentIndex < gpu->gameBeakPalette.count()) {
         ui->listView->model()->removeRow(currentIndex, ui->listView->model()->index(currentIndex, 1, QModelIndex()));
         gpu->gameBeakPalette.removeAt(currentIndex);
+    }
+}
+
+void ColorDialog::listItemRenamed(QStandardItem* item) {
+    int rowIndex = item->row();
+
+    if (rowIndex >= 0 && rowIndex < gpu->gameBeakPalette.count()) {
+        QString newName = item->text();
+        if (newName.length() > 0) {
+            gpu->gameBeakPalette[rowIndex].paletteName = newName;
+        }
+        else {
+            QStandardItemModel* model = qobject_cast<QStandardItemModel*>(ui->listView->model());
+            QString originalName = gpu->gameBeakPalette[rowIndex].paletteName;
+            model->item(rowIndex, 0)->setText(originalName);
+        }
     }
 }
 
@@ -197,6 +217,9 @@ ColorDialog::~ColorDialog()
 
     QObject::disconnect(ui->deletePaletteButton, &QPushButton::pressed,
                         this, &ColorDialog::deleteCurrentPalette);
+
+    QObject::connect(qobject_cast<QStandardItemModel*>(ui->listView->model()), &QStandardItemModel::itemChanged,
+                        this, &ColorDialog::listItemRenamed);
 
     ui->listView->removeAction(selectAction);
     delete selectAction;
