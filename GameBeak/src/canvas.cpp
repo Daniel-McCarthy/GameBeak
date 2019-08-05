@@ -21,32 +21,8 @@ void Canvas::initializeGL() {
 
     glMatrixMode(GL_PROJECTION);
 
-    vertexShader = new QOpenGLShader(QOpenGLShader::Vertex);
-    const char* vertexShaderSource =
-            "attribute highp vec4 qt_Vertex;\n"
-            "attribute highp vec2 qt_MultiTexCoord0;\n"
-            "uniform highp mat4 qt_ModelViewProjectionMatrix;\n"
-            "varying highp vec2 qt_TexCoord0;\n"
-            "void main(void)\n"
-            "{\n"
-            "    gl_Position = qt_ModelViewProjectionMatrix * qt_Vertex;\n"
-            "    qt_TexCoord0 = qt_MultiTexCoord0;\n"
-            "}\n";
-
-    vertexShader->compileSourceCode(vertexShaderSource);
-
-    fragmentShader = new QOpenGLShader(QOpenGLShader::Fragment);
-    const char* fragmentShaderSource =
-            "uniform sampler2D qt_Texture0;\n"
-            "varying highp vec2 qt_TexCoord0;\n"
-            "void main(void)\n"
-            "{\n"
-            "    gl_FragColor = texture2D(qt_Texture0, qt_TexCoord0);\n"
-            "}\n";
-    fragmentShader->compileSourceCode(fragmentShaderSource);
-
-    shaderProgram.addShader(vertexShader);
-    shaderProgram.addShader(fragmentShader);
+    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/fragment.fsh");
+    shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/vertex.vsh");
     shaderProgram.link();
 
     m_Texture = new QOpenGLTexture((currentFrame).mirrored());
