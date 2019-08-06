@@ -149,17 +149,32 @@ void ColorDialog::indexChanged(int row, int column) {
 void ColorDialog::resetButtonClicked() {
     QStandardItemModel* model = qobject_cast<QStandardItemModel*>(ui->listView->model());
     int row = ui->listView->currentIndex().row();
+    row = (row >= 0) ? row : 0;
     QString currentPaletteName = model->item(row, 0)->text();
 
     loadPalettes();
+    delete model;
+    model = qobject_cast<QStandardItemModel*>(ui->listView->model());
 
-    QList<QStandardItem*> matches = model->findItems(currentPaletteName);
-    if (matches.count() > 0) {
-        QModelIndex indexOfMatch = matches[0]->index();
-        ui->listView->setCurrentIndex(indexOfMatch);
-        ui->listView->selectionModel()->select(indexOfMatch, QItemSelectionModel::Select);
-        ui->listView->scrollTo(indexOfMatch);
-        setPalettePreviews(indexOfMatch.row());
+    int rowCount = model->rowCount();
+    if (rowCount > row) {
+        QList<QStandardItem*> matches = model->findItems(currentPaletteName);
+        if (matches.count() > 0) {
+            QString test = matches[0]->text();
+            int testrow = matches[0]->row();
+            int testrowcount = matches[0]->rowCount();
+
+            QModelIndex indexOfMatch = matches[0]->index();
+            ui->listView->setCurrentIndex(indexOfMatch);
+            ui->listView->selectionModel()->select(indexOfMatch, QItemSelectionModel::Select);
+            ui->listView->scrollTo(indexOfMatch);
+            setPalettePreviews(indexOfMatch.row());
+        }
+    } else if (rowCount > 0) {
+        QModelIndex index = model->item(0, 0)->index();
+        ui->listView->setCurrentIndex(index);
+        ui->listView->selectionModel()->select(index, QItemSelectionModel::Select);
+        ui->listView->scrollTo(index);
     }
 }
 
