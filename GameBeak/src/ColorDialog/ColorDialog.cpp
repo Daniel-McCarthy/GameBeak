@@ -148,7 +148,8 @@ void ColorDialog::indexChanged(int row, int column) {
 
 void ColorDialog::resetButtonClicked() {
     QStandardItemModel* model = qobject_cast<QStandardItemModel*>(ui->listView->model());
-    QString currentPaletteName = ui->listView->currentIndex().data().toString();
+    int row = ui->listView->currentIndex().row();
+    QString currentPaletteName = model->item(row, 0)->text();
 
     loadPalettes();
 
