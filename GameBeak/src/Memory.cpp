@@ -861,6 +861,8 @@ void Memory::initializeGameBoyColorValues()
 }
 
 void Memory::romLoaded(QString gameFilePath) {
+    emit setEmulationRun(false);
+
     loadRom(gameFilePath, true);
     rom.readRomHeader();
     rom.romFilePath = gameFilePath;
