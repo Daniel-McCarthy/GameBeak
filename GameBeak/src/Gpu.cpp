@@ -206,8 +206,8 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
             unsigned char tileFlags = memory.readVRAMBankRam((unsigned short)(tileIndex + 0x1800), 1);
             gbcBGPalette = (unsigned char)(tileFlags & 0b0111);
             vramBankSelection = (unsigned char)((tileFlags & 0b1000) >> 3);
-			bool horizontalFlip = (tileFlags & 0b0010 - 0000) > 0;
-			bool verticalFlip = (tileFlags & 0b0100 - 0000) > 0;
+            bool horizontalFlip = (tileFlags & 0b0010 - 0000) > 0;
+            bool verticalFlip = (tileFlags & 0b0100 - 0000) > 0;
 			bool hasPriority = (tileFlags & 0b1000 - 0000) > 0;
 
 		}
@@ -224,13 +224,14 @@ void Gpu::drawLineFromBGMap(unsigned char  lineY)
 				pixelColor = returnColor(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6), 0);
 			}
 			else
-			{
+            {
                 pixelColor = returnGBCBackgroundColor((unsigned char)(((rowHalf1 & 0x80) >> 7) | ((rowHalf2 & 0x80) >> 6)), gbcBGPalette);
 			}
 
             screen.setBGPixel((unsigned char)((i * 8) + j), (unsigned char)lineY, pixelColor);
-			rowHalf1 <<= 1;
-			rowHalf2 <<= 1;
+            rowHalf1 <<= 1;
+            rowHalf2 <<= 1;
+
 
 		}
 		
