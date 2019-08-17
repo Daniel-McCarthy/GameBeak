@@ -30,8 +30,6 @@ private:
     QOpenGLTexture* m_Texture;
     QOpenGLBuffer m_arrayBuffer;
     QOpenGLBuffer m_indexBuffer;
-    QOpenGLShader* vertexShader;
-    QOpenGLShader* fragmentShader;
     QOpenGLBuffer vertexBuffer;
     QMatrix4x4 modelViewMatrix;
 

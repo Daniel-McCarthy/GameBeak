@@ -11,8 +11,6 @@ Canvas::Canvas(QWidget* parent)
 Canvas::~Canvas() {
     makeCurrent();
     delete m_Texture;
-    delete vertexShader;
-    delete fragmentShader;
 }
 
 void Canvas::initializeGL() {
