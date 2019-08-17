@@ -24,8 +24,8 @@ void Canvas::initializeGL() {
     shaderProgram.link();
 
     m_Texture = new QOpenGLTexture((currentFrame).mirrored());
-    m_Texture->setMinificationFilter(QOpenGLTexture::Linear);
-    m_Texture->setMagnificationFilter(QOpenGLTexture::Linear);
+    m_Texture->setMinificationFilter(QOpenGLTexture::Nearest);
+    m_Texture->setMagnificationFilter(QOpenGLTexture::Nearest);
     buildDrawingSurface();
 
 }
