@@ -16,6 +16,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->actionResume->setVisible(false);
+    ui->actionResume->setEnabled(false);
+    ui->actionPause->setEnabled(false);
+
     core = new Core();
     canvas = new Canvas(this);
     canvas->move(0,21);
@@ -103,6 +107,8 @@ void MainWindow::on_actionOpen_triggered()
                                                       ("GameBoy Files (*.gb *.gbc)"));
     if (filePath != "") {
         emit onGameFileOpened(filePath);
+        ui->actionPause->setEnabled(true);
+        ui->actionResume->setEnabled(true);
     }
 }
 
@@ -143,4 +149,16 @@ void MainWindow::paletteWindowClosed() {
 
     delete currentColorDialog;
     currentColorDialog = NULL;
+}
+
+void MainWindow::on_actionPause_triggered() {
+    ui->actionPause->setVisible(false);
+    ui->actionResume->setVisible(true);
+    setEmulationPaused(true);
+}
+
+void MainWindow::on_actionResume_triggered() {
+    ui->actionPause->setVisible(true);
+    ui->actionResume->setVisible(false);
+    setEmulationPaused(false);
 }

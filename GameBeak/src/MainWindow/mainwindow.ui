@@ -48,7 +48,15 @@
     <addaction name="actionOpen"/>
     <addaction name="menuSettings"/>
    </widget>
+   <widget class="QMenu" name="menuStatus">
+    <property name="title">
+     <string>Status</string>
+    </property>
+    <addaction name="actionPause"/>
+    <addaction name="actionResume"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuStatus"/>
   </widget>
   <action name="actionOpen">
    <property name="text">
@@ -80,6 +88,16 @@
   <action name="actionPalette">
    <property name="text">
     <string>Palette</string>
+   </property>
+  </action>
+  <action name="actionPause">
+   <property name="text">
+    <string>Pause</string>
+   </property>
+  </action>
+  <action name="actionResume">
+   <property name="text">
+    <string>Resume</string>
    </property>
   </action>
  </widget>

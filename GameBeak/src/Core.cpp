@@ -135,7 +135,7 @@ void Core::emulationLoop() {
             cpu.tClock = 0;
         }
 
-        if (screen.processPolling) {
+        if (screen.processPolling || paused) {
             //Poll QT Events
             QCoreApplication::processEvents();
             screen.processPolling = false;

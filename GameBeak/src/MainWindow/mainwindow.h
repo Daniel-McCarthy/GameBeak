@@ -36,6 +36,8 @@ private slots:
     void on_actionForce_DMG_triggered();
     void on_actionAutomatic_Selection_triggered();
     void on_actionPalette_triggered();
+    void on_actionPause_triggered();
+    void on_actionResume_triggered();
     void paletteWindowClosed();
     void startEmulationThread();
     void endEmulationThread();
