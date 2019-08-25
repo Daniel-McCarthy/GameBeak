@@ -1,5 +1,4 @@
 uniform sampler2D qt_Texture0;
-uniform float time;
 varying highp vec2 qt_TexCoord0;
 
 void main(void)
