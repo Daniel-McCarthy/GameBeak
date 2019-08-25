@@ -6,6 +6,7 @@
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include <QPushButton>
+#include <QAction>
 #include "src/Gpu.h"
 
 namespace Ui {
