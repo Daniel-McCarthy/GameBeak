@@ -27,6 +27,10 @@ public:
     Input* getInputPointer();
     Screen* getScreenPointer();
     Gpu* getGpuPointer();
+    MBC1* getMBC1Pointer();
+    MBC2* getMBC2Pointer();
+    MBC3* getMBC3Pointer();
+    MBC5* getMBC5Pointer();
 
     bool* getGBCModePointer();
 

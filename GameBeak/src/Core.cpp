@@ -62,6 +62,22 @@ bool* Core::getGBCModePointer() {
     return &GBCMode;
 }
 
+MBC1* Core::getMBC1Pointer() {
+    return &mbc1;
+}
+
+MBC2* Core::getMBC2Pointer() {
+    return &mbc2;
+}
+
+MBC3* Core::getMBC3Pointer() {
+    return &mbc3;
+}
+
+MBC5* Core::getMBC5Pointer() {
+    return &mbc5;
+}
+
 void Core::setPaused(bool setting) {
     paused = setting;
 }
