@@ -90,3 +90,11 @@ void MBC5::writeMBC5Value(short address, unsigned char value)
 MBC5::~MBC5()
 {
 }
+
+void MBC5::resetMBC5() {
+    memset(beakExternalRam, 0, sizeof(beakExternalRam));
+    ramEnabled = false;
+    romBankNumber = false;
+    romBankNumber = 0;
+    bankingMode = false;
+}

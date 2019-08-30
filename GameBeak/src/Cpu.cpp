@@ -7712,3 +7712,17 @@ void Cpu::setDoubleSpeedModeSignal(bool newSpeedSetting) {
         preparingSpeedChange = true;
     }
 }
+
+void Cpu::resetCPU() {
+    interrupt = false;
+    halt = false;
+    stop = false;
+    haltMode = 0;
+
+    interruptsEnabled = true;
+    tClock = 0;
+    mClock = 0;
+
+    doubleSpeedMode = false;
+    preparingSpeedChange = false;
+}

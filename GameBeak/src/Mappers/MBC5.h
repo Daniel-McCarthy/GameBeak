@@ -20,6 +20,7 @@ public:
         void writeMBC5Value(short address, unsigned char value);
     MBC5(Memory& memory, Rom& rom);
 	~MBC5();
+    void resetMBC5();
 };
 
 #endif

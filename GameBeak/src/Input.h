@@ -30,6 +30,7 @@ public:
 	bool isAnyKeyPressed();
 	void readInput();
 	void setKeyInput(int keyCode, bool enabled);
+    void resetInput();
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
 };

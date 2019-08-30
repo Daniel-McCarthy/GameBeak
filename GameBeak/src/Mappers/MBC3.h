@@ -19,6 +19,7 @@ public:
     void changeMBC3RomBanks(int bankNumber);
     void writeMBC3Value(short address, unsigned char value);
     MBC3(Memory& memory, Rom& rom);
+    void resetMBC3();
     ~MBC3();
 };
 

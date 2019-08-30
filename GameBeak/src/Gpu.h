@@ -75,6 +75,6 @@ public:
     void loadPalettesFromXML(QFile* file);
     QString openCreatePalettesXML();
     void savePalettesToFile();
-
+    void resetGPU();
 };
 

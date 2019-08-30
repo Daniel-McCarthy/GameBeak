@@ -69,3 +69,11 @@ void MBC2::writeMBC2Value(short address, unsigned char value)
 MBC2::~MBC2()
 {
 }
+
+void MBC2::resetMBC2() {
+    memset(beakExternalRam, 0, sizeof(beakExternalRam));
+    ramEnabled = false;
+    romBankNumber = false;
+    romBankNumber = 0;
+    bankingMode = false;
+}

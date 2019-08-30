@@ -21,6 +21,7 @@ public:
     void drawScreenFromMaps(unsigned char  scrollX, unsigned char  ScrollY);
     void drawFullScreenMaps();
     void updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshClocksSinceLastUpdate, int& clocksSinceLastVBlank);
+    void resetScreen();
 
 signals:
     void drawImageToScreen(QImage image);

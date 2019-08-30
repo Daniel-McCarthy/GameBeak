@@ -1061,6 +1061,30 @@ bool Memory::createSaveFile(bool overwrite) {
     return false;
 }
 
+void Memory::resetMemory() {
+    beakRam = QVector<unsigned char>(0xFFFF + 1);
+    memset(externalVRAMBank, 0, sizeof(externalVRAMBank));
+    memset(internalRam, 0, sizeof(internalRam));
+    title = "";
+
+    // These register values are not final. They will be overwritten
+    // when the new rom is loaded, as depending if the rom is a GameBoy
+    // or GameBoy Color game (or read as either) will determine what the values
+    // should be.
+    regAF = 0;
+    regBC = 0;
+    regDE = 0;
+    regHL = 0;
+
+    memset(backgroundPaletteRam, 0, sizeof(backgroundPaletteRam));
+    memset(spritePaletteRam, 0, sizeof(spritePaletteRam));
+    internalRamBank = 1;
+    vramBank = 0;
+
+    memoryPointer = 0x100;
+    stackPointer = 0;
+}
+
 /*
 void Memory::saveState()
 {

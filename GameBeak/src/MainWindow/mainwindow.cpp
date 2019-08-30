@@ -102,10 +102,17 @@ void MainWindow::endEmulationThread() {
 
 void MainWindow::on_actionOpen_triggered()
 {
+    bool alreadyEmulating = core->run;
     QString filePath = QFileDialog::getOpenFileName(this, ("Open GB File"),
                                                       "/home",
                                                       ("GameBoy Files (*.gb *.gbc)"));
     if (filePath != "") {
+        if (alreadyEmulating) {
+            // Reset all emulation state for a fresh start
+            // before loading in a new rom and running.
+            core->resetCore();
+        }
+
         emit onGameFileOpened(filePath);
         ui->actionPause->setEnabled(true);
         ui->actionResume->setEnabled(true);

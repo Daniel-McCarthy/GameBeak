@@ -163,3 +163,22 @@ bool Rom::isSGBRom()
 	return hasSGBFunctionality;
 }
 
+void Rom::resetRom() {
+    romSize = 0;
+    romByteSize = 0;
+    programRamBattery = false;
+    usesProgramRam = false;
+    hasGBCFunctionality = false;
+    hasSGBFunctionality = false;
+
+    memset(beakRom, 0, sizeof(beakRom));
+    loadSuccessful = false;
+    bankingMode = false;
+    mapperSetting = 0;
+    cartridgeType = 0;
+    romBankNumber = 0;
+    ramBankNumber = 0;
+
+    romFilePath = "";
+    title = "";
+}

@@ -99,3 +99,11 @@ void MBC1::writeMBC1Value(short address, unsigned char value)
 	}
 
 }
+
+void MBC1::resetMBC1() {
+    memset(beakExternalRam, 0, sizeof(beakExternalRam));
+    ramEnabled = false;
+    romBankNumber = false;
+    romBankNumber = 0;
+    bankingMode = false;
+}

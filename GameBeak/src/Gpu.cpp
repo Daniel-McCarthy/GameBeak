@@ -861,3 +861,10 @@ void Gpu::savePalettesToFile()
 
     file.close();
 }
+
+void Gpu::resetGPU() {
+    // User palette settings should remain the same on new rom load for consistency and convenience.
+
+    memset(gameboyColorBackGroundPalette, 0, sizeof(gameboyColorBackGroundPalette));
+    memset(gameboyColorSpritePalette, 0, sizeof(gameboyColorSpritePalette));
+}

@@ -147,6 +147,7 @@ class Memory : public QObject
         bool createSaveFile(bool overwrite);
         void saveState();
         void loadSaveState();
+        void resetMemory();
 
         public slots:
             void romLoaded(QString gameFilePath);

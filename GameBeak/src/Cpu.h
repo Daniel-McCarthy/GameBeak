@@ -553,6 +553,7 @@ public:
 	void opcodeCBFD();
 	void opcodeCBFE();
 	void opcodeCBFF();
+    void resetCPU();
 
 public slots:
     void setDoubleSpeedModeSignal(bool newSpeedSetting);

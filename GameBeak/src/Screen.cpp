@@ -416,3 +416,16 @@ int Screen::getGPUMode()
 {
     return gpuMode;
 }
+
+void Screen::resetScreen() {
+    processPolling = false;
+
+    memset(bgPixels, 0, sizeof(bgPixels));
+    memset(windowPixels, 0, sizeof(windowPixels));
+    memset(spritePixels, 0, sizeof(spritePixels));
+    memset(tileDebugPixels, 0, sizeof(tileDebugPixels));
+    memset(scrollXValues, 0, sizeof(scrollXValues));
+    gpuMode = 1;
+    screen = QImage(160, 144, QImage::Format_RGB32);
+    poweringOn = true;
+}

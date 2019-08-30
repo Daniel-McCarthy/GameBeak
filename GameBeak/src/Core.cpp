@@ -158,3 +158,33 @@ void Core::emulationLoop() {
         }
     }
 }
+
+void Core::resetCore() {
+    run = false;
+    paused = false;
+    step = false;
+    enableInterruptsNextCycle = false;
+    interruptNextCycle = false;
+    repeatBug = false;
+
+    clocks = 4500;
+    memoryControllerMode = 0;
+
+    // Keep GBC/DMG model mode the same for convenience and consistency.
+
+    // Keep sound settings the same for convenience and consistency.
+
+    tileDrawMode = false;
+    fullMapScreenMode = false;
+
+    cpu.resetCPU();
+    gpu.resetGPU();
+    input.resetInput();
+    memory.resetMemory();
+    rom.resetRom();
+    screen.resetScreen();
+    mbc1.resetMBC1();
+    mbc2.resetMBC2();
+    mbc3.resetMBC3();
+    mbc5.resetMBC5();
+}

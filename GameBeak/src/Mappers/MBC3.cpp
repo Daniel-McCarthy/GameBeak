@@ -113,3 +113,11 @@ void MBC3::writeMBC3Value(short address, unsigned char value)
 MBC3::~MBC3()
 {
 }
+
+void MBC3::resetMBC3() {
+    memset(beakExternalRam, 0, sizeof(beakExternalRam));
+    ramEnabled = false;
+    romBankNumber = false;
+    romBankNumber = 0;
+    bankingMode = false;
+}

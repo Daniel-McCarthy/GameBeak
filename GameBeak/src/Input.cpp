@@ -318,3 +318,22 @@ bool Input::eventFilter(QObject *obj, QEvent *event) {
     return QObject::eventFilter(obj, event);
 }
 
+void Input::resetInput() {
+    keyRight = false;
+    keyLeft = false;
+    keyUp = false;
+    keyDown = false;
+    keySelect = false;
+    keyStart = false;
+    keyA = false;
+    keyB = false;
+
+    padRight = false;
+    padLeft = false;
+    padUp = false;
+    padDown = false;
+    padSelect = false;
+    padStart = false;
+    padA = false;
+    padB = false;
+}
