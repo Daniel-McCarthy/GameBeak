@@ -1001,19 +1001,16 @@ bool Memory::loadSaveFile(QByteArray saveFile)
 {
     int fileLength = saveFile.length();
     bool fileNotEmpty = fileLength > 0;
-    bool fileNotTooLarge = fileLength <= 0x2000;
+    int numBytesToRead = (fileLength >= 0x1FFF) ? 0x1FFF : fileLength;
 
-    if (fileNotEmpty && fileNotTooLarge) {
+    if (fileNotEmpty) {
         unsigned short address = 0xA000;
-        for (unsigned short i = 0x0; i <= 0x1FFF; i++) {
+        for (unsigned short i = 0x0; i <= numBytesToRead; i++) {
             beakRam[address + i] = (unsigned char)saveFile[i];
         }
         return true;
-    } else if(fileNotEmpty == false) {
-        //cout << "Error: Save file has no data." << endl;
-        return false;
     } else {
-        //cout << "Error: Save file is too large." << endl;
+        //cout << "Error: Save file has no data." << endl;
         return false;
     }
 }
