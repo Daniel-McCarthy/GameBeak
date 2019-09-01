@@ -49,6 +49,7 @@ public:
     bool ForceDMGMode = false;				//This allows forcing games to run in DMG emulation.
 
     void emulationLoop();
+    void resetCore();
 
 private:
     Screen screen;
