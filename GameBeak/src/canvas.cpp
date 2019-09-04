@@ -17,7 +17,6 @@ void Canvas::initializeGL() {
     makeCurrent();
     initializeOpenGLFunctions();
 
-    glMatrixMode(GL_PROJECTION);
 
     shaderProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/fragment.fsh");
     shaderProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/vertex.vsh");
