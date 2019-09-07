@@ -135,7 +135,7 @@ class Memory : public QObject
         bool loadRom(QByteArray rom);
         bool loadRom(QByteArray rom, QByteArray save);
 
-        bool loadSaveFile(QString filepath);
+        bool loadSaveFile(QString romPath);
 
         /*
         Load Save File From Array

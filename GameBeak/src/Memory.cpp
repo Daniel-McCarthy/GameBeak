@@ -975,10 +975,10 @@ bool Memory::loadRom(QByteArray romData, QByteArray save)
 
 
 
-bool Memory::loadSaveFile(QString path)
+bool Memory::loadSaveFile(QString romPath)
 {
     //Attempt to open file, if it was successful close it and call the full loadSave function
-    QString savePath = path.left(path.indexOf('.')) + ".sav";
+    QString savePath = romPath.left(romPath.indexOf('.')) + ".sav";
     QFile saveFile(savePath);
 
     bool fileOpen = saveFile.open(QIODevice::ReadOnly);
