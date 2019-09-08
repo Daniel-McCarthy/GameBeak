@@ -34,8 +34,14 @@ MainWindow::MainWindow(QWidget *parent) :
     hLayout->setContentsMargins(0,0,0,0);
     hLayout->addWidget(canvas);
 
+    // Display purple and pink default background.
     QImage image = QImage(320,288, QImage::Format_RGB32);
-    image.fill(0xFF8080FF);
+    image.fill(QColor(255, 80, 160, 255));
+    for (int x = 0; x < image.width(); x++) {
+        for (int y = 0; y < 5; y++) {
+            image.setPixel(x, y, 0xFF800080);
+        }
+    }
     canvas->drawImage(image);
 
     installEventFilter(core->getInputPointer());
