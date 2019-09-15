@@ -109,8 +109,13 @@ void MainWindow::endEmulationThread() {
 void MainWindow::on_actionOpen_triggered()
 {
     bool alreadyEmulating = core->run;
+    QString initialDirectory = QDir::homePath();
+    if (initialDirectory == "" ) {
+        initialDirectory = QFileInfo(QCoreApplication::applicationFilePath()).absolutePath();
+    }
+
     QString filePath = QFileDialog::getOpenFileName(this, ("Open GB File"),
-                                                      "/home",
+                                                      initialDirectory,
                                                       ("GameBoy Files (*.gb *.gbc)"));
     if (filePath != "") {
         if (alreadyEmulating) {
