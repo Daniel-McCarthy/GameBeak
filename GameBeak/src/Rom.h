@@ -38,6 +38,7 @@ public:
 	bool isGBCRom();
     bool isSGBRom();
     void resetRom();
+    bool usesSaveRam();
 
 	void operator=(const Rom & newRom);
 
