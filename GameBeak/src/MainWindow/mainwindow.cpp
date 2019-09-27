@@ -124,9 +124,13 @@ void MainWindow::on_actionOpen_triggered()
             core->resetCore();
         }
 
-        emit onGameFileOpened(filePath);
+        core->getMemoryPointer()->romLoaded(filePath);
         ui->actionPause->setEnabled(true);
         ui->actionResume->setEnabled(true);
+        ui->actionCreateSave->setEnabled(core->getRomPointer()->usesSaveRam());
+        core->setRun(true);
+        core->setPaused(false);
+        startEmulationThread();
     }
 }
 

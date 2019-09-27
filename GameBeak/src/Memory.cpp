@@ -873,8 +873,6 @@ void Memory::romLoaded(QString gameFilePath) {
     } else {
         initializeGameBoyValues();
     }
-
-    emit setEmulationRun(true);
 }
 
 bool Memory::loadRom(QString path)
