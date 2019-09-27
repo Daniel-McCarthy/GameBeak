@@ -54,6 +54,7 @@
     </property>
     <addaction name="actionPause"/>
     <addaction name="actionResume"/>
+    <addaction name="actionCreateSave"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuStatus"/>
@@ -98,6 +99,14 @@
   <action name="actionResume">
    <property name="text">
     <string>Resume</string>
+   </property>
+  </action>
+  <action name="actionCreateSave">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Create Save (*.sav)</string>
    </property>
   </action>
  </widget>

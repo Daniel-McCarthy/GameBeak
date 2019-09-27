@@ -58,6 +58,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(this, &MainWindow::setEmulationRun,
                              core, &Core::setRun);
 
+    QObject::connect(this, &MainWindow::createSaveFile,
+                            core->getMemoryPointer(), &Memory::createSaveFile);
+
     QObject::connect(core->getMemoryPointer(), &Memory::setEmulationRun,
                      core, &Core::setRun);
 
@@ -85,6 +88,9 @@ void MainWindow::terminateEmulation() {
 
     QObject::disconnect(this, &MainWindow::setEmulationRun,
                              core, &Core::setRun);
+
+    QObject::disconnect(this, &MainWindow::createSaveFile,
+                            core->getMemoryPointer(), &Memory::createSaveFile);
 
     QObject::disconnect(core->getMemoryPointer(), &Memory::setEmulationRun,
                      core, &Core::setRun);
@@ -132,6 +138,10 @@ void MainWindow::on_actionOpen_triggered()
         core->setPaused(false);
         startEmulationThread();
     }
+}
+
+void MainWindow::on_actionCreateSave_triggered() {
+    createSaveFile(true);
 }
 
 void MainWindow::on_actionForce_DMG_triggered() {

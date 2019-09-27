@@ -38,6 +38,7 @@ private slots:
     void on_actionPalette_triggered();
     void on_actionPause_triggered();
     void on_actionResume_triggered();
+    void on_actionCreateSave_triggered();
     void paletteWindowClosed();
     void startEmulationThread();
     void endEmulationThread();
@@ -46,6 +47,7 @@ signals:
     void onGameFileOpened(QString filePath);
     void setEmulationPaused(bool setting);
     void setEmulationRun(bool setting);
+    void createSaveFile(bool overwriteExisting);
 };
 
 #endif // MAINWINDOW_H
