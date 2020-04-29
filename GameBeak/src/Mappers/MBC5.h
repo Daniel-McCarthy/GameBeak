@@ -16,10 +16,10 @@ private:
     Rom& rom;
 
 public:
-	void changeMBC5RomBanks(int bankNumber);
+    void changeMBC5RomBanks(int bankNumber);
         void writeMBC5Value(short address, unsigned char value);
     MBC5(Memory& memory, Rom& rom);
-	~MBC5();
+    ~MBC5();
     void resetMBC5();
 };
 

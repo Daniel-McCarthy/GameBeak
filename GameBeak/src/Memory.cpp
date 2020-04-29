@@ -15,148 +15,148 @@ Memory::~Memory()
 
 void Memory::writeRom0ToRam()
 {
-	for (int i = 0; i <= 0x3FFF; i++)
-	{
+    for (int i = 0; i <= 0x3FFF; i++)
+    {
         beakRam[i] = rom.readByte(i);
-	}
+    }
 }
 
 void Memory::writeFullRomToRam()
 {
-	for (int i = 0; i <= 0x7FFF; i++)
-	{
+    for (int i = 0; i <= 0x7FFF; i++)
+    {
         beakRam[i] = rom.readByte(i);
-	}
+    }
 }
 
 unsigned char Memory::readSpritePaletteRam(unsigned char address)
 {
-	return spritePaletteRam[address];
+    return spritePaletteRam[address];
 }
 
 unsigned char Memory::readBackgroundPaletteRam(unsigned char address)
 {
-	return backgroundPaletteRam[address];
+    return backgroundPaletteRam[address];
 }
 
 unsigned char Memory::readVRAMBankRam(unsigned short address, unsigned char bank)
 {
-	//In GBC mode there are two swappable banks. The current vramBank is loaded in the ramMap. The other bank is loaded in an external bank.
-	//Therefore if the selected bank isn't the current vram bank, the bank must me in the external bank.
+    //In GBC mode there are two swappable banks. The current vramBank is loaded in the ramMap. The other bank is loaded in an external bank.
+    //Therefore if the selected bank isn't the current vram bank, the bank must me in the external bank.
 
-	//If not in GBC mode, then then only bank available is bank 0, which will always be loaded in the ram map in this mode.
+    //If not in GBC mode, then then only bank available is bank 0, which will always be loaded in the ram map in this mode.
 
-	if (GBCMode && vramBank != bank)
-	{
-		if (address >= 0x8000)
-		{
-			address -= 0x8000;
-		}
+    if (GBCMode && vramBank != bank)
+    {
+        if (address >= 0x8000)
+        {
+            address -= 0x8000;
+        }
 
-		return externalVRAMBank[address];
-	}
-	else
-	{
-		if (address < 0x8000)
-		{
-			address += 0x8000;
-		}
+        return externalVRAMBank[address];
+    }
+    else
+    {
+        if (address < 0x8000)
+        {
+            address += 0x8000;
+        }
 
-		return beakRam[address];
-	}
+        return beakRam[address];
+    }
 }
 
 unsigned char Memory::readMemory(unsigned short address)
 {
     /*
-	if (accessBreakpoint && memoryPointer == accessBreakpointAddress)
-	{
-	paused = true;
-	}
+    if (accessBreakpoint && memoryPointer == accessBreakpointAddress)
+    {
+    paused = true;
+    }
     */
-	if (address == 0xFF41)
-	{
-		return (beakRam[address] | 0x80);
-	}
-	else if (address == 0xFF4D && GBCMode)
-	{
-		// Get Speed Mode
+    if (address == 0xFF41)
+    {
+        return (beakRam[address] | 0x80);
+    }
+    else if (address == 0xFF4D && GBCMode)
+    {
+        // Get Speed Mode
 
         unsigned char returnValue = 0;
         returnValue |= (unsigned char)(cpu.preparingSpeedChange ? 1 : 0);
         returnValue |= (unsigned char)(cpu.doubleSpeedMode ? 0x80 : 0);
 
-		return returnValue;
+        return returnValue;
 
-	}
-	else if (address == 0xFF4F && GBCMode)
-	{
-		// Read VRAM Bank Number
+    }
+    else if (address == 0xFF4F && GBCMode)
+    {
+        // Read VRAM Bank Number
         return (unsigned char)(0b11111110 | (vramBank & 0b00000001));
-	}
-	else if (address == 0xFF69 && GBCMode)
-	{
-		// Read Background Palette Ram Data.
+    }
+    else if (address == 0xFF69 && GBCMode)
+    {
+        // Read Background Palette Ram Data.
 
-		// BG Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
+        // BG Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
         unsigned char bgIndexData = beakRam[0xFF68];
-		// Retrieve index data for palette ram read.
+        // Retrieve index data for palette ram read.
         unsigned char index = (unsigned char)(bgIndexData & 0b00111111);
 
-		return backgroundPaletteRam[index];
-	}
-	else if (address == 0xFF6B && GBCMode)
-	{
-		// Read Sprite Palette Ram Data.
+        return backgroundPaletteRam[index];
+    }
+    else if (address == 0xFF6B && GBCMode)
+    {
+        // Read Sprite Palette Ram Data.
 
-		// Sprite Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
+        // Sprite Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
         unsigned char spriteIndexData = beakRam[0xFF6A];
-		// Retrieve index data for palette ram read.
+        // Retrieve index data for palette ram read.
         unsigned char index = (unsigned char)(spriteIndexData & 0b00111111);
 
-		return spritePaletteRam[index];
-	}
-	else
-	{
+        return spritePaletteRam[index];
+    }
+    else
+    {
         return beakRam[address];
-	}
+    }
 }
 
 QList<unsigned char> Memory::readMemory(int address, int bytes)
 {
     QList<unsigned char> returnMemory;
 
-	for (int i = 0; i < bytes; i++)
-	{
-		returnMemory.push_back(beakRam[address + i]);
-	}
+    for (int i = 0; i < bytes; i++)
+    {
+        returnMemory.push_back(beakRam[address + i]);
+    }
 
-	return returnMemory;
+    return returnMemory;
 }
 
 //DMA Transfer
 void Memory::transferDMA(unsigned char address)
 {
-	//TODO:This should occur over time, not all at once
+    //TODO:This should occur over time, not all at once
 
-	if (address <= 0xF1)
-	{
-		int baseAddress = address << 8;//*= 100;
+    if (address <= 0xF1)
+    {
+        int baseAddress = address << 8;//*= 100;
 
-		for (int i = 0; i < 160; i++)
-		{
-			writeMemory(0xFE00 + i, readMemory(baseAddress + i));
-		}
-	}
+        for (int i = 0; i < 160; i++)
+        {
+            writeMemory(0xFE00 + i, readMemory(baseAddress + i));
+        }
+    }
 }
 
 void Memory::directMemoryWrite(unsigned short address, unsigned char value)
 {
     /*
-	Write to Ram without ordinary restrictions. Only to be used by hardware emulating functions and not game instructions.
+    Write to Ram without ordinary restrictions. Only to be used by hardware emulating functions and not game instructions.
     */
 
-	beakRam[address] = value;
+    beakRam[address] = value;
 
 }
 
@@ -164,169 +164,169 @@ void Memory::writeMemory(unsigned short address, unsigned char value)
 {
 
     if (rom.mapperSetting > 0 && address <= 0x7FFF)
-	{
+    {
         if (rom.mapperSetting <= 3)
-		{
+        {
             mbc1.writeMBC1Value(address, value);
-		}
+        }
         else if (rom.mapperSetting <= 6)
-		{
+        {
             mbc2.writeMBC2Value(address, value);
-		}
+        }
         else if (rom.mapperSetting <= 9)
-		{
-			//8: Rom+Ram
-			//9: Rom+Ram+Battery
-		}
+        {
+            //8: Rom+Ram
+            //9: Rom+Ram+Battery
+        }
         else if (rom.mapperSetting <= 0x0D)
-		{
-			//0B: MMM01
-			//0C: MMM01+Ram
-			//0D: MMM01+Ram+Battery
-		}
+        {
+            //0B: MMM01
+            //0C: MMM01+Ram
+            //0D: MMM01+Ram+Battery
+        }
         else if (rom.mapperSetting <= 0x10)
-		{
-			//0F: MBC3+Timer+Battery
-			//10: MBC3+Timer+Ram+Battery
-			//11: MBC3
-			//12: MBC3+Ram
-			//13: MBC3+Ram+Battery
+        {
+            //0F: MBC3+Timer+Battery
+            //10: MBC3+Timer+Ram+Battery
+            //11: MBC3
+            //12: MBC3+Ram
+            //13: MBC3+Ram+Battery
 
-			//Add this later: MBC3 is not currently ready (RTC)
+            //Add this later: MBC3 is not currently ready (RTC)
             mbc3.writeMBC3Value(address, value);
-		}
+        }
         else if (rom.mapperSetting <= 0x1E)
-		{
+        {
             mbc5.writeMBC5Value(address, value);
-		}
-		//TODO: Add more MBC controllers
+        }
+        //TODO: Add more MBC controllers
 
-	}
-	else
-	{
-		if (address >= 0x8000 && address <= 0xFFFF)
-		{
-			if (address == (unsigned short)0xFF46)
-			{
-				//Initiate DMA Transfer Register
-				transferDMA(value);
-			}
-			else if (address == (unsigned short)0xFF41)
-			{
-				//Set LCDC Status
-				beakRam[address] = ((beakRam[address] & 0x87) | (value & 0x78) | 0x80); //Bit 7 is always 1, Bit 0, 1, and 2 are read Only //&0x87clears bits 3, 4, 5, 6 from Stat. &0xF8 clears all but bit bit 0, 1, 2, and 7 from value being written.
-			}
+    }
+    else
+    {
+        if (address >= 0x8000 && address <= 0xFFFF)
+        {
+            if (address == (unsigned short)0xFF46)
+            {
+                //Initiate DMA Transfer Register
+                transferDMA(value);
+            }
+            else if (address == (unsigned short)0xFF41)
+            {
+                //Set LCDC Status
+                beakRam[address] = ((beakRam[address] & 0x87) | (value & 0x78) | 0x80); //Bit 7 is always 1, Bit 0, 1, and 2 are read Only //&0x87clears bits 3, 4, 5, 6 from Stat. &0xF8 clears all but bit bit 0, 1, 2, and 7 from value being written.
+            }
             else if (address == 0xFF4D && GBCMode == true)
-			{
-				// Set Speed Mode
+            {
+                // Set Speed Mode
 
                 bool newSpeedSetting = (value & 0b0000 - 0001) == 1;
                 emit cpu_SetDoubleSpeedMode(newSpeedSetting);
-			}
+            }
             else if (address == 0xFF4F && GBCMode == true)
-			{
-				// Swap VRAM Bank
-				swapVRAMBank(value);
-			}
+            {
+                // Swap VRAM Bank
+                swapVRAMBank(value);
+            }
             else if (address == 0xFF55 && GBCMode == true)
-			{
-				// Initiate GBC HDMA Transfer.
-				unsigned short sourceAddress = (unsigned short)((beakRam[0xFF51] << 8) | beakRam[0xFF52]);
-				unsigned short targetAddress = (unsigned short)((beakRam[0xFF53] << 8) | beakRam[0xFF54]);
+            {
+                // Initiate GBC HDMA Transfer.
+                unsigned short sourceAddress = (unsigned short)((beakRam[0xFF51] << 8) | beakRam[0xFF52]);
+                unsigned short targetAddress = (unsigned short)((beakRam[0xFF53] << 8) | beakRam[0xFF54]);
 
-				// Mask off low 4 bits from addresses.
-				sourceAddress &= 0xFFF0;
-				targetAddress &= 0x1FF0;
+                // Mask off low 4 bits from addresses.
+                sourceAddress &= 0xFFF0;
+                targetAddress &= 0x1FF0;
 
-				int byteTransferAmount = value * 16;
+                int byteTransferAmount = value * 16;
 
-				for (int i = 0; i < byteTransferAmount; i++)
-				{
-					beakRam[0x8000 + targetAddress + i] = beakRam[sourceAddress + i];
-				}
-			}
+                for (int i = 0; i < byteTransferAmount; i++)
+                {
+                    beakRam[0x8000 + targetAddress + i] = beakRam[sourceAddress + i];
+                }
+            }
             else if (address == 0xFF68 && GBCMode == true)
-			{
-				// Set GBC Background Palette Index
+            {
+                // Set GBC Background Palette Index
                 beakRam[address] = (unsigned char)(0x40 | (value));
-				// Bit 7: Increment on Write setting //Bit 6: Unused //Bit 0,1,2,3,4,5 Index (0-3F)
-			}
+                // Bit 7: Increment on Write setting //Bit 6: Unused //Bit 0,1,2,3,4,5 Index (0-3F)
+            }
             else if (address == 0xFF69 && GBCMode == true)
-			{
-				// Write to Background Palette Ram.
+            {
+                // Write to Background Palette Ram.
 
-				// BG Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
+                // BG Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
                 unsigned char bgIndexData = beakRam[0xFF68];
-				bool bgIndexAutoIncrement = (bgIndexData & 0x80) != 0;
+                bool bgIndexAutoIncrement = (bgIndexData & 0x80) != 0;
 
-				// Retrieve index data for palette ram write.
+                // Retrieve index data for palette ram write.
                 unsigned char index = (unsigned char)(bgIndexData & 0b00111111);
 
-				// Write data to palette ram at index.
-				backgroundPaletteRam[index] = value;
+                // Write data to palette ram at index.
+                backgroundPaletteRam[index] = value;
 
-				// Increment index data if auto-increment is enabled.
-				if (bgIndexAutoIncrement)
-				{
+                // Increment index data if auto-increment is enabled.
+                if (bgIndexAutoIncrement)
+                {
                     unsigned char newIndexData = (unsigned char)(index + 1);
-					newIndexData |= 0b11000000; // Set unused and auto-increment bits to enabled.
-					beakRam[0xFF68] = newIndexData;
-				}
-			}
+                    newIndexData |= 0b11000000; // Set unused and auto-increment bits to enabled.
+                    beakRam[0xFF68] = newIndexData;
+                }
+            }
             else if (address == 0xFF6A && GBCMode == true)
-			{
-				// Set GBC Sprite Palette Index
+            {
+                // Set GBC Sprite Palette Index
                 beakRam[address] = (unsigned char)(0x40 | (value));
-				// Bit 7: Increment on Write setting //Bit 6: Unused //Bit 0,1,2,3,4,5 Index (0-3F)
-			}
+                // Bit 7: Increment on Write setting //Bit 6: Unused //Bit 0,1,2,3,4,5 Index (0-3F)
+            }
             else if (address == 0xFF6B && GBCMode == true)
-			{
-				// Write to Sprite Palette Ram.
+            {
+                // Write to Sprite Palette Ram.
 
-				// Sprite Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
+                // Sprite Index: Bits 0,1,2,3,4,5: Index value. Bit 6: Unused. Bit 7: Auto-increment index on write. 0: Disabed, 1: Enabled.
                 unsigned char spriteIndexData = beakRam[0xFF6A];
-				bool spriteIndexAutoIncrement = (spriteIndexData & 0x80) != 0;
+                bool spriteIndexAutoIncrement = (spriteIndexData & 0x80) != 0;
 
-				// Retrieve index data for palette ram write.
+                // Retrieve index data for palette ram write.
                 unsigned char index = (unsigned char)(spriteIndexData & 0b00111111);
 
-				// Write data to palette ram at index.
-				spritePaletteRam[index] = value;
+                // Write data to palette ram at index.
+                spritePaletteRam[index] = value;
 
-				// Increment index data if auto-increment is enabled.
-				if (spriteIndexAutoIncrement)
-				{
+                // Increment index data if auto-increment is enabled.
+                if (spriteIndexAutoIncrement)
+                {
                     unsigned char newIndexData = (unsigned char)(index + 1);
-					newIndexData |= 0b11000000; // Set unused and auto-increment bits to enabled.
-					beakRam[0xFF6A] = newIndexData;
-				}
-			}
+                    newIndexData |= 0b11000000; // Set unused and auto-increment bits to enabled.
+                    beakRam[0xFF6A] = newIndexData;
+                }
+            }
             else if (address == 0xFF70 && GBCMode == true)
-			{
-				// Swap WRAM Bank at 0xD000
+            {
+                // Swap WRAM Bank at 0xD000
                 unsigned char bankValue = (unsigned char)(value & 0b111);
 
-				if (bankValue == 0)
-					bankValue = 1;
+                if (bankValue == 0)
+                    bankValue = 1;
 
-				swapInternalRamBank(bankValue);
-			}
-			else
-			{
-				if (address >= 0xC000 && address <= 0xDDFF)
-				{
-					//ECHO. Anything written to here also gets written to CXXXX
-					beakRam[address + 0x2000] = value;
-				}
-				else if (address >= 0xE000 && address <= 0xFDFF)
-				{
-					beakRam[address - 0x2000] = value;
-				}
+                swapInternalRamBank(bankValue);
+            }
+            else
+            {
+                if (address >= 0xC000 && address <= 0xDDFF)
+                {
+                    //ECHO. Anything written to here also gets written to CXXXX
+                    beakRam[address + 0x2000] = value;
+                }
+                else if (address >= 0xE000 && address <= 0xFDFF)
+                {
+                    beakRam[address - 0x2000] = value;
+                }
 
-				beakRam[address] = value;
-			}
-		}
-	}
+                beakRam[address] = value;
+            }
+        }
+    }
 }
 
 void Memory::writeMemory(unsigned short address, short shortVal)
@@ -338,405 +338,405 @@ void Memory::writeMemory(unsigned short address, short shortVal)
 
 void Memory::swapVRAMBank(unsigned char newBank)
 {
-	// Mask away unused data.
-	newBank &= 0b00000001;
+    // Mask away unused data.
+    newBank &= 0b00000001;
 
-	if (vramBank != newBank)
-	{
-		// Swap bank in GB vram with bank in external VRAM.
-		for (int i = 0; i < 0x2000; i++)
-		{
+    if (vramBank != newBank)
+    {
+        // Swap bank in GB vram with bank in external VRAM.
+        for (int i = 0; i < 0x2000; i++)
+        {
             unsigned char temporarySwapByte = externalVRAMBank[i];   // Hold new data from external bank.
-			externalVRAMBank[i] = beakRam[0x8000 + i];       // Write previous bank data to external bank.
-			beakRam[0x8000 + i] = temporarySwapByte;         // Write new bank data to GB VRAM region.
-		}
+            externalVRAMBank[i] = beakRam[0x8000 + i];       // Write previous bank data to external bank.
+            beakRam[0x8000 + i] = temporarySwapByte;         // Write new bank data to GB VRAM region.
+        }
 
-		// Set new bank number to the vram bank value.
-		vramBank = newBank;
-	}
+        // Set new bank number to the vram bank value.
+        vramBank = newBank;
+    }
 }
 
 void Memory::swapInternalRamBank(unsigned char newBank)
 {
-	if (internalRamBank != newBank)
-	{
-		if (newBank < 8)
-		{
-			unsigned short oldBankAddress = (unsigned short)(internalRamBank * 0x1000);
-			unsigned short bankAddress = (unsigned short)(newBank * 0x1000);
-			unsigned short ramAddress = 0xD000; //0xC000-CFFF is bank 0; //0xD000-DFFF is swappable
+    if (internalRamBank != newBank)
+    {
+        if (newBank < 8)
+        {
+            unsigned short oldBankAddress = (unsigned short)(internalRamBank * 0x1000);
+            unsigned short bankAddress = (unsigned short)(newBank * 0x1000);
+            unsigned short ramAddress = 0xD000; //0xC000-CFFF is bank 0; //0xD000-DFFF is swappable
 
-			//Write current GB ram data to internal ram bank
-			for (int i = 0; i < 0x1000; i++)
-			{
-				internalRam[oldBankAddress + i] = beakRam[ramAddress + i];
-			}
+            //Write current GB ram data to internal ram bank
+            for (int i = 0; i < 0x1000; i++)
+            {
+                internalRam[oldBankAddress + i] = beakRam[ramAddress + i];
+            }
 
-			//Write new internal ram bank data to GB ram
-			for (int i = 0; i < 0x1000; i++)
-			{
-				beakRam[ramAddress + i] = internalRam[bankAddress + i];
-			}
+            //Write new internal ram bank data to GB ram
+            for (int i = 0; i < 0x1000; i++)
+            {
+                beakRam[ramAddress + i] = internalRam[bankAddress + i];
+            }
 
-			// Set new bank number to the internal ram bank value.
-			internalRamBank = newBank;
-		}
-	}
+            // Set new bank number to the internal ram bank value.
+            internalRamBank = newBank;
+        }
+    }
 }
 
 void Memory::toggleZFlag()
 {
     unsigned char flag = getF();
-	flag ^= 0x80; //Toggles left most bit
-	setF(flag);
+    flag ^= 0x80; //Toggles left most bit
+    setF(flag);
 }
 
 void Memory::setZFlag(bool setting)
 {
-	if (setting)
-	{
+    if (setting)
+    {
         unsigned char flag = getF();
-		flag |= 0x80; //Sets left most bit to 1
-		setF(flag);
-	}
-	else
-	{
+        flag |= 0x80; //Sets left most bit to 1
+        setF(flag);
+    }
+    else
+    {
         unsigned char flag = getF();
-		flag &= 0x7F; //Sets left most bit to 0
-		setF(flag);
-	}
+        flag &= 0x7F; //Sets left most bit to 0
+        setF(flag);
+    }
 }
 
 bool Memory::getZFlag()
 {
     unsigned char flag = getF();
-	if (((flag & 0x80) >> 7) == 1)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if (((flag & 0x80) >> 7) == 1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void Memory::toggleNFlag()
 {
     unsigned char flag = getF();
-	flag ^= 0x40; //Toggles second to left most bit
-	setF(flag);
+    flag ^= 0x40; //Toggles second to left most bit
+    setF(flag);
 }
 
 void Memory::setNFlag(bool setting)
 {
-	if (setting)
-	{
+    if (setting)
+    {
         unsigned char flag = getF();
-		flag |= 0x40; //Sets second to left most bit to 1
-		setF(flag);
-	}
-	else
-	{
+        flag |= 0x40; //Sets second to left most bit to 1
+        setF(flag);
+    }
+    else
+    {
         unsigned char flag = getF();
-		flag &= 0xBF; //Sets second to left most bit to 0
-		setF(flag);
-	}
+        flag &= 0xBF; //Sets second to left most bit to 0
+        setF(flag);
+    }
 }
 
 bool Memory::getNFlag()
 {
     unsigned char flag = getF();
-	if (((flag & 0x40) >> 6) == 1)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if (((flag & 0x40) >> 6) == 1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void Memory::toggleHFlag()
 {
     unsigned char flag = getF();
-	flag ^= 0x20; //Toggles third to left most bit
-	setF(flag);
+    flag ^= 0x20; //Toggles third to left most bit
+    setF(flag);
 }
 
 void Memory::setHFlag(bool setting)
 {
-	if (setting)
-	{
+    if (setting)
+    {
         unsigned char flag = getF();
-		flag |= 0x20; //Sets third to left most bit to 1
-		setF(flag);
-	}
-	else
-	{
+        flag |= 0x20; //Sets third to left most bit to 1
+        setF(flag);
+    }
+    else
+    {
         unsigned char flag = getF();
-		flag &= 0xDF; //Sets third to left most bit to 0
-		setF(flag);
-	}
+        flag &= 0xDF; //Sets third to left most bit to 0
+        setF(flag);
+    }
 }
 
 bool Memory::getHFlag()
 {
     unsigned char flag = getF();
-	if (((flag & 0x20) >> 5) == 1)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if (((flag & 0x20) >> 5) == 1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void Memory::toggleCFlag()
 {
     unsigned char flag = getF();
-	flag ^= 0x10; //Toggles fourth to left most bit
-	setF(flag);
+    flag ^= 0x10; //Toggles fourth to left most bit
+    setF(flag);
 }
 
 void Memory::setCFlag(bool setting)
 {
-	if (setting)
-	{
+    if (setting)
+    {
         unsigned char flag = getF();
-		flag |= 0x10; //Sets fourth to left most bit to 1
-		setF(flag);
-	}
-	else
-	{
+        flag |= 0x10; //Sets fourth to left most bit to 1
+        setF(flag);
+    }
+    else
+    {
         unsigned char flag = getF();
-		flag &= 0xEF; //Sets fourth to left most bit to 0
-		setF(flag);
-	}
+        flag &= 0xEF; //Sets fourth to left most bit to 0
+        setF(flag);
+    }
 }
 
 bool Memory::getCFlag()
 {
     unsigned char flag = getF();
-	if (((flag & 0x10) >> 4) == 1)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+    if (((flag & 0x10) >> 4) == 1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 unsigned char Memory::getA()
 {
-	return (regAF & 0xFF00) >> 8;
+    return (regAF & 0xFF00) >> 8;
 }
 
 unsigned char Memory::getF()
 {
-	return (regAF & 0x00FF);
+    return (regAF & 0x00FF);
 }
 
 short Memory::getAF()
 {
-	return regAF;
+    return regAF;
 }
 
 unsigned char Memory::getB()
 {
-	return (regBC & 0xFF00) >> 8;
+    return (regBC & 0xFF00) >> 8;
 }
 
 unsigned char Memory::getC()
 {
-	return (regBC & 0x00FF);
+    return (regBC & 0x00FF);
 }
 
 short Memory::getBC()
 {
-	return regBC;
+    return regBC;
 }
 
 unsigned char Memory::getD()
 {
-	return (regDE & 0xFF00) >> 8;
+    return (regDE & 0xFF00) >> 8;
 }
 
 unsigned char Memory::getE()
 {
-	return (regDE & 0x00FF);
+    return (regDE & 0x00FF);
 }
 
 short Memory::getDE()
 {
-	return regDE;
+    return regDE;
 }
 
 unsigned char Memory::getH()
 {
-	return (regHL & 0xFF00) >> 8;
+    return (regHL & 0xFF00) >> 8;
 }
 
 unsigned char Memory::getL()
 {
-	return (regHL & 0x00FF);
+    return (regHL & 0x00FF);
 }
 
 short Memory::getHL()
 {
-	return regHL;
+    return regHL;
 }
 
 void Memory::setA(unsigned char newA)
 {
-	regAF = regAF & 0x00FF;
-	regAF |= newA << 8;
+    regAF = regAF & 0x00FF;
+    regAF |= newA << 8;
 }
 
 void Memory::setF(unsigned char newF)
 {
-	regAF = regAF & 0xFF00;
-	regAF |= newF;
+    regAF = regAF & 0xFF00;
+    regAF |= newF;
 }
 
 void Memory::setAF(short newAF)
 {
-	regAF = newAF & 0xFFF0;
+    regAF = newAF & 0xFFF0;
 }
 
 void Memory::setB(unsigned char newB)
 {
-	regBC = regBC & 0x00FF;
-	regBC |= newB << 8;
+    regBC = regBC & 0x00FF;
+    regBC |= newB << 8;
 }
 
 void Memory::setC(unsigned char newC)
 {
-	regBC = regBC & 0xFF00;
-	regBC |= newC;
+    regBC = regBC & 0xFF00;
+    regBC |= newC;
 }
 
 void Memory::setBC(short newBC)
 {
-	regBC = newBC;
+    regBC = newBC;
 }
 
 void Memory::setD(unsigned char newD)
 {
-	regDE = regDE & 0x00FF;
-	regDE |= newD << 8;
+    regDE = regDE & 0x00FF;
+    regDE |= newD << 8;
 }
 
 void Memory::setE(unsigned char newE)
 {
-	regDE = regDE & 0xFF00;
-	regDE |= newE;
+    regDE = regDE & 0xFF00;
+    regDE |= newE;
 }
 
 void Memory::setDE(short newDE)
 {
-	regDE = newDE;
+    regDE = newDE;
 }
 
 void Memory::setH(unsigned char newH)
 {
-	regHL = regHL & 0x00FF;
-	regHL |= newH << 8;
+    regHL = regHL & 0x00FF;
+    regHL |= newH << 8;
 }
 
 void Memory::setL(unsigned char newL)
 {
-	regHL = regHL & 0xFF00;
-	regHL |= newL;
+    regHL = regHL & 0xFF00;
+    regHL |= newL;
 }
 
 void Memory::setHL(short newHL)
 {
-	regHL = newHL;
+    regHL = newHL;
 }
 
 unsigned char Memory::getLCDControl()
 {
-	return readMemory(0xFF40);
+    return readMemory(0xFF40);
 }
 
 bool Memory::getLCDEnabled()
 {
-	return (((getLCDControl() & 0x80) >> 7) > 0); //Bit 7
+    return (((getLCDControl() & 0x80) >> 7) > 0); //Bit 7
 }
 
 unsigned char Memory::getLCDLY()
 {
-	return readMemory((short)0xFF44);
+    return readMemory((short)0xFF44);
 }
 
 void Memory::setLCDLY(unsigned char newLY)
 {
-	writeMemory((short)0xFF44, newLY);
+    writeMemory((short)0xFF44, newLY);
 }
 
 void Memory::setStackPointer(short nn)
 {
-	stackPointer = nn;
+    stackPointer = nn;
 }
 
 void Memory::clearRegistersFlagsAndMemory()
 {
-	setAF(0x0000);
-	setBC(0x0000);
-	setDE(0x0000);
-	setHL(0x0000);
-	setStackPointer((short)0x0000);
+    setAF(0x0000);
+    setBC(0x0000);
+    setDE(0x0000);
+    setHL(0x0000);
+    setStackPointer((short)0x0000);
     beakRam.fill(0);
 }
 
 void Memory::clearRegistersAndFlags()
 {
-	setAF(0x0000);
-	setBC(0x0000);
-	setDE(0x0000);
-	setHL(0x0000);
-	setStackPointer((short)0x0000);
+    setAF(0x0000);
+    setBC(0x0000);
+    setDE(0x0000);
+    setHL(0x0000);
+    setStackPointer((short)0x0000);
 }
 
 void Memory::initializeGameBoyValues()
 {
 
-	setAF(0x01B0);
-	setBC(0x013);
-	setDE(0x0D8);
-	setHL(0x14D);
-	setStackPointer((short)0xFFFE);
+    setAF(0x01B0);
+    setBC(0x013);
+    setDE(0x0D8);
+    setHL(0x14D);
+    setStackPointer((short)0xFFFE);
 
-	srand(time(NULL));
-	for (int i = 0xC000; i < 0xDFFF; i += 2)
-	{
-		int randNum = rand();
+    srand(time(NULL));
+    for (int i = 0xC000; i < 0xDFFF; i += 2)
+    {
+        int randNum = rand();
 
-		for (int j = 0; j < 2; j++)
-		{
-			if (i < 0xDFFF)
-			{
+        for (int j = 0; j < 2; j++)
+        {
+            if (i < 0xDFFF)
+            {
                 writeMemory((short)(i + j), (unsigned char)(randNum & 0x000000FF)); //So it ECHO will be emulated
-				randNum >>= 8;
-			}
-		}
-	}
+                randNum >>= 8;
+            }
+        }
+    }
 
-	for (int i = 0xFF80; i < 0xFFFE; i += 2)
-	{
-		int randNum = rand();
+    for (int i = 0xFF80; i < 0xFFFE; i += 2)
+    {
+        int randNum = rand();
 
-		for (int j = 0; j < 2; j++)
-		{
-			if (i < 0xFFFE)
-			{
+        for (int j = 0; j < 2; j++)
+        {
+            if (i < 0xFFFE)
+            {
                 writeMemory((short)(i + j), (unsigned char)(randNum & 0x000000FF)); //So it ECHO will be emulated
-				randNum >>= 8;
-			}
-		}
-	}
+                randNum >>= 8;
+            }
+        }
+    }
 
     beakRam[(unsigned short)0xFF00] = ((unsigned char)0xCF); //Joypad
     beakRam[(unsigned short)0xFF04] = ((unsigned char)0xAB);
@@ -781,44 +781,44 @@ void Memory::initializeGameBoyValues()
 void Memory::initializeGameBoyColorValues()
 {
 
-	setA(0x11); //AF: 0x1180
-	setF(0x80);
-	setB(0x00); //BC: 0x0000
-	setC(0x00);
-	setD(0xFF); //DE: 0xFF56
-	setE(0x56);
-	setH(0x00); //HL: 0x000D
-	setL(0x0D);
-	setStackPointer((short)0xFFFE);
+    setA(0x11); //AF: 0x1180
+    setF(0x80);
+    setB(0x00); //BC: 0x0000
+    setC(0x00);
+    setD(0xFF); //DE: 0xFF56
+    setE(0x56);
+    setH(0x00); //HL: 0x000D
+    setL(0x0D);
+    setStackPointer((short)0xFFFE);
 
-	srand(time(NULL));
-	for (int i = 0xC000; i < 0xDFFF; i += 2)
-	{
-		int randNum = rand();
+    srand(time(NULL));
+    for (int i = 0xC000; i < 0xDFFF; i += 2)
+    {
+        int randNum = rand();
 
-		for (int j = 0; j < 2; j++)
-		{
-			if (i < 0xDFFF)
-			{
+        for (int j = 0; j < 2; j++)
+        {
+            if (i < 0xDFFF)
+            {
                 writeMemory((short)(i + j), (unsigned char)(randNum & 0x000000FF)); //So it ECHO will be emulated
-				randNum >>= 8;
-			}
-		}
-	}
+                randNum >>= 8;
+            }
+        }
+    }
 
-	for (int i = 0xFF80; i < 0xFFFE; i += 2)
-	{
-		int randNum = rand();
+    for (int i = 0xFF80; i < 0xFFFE; i += 2)
+    {
+        int randNum = rand();
 
-		for (int j = 0; j < 2; j++)
-		{
-			if (i < 0xFFFE)
-			{
+        for (int j = 0; j < 2; j++)
+        {
+            if (i < 0xFFFE)
+            {
                 writeMemory((short)(i + j), (unsigned char)(randNum & 0x000000FF)); //So it ECHO will be emulated
-				randNum >>= 8;
-			}
-		}
-	}
+                randNum >>= 8;
+            }
+        }
+    }
 
     beakRam[(unsigned short)0xFF00] = ((unsigned char)0xCF); //Joypad
     beakRam[(unsigned short)0xFF04] = ((unsigned char)0xAB);
@@ -885,27 +885,27 @@ bool Memory::loadRom(QString path)
         int fileLength = binaryFileData.length();
 
         if (fileLength <= 0x500000)
-		{
-			int address = 0;
+        {
+            int address = 0;
             for (int i = 0x0; i < fileLength; i++)
-			{
+            {
                 rom.beakRom[address + i] = static_cast<unsigned char>(binaryFileData.at(i));
-			}
-		}
-		else
-		{
+            }
+        }
+        else
+        {
             //cout << "Error: Rom too large. It does not fit in GameBoy's memory." << endl;
-			return false;
-		}
-	}
-	else
-	{
+            return false;
+        }
+    }
+    else
+    {
         //cout << "Error: Rom does not exist." << endl;
-		return false;
-	}
+        return false;
+    }
 
     selectedFile.close();
-	return true;
+    return true;
 }
 
 /*
@@ -916,7 +916,7 @@ bool Memory::loadRom(QString path, bool findAndLoadSaveFile)
     bool fileLoaded = loadRom(path);
 
     if (fileLoaded && findAndLoadSaveFile)
-	{
+    {
         loadSaveFile(path);
         return true;
     } else {
@@ -935,17 +935,17 @@ bool Memory::loadRom(QByteArray romData)
         if (romSize <= 0x500000) {
             for (int i = 0x0; i < romSize; i++) {
                 rom.beakRom[i] = (unsigned char)romData[i];
-			}
+            }
         } else {
             //cout << "Error: Rom too large. It does not fit in GameBoy's memory." << endl;
-			return false;
-		}
+            return false;
+        }
     } else {
         //cout << "Error: Rom is empty." << endl;
-		return false;
-	}
+        return false;
+    }
 
-	return true;
+    return true;
 }
 
 /*
@@ -1008,9 +1008,9 @@ QByteArray Memory::returnSaveDataFromMemory()
     unsigned short address = 0xA000;
     for (int i = 0; i <= 0x1FFF; i++) {
         memory.push_back(beakRam[address + i]);
-	}
+    }
 
-	return memory;
+    return memory;
 }
 
 bool Memory::createSaveFile(bool overwrite) {
@@ -1061,333 +1061,333 @@ void Memory::resetMemory() {
 /*
 void Memory::saveState()
 {
-	char path1[MAX_PATH];
-	string path;
-	GetModuleFileNameA(NULL, path1, MAX_PATH);
-	path = string(path1);
-	path = path.substr(0, path.find_last_of('\\') + 1);
+    char path1[MAX_PATH];
+    string path;
+    GetModuleFileNameA(NULL, path1, MAX_PATH);
+    path = string(path1);
+    path = path.substr(0, path.find_last_of('\\') + 1);
 
-	ofstream file(path + "save1.egg");
-	if (file.is_open())
-	{
-		file << "[Title:]" << title << endl;
+    ofstream file(path + "save1.egg");
+    if (file.is_open())
+    {
+        file << "[Title:]" << title << endl;
         file << "[MBC:]" << hexToASCII(rom.mapperSetting) << endl;
-		file << "[Rom Bank:]" << hexToASCIIU(mapper.romBankNumber) << endl;
-		file << "[Ram Bank:]" << hexToASCII(mapper.ramBankNumber) << endl;
-		file << "[AF:]" << hexToASCIIU(regAF) << endl;
-		file << "[BC:]" << hexToASCIIU(regBC) << endl;
-		file << "[DE:]" << hexToASCIIU(regDE) << endl;
-		file << "[HL:]" << hexToASCIIU(regHL) << endl;
-		file << "[PC:]" << hexToASCIIU(memoryPointer) << endl;
-		file << "[SP:]" << hexToASCIIU(stackPointer) << endl;
-		file << "[Halt:]" << hexToASCII(cpu.returnHalt()) << endl;
-		file << "[Interrupt:]" << hexToASCII(cpu.returnInterrupt()) << endl;
-		file << "[PendingIMESet:]" << hexToASCII(enableInterruptsNextCycle) << endl;
-		file << "[IME:]" << hexToASCII(cpu.returnIME()) << endl;
-		file << "[Repeat:]" << hexToASCII(cpu.returnRepeat()) << endl;
-		file << "[Clocks:]" << hexToASCII(clocks) << endl;
-		file << "[GPUMode:]" << hexToASCII(beakWindow.gpuMode) << endl;
-		file << "[Memory:]";
+        file << "[Rom Bank:]" << hexToASCIIU(mapper.romBankNumber) << endl;
+        file << "[Ram Bank:]" << hexToASCII(mapper.ramBankNumber) << endl;
+        file << "[AF:]" << hexToASCIIU(regAF) << endl;
+        file << "[BC:]" << hexToASCIIU(regBC) << endl;
+        file << "[DE:]" << hexToASCIIU(regDE) << endl;
+        file << "[HL:]" << hexToASCIIU(regHL) << endl;
+        file << "[PC:]" << hexToASCIIU(memoryPointer) << endl;
+        file << "[SP:]" << hexToASCIIU(stackPointer) << endl;
+        file << "[Halt:]" << hexToASCII(cpu.returnHalt()) << endl;
+        file << "[Interrupt:]" << hexToASCII(cpu.returnInterrupt()) << endl;
+        file << "[PendingIMESet:]" << hexToASCII(enableInterruptsNextCycle) << endl;
+        file << "[IME:]" << hexToASCII(cpu.returnIME()) << endl;
+        file << "[Repeat:]" << hexToASCII(cpu.returnRepeat()) << endl;
+        file << "[Clocks:]" << hexToASCII(clocks) << endl;
+        file << "[GPUMode:]" << hexToASCII(beakWindow.gpuMode) << endl;
+        file << "[Memory:]";
 
-		for (int i = 0x8000; i <= 0xFFFF; i++)
-		{
+        for (int i = 0x8000; i <= 0xFFFF; i++)
+        {
             unsigned char ram = beakRam[i];
 
-			file << hexToASCII(beakRam[i]) << ';';
-		}
+            file << hexToASCII(beakRam[i]) << ';';
+        }
 
-	}
+    }
 
-	file.close();
+    file.close();
 }*/
 
 /*
 void Memory::loadSaveState()
 {
-	char path1[MAX_PATH];
-	string path;
-	GetModuleFileNameA(NULL, path1, MAX_PATH);
-	path = string(path1);
-	path = path.substr(0, path.find_last_of('\\') + 1);
+    char path1[MAX_PATH];
+    string path;
+    GetModuleFileNameA(NULL, path1, MAX_PATH);
+    path = string(path1);
+    path = path.substr(0, path.find_last_of('\\') + 1);
 
-	ifstream savestateFile(path + "save1.egg");
-	if (!savestateFile.fail())
-	{
-		string line;
+    ifstream savestateFile(path + "save1.egg");
+    if (!savestateFile.fail())
+    {
+        string line;
         list<unsigned char> colorValues;
 
-		bool quit = false;
-		bool setRomBank = false;
-		bool setRamBank = false;
+        bool quit = false;
+        bool setRomBank = false;
+        bool setRamBank = false;
 
-		while (getline(savestateFile, line) && !quit)
-		{
-			if (line.find("[Title:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
+        while (getline(savestateFile, line) && !quit)
+        {
+            if (line.find("[Title:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
 
-				line = line.substr(last, line.length() - last);
+                line = line.substr(last, line.length() - last);
 
-				if (title != line)
-				{
-					quit = true;
-				}
-			}
-			else if (line.find("[MBC:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last - 2);
-
-
-				unsigned int mbc = stoi(line, 0, 16);
-
-				switch (mbc)
-				{
-				case 1:
-				case 2:
-				case 3:
-				{
-					//MBC1
-					setRomBank = true;
-					setRamBank = true;
-					break;
-				}
-				case 5:
-				case 6:
-				{
-					//MBC2
-					setRomBank = true;
-					break;
-				}
-				//case 0x0B:
-				//case 0x0C:
-				//case 0x0D:
-				case 0x11:
-				case 0x12:
-				case 0x13:
-				{
-					//MBC3
-					setRomBank = true;
-					setRamBank = true;
-					break;
-				}
-				case 0x19:
-				case 0x1A:
-				case 0x1B:
-				case 0x1C:
-				case 0x1D:
-				case 0x1E:
-				{
-					//MBC5
-					setRomBank = true;
-					setRamBank = true;
-					break;
-				}
-				//case 0x20:
-				//case 0x22:
-				//case 0xFD:
-				//case 0xFE:
-				//case 0xFF:
-				}
+                if (title != line)
+                {
+                    quit = true;
+                }
+            }
+            else if (line.find("[MBC:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last - 2);
 
 
-			}
-			else if (line.find("[Rom Bank:]") != string::npos)
-			{
-				if (setRomBank == true)
-				{
-					int last = line.find_last_of(']') + 1;
-					line = line.substr(last, line.length() - last - 2);
+                unsigned int mbc = stoi(line, 0, 16);
 
-					unsigned int romBank = stoi(line, 0, 16);
+                switch (mbc)
+                {
+                case 1:
+                case 2:
+                case 3:
+                {
+                    //MBC1
+                    setRomBank = true;
+                    setRamBank = true;
+                    break;
+                }
+                case 5:
+                case 6:
+                {
+                    //MBC2
+                    setRomBank = true;
+                    break;
+                }
+                //case 0x0B:
+                //case 0x0C:
+                //case 0x0D:
+                case 0x11:
+                case 0x12:
+                case 0x13:
+                {
+                    //MBC3
+                    setRomBank = true;
+                    setRamBank = true;
+                    break;
+                }
+                case 0x19:
+                case 0x1A:
+                case 0x1B:
+                case 0x1C:
+                case 0x1D:
+                case 0x1E:
+                {
+                    //MBC5
+                    setRomBank = true;
+                    setRamBank = true;
+                    break;
+                }
+                //case 0x20:
+                //case 0x22:
+                //case 0xFD:
+                //case 0xFE:
+                //case 0xFF:
+                }
 
-					//Change Rom Bank based on which memory controller it is
+
+            }
+            else if (line.find("[Rom Bank:]") != string::npos)
+            {
+                if (setRomBank == true)
+                {
+                    int last = line.find_last_of(']') + 1;
+                    line = line.substr(last, line.length() - last - 2);
+
+                    unsigned int romBank = stoi(line, 0, 16);
+
+                    //Change Rom Bank based on which memory controller it is
                     switch (rom.mapperSetting)
-					{
-					case 1:
-					case 2:
-					case 3:
-					{
-						//MBC1
-						mbc1.changeMBC1RomBanks(romBank);
-						break;
-					}
-					case 5:
-					case 6:
-					{
-						//MBC2
-						mbc2.changeMBC2RomBanks(romBank);
-						break;
-					}
-					//case 0x0B:
-					//case 0x0C:
-					//case 0x0D:
-					case 0x11:
-					case 0x12:
-					case 0x13:
-					{
-						//MBC3
-						mbc3.changeMBC3RomBanks(romBank);
-						break;
-					}
-					case 0x19:
-					case 0x1A:
-					case 0x1B:
-					case 0x1C:
-					case 0x1D:
-					case 0x1E:
-					{
-						//MBC5
-						mbc5.changeMBC5RomBanks(romBank);
-						break;
-					}
-					}
-				}
-			}
-			else if (line.find("[Ram Bank:]") != string::npos)
-			{
-				if (setRamBank == true)
-				{
-					int last = line.find_last_of(']') + 1;
-					line = line.substr(last, line.length() - last);
+                    {
+                    case 1:
+                    case 2:
+                    case 3:
+                    {
+                        //MBC1
+                        mbc1.changeMBC1RomBanks(romBank);
+                        break;
+                    }
+                    case 5:
+                    case 6:
+                    {
+                        //MBC2
+                        mbc2.changeMBC2RomBanks(romBank);
+                        break;
+                    }
+                    //case 0x0B:
+                    //case 0x0C:
+                    //case 0x0D:
+                    case 0x11:
+                    case 0x12:
+                    case 0x13:
+                    {
+                        //MBC3
+                        mbc3.changeMBC3RomBanks(romBank);
+                        break;
+                    }
+                    case 0x19:
+                    case 0x1A:
+                    case 0x1B:
+                    case 0x1C:
+                    case 0x1D:
+                    case 0x1E:
+                    {
+                        //MBC5
+                        mbc5.changeMBC5RomBanks(romBank);
+                        break;
+                    }
+                    }
+                }
+            }
+            else if (line.find("[Ram Bank:]") != string::npos)
+            {
+                if (setRamBank == true)
+                {
+                    int last = line.find_last_of(']') + 1;
+                    line = line.substr(last, line.length() - last);
 
-					unsigned int ramBank = stoi(line, 0, 16);
+                    unsigned int ramBank = stoi(line, 0, 16);
 
 
-					mapper.changeRamBanks(ramBank);
-				}
-			}
-			else if (line.find("[AF:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                    mapper.changeRamBanks(ramBank);
+                }
+            }
+            else if (line.find("[AF:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int af = stoi(line, 0, 16);
+                unsigned int af = stoi(line, 0, 16);
 
-				setAF(af);
-			}
-			else if (line.find("[BC:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                setAF(af);
+            }
+            else if (line.find("[BC:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int bc = stoi(line, 0, 16);
+                unsigned int bc = stoi(line, 0, 16);
 
-				setBC(bc);
-			}
-			else if (line.find("[DE:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                setBC(bc);
+            }
+            else if (line.find("[DE:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int de = stoi(line, 0, 16);
+                unsigned int de = stoi(line, 0, 16);
 
-				setDE(de);
-			}
-			else if (line.find("[HL:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                setDE(de);
+            }
+            else if (line.find("[HL:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int hl = stoi(line, 0, 16);
+                unsigned int hl = stoi(line, 0, 16);
 
-				setHL(hl);
-			}
-			else if (line.find("[PC:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                setHL(hl);
+            }
+            else if (line.find("[PC:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int pc = stoi(line, 0, 16);
+                unsigned int pc = stoi(line, 0, 16);
 
-				memoryPointer = pc;
-			}
-			else if (line.find("[SP:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                memoryPointer = pc;
+            }
+            else if (line.find("[SP:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int sp = stoi(line, 0, 16);
+                unsigned int sp = stoi(line, 0, 16);
 
-				stackPointer = sp;
-			}
-			else if (line.find("[HALT:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                stackPointer = sp;
+            }
+            else if (line.find("[HALT:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int halt = stoi(line, 0, 16);
+                unsigned int halt = stoi(line, 0, 16);
 
-				cpu.setHalt(halt > 0);
-			}
-			else if (line.find("[Interrupt:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                cpu.setHalt(halt > 0);
+            }
+            else if (line.find("[Interrupt:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int interruptVal = stoi(line, 0, 16);
+                unsigned int interruptVal = stoi(line, 0, 16);
 
-				cpu.setInterrupt(interruptVal > 0);
-			}
-			else if (line.find("[PendingIMESet:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                cpu.setInterrupt(interruptVal > 0);
+            }
+            else if (line.find("[PendingIMESet:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int imeSet = stoi(line, 0, 16);
+                unsigned int imeSet = stoi(line, 0, 16);
 
-				enableInterruptsNextCycle = (imeSet > 0);
-			}
-			else if (line.find("[IME:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                enableInterruptsNextCycle = (imeSet > 0);
+            }
+            else if (line.find("[IME:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int ime = stoi(line, 0, 16);
+                unsigned int ime = stoi(line, 0, 16);
 
-				cpu.setIME(ime > 0);
-			}
-			else if (line.find("[Repeat:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                cpu.setIME(ime > 0);
+            }
+            else if (line.find("[Repeat:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int repeat = stoi(line, 0, 16);
+                unsigned int repeat = stoi(line, 0, 16);
 
-				cpu.setRepeat(repeat > 0);
-			}
-			else if (line.find("[Clocks:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                cpu.setRepeat(repeat > 0);
+            }
+            else if (line.find("[Clocks:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int clocksVal = stoi(line, 0, 16);
+                unsigned int clocksVal = stoi(line, 0, 16);
 
-				clocks = clocksVal;
-			}
-			else if (line.find("[GPUMode:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                clocks = clocksVal;
+            }
+            else if (line.find("[GPUMode:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				unsigned int gpuMode = stoi(line, 0, 16);
+                unsigned int gpuMode = stoi(line, 0, 16);
 
-				beakWindow.gpuMode = gpuMode;
-			}
-			else if (line.find("[Memory:]") != string::npos)
-			{
-				int last = line.find_last_of(']') + 1;
-				line = line.substr(last, line.length() - last);
+                beakWindow.gpuMode = gpuMode;
+            }
+            else if (line.find("[Memory:]") != string::npos)
+            {
+                int last = line.find_last_of(']') + 1;
+                line = line.substr(last, line.length() - last);
 
-				for (int i = 0x8000; i <= 0xFFFF; i++)
-				{
-					int nextDelimiter = line.find_first_of(';');
-					beakRam[i] = stoi(line.substr(0, nextDelimiter), 0, 16);
-					line = line.substr(nextDelimiter + 1, line.length() - (nextDelimiter + 1));
-				}
-			}
+                for (int i = 0x8000; i <= 0xFFFF; i++)
+                {
+                    int nextDelimiter = line.find_first_of(';');
+                    beakRam[i] = stoi(line.substr(0, nextDelimiter), 0, 16);
+                    line = line.substr(nextDelimiter + 1, line.length() - (nextDelimiter + 1));
+                }
+            }
         }
-	}
+    }
     //paused = true;
 }
 */

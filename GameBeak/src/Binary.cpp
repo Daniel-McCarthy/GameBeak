@@ -138,7 +138,7 @@ QString hexToASCII(unsigned char value)
             value >>= 4;
 
             if (toConvert > 9)
-			{
+            {
                 //0x41 is ASCII 'a', value of character will index appropriate letter
                 toConvert -= 0xA;
                 output = static_cast<char>(0x61 + toConvert) + output;

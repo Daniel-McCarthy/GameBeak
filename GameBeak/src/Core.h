@@ -45,8 +45,8 @@ public:
     int memoryControllerMode = 0;
 
     //Settings values
-    bool GBCMode = false;					//This controls whether Gameboy Color emulation is currently activated.
-    bool ForceDMGMode = false;				//This allows forcing games to run in DMG emulation.
+    bool GBCMode = false;                    //This controls whether Gameboy Color emulation is currently activated.
+    bool ForceDMGMode = false;                //This allows forcing games to run in DMG emulation.
 
     void emulationLoop();
     void resetCore();

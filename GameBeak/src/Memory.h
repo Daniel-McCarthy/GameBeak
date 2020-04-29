@@ -19,7 +19,7 @@ class Memory : public QObject
 {
     Q_OBJECT
 
-	private:
+    private:
         Rom& rom;
         Cpu& cpu;
         bool& GBCMode;
