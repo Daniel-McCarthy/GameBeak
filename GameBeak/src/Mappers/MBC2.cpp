@@ -56,14 +56,6 @@ void MBC2::writeMBC2Value(short address, unsigned char value)
         }
 
     }
-    /*
-    Should never get called, as MBC writes only occur if it is less than 0x7FFF
-    else if (address >= 0xA000 && address <= 0xA1FF)
-    {
-    //External Ram 512x4bits
-    beakRam[(unsigned short)address] = value;
-    }
-    */
 }
 
 MBC2::~MBC2()

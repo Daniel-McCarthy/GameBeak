@@ -96,48 +96,6 @@ bool Gpu::getBackGroundEnabled()
     return (getLCDControl() & 0x01);
 }
 
-//Draw All Tiles: Draws each tile directly from vram in the order they are in Vram. Prints out each tile that is loaded into memory
-/*void Gpu::drawAllTiles()
-{
-    int baseAddress = 0x8000;
-
-    QList<QList<QColor>> tile;
-
-    for (int i = 0; i < 360; i++)
-    {
-        tile.clear();
-
-        int tileOffset = i * 16;
-
-        int tileAddress = baseAddress + tileOffset;
-
-        for (int j = 0; j < 16; j += 2)
-        {
-            unsigned char rowHalf1 = memory.readMemory(tileAddress + j);
-            unsigned char rowHalf2 = memory.readMemory(tileAddress + j + 1);
-
-            QList<QColor> row;
-
-            for (int k = 0; k < 8; k++)
-            {
-                int test = rowHalf1 & 0x01;
-                int test2 = rowHalf2 & 0x01;
-                int test3 = ((rowHalf1 & 0x01) << 1) | (rowHalf2 & 0x01);
-                QColor test4 = returnColor(((rowHalf1 & 0x01) << 1) | (rowHalf2 & 0x01));
-
-                row.push_back(returnColor((((rowHalf1 & 0x80) >> 7)) | ((rowHalf2 & 0x80) >> 6)));
-                rowHalf1 <<= 1;
-                rowHalf2 <<= 1;
-            }
-
-            tile.push_back(row);
-        }
-
-        drawDebugTile(i, tile);
-
-    }
-}*/
-
 //DrawLineFromMap: Draws a single specific line of the background map
 void Gpu::drawLineFromBGMap(unsigned char  lineY)
 {
@@ -442,23 +400,6 @@ void Gpu::drawLineFromSpriteMap(unsigned char lineY)
         }
     }
 }
-
-//DrawTile: Draws tile data as given to location of tile number given
-/*void Gpu::drawDebugTile(int tileNumber, QList<QList<QColor>> tile)
-{
-    int y = tileNumber / 20;
-    int x = tileNumber - (20 * y);
-
-    for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
-            screen.setDebugPixel((x * 8) + j, (y * 8) + i, tile[0][j]);
-        }
-
-        tile.erase(tile.begin());
-    }
-}*/
 
 unsigned char Gpu::getScrollX()
 {

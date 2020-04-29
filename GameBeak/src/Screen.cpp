@@ -22,10 +22,10 @@ void Screen::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshC
 {
     unsigned char ly = memory.getLCDLY();
     unsigned char originalLY = ly;
-    if (gpuMode == 0)// || !gpu.getLCDOn()) //(Should be more accurate? Causes Bust A Move to be extremely slow when LCD is off)
+    if (gpuMode == 0)
     {
         //H-Blank
-        if ((clocks - lineClocksSinceLastUpdate) >= 204)//40)//80)//40)//80)//56)//102)//204)
+        if ((clocks - lineClocksSinceLastUpdate) >= 204)
         {
             {
                 ly++;
@@ -100,20 +100,6 @@ void Screen::updateLCD(int clocks, int& lineClocksSinceLastUpdate, int& refreshC
                 ly++;
                 memory.setLCDLY(ly);
             }
-            /*
-            if (ly >= 154)
-            {
-
-                //Set LCD Interrupt if OAM event is enabled
-                if ((gpu.getLCDStatus() & 0x10) > 0)
-                {
-                    memory.writeMemory(0xFF0F, (byte)(memory.readMemory(0xFF0F) | 0x02));
-                }
-
-                ly = 0;
-                memory.setLCDLY(ly);
-            }
-            */
 
             lineClocksSinceLastUpdate = clocks;
         }
