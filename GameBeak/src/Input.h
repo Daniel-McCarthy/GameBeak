@@ -7,6 +7,8 @@
 #include <QtGamepad/QGamepadManager>
 #include <QtGamepad/QGamepad>
 
+#include <QKeyEvent>
+
 #pragma once
 class Cpu;
 class Memory;

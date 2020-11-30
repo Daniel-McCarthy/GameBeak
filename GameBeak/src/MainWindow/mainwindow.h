@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QThread>
 #include <QHBoxLayout>
+#include <QCloseEvent>
 
 namespace Ui {
 class MainWindow;
@@ -27,7 +28,7 @@ private:
     Core* core = nullptr;
     Canvas* canvas;
     QHBoxLayout* hLayout;
-    ColorDialog* currentColorDialog = NULL;
+    ColorDialog* currentColorDialog = nullptr;
 
     void closeEvent(QCloseEvent *event);
     void terminateEmulation();
