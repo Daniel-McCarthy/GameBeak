@@ -31,17 +31,20 @@ private:
     Gpu& gpu;
     QTime screenUpdateTimer;
 
-    void setIcon(int width, int height, QString path);
     QColor bgPixels[256 * 256];
     QColor windowPixels[256 * 256];
     QColor spritePixels[256 * 256];
     QColor tileDebugPixels[256 * 256];
     unsigned char scrollXValues[256];
-    int gpuMode = 1; //BGB defaults this to 1, V-Blank. This should be true.
-    int getGPUMode();
+
     QImage screen = QImage(160, 144, QImage::Format_RGB32);
     QImage debugTileScreen;
+
+    int gpuMode = 1; //BGB defaults this to 1, V-Blank. This should be true.
     bool poweringOn = true;
+
+    void setIcon(int width, int height, QString path);
+    int getGPUMode();
 };
 
 #endif // SCREEN_H
