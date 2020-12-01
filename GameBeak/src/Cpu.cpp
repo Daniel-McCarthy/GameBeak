@@ -1727,9 +1727,9 @@ void Cpu::opcode04()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getB() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getB() == 0));
     memory.setNFlag(false);
-    memory.setHFlag((((memory.getB()) & 0x0F) == 0) ? 1 : 0);
+    memory.setHFlag((((memory.getB()) & 0x0F) == 0));
 }
 
 void Cpu::opcode05()
@@ -1741,9 +1741,9 @@ void Cpu::opcode05()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getB() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getB() == 0));
     memory.setNFlag(true);
-    memory.setHFlag((((memory.getB()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setHFlag((((memory.getB()) & 0x0F) == 0xF));
 }
 
 void Cpu::opcode06(unsigned char n)
@@ -1824,9 +1824,9 @@ void Cpu::opcode0C()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getC() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getC() == 0));
     memory.setNFlag(false);
-    memory.setHFlag((((memory.getC()) & 0x0F) == 0) ? 1 : 0);
+    memory.setHFlag((((memory.getC()) & 0x0F) == 0));
 }
 
 void Cpu::opcode0D()
@@ -1838,9 +1838,9 @@ void Cpu::opcode0D()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getC() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getC() == 0));
     memory.setNFlag(true);
-    memory.setHFlag((((memory.getC()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setHFlag((((memory.getC()) & 0x0F) == 0xF));
 }
 
 void Cpu::opcode0E(unsigned char n)
@@ -1913,9 +1913,9 @@ void Cpu::opcode14()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getD() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getD() == 0));
     memory.setNFlag(false);
-    memory.setHFlag((((memory.getD()) & 0x0F) == 0) ? 1 : 0);
+    memory.setHFlag((((memory.getD()) & 0x0F) == 0));
 }
 
 void Cpu::opcode15()
@@ -1927,9 +1927,9 @@ void Cpu::opcode15()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getD() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getD() == 0));
     memory.setNFlag(true);
-    memory.setHFlag((((memory.getD()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setHFlag((((memory.getD()) & 0x0F) == 0xF));
 }
 
 void Cpu::opcode16(unsigned char n)
@@ -2008,9 +2008,9 @@ void Cpu::opcode1C()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getE() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getE() == 0));
     memory.setNFlag(false);
-    memory.setHFlag((((memory.getE()) & 0x0F) == 0) ? 1 : 0);
+    memory.setHFlag((((memory.getE()) & 0x0F) == 0));
 }
 
 void Cpu::opcode1D()
@@ -2022,9 +2022,9 @@ void Cpu::opcode1D()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getE() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getE() == 0));
     memory.setNFlag(true);
-    memory.setHFlag((((memory.getE()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setHFlag((((memory.getE()) & 0x0F) == 0xF));
 }
 
 void Cpu::opcode1E(unsigned char n)
@@ -2103,9 +2103,9 @@ void Cpu::opcode24()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getH() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getH() == 0));
     memory.setNFlag(false);
-    memory.setHFlag((((memory.getH()) & 0x0F) == 0) ? 1 : 0);
+    memory.setHFlag((((memory.getH()) & 0x0F) == 0));
 }
 
 void Cpu::opcode25()
@@ -2117,9 +2117,9 @@ void Cpu::opcode25()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getH() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getH() == 0));
     memory.setNFlag(true);
-    memory.setHFlag((((memory.getH()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setHFlag((((memory.getH()) & 0x0F) == 0xF));
 }
 
 void Cpu::opcode26(unsigned char n)
@@ -2231,9 +2231,9 @@ void Cpu::opcode2C()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getL() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getL() == 0);
     memory.setNFlag(false);
-    memory.setHFlag((((memory.getL()) & 0x0F) == 0) ? 1 : 0);
+    memory.setHFlag(((memory.getL()) & 0x0F) == 0);
 }
 
 void Cpu::opcode2D()
@@ -2243,9 +2243,9 @@ void Cpu::opcode2D()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getL() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getL() == 0);
     memory.setNFlag(true);
-    memory.setHFlag((((memory.getL()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setHFlag(((memory.getL()) & 0x0F) == 0xF);
 }
 
 void Cpu::opcode2E(unsigned char n)
@@ -2316,9 +2316,9 @@ void Cpu::opcode34()
     mClock += 3;
     tClock += 12;
 
-    memory.setZFlag((memory.readMemory(hl) == 0) ? 1 : 0);
+    memory.setZFlag(memory.readMemory(hl) == 0);
     memory.setNFlag(false);
-    memory.setHFlag((((memory.readMemory(hl)) & 0x0F) == 0) ? 1 : 0);
+    memory.setHFlag(((memory.readMemory(hl)) & 0x0F) == 0);
 }
 
 void Cpu::opcode35()
@@ -2329,9 +2329,9 @@ void Cpu::opcode35()
     mClock += 3;
     tClock += 12;
 
-    memory.setZFlag((memory.readMemory(hl) == 0) ? 1 : 0);
+    memory.setZFlag(memory.readMemory(hl) == 0);
     memory.setNFlag(true);
-    memory.setHFlag((((memory.readMemory(hl)) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setHFlag(((memory.readMemory(hl)) & 0x0F) == 0xF);
 }
 
 void Cpu::opcode36(unsigned char n)
@@ -2410,9 +2410,9 @@ void Cpu::opcode3C()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
-    memory.setHFlag((((memory.getA()) & 0x0F) == 0) ? 1 : 0);
+    memory.setHFlag(((memory.getA()) & 0x0F) == 0);
 }
 
 void Cpu::opcode3D()
@@ -2422,9 +2422,9 @@ void Cpu::opcode3D()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(true);
-    memory.setHFlag((((memory.getA()) & 0x0F) == 0xF) ? 1 : 0);
+    memory.setHFlag(((memory.getA()) & 0x0F) == 0xF);
 }
 
 void Cpu::opcode3E(unsigned char n)
@@ -3075,7 +3075,7 @@ void Cpu::opcode85()
 void Cpu::opcode86()
 {
     //Add data at HL to A
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
 
     uint8_t data = memory.readMemory(static_cast<unsigned short>(memory.getHL()));
@@ -3534,7 +3534,7 @@ void Cpu::opcodeA0()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(true);
     memory.setCFlag(false);
@@ -3547,7 +3547,7 @@ void Cpu::opcodeA1()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(true);
     memory.setCFlag(false);
@@ -3560,7 +3560,7 @@ void Cpu::opcodeA2()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(true);
     memory.setCFlag(false);
@@ -3573,7 +3573,7 @@ void Cpu::opcodeA3()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(true);
     memory.setCFlag(false);
@@ -3586,7 +3586,7 @@ void Cpu::opcodeA4()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(true);
     memory.setCFlag(false);
@@ -3599,7 +3599,7 @@ void Cpu::opcodeA5()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(true);
     memory.setCFlag(false);
@@ -3612,7 +3612,7 @@ void Cpu::opcodeA6()
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(true);
     memory.setCFlag(false);
@@ -3625,7 +3625,7 @@ void Cpu::opcodeA7()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(true);
     memory.setCFlag(false);
@@ -3638,7 +3638,7 @@ void Cpu::opcodeA8()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3651,7 +3651,7 @@ void Cpu::opcodeA9()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3664,7 +3664,7 @@ void Cpu::opcodeAA()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3677,7 +3677,7 @@ void Cpu::opcodeAB()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3690,7 +3690,7 @@ void Cpu::opcodeAC()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3703,7 +3703,7 @@ void Cpu::opcodeAD()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3716,7 +3716,7 @@ void Cpu::opcodeAE()
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3729,7 +3729,7 @@ void Cpu::opcodeAF()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3742,7 +3742,7 @@ void Cpu::opcodeB0()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3755,7 +3755,7 @@ void Cpu::opcodeB1()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3768,7 +3768,7 @@ void Cpu::opcodeB2()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3781,7 +3781,7 @@ void Cpu::opcodeB3()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3794,7 +3794,7 @@ void Cpu::opcodeB4()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3807,7 +3807,7 @@ void Cpu::opcodeB5()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3820,7 +3820,7 @@ void Cpu::opcodeB6()
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -3833,7 +3833,7 @@ void Cpu::opcodeB7()
     mClock += 1;
     tClock += 4;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -4400,7 +4400,7 @@ void Cpu::opcodeE6(unsigned char n)
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(true);
     memory.setCFlag(false);
@@ -4462,7 +4462,7 @@ void Cpu::opcodeEE(unsigned char n)
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -4529,7 +4529,7 @@ void Cpu::opcodeF6(unsigned char n)
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getA() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -4602,10 +4602,10 @@ void Cpu::opcodeFE(unsigned char n)
     //memory.setHFlag((test > memory.getA()));
     //memory.setCFlag((test < 0) ? 1 : 0);
 
-    memory.setZFlag((memory.getA() == n) ? 1 : 0);
+    memory.setZFlag(memory.getA() == n);
     memory.setNFlag(true);
-    memory.setHFlag(((memory.getA() & 0x0F) < (n & 0x0F)) ? 1 : 0);
-    memory.setCFlag((memory.getA() < n) ? 1 : 0);
+    memory.setHFlag((memory.getA() & 0x0F) < (n & 0x0F));
+    memory.setCFlag(memory.getA() < n);
 }
 
 void Cpu::opcodeFF()
@@ -5439,7 +5439,7 @@ void Cpu::opcodeCB30()
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getB() == 0) ? 1 : 0);
+    memory.setZFlag(memory.getB() == 0);
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -5454,7 +5454,7 @@ void Cpu::opcodeCB31()
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getC() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getC() == 0));
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -5469,7 +5469,7 @@ void Cpu::opcodeCB32()
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getD() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getD() == 0));
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -5484,7 +5484,7 @@ void Cpu::opcodeCB33()
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getE() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getE() == 0));
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -5499,7 +5499,7 @@ void Cpu::opcodeCB34()
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getH() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getH() == 0));
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -5514,7 +5514,7 @@ void Cpu::opcodeCB35()
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getL() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getL() == 0));
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -5531,7 +5531,7 @@ void Cpu::opcodeCB36()
     mClock += 3;
     tClock += 12;
 
-    memory.setZFlag((memory.readMemory(hl) == 0) ? 1 : 0);
+    memory.setZFlag((memory.readMemory(hl) == 0));
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
@@ -5546,7 +5546,7 @@ void Cpu::opcodeCB37()
     mClock += 2;
     tClock += 8;
 
-    memory.setZFlag((memory.getA() == 0) ? 1 : 0);
+    memory.setZFlag((memory.getA() == 0));
     memory.setNFlag(false);
     memory.setHFlag(false);
     memory.setCFlag(false);
