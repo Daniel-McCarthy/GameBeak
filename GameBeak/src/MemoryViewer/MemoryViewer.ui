@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+  <class>MemoryViewer</class>
+  <widget class="QDialog" name="MemoryViewer">
+    <property name="geometry">
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>400</width>
+        <height>300</height>
+      </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+        <widget class="QTableWidget" name="memoryTable">
+          <property name="rowCount">
+            <number>256</number>
+          </property>
+          <property name="columnCount">
+            <number>17</number>
+          </property>
+          <property name="showGrid">
+            <bool>false</bool>
+          </property>
+          <property name="horizontalHeaderVisible">
+            <bool>true</bool>
+          </property>
+          <property name="verticalHeaderVisible">
+            <bool>true</bool>
+          </property>
+          <property name="verticalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOn</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="wordWrap">
+            <bool>false</bool>
+          </property>
+          <property name="horizontalHeaderLabels">
+            <string>Address</string>
+            <string>0</string>
+            <string>1</string>
+            <string>2</string>
+            <string>3</string>
+            <string>4</string>
+            <string>5</string>
+            <string>6</string>
+            <string>7</string>
+            <string>8</string>
+            <string>9</string>
+            <string>A</string>
+            <string>B</string>
+            <string>C</string>
+            <string>D</string>
+            <string>E</string>
+            <string>F</string>
+          </property>
+        </widget>
+      </item>
+    </layout>
+  </widget>
+  <resources/>
+  <connections/>
+</ui>

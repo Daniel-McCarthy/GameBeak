@@ -41,7 +41,8 @@ SOURCES += \
     src/Mappers/Mapper.cpp \
     src/ColorDialog/ColorDialog.cpp \
     src/ColorDialog/PaletteListView.cpp \
-    src/ColorDialog/ColorSelectorWidget.cpp
+    src/ColorDialog/ColorSelectorWidget.cpp \
+    src/MemoryViewer/MemoryViewer.cpp
 
 HEADERS += \
     src/MainWindow/mainwindow.h \
@@ -61,11 +62,13 @@ HEADERS += \
     src/Mappers/Mapper.h \
     src/ColorDialog/ColorDialog.h \
     src/ColorDialog/PaletteListView.h \
-    src/ColorDialog/ColorSelectorWidget.h
+    src/ColorDialog/ColorSelectorWidget.h \
+    src/MemoryViewer/MemoryViewer.h
 
 FORMS += \
     src/MainWindow/mainwindow.ui \
-    src/ColorDialog/ColorDialog.ui
+    src/ColorDialog/ColorDialog.ui \
+    src/MemoryViewer/MemoryViewer.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -10,6 +10,7 @@
 #include "src/Screen.h"
 #include "src/Rom.h"
 #include "src/ColorDialog/ColorDialog.h"
+#include "src/MemoryViewer/MemoryViewer.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -193,4 +194,14 @@ void MainWindow::on_actionResume_triggered() {
     ui->actionPause->setVisible(true);
     ui->actionResume->setVisible(false);
     setEmulationPaused(false);
+}
+
+void MainWindow::on_actionMemory_Viewer_triggered() {
+    if (currentMemoryViewer != NULL) {
+        return;
+    }
+
+    currentMemoryViewer = new MemoryViewer(this, core->getMemoryPointer());
+
+    currentMemoryViewer->show();
 }

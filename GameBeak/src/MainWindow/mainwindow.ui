@@ -56,8 +56,15 @@
     <addaction name="actionResume"/>
     <addaction name="actionCreateSave"/>
    </widget>
+   <widget class="QMenu" name="menuDebug">
+    <property name="title">
+     <string>Debug</string>
+    </property>
+    <addaction name="actionMemory_Viewer"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuStatus"/>
+   <addaction name="menuDebug"/>
   </widget>
   <action name="actionOpen">
    <property name="text">
@@ -107,6 +114,11 @@
    </property>
    <property name="text">
     <string>Create Save (*.sav)</string>
+   </property>
+  </action>
+  <action name="actionMemory_Viewer">
+   <property name="text">
+    <string>Memory Viewer</string>
    </property>
   </action>
  </widget>
