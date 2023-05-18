@@ -22,12 +22,6 @@
           <property name="showGrid">
             <bool>false</bool>
           </property>
-          <property name="horizontalHeaderVisible">
-            <bool>true</bool>
-          </property>
-          <property name="verticalHeaderVisible">
-            <bool>true</bool>
-          </property>
           <property name="verticalScrollBarPolicy">
             <enum>Qt::ScrollBarAlwaysOn</enum>
           </property>
