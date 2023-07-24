@@ -230,7 +230,7 @@ ColorDialog::~ColorDialog()
     QObject::disconnect(ui->deletePaletteButton, &QPushButton::pressed,
                         this, &ColorDialog::deleteCurrentPalette);
 
-    QObject::connect(qobject_cast<QStandardItemModel*>(ui->listView->model()), &QStandardItemModel::itemChanged,
+    QObject::disconnect(qobject_cast<QStandardItemModel*>(ui->listView->model()), &QStandardItemModel::itemChanged,
                         this, &ColorDialog::listItemRenamed);
 
     ui->listView->removeAction(selectAction);
