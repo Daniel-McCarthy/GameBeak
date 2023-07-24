@@ -61,6 +61,7 @@
      <string>Debug</string>
     </property>
     <addaction name="actionMemory_Viewer"/>
+    <addaction name="actionTileViewer"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuStatus"/>
@@ -119,6 +120,11 @@
   <action name="actionMemory_Viewer">
    <property name="text">
     <string>Memory Viewer</string>
+   </property>
+  </action>
+  <action name="actionTileViewer">
+   <property name="text">
+    <string>Tile Viewer</string>
    </property>
   </action>
  </widget>

@@ -59,7 +59,6 @@ class Memory : public QObject
         unsigned char readVRAMBankRam(unsigned short address, unsigned char bank);
 
         unsigned char readMemory(unsigned short address);
-        QList<unsigned char> readMemory(int address, int bytes);
 
         //DMA Transfer
         void transferDMA(unsigned char address);
@@ -148,6 +147,9 @@ class Memory : public QObject
         void saveState();
         void loadSaveState();
         void resetMemory();
+
+        // Non-emulation helper functions
+        QByteArray readDirectRamBytes(int address, int bytes);
 
         public slots:
             void romLoaded(QString gameFilePath);

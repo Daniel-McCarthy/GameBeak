@@ -116,17 +116,8 @@ unsigned char Memory::readMemory(unsigned short address)
     }
 }
 
-QList<unsigned char> Memory::readMemory(int address, int bytes)
-{
-    QList<unsigned char> returnMemory;
 
-    for (int i = 0; i < bytes; i++)
-    {
-        returnMemory.push_back(beakRam[address + i]);
-    }
 
-    return returnMemory;
-}
 
 //DMA Transfer
 void Memory::transferDMA(unsigned char address)
@@ -1050,4 +1041,13 @@ void Memory::resetMemory() {
 
     memoryPointer = 0x100;
     stackPointer = 0;
+}
+
+QByteArray Memory::readDirectRamBytes(int address, int bytes) {
+    QByteArray returnMemory = QByteArray();
+    for (int i = 0; i < bytes; i++)
+    {
+        returnMemory.push_back(beakRam[address + i]);
+    }
+    return returnMemory;
 }

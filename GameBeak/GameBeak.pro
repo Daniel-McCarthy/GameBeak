@@ -42,6 +42,7 @@ SOURCES += \
     src/ColorDialog/ColorDialog.cpp \
     src/ColorDialog/PaletteListView.cpp \
     src/ColorDialog/ColorSelectorWidget.cpp \
+    src/TileViewer/TileViewer.cpp \
     src/MemoryViewer/MemoryViewer.cpp
 
 HEADERS += \
@@ -63,11 +64,13 @@ HEADERS += \
     src/ColorDialog/ColorDialog.h \
     src/ColorDialog/PaletteListView.h \
     src/ColorDialog/ColorSelectorWidget.h \
+    src/TileViewer/TileViewer.hpp \
     src/MemoryViewer/MemoryViewer.h
 
 FORMS += \
     src/MainWindow/mainwindow.ui \
     src/ColorDialog/ColorDialog.ui \
+    src/TileViewer/TileViewer.ui \
     src/MemoryViewer/MemoryViewer.ui
 
 # Default rules for deployment.

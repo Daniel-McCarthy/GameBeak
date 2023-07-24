@@ -11,6 +11,7 @@
 #include "src/Rom.h"
 #include "src/ColorDialog/ColorDialog.h"
 #include "src/MemoryViewer/MemoryViewer.h"
+#include "src/TileViewer/TileViewer.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -204,4 +205,26 @@ void MainWindow::on_actionMemory_Viewer_triggered() {
     currentMemoryViewer = new MemoryViewer(this, core->getMemoryPointer());
 
     currentMemoryViewer->show();
+}
+
+void MainWindow::on_actionTileViewer_triggered() {
+    if (currentTileViewer != NULL) {
+        return;
+    }
+
+    currentTileViewer = new TileViewer(this, core->getMemoryPointer());
+
+    QObject::connect(currentTileViewer, &TileViewer::finished,
+                        this, &MainWindow::tileViewerWindowClosed);
+
+    currentTileViewer->show();
+}
+
+
+void MainWindow::tileViewerWindowClosed() {
+    QObject::disconnect(currentTileViewer, &TileViewer::finished,
+                        this, &MainWindow::tileViewerWindowClosed);
+
+    delete currentTileViewer;
+    currentTileViewer = NULL;
 }
