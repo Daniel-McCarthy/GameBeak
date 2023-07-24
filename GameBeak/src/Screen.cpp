@@ -4,7 +4,7 @@
 #include "src/Memory.h"
 #include <QtDebug>
 #include <QThread>
-#include <QTime>
+#include <QElapsedTimer>
 
 Screen::Screen(QWidget *parent, Memory& memory, Gpu& gpu)
     : QWidget(parent), memory(memory), gpu(gpu)
