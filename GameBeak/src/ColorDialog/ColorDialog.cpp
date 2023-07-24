@@ -160,10 +160,6 @@ void ColorDialog::resetButtonClicked() {
     if (rowCount > row) {
         QList<QStandardItem*> matches = model->findItems(currentPaletteName);
         if (matches.count() > 0) {
-            QString test = matches[0]->text();
-            int testrow = matches[0]->row();
-            int testrowcount = matches[0]->rowCount();
-
             QModelIndex indexOfMatch = matches[0]->index();
             ui->listView->setCurrentIndex(indexOfMatch);
             ui->listView->selectionModel()->select(indexOfMatch, QItemSelectionModel::Select);
