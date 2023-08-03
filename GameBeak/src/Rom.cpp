@@ -119,8 +119,8 @@ void Rom::readRomHeader()
 
     //0x14D Header Checksum (checksum for bytes from 0x134-0x14C) (IS CHECKED)
     //Calculated As:
-    //int x = 0;
-    //for(int i = 0x134; i < 0x14C; i++)
+    //uint8_t x = 0;
+    //for(int i = 0x134; i <= 0x14C; i++)
     //{
     //    x = x - readMemory(i) - 1;
     //}
